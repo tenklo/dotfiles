@@ -1,3 +1,6 @@
 *
 !.bashrc
 !.vimrc
+!.gitconfig
+!.i3status.conf
+!.xinitrc
