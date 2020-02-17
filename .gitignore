@@ -1,5 +1,6 @@
 *
 !.bashrc
+!.bash_profile
 !.vimrc
 !.gitconfig
 !.i3status.conf
