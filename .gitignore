@@ -5,3 +5,5 @@
 !.gitconfig
 !.i3status.conf
 !.xinitrc
+!.config/i3
+!.config/sxhkd
