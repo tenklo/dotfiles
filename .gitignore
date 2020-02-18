@@ -1,4 +1,5 @@
 *
+!*/
 !.config/
 !.bashrc
 !.bash_profile
@@ -6,6 +7,5 @@
 !.gitconfig
 !.i3status.conf
 !.xinitrc
-!*/
 !.config/i3/config
 !.config/sxhkd/sxhdkrc
