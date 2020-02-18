@@ -1,15 +1,10 @@
 *
-!.config/
 !.bashrc
 !.bash_profile
 !.vimrc
 !.gitconfig
 !.i3status.conf
 !.xinitrc
-!.config/i3/config
-!.config/sxhkd/sxhdkrc
-
-
 
 documents
 programs
