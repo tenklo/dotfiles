@@ -1,0 +1,20 @@
+# audiothings on the thinkpad x220
+XF86AudioRaiseVolume
+    amixer set Master 2db+ unmute
+XF86AudioLowerVolume
+    amixer set Master 2dB- unmute
+XF86AudioMute
+    amixer set Master toggle
+
+# basic bindings
+#super + Return
+#    $TERMINAL
+super + d
+    dmenu_run
+super + b
+    $BROWSER
+super + shift + q
+	kill -9 `xdotool getwindowfocus getwindowpid`
+
+super + o ; {b,m,p}
+    {$BROWSER,thunderbird,bitwarden}
