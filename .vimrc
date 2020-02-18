@@ -46,6 +46,7 @@ autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
 
 "LaTeX stuff /* vim: set filetype=latex : */
 autocmd BufWritePost *tex !latexmk -pdf %
+au BufRead,BufNewFile *.tex set filetype=tex
 autocmd FileType tex inoremap -n \documentclass{}<Enter><Enter>\begin{document}<Enter><Enter>\title{<++>}<Enter>\author{<++>}<Enter>\date{<++>}<Enter>\maketitle<Enter><Enter><++><Enter><Enter>\end{document}<Esc>kkkkkkkkkkk0f{a
 autocmd FileType tex inoremap -s \section{}<Esc>i
 autocmd FileType tex inoremap -y \subsection{}<Esc>i
