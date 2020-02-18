@@ -1,6 +1,4 @@
 *
-documents
-programs
 !.config/
 !.bashrc
 !.bash_profile
@@ -8,5 +6,6 @@ programs
 !.gitconfig
 !.i3status.conf
 !.xinitrc
+!*/
 !.config/i3/config
 !.config/sxhkd
