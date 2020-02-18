@@ -1,5 +1,5 @@
 *
-!*/
+!.config/
 !.bashrc
 !.bash_profile
 !.vimrc
@@ -8,3 +8,8 @@
 !.xinitrc
 !.config/i3/config
 !.config/sxhkd/sxhdkrc
+
+
+
+documents
+programs
