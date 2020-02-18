@@ -8,4 +8,5 @@
 !.xinitrc
 !*/
 !.config/i3/config
-!.config/sxhkd
+!.config/sxhkd/sxhdkrc
+!documents/bgs/**/*.png
