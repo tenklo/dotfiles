@@ -1,0 +1,8 @@
+bitwarden-bin
+bitwarden-cli-bin
+joplin
+nordvpn-bin
+python3-aur
+tor-browser
+urxvt-resize-font-git
+yay
