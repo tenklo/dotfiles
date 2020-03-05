@@ -1,6 +1,7 @@
 bitwarden-bin
 bitwarden-cli-bin
 joplin
+libinput-gestures
 nordvpn-bin
 python3-aur
 tor-browser

@@ -51,7 +51,6 @@ vim
 virtualbox
 vlc
 xautolock
-xdotool
 xf86-video-intel
 xorg-xev
 xorg-xinit
