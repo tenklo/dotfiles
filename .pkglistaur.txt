@@ -1,6 +1,7 @@
 bitwarden-bin
 bitwarden-cli-bin
 joplin
+lbry-app-bin
 libinput-gestures
 nordvpn-bin
 python3-aur

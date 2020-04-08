@@ -20,6 +20,8 @@ bindsym $mod+Shift+s gaps inner current minus 5
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
+# moving workspace between screens
+bindsym $mod+p move container to output right
 
 # set keyboardlayout
 exec_always "setxkbmap -model pc104 -layout de ,, -option grp:alt_shift_toggle"

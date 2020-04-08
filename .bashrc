@@ -8,8 +8,9 @@
 alias ls='ls --color=auto'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-alias lh='ls -lh'
 alias la='ls -lah'
+alias lh='ls -lh'
+alias .='ls -lh'
 
 alias gitac='git add .;git commit'
 alias killx='killall Xorg'

@@ -1,10 +1,10 @@
 # audiothings on the thinkpad x220
 XF86AudioRaiseVolume
-    amixer set Master 2db+ unmute
+    amixer -c1 set Master 2db+ unmute
 XF86AudioLowerVolume
-    amixer set Master 2dB- unmute
+    amixer -c1 set Master 2dB- unmute
 XF86AudioMute
-    amixer set Master toggle
+    amixer -c1 sset Master 1+ toggle & amixer -c1 sset Speaker unmute
 
 # basic bindings
 #super + Return

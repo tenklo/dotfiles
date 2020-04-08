@@ -1,4 +1,5 @@
 alsa-utils
+arandr
 autoconf
 automake
 base
