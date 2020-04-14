@@ -6,6 +6,13 @@ syntax on
 set encoding=utf-8
 filetype plugin on
 
+"cursorline and cursorcolumn
+"set termguicolors
+set cursorline
+set cursorcolumn
+highlight CursorLine ctermbg=Yellow cterm=bold guibg=#2b2b2b
+highlight CursorColumn ctermbg=Yellow cterm=bold guibg=#2b2b2b
+
 "case-sensitivity
 set ignorecase
 set smartcase
