@@ -10,8 +10,9 @@ filetype plugin on
 "set termguicolors
 set cursorline
 set cursorcolumn
-highlight CursorLine ctermbg=Yellow cterm=bold guibg=#2b2b2b
-highlight CursorColumn ctermbg=Yellow cterm=bold guibg=#2b2b2b
+highlight CursorLine ctermbg=Yellow cterm=bold guibg=Grey40
+highlight CursorColumn ctermbg=Yellow cterm=bold guibg=Grey40
+nnoremap H :set cursorline! cursorcolumn!<CR>
 
 "case-sensitivity
 set ignorecase
