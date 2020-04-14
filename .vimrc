@@ -6,6 +6,9 @@ syntax on
 set encoding=utf-8
 filetype plugin on
 
+"autocenter on isertmode
+autocmd InsertEnter * norm zz
+
 "vim clipboard = os clipboard
 set clipboard=unnamed
 
