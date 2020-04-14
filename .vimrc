@@ -6,6 +6,10 @@ syntax on
 set encoding=utf-8
 filetype plugin on
 
+"case-sensitivity
+set ignorecase
+set smartcase
+
 "autocenter on isertmode
 autocmd InsertEnter * norm zz
 
