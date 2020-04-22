@@ -7,8 +7,8 @@ XF86AudioMute
     amixer -c1 sset Master 1+ toggle & amixer -c1 sset Speaker unmute
 
 # basic bindings
-#super + Return
-#    $TERMINAL
+super + Return
+    $TERMINAL
 super + d
     dmenu_run
 super + b
@@ -16,5 +16,7 @@ super + b
 super + shift + q
 	kill -9 `xdotool getwindowfocus getwindowpid`
 
-super + o ; {b,m,p}
-    {$BROWSER,thunderbird,bitwarden}
+super + o ; {b,m,p,l}
+    {$BROWSER,thunderbird,bitwarden,lbry}
+super + F11
+    {setbg}

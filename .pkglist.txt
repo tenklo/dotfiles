@@ -9,7 +9,7 @@ blueman
 cronie
 exfat-utils
 fakeroot
-feh
+filezilla
 firefox
 flex
 gimp
@@ -22,8 +22,11 @@ make
 man-db
 moreutils
 mupdf
+neofetch
+neovim
 network-manager-applet
 nmap
+ntfs-3g
 patch
 picom
 pkgconf

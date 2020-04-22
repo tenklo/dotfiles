@@ -4,8 +4,9 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-export EDITOR="vim"
+export EDITOR="nvim"
 export BROWSER="firefox"
+export TERMINAL="alacritty"
 
 #if [[ "$(tty)" == "/dev/tty2" ]]; then
 #        pgrep i3 || startx

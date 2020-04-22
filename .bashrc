@@ -1,9 +1,12 @@
 #
 # ~/.bashrc
 #
-
+neofetch
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+alias v='nvim'
+alias vim='nvim'
 
 alias ls='ls --color=auto'
 alias diff='diff --color=auto'
