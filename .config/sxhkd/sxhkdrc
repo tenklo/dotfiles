@@ -20,3 +20,5 @@ super + o ; {b,m,p,l}
     {$BROWSER,thunderbird,bitwarden,lbry}
 super + F11
     {setbg}
+super + F10
+    {takescreenshot}

@@ -34,7 +34,7 @@ set smartcase
 autocmd InsertEnter * norm zz
 
 "vim clipboard = os clipboard
-set clipboard=unnamed
+set clipboard+=unnamedplus
 
 "splits open at bottom and right
 set splitbelow splitright
