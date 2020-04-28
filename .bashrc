@@ -5,13 +5,15 @@ neofetch
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+alias ssh='TERM=ansi ssh'
+
 alias v='nvim'
 alias vim='nvim'
 
 alias ls='ls --color=auto'
 alias diff='diff --color=auto'
 alias grep='grep --color=auto'
-alias la='ls -lah'
+alias la='ls -lAh'
 alias lh='ls -lh'
 alias .='ls -lh'
 
@@ -24,7 +26,7 @@ alias nas='cd /media/nas; ls -lh'
 alias d='cd ~/documents; ls -lh'
 alias s='cd ~/documents/schule; ls -lh'
 alias D='cd ~/Downloads; ls -lh'
-alias n='cd ~/documents/nextcloud'
+alias n='cd ~/documents/nextcloud; ls -lh'
 alias ..='cd ..; ls -lh'
 alias .r='cd ~/.rcs; ls -lah'
 alias .s='cd ~/.scripts; ls -lh'
