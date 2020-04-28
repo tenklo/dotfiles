@@ -17,6 +17,7 @@ set number relativenumber
 syntax on
 set encoding=utf-8
 filetype plugin on
+set nobackup
 
 "cursorline and cursorcolumn
 "set termguicolors

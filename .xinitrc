@@ -1,5 +1,6 @@
-#feh --recursive --randomize --bg-fill ~/documents/bgs &
 setbg &
+unclutter &
+xsetroot -cursor_name left_ptr &
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 dunst &
 xmodmap ~/.Xmodmap &

@@ -55,6 +55,7 @@ thunderbird
 tlp
 transmission-gtk
 ttf-font-awesome
+unclutter
 unzip
 vi
 virtualbox
