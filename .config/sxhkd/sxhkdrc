@@ -11,14 +11,16 @@ super + Return
     $TERMINAL
 super + d
     dmenu_run
-super + b
-    $BROWSER
+super + b ; {b,m,w,n,p}
+    {$BROWSER,protonmail.sh,$BROWSER https://wiki.kloess.me,$BROWSER http://192.168.22.39/nextcloud,$BROWSER http://192.168.22.39/admin}
 super + shift + q
 	kill -9 `xdotool getwindowfocus getwindowpid`
 
-super + o ; {b,m,p,l}
-    {$BROWSER,thunderbird,bitwarden,lbry}
+super + o ; {b,p,l}
+    {$BROWSER,bitwarden,lbry}
 super + F11
     {setbg}
 super + F10
     {takescreenshot}
+
+

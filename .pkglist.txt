@@ -7,6 +7,7 @@ automake
 base
 bison
 blueman
+bspwm
 cronie
 exfat-utils
 fakeroot
@@ -16,7 +17,6 @@ flex
 gimp
 grub
 gvim
-i3-gaps
 libreoffice-still
 linux-lts-headers
 lsof
@@ -35,7 +35,6 @@ picom
 pkgconf
 ranger
 scrot
-sxhkd
 texlive-bibtexextra
 texlive-fontsextra
 texlive-formatsextra
@@ -51,7 +50,6 @@ texlive-music
 texlive-pstricks
 texlive-publishers
 texlive-science
-thunderbird
 tlp
 transmission-gtk
 ttf-font-awesome
@@ -64,3 +62,4 @@ xautolock
 xf86-video-intel
 xorg-xev
 xorg-xinit
+zip

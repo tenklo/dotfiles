@@ -49,6 +49,9 @@ set wildmode =longest,list,full
 "go to jumppoint <++>
 inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
 
+nnoremap W 5w
+nnoremap B 5b
+
 "compensate missing esckey on keyboard and make it more ergonomic at the same time
 imap jj <Esc>
 
