@@ -24,10 +24,6 @@ super + b
 super + o ; {b,p,l,w,s,o,z,d,c}
     {$BROWSER,bitwarden,lbry,win10,sshconnections,libreoffice,zoom,dailystandups,opencalc}
 
-#super + shift + q
-	#kill -9 `xdotool getwindowfocus getwindowpid`
-
-
 super + F1
     clipmenu -fn 'Inconsolata-14' -b -i
 super + F2

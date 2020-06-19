@@ -1,3 +1,4 @@
+acpi
 alacritty
 alsa-utils
 apache
@@ -9,8 +10,11 @@ bison
 blueman
 bspwm
 cronie
+dunst
+exa
 exfat-utils
 fakeroot
+figlet
 filezilla
 firefox
 flex
@@ -19,6 +23,7 @@ grub
 gvim
 libreoffice-still
 linux-lts-headers
+lolcat
 lsof
 make
 man-db
@@ -35,21 +40,6 @@ picom
 pkgconf
 ranger
 scrot
-texlive-bibtexextra
-texlive-fontsextra
-texlive-formatsextra
-texlive-games
-texlive-humanities
-texlive-langchinese
-texlive-langcyrillic
-texlive-langextra
-texlive-langgreek
-texlive-langjapanese
-texlive-langkorean
-texlive-music
-texlive-pstricks
-texlive-publishers
-texlive-science
 tldr
 tlp
 transmission-gtk
@@ -61,6 +51,8 @@ virtualbox
 vlc
 xautolock
 xf86-video-intel
+xorg-server
+xorg-xbacklight
 xorg-xev
 xorg-xinit
 zip
