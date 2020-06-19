@@ -1,12 +1,21 @@
-setbg &
-xautolock -time 5 -locker lock &
-unclutter &
-xsetroot -cursor_name left_ptr &
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
-dunst &
-xmodmap ~/.Xmodmap &
-sxhkd &
-picom -b &
-#nextcloud &
-exec i3
-exec bspwm
+setxkbmap -option caps:swapescape &                                 #tauscht capslock und esc
+setbg &                                                             #eigenes script, setzt hintergrund
+togglelocker &                                                      #eigenes script, aktiviert den locker
+unclutter &                                                         #versteckt den cursor nach 5 sek
+xsetroot -cursor_name left_ptr &                                    #setzt den cursor
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources &
+dunst &                                                             #daemon fuer notifications
+sxhkd &                                                             #daemon fuer hotkeys
+autorandr -c &                                                      #setzt die bildschirme so, dass sie mir passen (-c lädt das erste passende profil)
+clipmenud &                                                         #clipboardmanager
+
+
+nextcloud &
+LANG=de_DE.utf8 thunderbird &
+telegram-desktop &
+whatsapp-nativefier &
+
+
+#exec i3                                                            #startet i3
+dwmblocks &                                                         #statusbar für dwm
+exec dwm                                                            #startet dwm

@@ -1,26 +1,51 @@
 # audiothings on the thinkpad x220
-XF86AudioRaiseVolume
-    amixer -c1 set Master 2db+ unmute
-XF86AudioLowerVolume
-    amixer -c1 set Master 2dB- unmute
+#XF86AudioRaiseVolume
+    #amixer set Master 2db+ unmute
+#XF86AudioLowerVolume
+    #amixer set Master 2dB- unmute
 XF86AudioMute
-    amixer -c1 sset Master 1+ toggle & amixer -c1 sset Speaker unmute
+    amixer set Speaker toggle
+    #amixer sset Master 1+ toggle #& amixer -c1 sset Speaker unmute
+XF86MonBrightnessDown
+    brightnessctl set 5%-
+XF86MonBrightnessUp
+    brightnessctl set +5%
+
 
 # basic bindings
 super + Return
     $TERMINAL
-super + d
-    dmenu_run
-super + b ; {b,m,w,n,p}
-    {$BROWSER,protonmail.sh,$BROWSER https://wiki.kloess.me,$BROWSER http://192.168.22.39/nextcloud,$BROWSER http://192.168.22.39/admin}
-super + shift + q
-	kill -9 `xdotool getwindowfocus getwindowpid`
+super + p
+    dmenu_run -fn 'Inconsolata-14' -b -i
 
-super + o ; {b,p,l}
-    {$BROWSER,bitwarden,lbry}
-super + F11
-    {setbg}
+super + b
+    bookmarks
+
+super + o ; {b,p,l,w,s,o,z,d,c}
+    {$BROWSER,bitwarden,lbry,win10,sshconnections,libreoffice,zoom,dailystandups,opencalc}
+
+#super + shift + q
+	#kill -9 `xdotool getwindowfocus getwindowpid`
+
+
+super + F1
+    clipmenu -fn 'Inconsolata-14' -b -i
+super + F2
+    dmenu-emoji.sh
+
+super + F5
+    editconfigs
+super + F6
+    editscripts
+super + F7
+    $TERMINAL -e pulsemixer
+super + F8
+    arandr
+
 super + F10
     {takescreenshot}
-
+super + F11
+    {setbg}
+super + F12
+    systemmodes
 

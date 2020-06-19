@@ -15,60 +15,92 @@ font:
     family: Inconsolata
     style: Bold Italic
 
-  size: 10.0
+  size: 11.0
 
   offset:
-    x: 0
+    x: 1
     y: 0
 
+
+# Colors (Monokai Dark)
 colors:
   # Default colors
   primary:
     background: '#2c2c2c'
-    foreground: '#d6d6d6'
-
-    dim_foreground:    '#dbdbdb'
-    bright_foreground: '#d9d9d9'
-    dim_background:    '#202020' # not sure
-    bright_background: '#3a3a3a' # not sure
-
-  # Cursor colors
-  cursor:
-    text:   '#2c2c2c'
-    cursor: '#d9d9d9'
+    #background: '#272822'
+    foreground: '#F8F8F2'
 
   # Normal colors
   normal:
-    black:   '#1c1c1c'
-    red:     '#bc5653'
-    green:   '#909d63'
-    yellow:  '#ebc17a'
-    blue:    '#7eaac7'
-    magenta: '#aa6292'
-    cyan:    '#86d3ce'
-    white:   '#cacaca'
+   black:   '#272822'
+   red:     '#F92672'
+   green:   '#A6E22E'
+   yellow:  '#F4BF75'
+   blue:    '#66D9EF'
+   magenta: '#AE81FF'
+   cyan:    '#A1EFE4'
+   white:   '#F8F8F2'
 
   # Bright colors
   bright:
-    black:   '#636363'
-    red:     '#bc5653'
-    green:   '#909d63'
-    yellow:  '#ebc17a'
-    blue:    '#7eaac7'
-    magenta: '#aa6292'
-    cyan:    '#86d3ce'
-    white:   '#f7f7f7'
+   black:   '#75715E'
+   red:     '#F92672'
+   green:   '#A6E22E'
+   yellow:  '#F4BF75'
+   blue:    '#66D9EF'
+   magenta: '#AE81FF'
+   cyan:    '#A1EFE4'
+   white:   '#F9F8F5'
 
-  # Dim colors
-  dim:
-    black:   '#232323'
-    red:     '#74423f'
-    green:   '#5e6547'
-    yellow:  '#8b7653'
-    blue:    '#556b79'
-    magenta: '#6e4962'
-    cyan:    '#5c8482'
-    white:   '#828282'
+
+    #colors:
+    #  # Default colors
+    #  primary:
+    #    background: '#2c2c2c'
+    #    foreground: '#d6d6d6'
+    #
+    #    dim_foreground:    '#dbdbdb'
+    #    bright_foreground: '#d9d9d9'
+    #    dim_background:    '#202020' # not sure
+    #    bright_background: '#3a3a3a' # not sure
+    #
+    #  # Cursor colors
+    #  cursor:
+    #    text:   '#2c2c2c'
+    #    cursor: '#d9d9d9'
+    #
+    #  # Normal colors
+    #  normal:
+    #    black:   '#1c1c1c'
+    #    red:     '#bc5653'
+    #    green:   '#909d63'
+    #    yellow:  '#ebc17a'
+    #    blue:    '#7eaac7'
+    #    magenta: '#aa6292'
+    #    cyan:    '#86d3ce'
+    #    white:   '#cacaca'
+    #
+    #  # Bright colors
+    #  bright:
+    #    black:   '#636363'
+    #    red:     '#bc5653'
+    #    green:   '#909d63'
+    #    yellow:  '#ebc17a'
+    #    blue:    '#7eaac7'
+    #    magenta: '#aa6292'
+    #    cyan:    '#86d3ce'
+    #    white:   '#f7f7f7'
+    #
+    #  # Dim colors
+    #  dim:
+    #    black:   '#232323'
+    #    red:     '#74423f'
+    #    green:   '#5e6547'
+    #    yellow:  '#8b7653'
+    #    blue:    '#556b79'
+    #    magenta: '#6e4962'
+    #    cyan:    '#5c8482'
+    #    white:   '#828282'
 
 key_bindings:
   - { key: V,     mods: Control|Alt, action: Paste}
