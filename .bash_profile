@@ -9,6 +9,7 @@
 export EDITOR="nvim"
 export BROWSER="firefox"
 export TERMINAL="alacritty"
+export READER="mupdf"
 export DMENUFONT="Inconsolata-14"
 
 #clipmenu config

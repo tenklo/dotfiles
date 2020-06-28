@@ -1,4 +1,4 @@
-let mapleader =" "
+let mapleader =","
 
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -35,7 +35,7 @@ nnoremap H :set cursorline! cursorcolumn!<CR>
 set ignorecase
 set smartcase
 
-"autocenter on isertmode
+"autocenter on insertmode
 autocmd InsertEnter * norm zz
 
 "vim clipboard = os clipboard
@@ -68,6 +68,12 @@ set tabstop=4
 "autoload .Xresources on save
 autocmd BufWritePost *Xresources !xrdb -merge ~/.Xresources
 
+"Update binds when sxhkdrx is updated
+autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
+
+map <leader>c :w! \| !comp <c-r>%<CR><CR>
+map <leader>o :w! \| !opout <c-r>%<CR><CR>
+
 "python shortcuts
 autocmd FileType python inoremap -d def():<Enter><Tab><++><Esc>k0f(i<Space>
 autocmd FileType python inoremap -t try:<Enter>except<Space><++>:<Enter><Tab><++><Esc>kO<Tab>
@@ -75,9 +81,6 @@ autocmd FileType python inoremap -p print()<Esc>i
 autocmd FileType python inoremap -2 print("")<Esc>hi
 autocmd FileType python inoremap -f for :<Enter><Tab><++><Esc>k$i
 autocmd FileType python inoremap -i if :<Enter><Tab><++><Esc>k$i
-
-"Update binds when sxhkdrx is updated
-autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
 
 autocmd BufWritePost ~/.local/src/dwm/dwmblocks/blocks.h !cd ~/.local/src/dwm/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
 "autocmd BufWritePost *dwm/dwm*/config.h !make -C ~/.local/dwm/dwm* && sudo -S make clean install
