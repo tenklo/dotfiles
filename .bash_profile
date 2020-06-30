@@ -9,8 +9,8 @@
 export EDITOR="nvim"
 export BROWSER="firefox"
 export TERMINAL="alacritty"
-export READER="mupdf"
-export DMENUFONT="Inconsolata-14"
+export READER="zathura"
+export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
 
 #clipmenu config
 export CM_IGNORE_WINDOW="Bitwarden"

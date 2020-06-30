@@ -21,8 +21,8 @@ super + p
 super + b
     bookmarks
 
-super + o ; {b,p,l,w,s,o,z,d,c,r}
-    {$BROWSER,bitwarden,lbry,win10,sshconnections,libreoffice,zoom,dailystandups,opencalc,opennewsboat}
+super + o ; {a,b,p,l,w,s,o,z,d,c,r}
+    {authy,$BROWSER,bitwarden,lbry,win10,sshconnections,libreoffice,zoom,dailystandups,opencalc,opennewsboat}
 
 #super + shift + q
 	#kill -9 `xdotool getwindowfocus getwindowpid`
@@ -44,8 +44,5 @@ super + F8
 
 super + F10
     {takescreenshot}
-super + F11
-    {setbg}
 super + F12
     systemmodes
-
