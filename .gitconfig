@@ -1,3 +1,5 @@
 [user]
 	email = tenklo@pm.me
 	name = tenklo
+[http]
+	proxy = http://proxy.its-stuttgart.de:3128
