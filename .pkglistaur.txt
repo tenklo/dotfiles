@@ -1,9 +1,0 @@
-bitwarden-bin
-bitwarden-cli-bin
-lbry-app-bin
-nordvpn-bin
-polybar
-python3-aur
-tor-browser
-urxvt-resize-font-git
-yay
