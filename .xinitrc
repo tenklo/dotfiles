@@ -1,4 +1,3 @@
-setxkbmap -option caps:swapescape &                                 #tauscht capslock und esc
 setbg &                                                             #eigenes script, setzt hintergrund
 togglelocker &                                                      #eigenes script, aktiviert den locker
 unclutter &                                                         #versteckt den cursor nach 5 sek
@@ -15,6 +14,8 @@ LANG=de_DE.utf8 thunderbird &
 telegram-desktop &
 whatsapp-nativefier &
 
+
+setxkbmap -option caps:swapescape &                                 #tauscht capslock und esc
 
 #exec i3                                                            #startet i3
 dwmblocks &                                                         #statusbar für dwm
