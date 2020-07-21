@@ -1,6 +1,7 @@
 #!/bin/bash
 ncw=~/nextcloud_work
-alias gt='cd $(du ~/* ~/.local | cut -f2 | fzf); ls -lh'
+alias crontab="crontab -i"
+alias gt='cd "$(du ~/* ~/.local ~/.config | cut -f2 | fzf)"; ls -lh'
 alias r='ranger'
 alias ydl='youtube-dl'
 alias gp='cd ~/documents/projekte/; ls -lh'
