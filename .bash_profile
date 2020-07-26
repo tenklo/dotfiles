@@ -12,6 +12,13 @@ export TERMINAL="alacritty"
 export READER="mupdf"
 export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
 
+#cleanup
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export LESSHISTFILE="-"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+
 
 #schulproxy
 #http_proxy="http://proxy.its-stuttgart.de:3128/"

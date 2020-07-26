@@ -10,7 +10,7 @@ neofetch
 
 PS1='[\u@\h \W]\$ '
 
-# vim mode im terminal
+# vi mode im terminal
 set -o vi
 
 #export PATH=$PATH:$HOME/.scripts

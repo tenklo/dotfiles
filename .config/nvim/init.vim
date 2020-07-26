@@ -31,6 +31,8 @@ highlight CursorLine ctermbg=238 cterm=bold guibg=Grey40
 highlight CursorColumn ctermbg=238 cterm=bold guibg=Grey40
 nnoremap H :set cursorline! cursorcolumn!<CR>
 
+nnoremap <c-H> :nohlsearch<CR>
+
 "case-sensitivity
 set ignorecase
 set smartcase
