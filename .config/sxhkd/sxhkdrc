@@ -21,8 +21,8 @@ super + p
 super + b
     bookmarks
 
-super + o ; {a,b,e,p,l,w,s,o,z,d,c,r}
-    {authy,$BROWSER,emacs,bitwarden,lbry,win10,sshconnections,libreoffice,zoom,dailystandups,opencalc,opennewsboat}
+super + o ; {a,b,p,w,s,z,d,c,r,2}
+    {authy,$BROWSER,bitwarden,win10,sshconnections,zoom,dailystandups,opencalc,opennewsboat,anki}
 
 super + F1
     clipmenu $DMENUOPTIONS
