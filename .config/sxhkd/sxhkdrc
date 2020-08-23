@@ -16,13 +16,13 @@ XF86MonBrightnessUp
 super + Return
     $TERMINAL
 super + p
-    dmenu_run $DMENUOPTIONS
+    dmenu_run $DMENUOPTIONS -l 20
 
 super + b
     bookmarks
 
-super + o ; {a,b,p,w,s,z,d,c,r,2}
-    {authy,$BROWSER,bitwarden,win10,sshconnections,zoom,dailystandups,opencalc,opennewsboat,anki}
+super + o ; {a,b,f,n,p,w,s,t,z,d,c,r,v,1,2}
+    {authy,$BROWSER,openranger,$BROWSER --private-window,bitwarden,win10,sshconnections,tor-browser,zoom,dailystandups,opencalc,opennewsboat,openvimwiki,berichtshefte,anki}
 
 super + F1
     clipmenu $DMENUOPTIONS
@@ -33,12 +33,10 @@ super + F5
     editconfigs
 super + F6
     editscripts
-super + F7
-    $TERMINAL -e pulsemixer
-super + F8
-    arandr
 
 super + F10
     {takescreenshot}
+super + F11
+    devicectrl
 super + F12 ; {F9,F10,F11,F12}
     {lock,togglelocker,setbg,systemmodes}

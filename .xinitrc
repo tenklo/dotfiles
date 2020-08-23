@@ -7,6 +7,7 @@ dunst &                                                             #daemon fuer
 sxhkd &                                                             #daemon fuer hotkeys
 autorandr -c &                                                      #setzt die bildschirme so, dass sie mir passen (-c lädt das erste passende profil)
 clipmenud &                                                         #clipboardmanager
+blueman-applet &
 
 
 nextcloud &

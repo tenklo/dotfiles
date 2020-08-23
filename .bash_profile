@@ -5,11 +5,14 @@
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 #[[ -f ~/.config/bash/bashrc ]] && . ~/.config/bash/bashrc
 
+#communicate to java that wm is non-reparanting (neccessary for phpstorm eg)
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 #general
 export EDITOR="nvim"
 export BROWSER="firefox"
 export TERMINAL="alacritty"
-export READER="mupdf"
+export READER="zathura"
 export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
 
 #cleanup
