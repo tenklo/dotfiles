@@ -3,8 +3,10 @@
     #amixer set Master 2db+ unmute
 #XF86AudioLowerVolume
     #amixer set Master 2dB- unmute
+#F1
 XF86AudioMute
-    amixer set Speaker toggle
+	pactl set-sink-mute 0 toggle
+	#amixer set Speaker toggle
     #amixer sset Master 1+ toggle #& amixer -c1 sset Speaker unmute
 XF86MonBrightnessDown
     brightnessctl set 5%-
@@ -21,8 +23,11 @@ super + p
 super + b
     bookmarks
 
-super + o ; {a,b,f,n,p,w,s,t,z,d,c,r,v,1,2}
-    {authy,$BROWSER,openranger,$BROWSER --private-window,bitwarden,win10,sshconnections,tor-browser,zoom,dailystandups,opencalc,opennewsboat,openvimwiki,berichtshefte,anki}
+super + o ; {a,b,n,p,w,t,z,c,v,1,2}
+    {authy,$BROWSER,$BROWSER --private-window,bitwarden,win10,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
+
+super + o ; {d,f,r,s}
+    {dailystandups,openranger,opennewsboat,sshconnections}
 
 super + F1
     clipmenu $DMENUOPTIONS
@@ -34,9 +39,11 @@ super + F5
 super + F6
     editscripts
 
+# super + Print
 super + F10
     {takescreenshot}
 super + F11
     devicectrl
-super + F12 ; {F9,F10,F11,F12}
-    {lock,togglelocker,setbg,systemmodes}
+super + F12 ; {l,s,t,F11,F12}
+    {lock,$locker && systemctl suspend,togglelocker,setbg,systemmodes}
+

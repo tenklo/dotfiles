@@ -1,3 +1,4 @@
+picom &
 setbg &                                                             #eigenes script, setzt hintergrund
 togglelocker &                                                      #eigenes script, aktiviert den locker
 unclutter &                                                         #versteckt den cursor nach 5 sek

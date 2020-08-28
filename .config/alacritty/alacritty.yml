@@ -1,3 +1,4 @@
+background_opacity: 1.0
 font:
   normal:
     family: Inconsolata
@@ -105,4 +106,5 @@ colors:
 key_bindings:
   - { key: V,     mods: Control|Alt, action: Paste}
   - { key: C,     mods: Control|Alt, action: Copy}
-  - { key: Return,mods: Shift, action: SpawnNewInstance}
+  - { key: T,     mods: Control,     action: SpawnNewInstance}
+  # - { key: Return,mods: Shift, action: SpawnNewInstance}

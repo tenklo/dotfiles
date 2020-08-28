@@ -1,8 +1,3 @@
-"vscode stuff
-if exists('g:vscode')
-
-else
-
 "normal nvim stuff
 let mapleader =","
 
@@ -13,12 +8,22 @@ if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autolo
 	autocmd VimEnter * PlugInstall
 endif
 
-
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
-Plug 'mattn/emmet-vim'
 Plug 'vimwiki/vimwiki'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+" Themes
+Plug 'jam1garner/vim-code-monokai'
+"Plug 'tomasiser/vim-code-dark'
+Plug 'vim-airline/vim-airline'
+" comments, tags
 Plug 'alvan/vim-closetag'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+" filetype related plugins
+Plug 'mattn/emmet-vim'
+Plug 'kovetskiy/sxhkd-vim'
+Plug 'mzlogin/vim-markdown-toc'
 call plug#end()
 
 let g:vimwiki_list = [{'path': '~/Nextcloud/vimwiki/'}]
@@ -29,26 +34,44 @@ syntax on
 set encoding=utf-8
 filetype plugin on
 set nobackup
+set title
+
+" open as pdf
+" map <leader>p <esc>:w !pandoc -f markdown \| zathura -<enter>
+command! Pdf execute "w !pandoc -f markdown -t pdf | zathura -"
+" command! Pdf execute "w !pandoc -f markdown -t pdf --template eisvogel | zathura -"
+
 
 "speed up global substitution
 nnoremap S :%s//g<Left><Left>
 
 "open terminal here
-nnoremap T :!$TERMINAL &<Enter><Enter>
+nnoremap <c-t> :!$TERMINAL --working-directory "%:p:h" &<Enter><Enter>
 
 "cursorline and cursorcolumn
-"set termguicolors
 set cursorline
-set cursorcolumn
-highlight CursorLine ctermbg=238 cterm=bold guibg=Grey40
-highlight CursorColumn ctermbg=238 cterm=bold guibg=Grey40
+"set cursorcolumn
+"highlight CursorLine ctermbg=238 cterm=bold guibg=Grey40
+"highlight CursorColumn ctermbg=238 cterm=bold guibg=Grey40
 nnoremap H :set cursorline! cursorcolumn!<CR>
+
+"themes
+set termguicolors
+colorscheme codedark
+let g:airline_theme = 'codedark'
+hi Normal guifg=#FFFFFF guibg=NONE ctermbg=none
 
 nnoremap <c-H> :nohlsearch<CR>
 
 "case-sensitivity
 set ignorecase
 set smartcase
+
+" split navigation
+map <A-h> <C-w>h
+map <A-j> <C-w>j
+map <A-k> <C-w>k
+map <A-l> <C-w>l
 
 "autocenter on insertmode
 autocmd InsertEnter * norm zz
@@ -65,8 +88,9 @@ autocmd BufWritePre * %s/\s\+$//e
 "enable autocompletion
 set wildmode =longest,list,full
 
-"go to jumppoint <++>
+" goto and create jumppoints
 inoremap <leader><leader> <Esc>/<++><Enter>"_c4l
+inoremap <leader>. <++>
 
 "movement
 nnoremap W 5w
@@ -75,13 +99,17 @@ nnoremap <c-j> <c-d>
 nnoremap <c-k> <c-u>
 
 "compensate missing esckey on keyboard and make it more ergonomic at the same time
-imap jj <Esc>
+" imap jj <Esc>
 
 "indentation
 set shiftwidth=4
 set autoindent
 set expandtab
 set tabstop=4
+
+"indenting
+vmap < <gv
+vmap > >gv
 
 "autoload .Xresources on save
 autocmd BufWritePost *Xresources !xrdb -merge ~/.Xresources
@@ -92,35 +120,8 @@ autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
 map <leader>c :w! \| !comp <c-r>%<CR><CR>
 map <leader>o :w! \| !opout <c-r>%<CR><CR>
 
-"python shortcuts
-autocmd FileType python inoremap -d def():<Enter><Tab><++><Esc>k0f(i<Space>
-autocmd FileType python inoremap -t try:<Enter>except<Space><++>:<Enter><Tab><++><Esc>kO<Tab>
-autocmd FileType python inoremap -p print()<Esc>i
-autocmd FileType python inoremap -2 print("")<Esc>hi
-autocmd FileType python inoremap -f for :<Enter><Tab><++><Esc>k$i
-autocmd FileType python inoremap -i if :<Enter><Tab><++><Esc>k$i
-
 autocmd BufWritePost ~/.local/src/dwm/dwmblocks/blocks.h !cd ~/.local/src/dwm/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
-"autocmd BufWritePost *dwm/dwm*/config.h !make -C ~/.local/dwm/dwm* && sudo -S make clean install
 
-"LaTeX stuff /* vim: set filetype=latex : */
-autocmd BufWritePost *.tex !latexmk -pdf %
-autocmd BufRead,BufNewFile *.tex set filetype=tex
-autocmd FileType tex inoremap -n \documentclass{}<Enter><Enter>\begin{document}<Enter><Enter>\title{<++>}<Enter>\author{<++>}<Enter>\date{<++>}<Enter>\maketitle<Enter><Enter><++><Enter><Enter>\end{document}<Esc>kkkkkkkkkkk0f{a
-autocmd FileType tex inoremap -s \section{}<Esc>i
-autocmd FileType tex inoremap -y \subsection{}<Esc>i
-autocmd FileType tex inoremap -x \subsubsection{}<Esc>i
-autocmd FileType tex inoremap -p \paragraph{}<Esc>i
-autocmd FileType tex inoremap -l \subparagraph{}<Esc>i
-autocmd FileType tex inoremap -i \tableofcontents
-autocmd FileType tex inoremap -c \clearpage
-autocmd FileType tex inoremap -q ,,''<Esc>hi
-autocmd FileType tex inoremap -r \textsubscript{}<Esc>i
-autocmd FileType tex inoremap -h \textsuperscript{}<Esc>i
-autocmd FileType tex inoremap -e \emph{}<Esc>i
-autocmd FileType tex inoremap -c \color{}<Esc>i
-autocmd FileType tex inoremap -b \textbf{}<Esc>i
-autocmd FileType tex inoremap -i \textit{}<Esc>i
 
 "Plugin stuff
 
@@ -266,4 +267,21 @@ autocmd FileType tex inoremap -i \textit{}<Esc>i
 
   " Add status line support, for integration with other plugin, checkout `:h coc-status`
   set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-endif
+
+  " Vim Hexokinase
+  let g:Hexokinase_refreshEvents = ['InsertLeave']
+
+  let g:Hexokinase_optInPatterns = [
+  \     'full_hex',
+  \     'triple_hex',
+  \     'rgb',
+  \     'rgba',
+  \     'hsl',
+  \     'hsla',
+  \     'colour_names'
+  \ ]
+
+  let g:Hexokinase_highlighters = ['backgroundfull']
+
+  " Reenable hexokinase on enter
+  autocmd VimEnter * HexokinaseTurnOn

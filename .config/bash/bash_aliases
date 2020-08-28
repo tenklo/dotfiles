@@ -1,5 +1,7 @@
 #!/bin/bash
 ncw=~/nextcloud_work
+alias swapcaps='setxkbmap -option caps:swapescape &'
+alias vimdiff='nvim -d'
 alias ..='cd ..; ls -lh'
 alias .='ls -lh'
 alias .c='cd ~/.config; ls -lah'

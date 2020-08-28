@@ -25,3 +25,11 @@ if [[ $UID -ge 1000 && -d $HOME/.local/dwm/dwmblocks/scripts && -z $(echo $PATH 
 then
     export PATH="${PATH}:$HOME/.local/dwm/dwmblocks/scripts"
 fi
+
+ranger() {
+    if [ -z "$RANGER_LEVEL" ]; then
+        /usr/bin/ranger "$@"
+    else
+        exit
+    fi
+}
