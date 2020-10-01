@@ -6,7 +6,8 @@ neofetch
 [[ $- != *i* ]] && return
 
 # source aliases
-[ -f ~/.config/bash/bash_aliases ] && . ~/.config/bash/bash_aliases
+[ -f ~/.config/bash/bash_aliases ] && source ~/.config/bash/bash_aliases
+[ -f ~/.config/bash/shortcuts ] && source ~/.config/bash/shortcuts
 
 PS1='[\u@\h \W]\$ '
 

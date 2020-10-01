@@ -23,8 +23,8 @@ super + p
 super + b
     bookmarks
 
-super + o ; {a,b,n,p,w,t,z,c,v,1,2}
-    {authy,$BROWSER,$BROWSER --private-window,bitwarden,win10,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
+super + o ; {a,b,n,p,w,t,z,c,v,x,1,2}
+    {authy,$BROWSER,$BROWSER --private-window,bitwarden,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
 
 super + o ; {d,f,r,s}
     {dailystandups,openranger,opennewsboat,sshconnections}
@@ -39,8 +39,8 @@ super + F5
 super + F6
     editscripts
 
-# super + Print
-super + F10
+super + Print
+# super + F10
     {takescreenshot}
 super + F11
     devicectrl

@@ -117,6 +117,9 @@ autocmd BufWritePost *Xresources !xrdb -merge ~/.Xresources
 "Update binds when sxhkdrx is updated
 autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
 
+"Update shortcuts when shortcutsfile is updated
+autocmd BufWritePost *local/share/data/shortcuts  !shortcut-sync
+
 map <leader>c :w! \| !comp <c-r>%<CR><CR>
 map <leader>o :w! \| !opout <c-r>%<CR><CR>
 
