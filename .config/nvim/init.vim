@@ -118,7 +118,17 @@ autocmd BufWritePost *Xresources !xrdb -merge ~/.Xresources
 autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
 
 "Update shortcuts when shortcutsfile is updated
+autocmd BufWritePre *local/share/data/shortcuts :%sort
 autocmd BufWritePost *local/share/data/shortcuts  !shortcut-sync
+
+"sort bookmarks on save
+autocmd BufWritePre *local/share/data/bookmarks :%sort
+
+"sort configfiles on save
+autocmd BufWritePre *local/share/data/configfiles :%sort
+
+"sort serverlist on save
+autocmd BufWritePre *local/share/data/serverliste :%sort
 
 map <leader>c :w! \| !comp <c-r>%<CR><CR>
 map <leader>o :w! \| !opout <c-r>%<CR><CR>

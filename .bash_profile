@@ -13,6 +13,7 @@ export BROWSER="firefox"
 export TERMINAL="alacritty"
 export READER="zathura"
 export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
+export PAGER="/usr/share/vim/vim82/macros/less.sh"
 
 #cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -34,6 +35,7 @@ export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
+export ABDUCO_SOCKET_DIR="$XDG_CONFIG_HOME"
 
 
 

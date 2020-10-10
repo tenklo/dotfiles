@@ -45,5 +45,4 @@ super + Print
 super + F11
     devicectrl
 super + F12 ; {l,s,t,F11,F12}
-    {lock,$locker && systemctl suspend,togglelocker,setbg,systemmodes}
-
+    {lock,lock && systemctl suspend,togglelocker,setbg,systemmodes}
