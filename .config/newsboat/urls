@@ -1,0 +1,30 @@
+"~News~"
+http://www.tagesschau.de/export/podcast/hi/tagesschau-in-100-sekunden/ news
+https://www.heise.de/rss/heise-Rubrik-IT-atom.xml news tech
+
+" "
+"~Blogs~"
+https://lukesmith.xyz/rss.xml personal tech
+https://www.brandonsanderson.com/feed/ books fantasy
+
+" "
+"~Videos~"
+https://videos.lukesmith.xyz/feeds/videos.xml?accountId=3
+https://youtube.com/feeds/videos.xml?channel_id=UCKqoiG45T1OkQkUEq5dEMzA knifes victorinox yt
+https://youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg yt tech linux
+https://youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA yt tech linux
+https://youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ yt tech linux
+https://youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg yt tech linux
+https://youtube.com/feeds/videos.xml?channel_id=UCs6KfncB4OV6Vug4o_bzijg yt tech privacy
+https://youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw yt cooking
+https://youtube.com/feeds/videos.xml?channel_id=UCekQr9znsk2vWxBo3YiLq2w yt cooking
+
+" "
+"~Podcasts~"
+https://notrelated.xyz/rss
+http://feeds.soundcloud.com/users/soundcloud:users:261098918/sounds.rss privacy security tech
+
+" "
+"~Other~"
+https://www.archlinux.org/feeds/news/ linux tech arch
+https://store.pine64.org/shop/feed/
