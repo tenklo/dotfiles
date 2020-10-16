@@ -14,6 +14,7 @@ export TERMINAL="alacritty"
 export READER="zathura"
 export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
 export PAGER="/usr/share/vim/vim82/macros/less.sh"
+export MANPAGER=less
 
 #cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -50,7 +51,7 @@ export ABDUCO_SOCKET_DIR="$XDG_CONFIG_HOME"
 #NO_PROXY="localhost,127.0.0.1,.its-stuttgart.de"
 
 #clipmenu config
-export CM_IGNORE_WINDOW="Bitwarden"
+export CM_IGNORE_WINDOW="Bitwarden|Pass"
 
 if [[ "$(tty)" == "/dev/tty1" ]]; then
     pidof Xorg >/dev/null 2>&1 || startx "$XDG_CONFIG_HOME"/X11/xinitrc

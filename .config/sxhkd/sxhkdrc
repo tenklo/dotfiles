@@ -23,8 +23,11 @@ super + p
 super + b
     bookmarks
 
+super + shift + b
+    bookmarks cp
+
 super + o ; {a,b,n,p,w,t,z,c,v,x,1,2}
-    {authy,$BROWSER,$BROWSER --private-window,bitwarden,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
+    {authy,$BROWSER,$BROWSER --private-window,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
 
 super + o ; {d,f,r,s}
     {dailystandups,openranger,opennewsboat,sshconnections}
@@ -46,3 +49,6 @@ super + F11
     devicectrl
 super + F12 ; {l,s,t,F11,F12}
     {lock,lock && systemctl suspend,togglelocker,setbg,systemmodes}
+
+super + alt ; {F1,F2,F3}
+	{deadbeef --prev, deadbeef --play-pause > /dev/null, deadbeef --next}

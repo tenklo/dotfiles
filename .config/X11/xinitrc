@@ -12,9 +12,11 @@ blueman-applet &
 
 
 nextcloud &
+keepassxc &
+#bitwarden &
 LANG=de_DE.utf8 thunderbird &
 telegram-desktop &
-whatsapp-nativefier &
+#whatsapp-nativefier &
 
 
 setxkbmap -option caps:swapescape &                                 #tauscht capslock und esc

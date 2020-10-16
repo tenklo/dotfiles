@@ -35,6 +35,7 @@ set encoding=utf-8
 filetype plugin on
 set nobackup
 set title
+" set mouse=a
 
 " open as pdf
 " map <leader>p <esc>:w !pandoc -f markdown \| zathura -<enter>
