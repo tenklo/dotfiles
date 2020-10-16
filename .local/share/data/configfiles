@@ -1,0 +1,20 @@
+shortcuts;/home/karsten/.local/share/data/shortcuts
+newsboat config;/home/karsten/.config/newsboat/config
+newsboat urls rss;/home/karsten/.config/newsboat/urls
+alacritty;/home/karsten/.config/alacritty/alacritty.yml
+bashaliases;/home/karsten/.config/bash/bash_aliases
+bashprofile;/home/karsten/.bash_profile
+bashrc;/home/karsten/.bashrc
+dwm config.h;/home/karsten/.local/src/dwm/dwm-6.2/config.h
+dwmblocks;/home/karsten/.local/src/dwm/dwmblocks/blocks.h
+i3blocks bottom bar;/home/karsten/.config/i3blocks/configbottom
+i3blocks top bar;/home/karsten/.config/i3blocks/config
+i3status;/home/karsten/.config/i3status/config
+i3wm;/home/karsten/.config/i3/config
+liste bookmarks lesezeichen;/home/karsten/.local/share/data/bookmarks
+liste configfiles;/home/karsten/.local/share/data/configfiles
+liste ssh serverliste;/home/karsten/.local/share/data/serverliste
+liste emojis;/home/karsten/.local/share/data/emoji
+nvim;/home/karsten/.config/nvim/init.vim
+sxhkd;/home/karsten/.config/sxhkd/sxhkdrc
+xinitrc;/home/karsten/.config/X11/xinitrc
