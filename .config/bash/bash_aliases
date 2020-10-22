@@ -1,7 +1,8 @@
 #!/bin/bash
 ncw=~/nextcloud_work
-alias edc='sudo mount UUID=D8EA-B41B /mnt/edcusb/'
-alias uedc='sudo umount /mnt/edcusb/'
+alias id3makeartist-title="id3 -a "%1" -t "%2"" # add eg "* - *.m4a"
+alias edc='sudo mount UUID=4A9EFA407D02ABB1 /mnt/edcusb/ && notify-send "edcusb" "mounted"'
+alias uedc='sudo umount /mnt/edcusb/ && notify-send -u critical "edcusb" "unmounted"'
 alias gS='cd ~/documents/screenshots; ls -lh'
 alias swapcaps='setxkbmap -option caps:swapescape &'
 alias vimdiff='nvim -d'

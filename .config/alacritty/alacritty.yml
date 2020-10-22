@@ -1,4 +1,4 @@
-background_opacity: 0.6
+background_opacity: 1.0
 font:
   normal:
     family: Inconsolata
@@ -135,7 +135,6 @@ key_bindings:
   - { key: V,     mods: Control|Alt, action: Paste}
   - { key: C,     mods: Control|Alt, action: Copy}
   - { key: T,     mods: Control,     action: SpawnNewInstance}
-  # - { key: Return,mods: Shift, action: SpawnNewInstance}
 
 # Vi Mode
   - { key: Space,  mods: Control,       mode: Vi, action: ScrollToBottom          }
