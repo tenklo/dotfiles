@@ -8,14 +8,14 @@ bwl         ~/nextcloud_work/schule/20_21/bwl
 cc           ~/.config
 daily		~/documents/notizen/dailystandup
 data        ~/.local/share/data
-db          ~/.local/src/dwm/dwmblocks
 de		    ~/nextcloud_work/schule/20_21/deutsch
 dl	        ~/downloads
 dp	        ~/documents/projekte
 ds		    ~/documents/screenshots
+dwb          ~/.local/src/dwm/dwmblocks
 dwm	        ~/.local/src/dwm/dwm-6.2
-em		    ~/nextcloud_work/schule/20_21/gk
 en	        ~/nextcloud_work/schule/20_21/englisch
+gk		    ~/nextcloud_work/schule/20_21/gk
 h	        ~
 its		    ~/nextcloud_work/schule/20_21/its
 ld          ~/.local/share/data/
