@@ -47,6 +47,7 @@ netflix;https://netflix.com
 parceltrack;https://www.parceltrack.de/webapp/login.php
 petite creperie kloess;kloess.org/petitecreperie
 pihole;192.168.22.39/admin
+privacytools.io;https://privacytools.io
 protonmail;mail.protonmail.com
 ps git tenklo;github.com/tenklo
 ps nextcloud homepi;http://192.168.22.39/nextcloud/
@@ -56,7 +57,7 @@ reddit.com;www.reddit.com
 schule moodle;https://www2.its-stuttgart.de/moodle/
 schulmail zimbra;https://mail.its-stuttgart.de
 searx suchmaschine;https://searx.pofilo.fr/
-simplelogin wegwerfmail;https://app.simplelogin.io/dashboard/
+simplelogin wegwerfmail;https://app.simplelogin.io/
 speedtest;https://librespeed.org/
 startpage.com;https://startpage.com
 suckless.org;www.suckless.org
