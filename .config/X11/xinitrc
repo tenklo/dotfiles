@@ -12,10 +12,10 @@ blueman-applet &
 
 
 nextcloud &
-keepassxc &
+#keepassxc &
 #bitwarden &
 LANG=de_DE.utf8 thunderbird &
-telegram-desktop &
+#telegram-desktop &
 #whatsapp-nativefier &
 
 
