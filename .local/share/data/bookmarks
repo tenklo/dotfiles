@@ -12,6 +12,7 @@ artofmemory wiki;https://artofmemory.com/wiki/Main_Page
 bitwarden.com;https://bitwarden.com/
 checkdomain.de;www.checkdomain.de/login
 cs50 harvard;https://cs50.harvard.edu/x/2020/
+dict.cc wörterbuch;https://www.dict.cc/
 dkb.de;https://www.dkb.de/banking
 duckduckgo;www.duckduckgo.com
 duden.de;www.duden.de
@@ -19,6 +20,8 @@ dw gitlab;https://gitlab.digital-worx.de/
 dw hosteurope kis;https://kis.hosteurope.de/administration/vps/
 dw nextcloud;https://cloud.digital-worx.net/
 dw wiki;wiki.digital-worx.net/
+dw wp wordpress test installation homepage;karsten.digital-worx.de/wp
+dw wp wordpress test installation login;karsten.digital-worx.de/wp/wp-login.php
 easyproject;digital-worx.easyproject.com/
 ebay.de;www.ebay.de
 emmet cheatsheat;https://docs.emmet.io/cheat-sheet/
