@@ -1,7 +1,5 @@
-shortcuts;/home/karsten/.local/share/data/shortcuts
-newsboat config;/home/karsten/.config/newsboat/config
-newsboat urls rss;/home/karsten/.config/newsboat/urls
 alacritty;/home/karsten/.config/alacritty/alacritty.yml
+bash history;/home/karsten/.local/share/bash/history
 bashaliases;/home/karsten/.config/bash/bash_aliases
 bashprofile;/home/karsten/.bash_profile
 bashrc;/home/karsten/.bashrc
@@ -13,8 +11,11 @@ i3status;/home/karsten/.config/i3status/config
 i3wm;/home/karsten/.config/i3/config
 liste bookmarks lesezeichen;/home/karsten/.local/share/data/bookmarks
 liste configfiles;/home/karsten/.local/share/data/configfiles
-liste ssh serverliste;/home/karsten/.local/share/data/serverliste
 liste emojis;/home/karsten/.local/share/data/emoji
+liste ssh serverliste;/home/karsten/.local/share/data/serverliste
+newsboat config;/home/karsten/.config/newsboat/config
+newsboat urls rss;/home/karsten/.config/newsboat/urls
 nvim;/home/karsten/.config/nvim/init.vim
+shortcuts;/home/karsten/.local/share/data/shortcuts
 sxhkd;/home/karsten/.config/sxhkd/sxhkdrc
 xinitrc;/home/karsten/.config/X11/xinitrc
