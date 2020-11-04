@@ -14,7 +14,7 @@ blueman-applet &
 nextcloud &
 #keepassxc &
 #bitwarden &
-LANG=de_DE.utf8 thunderbird &
+startthunderbird &
 #telegram-desktop &
 #whatsapp-nativefier &
 
