@@ -2,10 +2,10 @@ ape.write_apev2 1
 artwork.filemask *cover*.jpg;*front*.jpg;*folder*.jpg;*cover*.png;*front*.png;*folder*.png
 cli_add_playlist_name Default
 deadbeef_version 1.8.4
-filechooser.lastdir file:///mnt/psnas/music
-gtkui.columns.playlist [{"title":"♫","id":"1","format":"%playstatus%","sort_format":"","size":"50","align":"0","color_override":"0","color":"#ff000000"},{"title":"Title","id":"-1","format":"%title%","sort_format":"","size":"414","align":"0","color_override":"0","color":"#ff000000"},{"title":"Artist / Album","id":"-1","format":"$if(%artist%,%artist%,Unknown Artist)[ - %album%]","sort_format":"","size":"169","align":"0","color_override":"0","color":"#ff000000"},{"title":"Duration","id":"-1","format":"%length%","sort_format":"","size":"86","align":"0","color_override":"0","color":"#ff000000"},{"title":"Codec","id":"-1","format":"%codec%","sort_format":"","size":"100","align":"0","color_override":"0","color":"#ff000000"}]
+filechooser.lastdir file:///home/karsten/Nextcloud/nasdaten/music
+gtkui.columns.playlist [{"title":"♫","id":"1","format":"%playstatus%","sort_format":"","size":"50","align":"0","color_override":"0","color":"#ff000000"},{"title":"Title","id":"-1","format":"%title%","sort_format":"","size":"414","align":"0","color_override":"0","color":"#ff000000"},{"title":"Artist / Album","id":"-1","format":"$if(%artist%,%artist%,Unknown Artist)[ - %album%]","sort_format":"","size":"336","align":"0","color_override":"0","color":"#ff000000"},{"title":"Duration","id":"-1","format":"%length%","sort_format":"","size":"86","align":"0","color_override":"0","color":"#ff000000"},{"title":"Codec","id":"-1","format":"%codec%","sort_format":"","size":"100","align":"0","color_override":"0","color":"#ff000000"}]
 gtkui.eq.visible 0
-gtkui.layout.0.6.2 vbox expand="0 1" fill="1 1" homogeneous=0 {hbox expand="0 1 0" fill="1 1 1" homogeneous=0 {playtb {} seekbar {} volumebar {} } hsplitter locked=0 ratio=0.500000 pos=0 size2=0 {playlist hideheaders=0 width=956 {} vsplitter locked=0 ratio=0.500000 pos=0 size2=0 {coverart {} spectrum {} } } } 
+gtkui.layout.0.6.2 vbox expand="0 1" fill="1 1" homogeneous=0 {hbox expand="0 1 0" fill="1 1 1" homogeneous=0 {playtb {} seekbar {} volumebar {} } hsplitter locked=0 ratio=0.455329 pos=0 size2=0 {playlist hideheaders=0 width=1166 {} vsplitter locked=0 ratio=0.500000 pos=0 size2=0 {hsplitter locked=0 ratio=0.500000 pos=0 size2=0 {pltbrowser {} coverart {} } hsplitter locked=0 ratio=0.563037 pos=0 size2=0 {spectrum {} logviewer {} } } } } 
 gtkui.statusbar.visible 1
 gtkui.tabscroll 0
 gtkui.titlebar_playing_tf %artist% - %title% - DeaDBeeF-%_deadbeef_version%
@@ -44,10 +44,10 @@ hotkey.key32 "Ctrl k" 0 0 toggle_stop_after_album
 hotkeys_created 1
 logwindow.geometry.h 971
 logwindow.geometry.w 524
-logwindow.geometry.x 1014
+logwindow.geometry.x 1076
 logwindow.geometry.y 40
-mainwin.geometry.h 1404
-mainwin.geometry.w 2552
+mainwin.geometry.h 1412
+mainwin.geometry.w 2560
 mainwin.geometry.x -5120
 mainwin.geometry.y 28
 mp3.id3v1_encoding iso8859-1
@@ -59,24 +59,22 @@ output_plugin alsa
 playback.loop 0
 playback.order 2
 playback.volume 0.0000000
-playlist.current 2
-playlist.cursor.0 1
-playlist.cursor.1 6
+playlist.current 0
+playlist.cursor.0 11
+playlist.cursor.1 0
 playlist.cursor.2 -1
-playlist.scroll.0 -1
-playlist.scroll.1 -6
-playlist.scroll.2 -10
+playlist.scroll.0 -11
+playlist.scroll.1 0
+playlist.scroll.2 -3
 playlist.scroll.cursorfollowplayback 1
-playlist.tab.00000 music
-playlist.tab.00001 music
-playlist.tab.00002 music
+playlist.tab.00000 all
 prefwin.geometry.h 1270
 prefwin.geometry.w 818
 prefwin.geometry.x 867
 prefwin.geometry.y 81
 resume.paused 1
-resume.playlist 2
-resume.position 171.45689
+resume.playlist 0
+resume.position 183.80996
 resume.track 10
 streamer.samplerate 44100
 streamer.samplerate_mult_44 44100
