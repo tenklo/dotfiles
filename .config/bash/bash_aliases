@@ -26,5 +26,6 @@ alias sb='source ~/.bashrc'
 alias ssh='TERM=ansi ssh'
 alias ubw='export BW_SESSION="$(bw unlock --raw)"'
 alias ydl='youtube-dl'
+alias getmusic='youtube-dl -f 140 -x'
 
 alias schulproxys='export http_proxy="http://proxy.its-stuttgart.de:3128/"; export https_proxy="http://proxy.its-stuttgart.de:3128/"; export ftp_proxy="http://proxy.its-stuttgart.de:3128/"; export no_proxy="localhost,127.0.0.1,.its-stuttgart.de"; export HTTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export HTTPS_PROXY="http://proxy.its-stuttgart.de:3128/"; export FTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export NO_PROXY="localhost,127.0.0.1,.its-stuttgart.de"'
