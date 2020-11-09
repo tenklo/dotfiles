@@ -36,19 +36,17 @@ super + F1
     clipmenu $DMENUOPTIONS
 super + F2
     dmenu-emoji.sh
+super + y ; {p,s,n}
+	{ctrldeadbeef prev, ctrldeadbeef play, ctrldeadbeef next}
 
 super + F5
     editconfigs
 super + F6
     editscripts
 
-super + Print
-# super + F10
-    {takescreenshot}
+super + F10 ; {t,s}
+    {takescreenshot,takescreenshot sel}
 super + F11
     devicectrl
 super + F12 ; {l,s,t,F11,F12}
     {lock,lock && systemctl suspend,togglelocker,setbg,systemmodes}
-
-super + alt ; {F1,F2,F3}
-	{deadbeef --prev, deadbeef --play-pause > /dev/null, deadbeef --next}
