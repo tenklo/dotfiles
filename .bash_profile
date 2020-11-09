@@ -13,7 +13,7 @@ export BROWSER="firefox"
 export TERMINAL="alacritty"
 export READER="zathura"
 export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
-export PAGER="/usr/share/vim/vim82/macros/less.sh"
+# export PAGER="/usr/share/vim/vim82/macros/less.sh"
 export MANPAGER=less
 
 #cleanup
