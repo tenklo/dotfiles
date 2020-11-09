@@ -9,6 +9,7 @@ sxhkd &                                                             #daemon fuer
 autorandr -c &                                                      #setzt die bildschirme so, dass sie mir passen (-c lädt das erste passende profil)
 clipmenud &                                                         #clipboardmanager
 blueman-applet &
+toggleredshift &
 
 
 nextcloud &
