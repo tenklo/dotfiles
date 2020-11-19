@@ -21,6 +21,7 @@ Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " filetype related plugins
+Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'mzlogin/vim-markdown-toc'
@@ -301,3 +302,13 @@ autocmd BufWritePost ~/.local/src/dwm/dwmblocks/blocks.h !cd ~/.local/src/dwm/dw
 
   " Reenable hexokinase on enter
   autocmd VimEnter * HexokinaseTurnOn
+
+" indentLine plugin
+
+let g:indentLine_fileTypeExclude = ["vimwiki", "help"]
+let g:indentLine_bufTypeExclude = ["help", "terminal"]
+
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+let g:indentLine_leadingSpaceEnabled = 1
+let g:indentLine_leadingSpaceChar = "."
