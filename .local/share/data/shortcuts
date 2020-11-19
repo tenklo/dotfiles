@@ -1,6 +1,8 @@
 D	        ~/documents
 M	        /mnt/
-N	        ~/Nextcloud
+Nd	        ~/Nextcloud/Documents
+Nm	        ~/Nextcloud/nasdaten/music
+Nn	        ~/Nextcloud
 P           ~/documents/projekte/
 S	        ~/nextcloud_work/schule/20_21/
 b	        ~/nextcloud_work/Berichtsheft
