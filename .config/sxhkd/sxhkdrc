@@ -40,7 +40,7 @@ super + F1
 super + F2
     dmenu-emoji.sh
 super + y ; {p,s,n}
-	{ctrldeadbeef prev, ctrldeadbeef play, ctrldeadbeef next}
+	ctrldeadbeef {prev,play,next}
 
 super + F5
     editconfigs
