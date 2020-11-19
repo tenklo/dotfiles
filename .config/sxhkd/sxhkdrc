@@ -32,8 +32,8 @@ super + o ; {a,b,n,p,w,t,z,c,v,x,1,2}
 super + o ; {d,f,r,s}
     {dailystandups,openranger,opennewsboat,sshconnections}
 
-super +s ; {a,d,f,g,p,s,t,u,w,y}
-	{searchweb -a,searchweb -d,searchweb -f,searchweb -g,searchweb -p,searchweb -s,searchweb -t,searchweb -u,searchweb -w,searchweb -y}
+super +s ; {a,d,f,g,h,p,s,t,u,w,y}
+	searchweb {-a,-d,-f,-g,-h,-p,-s,-t,-u,-w,-y}
 
 super + F1
     clipmenu $DMENUOPTIONS
