@@ -12,6 +12,7 @@ artofmemory wiki;https://artofmemory.com/wiki/Main_Page
 bitwarden.com;https://bitwarden.com/
 checkdomain.de;www.checkdomain.de/login
 cs50 harvard;https://cs50.harvard.edu/x/2020/
+dhl sendungsverfolgung;https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html
 dict.cc wörterbuch;https://www.dict.cc/
 dkb.de;https://www.dkb.de/banking
 duckduckgo;www.duckduckgo.com
@@ -27,8 +28,11 @@ ebay.de;www.ebay.de
 emmet cheatsheat;https://docs.emmet.io/cheat-sheet/
 feiertage badenwürttemberg;https://www.schulferien.org/deutschland/feiertage/baden-wuerttemberg/
 firefly instance;https://firefly.kloess.xyz
+firefly via port;http://kloess.xyz:6996
 fix firefly failed to open stream issue;https://github.com/firefly-iii/firefly-iii/issues/3456
 font awesome cheatsheat;https://fontawesome.com/cheatsheet
+gaming gamingonlinux.com;https://www.gamingonlinux.com/
+gaming protondb;https://www.protondb.com/
 gchq konvertierungen;https://gchq.github.io/CyberChef/
 hermes sendungsverfolgung;https://www.myhermes.de/empfangen/sendungsverfolgung/
 hoppersroppers.org programming security learning;https://www.hoppersroppers.org/roadmap/
@@ -39,6 +43,7 @@ invidious;invidio.us
 its cisco;https://www2.its-stuttgart.de/intranet/schueler/cisco/
 karstenkloess.de;https://www.karstenkloess.de
 kloess.org main;www.kloess.org
+kloess.xyz main;https://kloess.xyz
 ksk.de;https://www.ksklb.de
 lbry;lbry.tv
 localhost;http://localhost
