@@ -18,7 +18,7 @@ XF86MonBrightnessUp
 super + Return
     $TERMINAL
 super + p
-    dmenu_run $DMENUOPTIONS -l 20
+    dmenu_run_i $DMENUOPTIONS -l 20
 
 super + b
     bookmarks
@@ -31,6 +31,9 @@ super + o ; {a,b,n,p,w,t,z,c,v,x,1,2}
 
 super + o ; {d,f,r,s}
     {dailystandups,openranger,opennewsboat,sshconnections}
+
+super +s ; {a,d,f,g,p,s,t,u,w,y}
+	{searchweb -a,searchweb -d,searchweb -f,searchweb -g,searchweb -p,searchweb -s,searchweb -t,searchweb -u,searchweb -w,searchweb -y}
 
 super + F1
     clipmenu $DMENUOPTIONS
