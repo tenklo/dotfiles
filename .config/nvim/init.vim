@@ -107,6 +107,7 @@ set shiftwidth=4
 set autoindent
 set expandtab
 set tabstop=4
+set softtabstop=4
 
 "indenting
 vmap < <gv
@@ -134,6 +135,7 @@ autocmd BufWritePre *local/share/data/serverliste :%sort
 map <leader>c :w! \| !comp <c-r>%<CR><CR>
 map <leader>o :w! \| !opout <c-r>%<CR><CR>
 
+"reload dwmblocks on save
 autocmd BufWritePost ~/.local/src/dwm/dwmblocks/blocks.h !cd ~/.local/src/dwm/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
 
 
