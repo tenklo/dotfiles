@@ -20,7 +20,7 @@ highlight article ":.*\\(link\\)$" cyan default
 highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
 
-browser linkhandler
+browser o
 macro a set browser "setsid -f vlc" ; open-in-browser ; set browser $BROWSER
 
 bind-key j down
