@@ -12,7 +12,7 @@ export EDITOR="nvim"
 export BROWSER="firefox"
 export TERMINAL="alacritty"
 export READER="zathura"
-export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i"
+export DMENUOPTIONS="-fn 'Inconsolata-16' -b -i -sb #c100b8"
 # export PAGER="/usr/share/vim/vim82/macros/less.sh"
 export MANPAGER=less
 
