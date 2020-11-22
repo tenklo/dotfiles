@@ -21,7 +21,9 @@ highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
 
 browser o
-macro a set browser "setsid -f vlc" ; open-in-browser ; set browser $BROWSER
+macro a set browser "setsid -f vlc" ; open-in-browser ; set browser o
+macro D set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser o
+macro d set browser "tsp youtube-dl --add-metadata -ic" ; open-in-browser ; set browser o
 
 bind-key j down
 bind-key k up
