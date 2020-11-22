@@ -32,8 +32,11 @@ super + o ; {a,b,n,p,w,t,z,c,v,x,1,2}
 super + o ; {d,f,r,s}
     {dailystandups,openranger,opennewsboat,sshconnections}
 
-super +s ; {a,d,f,g,h,i,p,s,t,u,v,w,y}
-	searchweb {-a,-d,-f,-g,-h,-i,-p,-s,-t,-u,-v,-w,-y}
+super + s
+	searchweb
+
+super + shift + s
+	searchweb --sel
 
 super + F1
     clipmenu $DMENUOPTIONS
@@ -51,5 +54,5 @@ super + F10 ; {t,s}
     {takescreenshot,takescreenshot sel}
 super + F11
     devicectrl
-super + F12 ; {l,s,t,F11,F12}
-    {lock,lock && systemctl suspend,togglelocker,setbg,systemmodes}
+super + F12 ; {l,o,s,t,F11,F12}
+    {lock,opacity toggle,lock && systemctl suspend,togglelocker,setbg,systemmodes}
