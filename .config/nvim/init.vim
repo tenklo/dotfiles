@@ -133,6 +133,9 @@ autocmd BufWritePre *local/share/data/configfiles :%sort
 "sort serverlist on save
 autocmd BufWritePre *local/share/data/serverliste :%sort
 
+"sort engines on save
+autocmd BufWritePre *local/share/data/engines :%sort
+
 map <leader>c :w! \| !comp <c-r>%<CR><CR>
 map <leader>o :w! \| !opout <c-r>%<CR><CR>
 
