@@ -2,6 +2,8 @@
 # ~/.bashrc
 #
 neofetch
+fortune -s
+echo -e "\n"
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -22,9 +24,9 @@ then
     export PATH="${PATH}:$HOME/.scripts"
 fi
 
-if [[ $UID -ge 1000 && -d $HOME/.local/dwm/dwmblocks/scripts && -z $(echo $PATH | grep -o $HOME/.local/dwm/dwmblocks/scripts) ]]
+if [[ $UID -ge 1000 && -d $HOME/.scripts/statusbar && -z $(echo $PATH | grep -o $HOME/.scripts/statusbar) ]]
 then
-    export PATH="${PATH}:$HOME/.local/dwm/dwmblocks/scripts"
+    export PATH="${PATH}:$HOME/.scripts/statusbar"
 fi
 
 ranger() {
