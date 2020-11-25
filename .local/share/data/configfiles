@@ -3,8 +3,8 @@ bash history;/home/karsten/.local/share/bash/history
 bashaliases;/home/karsten/.config/bash/bash_aliases
 bashprofile;/home/karsten/.bash_profile
 bashrc;/home/karsten/.bashrc
-dwm config.h;/home/karsten/.local/src/dwm/dwm-6.2/config.h
-dwmblocks;/home/karsten/.local/src/dwm/dwmblocks/blocks.h
+dwm config.h;/home/karsten/.local/src/dwm/config.h
+dwmblocks;/home/karsten/.local/src/dwmblocks/blocks.h
 i3blocks bottom bar;/home/karsten/.config/i3blocks/configbottom
 i3blocks top bar;/home/karsten/.config/i3blocks/config
 i3status;/home/karsten/.config/i3status/config
