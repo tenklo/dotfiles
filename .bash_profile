@@ -9,10 +9,10 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 #general
 export EDITOR="nvim"
-export BROWSER="firefox"
-export TERMINAL="alacritty"
+export BROWSER="surf"
+export TERMINAL="st"
 export READER="zathura"
-export DMENUOPTIONS="-i -sb #c100b8 -nb #000000"
+export DMENUOPTIONS="-i"
 # export PAGER="/usr/share/vim/vim82/macros/less.sh"
 export MANPAGER=less
 
