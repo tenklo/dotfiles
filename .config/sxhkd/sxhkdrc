@@ -26,11 +26,11 @@ super + b
 super + shift + b
     bookmarks cp
 
-super + o ; {a,b,n,p,w,t,z,c,v,x,1,2}
-    {authy,$BROWSER,$BROWSER --private-window,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
+super + o ; {a,b,f,n,p,w,t,z,c,v,x,1,2}
+    {authy,$BROWSER,openfilemanager,$BROWSER --private-window,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
 
-super + o ; {d,f,r,s}
-    {dailystandups,openranger,opennewsboat,sshconnections}
+super + c ; {b,d,f,r,s,v}
+    {openw3m,dailystandups,openranger,opennewsboat,sshconnections,openvimwiki}
 
 super + s
 	searchweb
