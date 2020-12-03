@@ -20,3 +20,4 @@ nvim;/home/karsten/.config/nvim/init.vim
 shortcuts;/home/karsten/.local/share/data/shortcuts
 sxhkd;/home/karsten/.config/sxhkd/sxhkdrc
 xinitrc;/home/karsten/.config/X11/xinitrc
+xresources;/home/karsten/.config/X11/xresources
