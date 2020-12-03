@@ -1,5 +1,6 @@
 picom &
-setbg &                                                             #eigenes script, setzt hintergrund
+/* setbg --kal &                                                             #eigenes script, setzt hintergrund */
+makescheme --chick
 togglelocker &                                                      #eigenes script, aktiviert den locker
 unclutter &                                                         #versteckt den cursor nach 5 sek
 xsetroot -cursor_name left_ptr &                                    #setzt den cursor
@@ -24,4 +25,7 @@ setxkbmap -option caps:swapescape &                                 #tauscht cap
 
 #exec i3                                                            #startet i3
 dwmblocks &                                                         #statusbar für dwm
-exec dwm                                                            #startet dwm
+/* exec dwm                                                            #startet dwm */
+while :; do
+	ssh-agent dwm >> /home/karsten/.local/src/dwm/logs/dwm.log
+done
