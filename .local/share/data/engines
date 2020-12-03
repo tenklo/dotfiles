@@ -3,6 +3,7 @@ archwiki;https://wiki.archlinux.org/index.php?search=
 dict.cc;https://www.dict.cc/?s=
 duckduckgo searchengine;https://duckduckgo.com/?q=
 duden.de;https://www.duden.de/suchen/dudenonline/
+english oxford dictionary;https://www.oxfordlearnersdictionaries.com/spellcheck/english/?q=
 github;https://github.com/search?q=
 google;https://www.google.de/search?q=
 imdb;https://www.imdb.com/find?q=
@@ -11,6 +12,7 @@ reddit.com;https://duckduckgo.com/?q=site:reddit.com+
 searx;https://searx.pofilo.fr/?q=
 thepiratebay;https://thepiratebay.org/search.php?q=
 url;none
+vollebak;https://www.vollebak.com/?s=
 w3schools.com;https://duckduckgo.com/?q=site:w3schools.com+
 wikipedia;https://de.wikipedia.org/w/index.php?search=
 youtube;https://www.youtube.com/results?search_query=
