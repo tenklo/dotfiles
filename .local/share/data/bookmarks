@@ -1,30 +1,30 @@
-actual youtube;youtube.com
+actual youtube;https://youtube.com
 adobe color picker;https://color.adobe.com
 aliexpress;https://www.aliexpress.com/
-amazon.de;www.amazon.de
+amazon.de;https://www.amazon.de
 android development docs;https://developer.android.com/
 anki addons 2.1;https://ankiweb.net/shared/addons/2.1
 anki doc deutsch;http://www.dennisproksch.de/anki
 anki doc englisch;https://docs.ankiweb.net/#/
 anki shared decks;https://ankiweb.net/shared/decks/
-arch wiki;wiki.archlinux.org
+arch wiki;https://wiki.archlinux.org
 artofmemory wiki;https://artofmemory.com/wiki/Main_Page
 bitwarden.com;https://bitwarden.com/
-checkdomain.de;www.checkdomain.de/login
+checkdomain.de;https://www.checkdomain.de/login
 cs50 harvard;https://cs50.harvard.edu/x/2020/
 dhl sendungsverfolgung;https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html
 dict.cc wörterbuch;https://www.dict.cc/
 dkb.de;https://www.dkb.de/banking
-duckduckgo;www.duckduckgo.com
-duden.de;www.duden.de
+duckduckgo;https://www.duckduckgo.com
+duden.de;https://www.duden.de
 dw gitlab;https://gitlab.digital-worx.de/
 dw hosteurope kis;https://kis.hosteurope.de/administration/vps/
 dw nextcloud;https://cloud.digital-worx.net/
-dw wiki;wiki.digital-worx.net/
-dw wp wordpress test installation homepage;karsten.digital-worx.de/wp
-dw wp wordpress test installation login;karsten.digital-worx.de/wp/wp-login.php
-easyproject;digital-worx.easyproject.com/
-ebay.de;www.ebay.de
+dw wiki;https://wiki.digital-worx.net/
+dw wp wordpress test installation homepage;https://karsten.digital-worx.de/wp
+dw wp wordpress test installation login;https://karsten.digital-worx.de/wp/wp-login.php
+easyproject;https://digital-worx.easyproject.com/
+ebay.de;https://www.ebay.de
 emmet cheatsheat;https://docs.emmet.io/cheat-sheet/
 feiertage badenwürttemberg;https://www.schulferien.org/deutschland/feiertage/baden-wuerttemberg/
 firefly instance;https://firefly.kloess.xyz
@@ -35,22 +35,28 @@ gaming gamingonlinux.com;https://www.gamingonlinux.com/
 gaming protondb;https://www.protondb.com/
 gchq konvertierungen;https://gchq.github.io/CyberChef/
 google websearch;https://google.de
+gopher bitreich.org;gopher://bitreich.org/1/
+gopher codevoid.de;gopher://codevoid.de
+gopher floodgap.com;gopher://gopher.floodgap.com
 gopher kloess.xyz;gopher://kloess.xyz
+gopher quux.org;gopher://gopher.quux.org/1
+gopher uninformativ.de/gopher://uninformativ.de
+gopher veronica2 search;gopher://gopher.floodgap.com/7/v2/vs
 hermes sendungsverfolgung;https://www.myhermes.de/empfangen/sendungsverfolgung/
 hoppersroppers.org programming security learning;https://www.hoppersroppers.org/roadmap/
-html validator;http://validator.w3.org/
+html validator;https://validator.w3.org/
 imdb;https://www.imdb.com/
 important videos;https://www.youtube.com/watch?v=DfO-gf_a8Bc&list=PLSEW_LoxvVOaOltv3gwMblCkd1-ELiUd9
-invidious;invidio.us
+invidious;https://invidio.us
 its cisco;https://www2.its-stuttgart.de/intranet/schueler/cisco/
 karstenkloess.de;https://www.karstenkloess.de
-kloess.org main;www.kloess.org
+kloess.org main;https://www.kloess.org
 kloess.xyz main;https://kloess.xyz
 ksk.de;https://www.ksklb.de
-lbry;lbry.tv
+lbry;https://lbry.tv
 learning english/englisch lernen;https://www.englishpage.com/index.html
 localhost;http://localhost
-lotto ergebnisse;www.lotterypost.com/results/germany
+lotto ergebnisse;https://www.lotterypost.com/results/germany
 lotto24;www.lotto24.de/
 ludism memory wiki;http://ludism.org/mentat/HomePage
 lukesmith.xyz;https://lukesmith.xyz
