@@ -1,31 +1,21 @@
-picom &
-/* setbg --kal &                                                             #eigenes script, setzt hintergrund */
-makescheme --chick
-togglelocker &                                                      #eigenes script, aktiviert den locker
-unclutter &                                                         #versteckt den cursor nach 5 sek
-xsetroot -cursor_name left_ptr &                                    #setzt den cursor
-[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources &
-dunst &                                                             #daemon fuer notifications
-sxhkd &                                                             #daemon fuer hotkeys
-autorandr -c &                                                      #setzt die bildschirme so, dass sie mir passen (-c lädt das erste passende profil)
-clipmenud &                                                         #clipboardmanager
-blueman-applet &
-toggleredshift &
+[[ -f ~/.config/X11/xresources ]] && xrdb -merge -I$HOME ~/.config/X11/xresources &
+clipmenud &
+sxhkd &
+dunst &
 
+makescheme --kal
+xsetroot -cursor_name left_ptr &
+toggleredshift &
+togglelocker &
 
 nextcloud &
-#keepassxc &
-#bitwarden &
-startthunderbird &
-#telegram-desktop &
-#whatsapp-nativefier &
 
+setxkbmap -option caps:swapescape &
+autorandr -c &
+picom &
+unclutter &
 
-setxkbmap -option caps:swapescape &                                 #tauscht capslock und esc
-
-#exec i3                                                            #startet i3
-dwmblocks &                                                         #statusbar für dwm
-/* exec dwm                                                            #startet dwm */
+dwmblocks >> ~/.local/src/dwmblocks/logs/dwmblocks.log &
 while :; do
-	ssh-agent dwm >> /home/karsten/.local/src/dwm/logs/dwm.log
+	ssh-agent dwm >> ~/.local/src/dwm/logs/dwm.log
 done
