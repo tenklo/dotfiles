@@ -48,7 +48,7 @@ command! Pdf execute "w !pandoc -f markdown -t pdf | zathura -"
 nnoremap S :%s//g<Left><Left>
 
 "open terminal here
-nnoremap <c-t> :!$TERMINAL --working-directory "%:p:h" &<Enter><Enter>
+nnoremap <c-t> :!openterminalat %:p:h<Enter><Enter>
 
 "cursorline and cursorcolumn
 set cursorline
@@ -115,10 +115,12 @@ vmap < <gv
 vmap > >gv
 
 "autoload .Xresources on save
-autocmd BufWritePost *Xresources !xrdb -merge ~/.Xresources
+autocmd BufWritePost *xresources !xrdb -merge ~/.config/X11/xresources
 
-"Update binds when sxhkdrx is updated
-autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
+"Update binds when sxhkdrx is updated; there are bugs, so for now doing it
+"manually
+" autocmd BufWritePost *sxhkdrc :!killall sxhkd<Enter> :call jobstart('{sxhkd}')
+" autocmd BufWritePost *sxhkdrc !killall sxhkd; setsid sxhkd &
 
 "Update shortcuts when shortcutsfile is updated
 autocmd BufWritePre *local/share/data/shortcuts :%sort
@@ -140,7 +142,7 @@ map <leader>c :w! \| !comp <c-r>%<CR><CR>
 map <leader>o :w! \| !opout <c-r>%<CR><CR>
 
 "reload dwmblocks on save
-autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks & }
+autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo make install && { killall -q dwmblocks;setsid dwmblocks >> ~/.local/src/dwmblocks/logs/dwmblocks.log & }
 
 
 "Plugin stuff
