@@ -9,18 +9,17 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 #general
 export EDITOR="nvim"
-export BROWSER="surf"
+export BROWSER="o"
 export TERMINAL="st"
 export READER="zathura"
-export DMENUOPTIONS="-i"
-# export PAGER="/usr/share/vim/vim82/macros/less.sh"
+export PAGER=w3m
 export MANPAGER=less
 
 #cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+# export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export LESSHISTFILE="-"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
@@ -38,20 +37,8 @@ export HISTFILE="$XDG_DATA_HOME"/bash/history
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export ABDUCO_SOCKET_DIR="$XDG_CONFIG_HOME"
 
-
-
-#schulproxy
-#http_proxy="http://proxy.its-stuttgart.de:3128/"
-#https_proxy="http://proxy.its-stuttgart.de:3128/"
-#ftp_proxy="http://proxy.its-stuttgart.de:3128/"
-#no_proxy="localhost,127.0.0.1,.its-stuttgart.de"
-#HTTP_PROXY="http://proxy.its-stuttgart.de:3128/"
-#HTTPS_PROXY="http://proxy.its-stuttgart.de:3128/"
-#FTP_PROXY="http://proxy.its-stuttgart.de:3128/"
-#NO_PROXY="localhost,127.0.0.1,.its-stuttgart.de"
-
 #clipmenu config
-export CM_IGNORE_WINDOW="Bitwarden|Pass"
+export CM_IGNORE_WINDOW="Bitwarden|Pass|pass"
 
 if [[ "$(tty)" == "/dev/tty1" ]]; then
     pidof Xorg >/dev/null 2>&1 || startx "$XDG_CONFIG_HOME"/X11/xinitrc
