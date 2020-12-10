@@ -18,41 +18,41 @@ XF86MonBrightnessUp
 super + Return
     $TERMINAL
 super + p
-    dmenu_run_i $DMENUOPTIONS -l 20
+    dmenu_run_i -l 20
 
 super + b
-    bookmarks
+    o "$(bookmarks)"
 
 super + shift + b
-    bookmarks cp
+    bookmarks | xsel -ib
 
-super + o ; {a,b,f,n,p,w,t,z,c,v,x,1,2}
-    {authy,$BROWSER,openfilemanager,$BROWSER --private-window,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
+super + o ; {a,b,f,m,p,w,t,z,c,v,x,1,2}
+    {authy,openguibrowser,openfilemanager,startthunderbird,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
 
-super + c ; {b,d,f,r,s,v}
-    {openw3m,dailystandups,openranger,opennewsboat,sshconnections,openvimwiki}
+super + c ; {b,d,f,m,r,s,v}
+    {openclbrowser,dailystandups,openranger,openneomutt,opennewsboat,sshconnections,openvimwiki}
 
 super + s
-	searchweb
+	o "$(searchweb)"
 
 super + shift + s
-	searchweb --sel
+	o "$(searchweb $(xsel -o))"
 
 super + F1
-    clipmenu $DMENUOPTIONS
+    clipmenu
 super + F2
     dmenu-emoji.sh
 super + y ; {p,s,n}
 	{ctrldeadbeef prev,ctrldeadbeef play,ctrldeadbeef next}
 
 super + F5
-    editconfigs
+    o "$(editconfigs)"
 super + F6
-    editscripts
+    o "$(editscripts)"
 
 super + F10 ; {t,s}
     {takescreenshot,takescreenshot sel}
 super + F11
     devicectrl
-super + F12 ; {l,o,s,t,F11,F12}
-    {lock,opacity toggle,lock && systemctl suspend,togglelocker,setbg,systemmodes}
+super + F12 ; {l,o,r,s,t,F11,F12}
+    {lock,opacity toggle,restartsxhkd,lock && systemctl suspend,togglelocker,setbg,systemmodes}
