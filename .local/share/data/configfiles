@@ -9,6 +9,7 @@ i3blocks bottom bar;/home/karsten/.config/i3blocks/configbottom
 i3blocks top bar;/home/karsten/.config/i3blocks/config
 i3status;/home/karsten/.config/i3status/config
 i3wm;/home/karsten/.config/i3/config
+lfrc;/home/karsten/.config/lf/lfrc
 liste bookmarks lesezeichen;/home/karsten/.local/share/data/bookmarks
 liste configfiles;/home/karsten/.local/share/data/configfiles
 liste emojis;/home/karsten/.local/share/data/emoji
