@@ -1,5 +1,6 @@
 #!/bin/bash
 ncw=~/nextcloud_work
+alias xcolorrgb="xcolor --format rgb"
 alias id3makeartist-title="id3 -a "%1" -t "%2"" # add eg "* - *.m4a"
 alias edc='sudo mount UUID=4A9EFA407D02ABB1 /mnt/edcusb/ && notify-send "edcusb" "mounted"'
 alias uedc='sudo umount /mnt/edcusb/ && notify-send -u critical "edcusb" "unmounted"'
@@ -23,6 +24,7 @@ alias la='exa -lag --color=always --group-directories-first'
 alias lh='exa -lg --color=always --group-directories-first'
 alias ls='exa --color=always --group-directories-first'
 alias r='source ranger'
+alias f='source ranger'
 alias sb='source ~/.bashrc'
 alias ssh='TERM=ansi ssh'
 alias ubw='export BW_SESSION="$(bw unlock --raw)"'
