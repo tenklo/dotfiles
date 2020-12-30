@@ -3,7 +3,7 @@ clipmenud &
 sxhkd &
 dunst &
 
-makescheme --kal
+makescheme
 xsetroot -cursor_name left_ptr &
 toggleredshift &
 togglelocker &
