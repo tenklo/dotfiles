@@ -26,11 +26,14 @@ super + b
 super + shift + b
     bookmarks | xsel -ib
 
-super + o ; {a,b,f,m,p,w,t,z,c,v,x,1,2}
-    {authy,openguibrowser,openfilemanager,startthunderbird,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,$TERMINAL --hold -e xprop,berichtshefte,anki}
+super + o ; {a,b,f,h,m,p,w,t,z,c,v,1,2}
+    {authy,firefox,openfilemanager,$TERMINAL -e htop,startthunderbird,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
 
-super + c ; {b,d,f,m,r,s,v}
-    {openclbrowser,dailystandups,openranger,openneomutt,opennewsboat,sshconnections,openvimwiki}
+super + c ; {c,d,f,h,m,o,r,s,v}
+    {opencalc,dailystandups,openlf,$TERMINAL -e htop,openneomutt,cliptc o,opennewsboat,sshconnections,openvimwiki}
+
+super + v ; {w}
+	{win10}
 
 super + s
 	o "$(searchweb)"
@@ -38,12 +41,18 @@ super + s
 super + shift + s
 	o "$(searchweb $(xsel -o))"
 
+super + x ; {p,u}
+	{typeargs "$(passmenu2 password)",typeargs "$(passmenu2 username)"}
+
+super + shift + x
+	typeargs "$(passmenu2)"
+
 super + F1
     clipmenu
 super + F2
     dmenu-emoji.sh
-super + y ; {p,s,n}
-	{ctrldeadbeef prev,ctrldeadbeef play,ctrldeadbeef next}
+super + y ; {p,s,n,c}
+	{ctrldeadbeef prev,ctrldeadbeef play,ctrldeadbeef next,ctrldeadbeef nowp}
 
 super + F5
     o "$(editconfigs)"
