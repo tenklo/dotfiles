@@ -41,8 +41,8 @@ super + s
 super + shift + s
 	o "$(searchweb $(xsel -o))"
 
-super + x ; {p,u}
-	{typeargs "$(passmenu2 password)",typeargs "$(passmenu2 username)"}
+super + x ; {o,p,u}
+	{typeargs "$(passmenu2 otp)",typeargs "$(passmenu2 password)",typeargs "$(passmenu2 username)"}
 
 super + shift + x
 	typeargs "$(passmenu2)"
@@ -64,4 +64,4 @@ super + F10 ; {t,s}
 super + F11
     devicectrl
 super + F12 ; {l,o,r,s,t,F11,F12}
-    {lock,opacity toggle,restartsxhkd,lock && systemctl suspend,togglelocker,setbg,systemmodes}
+    {lock,opacity toggle,restartsxhkd,systemctl suspend;lock,togglelocker,setbg,systemmodes}
