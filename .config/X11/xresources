@@ -4,6 +4,10 @@ st.alpha: 0.98
 *.font: monospace:size=16
 *.background:   #000000
 
+/* xterm */
+XTerm.termName: xterm-256color
+XTerm.vt100.faceName: monospace:size=16
+
 /* name		dark	light */
 /* black	0	8 */
 /* red		1	9 */
