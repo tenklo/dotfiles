@@ -26,11 +26,18 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCTHij3Ac5GizLsn5yB4IX_Q
 https://www.youtube.com/feeds/videos.xml?channel_id=UCm9faLh4Rrmlp8FR9MPsJxg
 https://www.youtube.com/feeds/videos.xml?channel_id=UCZNhwA1B5YqiY1nLzmM0ZRg
 https://www.youtube.com/feeds/videos.xml?channel_id=UCfp-lNJy4QkIGnaEE6NtDSg
+https://www.youtube.com/feeds/videos.xml?channel_id=UCts-8ZqS339n-9nxy3DN8Cg
 
 " "
 "~Podcasts~"
 https://notrelated.xyz/rss
 http://feeds.soundcloud.com/users/soundcloud:users:261098918/sounds.rss privacy security tech
+
+" "
+"~Reddit~"
+https://www.reddit.com/r/linux.rss
+https://www.reddit.com/r/archlinux.rss
+https://www.reddit.com/r/suckless.rss
 
 " "
 "~Other~"
