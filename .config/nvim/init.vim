@@ -191,7 +191,11 @@ autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/
     \ 'coc-html',
     \ 'coc-css',
     \ 'coc-json',
-    \ 'coc-angular',
+    \ 'coc-pyright',
+    \ 'coc-sh',
+    \ 'coc-css',
+    \ 'coc-html',
+    \ 'coc-tsserver',
     \ 'coc-vimtex'
     \ ]
 
