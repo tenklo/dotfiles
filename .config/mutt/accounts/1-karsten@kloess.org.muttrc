@@ -7,6 +7,7 @@ set new_mail_command = "notify-send -i /usr/share/icons/Adwaita/96x96/status/mai
 
 set realname = "Karsten Klöss"
 set from = "karsten@kloess.org"
+set signature = "~/.config/mutt/karsten@kloess.org.sig"
 set sendmail = "msmtp -a karsten@kloess.org"
 alias me Karsten Klöss <karsten@kloess.org>
 set folder = "/home/karsten/.local/share/mail/karsten@kloess.org"

@@ -7,6 +7,7 @@ set new_mail_command = "notify-send -i /usr/share/icons/Adwaita/96x96/status/mai
 
 set realname = "Karsten Klöss"
 set from = "k.kloess@digital-worx.de"
+set signature = "~/.config/mutt/@digital-worx.de.sig"
 set sendmail = "msmtp -a k.kloess@digital-worx.de"
 alias me Karsten Klöss <kloess@digital-worx.de>
 set folder=imap://mail.digital-worx.de:143
