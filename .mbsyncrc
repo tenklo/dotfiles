@@ -78,3 +78,31 @@ MaxMessages 0
 ExpireUnread no
 # End profile
 
+
+IMAPStore karsten@kloess.xyz-remote
+Host mail.kloess.xyz
+Port 993
+User karsten
+PassCmd "pass mw-karsten@kloess.xyz"
+AuthMechs LOGIN
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+MaildirStore karsten@kloess.xyz-local
+Subfolders Verbatim
+Path /home/karsten/.local/share/mail/karsten@kloess.xyz/
+Inbox /home/karsten/.local/share/mail/karsten@kloess.xyz/INBOX
+Flatten .
+
+Channel karsten@kloess.xyz
+Expunge Both
+Master :karsten@kloess.xyz-remote:
+Slave :karsten@kloess.xyz-local:
+Patterns * !"[Gmail]/All Mail"
+Create Both
+SyncState *
+MaxMessages 0
+ExpireUnread no
+# End profile
+
+
