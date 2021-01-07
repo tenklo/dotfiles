@@ -81,7 +81,7 @@ parceltrack;https://www.parceltrack.de/webapp/login.php
 paypal.com;https://www.paypal.com/de/
 petite creperie kloess;kloess.org/petitecreperie
 pidgin third party plugins;https://developer.pidgin.im/wiki/ThirdPartyPlugins
-pihole;192.168.22.39/admin
+pihole;http://192.168.22.39/admin
 privacytools.io;https://privacytools.io
 protonmail;https://mail.protonmail.com
 ps github tenklo;https://github.com/tenklo
