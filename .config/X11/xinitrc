@@ -17,7 +17,7 @@ autorandr -c &
 picom &
 unclutter &
 
-dwmblocks >> ~/.local/src/dwmblocks/logs/dwmblocks.log &
+dwmblocks
 while :; do
-	ssh-agent dwm >> ~/.local/src/dwm/logs/dwm.log
+	ssh-agent dwm
 done
