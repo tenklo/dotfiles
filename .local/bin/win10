@@ -1,0 +1,3 @@
+#!/bin/sh
+
+vboxsdl --startvm "win10"

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+file=$(readlink -f "$1")
+base=$(echo "$file" | sed 's/\..*//')
+
+handlebang() {
+    bang=$(head -n 1 "$file")
+    case "$bang" in
+        *!/bin/sh|*!/bin/bash) "$file" ;;
+        *!/bin/python) python "$file" ;;
+        *) echo "Can't compile" ;;
+    esac
+}
+
+case "$1" in
+    #*.md|*.wiki) pandoc "$file" -o "$base".pdf ;;
+    *.md|*.wiki) pandoc "$file" -o "$base".pdf --from markdown+pipe_tables ;;#--template eisvogel;;
+    *.py) python "$file" ;;
+    *) handlebang ;;
+esac

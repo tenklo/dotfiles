@@ -1,0 +1,15 @@
+#!/bin/sh
+bluetooth="Bluetooth"
+audio="Audio"
+monitors="Monitore"
+network="Network"
+MODES="$bluetooth\n$audio\n$monitors\n$network"
+
+choice=$(echo -e $MODES | dmenu)
+
+case $choice in
+    $bluetooth) blueman-manager ;;
+    $audio) pavucontrol ;;
+    $monitors) arandr ;;
+    $network) $TERMINAL -e $SHELL -c "nmtui" ;;
+esac

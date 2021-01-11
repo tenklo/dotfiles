@@ -1,0 +1,12 @@
+#!/bin/sh
+
+[ -z $1 ] && echo "Pfad als Argument angeben" && exit
+
+echo "willst du im Pfad $1 wirklich in allen Dateien whitespace an den Enden der Zeilen entfernen? Dieser Vorgang ist rekursiv und könnte Dateien kaputt machen, die auf whitespace am Zeilenende angewiesen sind"
+select yn in "y" "n"; do
+    case $yn in
+        n) exit;;
+        y) break;;
+    esac
+done
+(find "$1" -type f -exec sed -i 's/\s\+$//g' {} + && echo "entweder gab es nie whitespace, ansonsten ist er jetzt weg!") || echo "da ist was schief gegangen."

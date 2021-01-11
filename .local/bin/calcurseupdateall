@@ -1,0 +1,14 @@
+#!/bin/sh
+
+path=${XDG_DATA_HOME:-$HOME/.local/share}/calcurse
+
+cd "$path" || exit 1
+test -d "all" && rm -rf all
+datadirs=$(command ls)
+mkdir all
+for d in $datadirs
+do
+    cp -r "$path/$d/notes/" "all/"
+    cat "$d/$d" >> "all/all"
+    cat "$d/todo" >> "all/todo"
+done

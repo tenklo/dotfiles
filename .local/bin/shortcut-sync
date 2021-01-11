@@ -1,0 +1,19 @@
+#!/bin/sh
+
+dataf="/home/karsten/.local/share/data/shortcuts"
+
+ranger_shortcutsf="/home/karsten/.config/ranger/shortcuts.conf"
+lf_shortcutsf="/home/karsten/.config/lf/shortcuts.conf"
+bash_shortcutsf="/home/karsten/.config/bash/shortcuts"
+shell_shortcutsf="/home/karsten/.config/shell/shortcuts"
+
+rm -f "$ranger_shortcutsf" "$bash_shortcutsf" "$lf_shortcutsf" "$shell_shortcutsf"
+
+echo -e "# vim: filetype=sh\nalias \\" > "$bash_shortcutsf"
+echo -e "# vim: filetype=sh\nalias \\" > "$shell_shortcutsf"
+
+awk "!/^\s*#/ && !/^\s*\$/ {gsub(\"\\\s*#.*$\",\"\");
+    printf(\"g%s=\42cd %s && exa -lg --color=always --group-directories-first\42 \\\\\n\",\$1,\$2)   >> \"$shell_shortcutsf\" ;
+    printf(\"g%s=\42cd %s && exa -lg --color=always --group-directories-first\42 \\\\\n\",\$1,\$2)   >> \"$bash_shortcutsf\" ;
+    printf(\"map g%s cd %s\nmap M%s %mv -iv \"\$f\" %s\nmap Y%s %%cp -rv \"\$f\" %s \n\",\$1,\$2,\$1,\$2, \$1, \$2, \$1, \$2) >> \"$lf_shortcutsf\" ;
+    printf(\"map g%s cd %s\nmap t%s tab_new %s\nmap M%s shell mv -v %%s %s\nmap Y%s shell cp -rv %%s %s \n\",\$1,\$2,\$1,\$2, \$1, \$2, \$1, \$2) >> \"$ranger_shortcutsf\" }" "$dataf"

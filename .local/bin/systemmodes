@@ -1,0 +1,35 @@
+#!/bin/sh
+#suspend = cuts power except from ram
+#hibernate = saves machine state to swap and powers off everything
+bluetooth="blueman-manager"
+audio="pulsemixer"
+monitors="arandr"
+lock="lock"
+togglelock="toggle locker"
+redshift="toggle redshift"
+suspend="suspend"
+hibernate="hibernate"
+reboot="reboot"
+shutdown="shutdown"
+killx="killx"
+background="change bg"
+opac="opacity off"
+resxhkd="restart sxhkd"
+MODES="$opac\n$lock\n$suspend\n$reboot\n$togglelock\n$shutdown\n$background\n$killx\n$redshift\n$resxhkd"
+locker=lock
+
+choice=$(echo -e $MODES | dmenu)
+
+case $choice in
+    $lock) $locker ;;
+    $suspend) systemctl suspend; $locker;;
+    $hibernate) $locker && systemctl hibernate ;;
+    $reboot) systemctl reboot ;;
+    $shutdown) systemctl poweroff -i;;
+    $togglelock) togglelocker & ;;
+    $killx) killall Xorg ;;
+    $background) setbg ;;
+    $opac) opacity off ;;
+    $redshift) toggleredshift ;;
+    $resxhkd) restartsxhkd ;;
+esac

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+wploc="/home/karsten/.config/wallpaper"
+pic="$wploc"
+
+[ -f "$pic" ] || exit
+
+wal -c
+wal -ni "$pic"
+xwallpaper --daemon --stretch "$pic"
+xdotool key Super_L+control+F5

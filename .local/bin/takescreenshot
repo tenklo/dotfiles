@@ -1,0 +1,4 @@
+#! /bin/sh
+[ $1 == "sel" ] && maim -s -u | xclip -selection clipboard -t image/png -i && exit
+dest=~/documents/screenshots/ && [ -d "$dest" ] && scrot '%Y%m%d_%H%M%S_$wx$h.png' -e 'mv $f '$dest && notify-send -t 2000 "Screenshot" "gespeichert in $dest" || notify-send -u critical "Screenshot" "Ordner $dest existiert nicht"
+

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+pidof deadbeef > /dev/null && ret=$(deadbeef --nowplaying "%t%" 2>/dev/null)
+[ "$1" = "dwb" ] && [ -n "$ret" ] && echo "  🎶 $(echo "$ret" | head -c 25)" || echo "$ret"

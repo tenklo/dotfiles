@@ -1,0 +1,5 @@
+#!/bin/sh
+
+graphical=dmenu
+cl=fzf
+istty && echo $cl || echo $graphical

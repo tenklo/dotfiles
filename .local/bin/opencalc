@@ -1,0 +1,5 @@
+#!/bin/sh
+
+$TERMINAL -t calc -e bc &
+sleep 0.2
+xdotool search --name calc set_window --urgency 1

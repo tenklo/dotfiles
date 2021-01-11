@@ -1,0 +1,3 @@
+#!/bin/sh
+pidof redshift > /dev/null && pkill redshift > /dev/null && exit
+(redshift -l 48.78232:9.17702 > /dev/null) &

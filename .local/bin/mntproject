@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# to unmount:
+# fusermount3 -u /mount/point
+mntpoint="/mnt/remoteproject/"
+fusermount3 -u "$mntpoint"
+[ "$1" = "rm" ] && exit
+options="-o idmap=user -o reconnect $@"
+projects="innovationdays\nkarsten.digital-worx.de\nkohlhammerdev"
+choice=$(echo -e $projects | dmenu -p "Projekt")
+
+case $choice in
+    innovationdays) user="root"; ip="92.51.146.238"; path="/var/www/vhosts/hausmesse.wafios.com/httpdocs";;
+    karsten.digital-worx.de) user="root"; ip="83.169.41.219"; path="/var/www/vhosts/karsten.digital-worx.de/";;
+    kohlhammerdev) user="root"; ip="46.163.114.3"; path="/var/www/vhosts/kh-schulung.digital-worx.de";;
+    # *) echo "kein Projekt gewählt"; exit;;
+esac
+
+sshfs "$user@$ip:$path" $mntpoint $options
+cd "$mntpoint"

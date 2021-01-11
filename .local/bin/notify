@@ -1,0 +1,3 @@
+#!/bin/sh
+
+notify-send --urgency=critical --expire-time=19000 "LOCKER" "Gerät wird gleich gesperrt."

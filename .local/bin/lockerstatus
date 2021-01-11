@@ -1,0 +1,4 @@
+#!/bin/sh
+pidof xautolock >> /dev/null && echo "" && exit || echo "" && exit
+#pidof xautolock >> /dev/null && echo "locker enabled" && exit || echo "locker disabled" && exit
+#pgrep --exact xautolock >> /dev/null && echo "locker enabled" && exit(0);|| echo "locker disabled" && exit(33);

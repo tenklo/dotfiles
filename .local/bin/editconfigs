@@ -1,0 +1,4 @@
+#!/bin/sh
+file=$(sort ${XDG_DATA_HOME:-$HOME/.local/share}/data/configfiles | cut -d';' -f1 | dmenu) && path=$(grep "$file" ${XDG_DATA_HOME:-$HOME/.local/share}/data/configfiles | cut -d';' -f2) || exit
+
+test -f "$path" && echo "$path"

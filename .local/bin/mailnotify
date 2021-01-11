@@ -1,0 +1,7 @@
+#!/bin/sh
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+threads=$(notmuch search --output=threads tag:unread)
+for t in $threads
+do
+    notify-send -i mail-message-new-symbolic -t 60000 "$(notmuch search "$t" | sed 's/thread.*; \(.*\) (.*)/\1/')" "From '$(notmuch address --output=address "$t")' to '$(notmuch address --output=recipients "$t")'"
+done

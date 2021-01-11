@@ -1,0 +1,25 @@
+#!/bin/sh
+
+path=/home/karsten/nextcloud_work/Berichtsheft
+tmp=/tmp/berichtsheft
+from=fooo
+suffix="_Ausbildung_IT_Karsten_Kloess.odt"
+nextweek="next"
+thisweek="."
+prevweek=".."
+all="all"
+selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$all" | dmenu -p "Berichtsheft") || exit
+
+case $selection in
+    $all) $TERMINAL -e libreoffice "$path/$(ls "$path" | sort -r | dmenu)"; exit;;
+    $thisweek) [ $(date +%u) -eq 1 ] && file="$(date -dthis-monday +%y%m%d)$suffix" || file="$(date -dlast-monday +%y%m%d)$suffix";;
+    $nextweek) file="$(date -dnext-monday +%y%m%d)$suffix";;
+    $prevweek) [ $(date +%u) -eq 1 ] && file="$(date -dlast-monday +%y%m%d)$suffix" || file="$(date -d'monday-14 days' +%y%m%d)$suffix";;
+esac
+monday=$(echo "$file" | cut -d'_' -f1)
+file="$path/$file"
+
+to="$(date -d "$monday" +%d.%m) - $(date -d "$monday +4 days" +%d.%m.%Y)"
+
+[ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$from#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
+libreoffice "$file" > /dev/null 2>&1

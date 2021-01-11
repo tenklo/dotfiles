@@ -1,0 +1,2 @@
+#!/bin/sh
+file=~/.local/share/data/serverliste && server=$(sort "$file" | cut -d';' -f1 | dmenu -p "Server:") && ip=$( grep "$server" "$file" | cut -d';' -f2) && $TERMINAL -e $SHELL -c "TERM=ansi ssh $ip"

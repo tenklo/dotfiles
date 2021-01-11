@@ -1,0 +1,4 @@
+#!/bin/sh
+menu="dmenu -l 20"
+
+path=~/.local/share/data/bookmarks && test -f "$path" && bookmark=$(sort $path | cut -d';' -f1 | $menu ) && url=$( grep "$bookmark" $path | cut -d';' -f2) && [ -z "$url" ] && exit || echo "$url"

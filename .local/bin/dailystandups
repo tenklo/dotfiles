@@ -1,0 +1,22 @@
+#!/bin/sh
+currentID="83265129487"
+path=/home/karsten/documents/notizen/dailystandup
+today="heute"
+tmrw="morgen"
+twod="übermorgen"
+ystrdy="gestern"
+old="alle"
+id="starte Meeting"
+selection=$(echo -e "$today\n$tmrw\n$ystrdy\n$old\n$id" | dmenu -p "Standup")
+
+case $selection in
+    $old) $TERMINAL -e $EDITOR $path/$(ls $path | sort -r | dmenu || exit 1);;
+    $today) date="$(date +"%g%m%d")";;
+    $tmrw) [ $(date +%w) -lt 5 ] && date="$(date --date='tomorrow' +"%g%m%d")" || date=$(date -dnext-monday +%C%m%d);;
+    $id) echo "$currentID" | xclip -selection clipboard && notify-send "dailystandup" "id $currentID in Ablage kopiert" && (zoom &) && (pavucontrol &) ;;
+    $ystrdy) [ $(date +%w) -ne 1 ] && date="$(date --date='yesterday' +"%g%m%d")" || date="$(date --date='last friday' +%C%m%d)";;
+esac
+
+[ ! -z "$date" ] && file="$path/$date.md" || exit
+[ ! -f $file ] && echo -e "# <++>\n\n## <++>\n\n<++>\n\n# <++>\n\n<++>" >> $file
+$TERMINAL -e $EDITOR $file

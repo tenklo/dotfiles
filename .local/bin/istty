@@ -1,0 +1,6 @@
+#!/bin/sh
+
+text=$(tty)
+echo "$text" | grep -q "/dev/tty" && exit 0 # is tty
+echo "$text" | grep -q "/dev/pts" && exit 1 # is terminal
+echo "$text" | grep -q ""

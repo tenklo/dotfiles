@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ "$1" = "up" ] && creds=$(pass digitalworx/vpn/kk-vpn) && (sudo vpnc --gateway "$(echo "$creds" | grep "Server" | cut -d' ' -f2)" --id "$(echo "$creds" | grep "Gruppenname" | cut -d' ' -f2)" --username "$(echo "$creds" | grep "Username" | cut -d' ' -f2)" --secret "$(echo "$creds" | grep "Sharedsecret" | cut -d' ' -f2)" --password "$(echo "$creds" | head -n 1)" || echo "vpn already up?" && exit) && notify-send "dwvpn" "connected" && exit
+
+[ "$1" = "down" ] && (sudo pkill vpnc && notify-send -u low "dwvpn" "disconnected" || echo "vpn already down?" && exit) && exit
+
+[ $# -eq 0 ] && echo "dwvpn help" && echo "Options:" && echo "    'up' to connect" && echo "    'down' to disconnect" && exit
+
+echo "unknown option"

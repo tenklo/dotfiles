@@ -1,0 +1,66 @@
+#!/bin/sh
+
+#feed file to open it in a program fitting the extension
+
+test -z "$1" && notify-send --urgency low "o" "no arg" && exit
+test -d "$@" && echo "this is a directory, nothing to do" && exit
+
+
+webbrowser=w3m
+gopherbrowser=lynx
+videoaudio=mpv
+videoaudioweb=mpv
+reader=$READER
+images=sxiv
+text=$EDITOR
+interm="$TERMINAL -e"
+
+# combining handeling of special extensions & using mime-types
+
+# handle special extensions & links
+case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
+    *.graphml)
+        opener=yed;;
+    *.sc)
+        opener=sc-im;;
+    *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*|*lbry.tv/@*)
+        opener="$videoaudioweb"
+        notify-send "o" "loading media";;
+    gopher*)
+        opener="$gopherbrowser";;
+    http*|www.*)
+        opener="$webbrowser"
+        setsid -f xterm -e "$opener" "$1" >/dev/null 2>&1 && exit ;;
+    *.html)
+        opener="$webbrowser";;
+esac
+test -n "$opener" && setsid -f $interm "$opener" "$1" >/dev/null 2>&1 && exit
+
+# handle mime-type
+mime=$(file -b --mime-type "$1")
+echo "$mime" | grep -qi -e "no such file" && mime=???
+
+case "$mime" in
+    text/plain|text/x-*|inode/x-empty|application/json|application/csv)
+        opener="$EDITOR";;
+    video/*|audio/*)
+        opener="$videoaudio";;
+    text/html)
+        opener="$webbrowser";;
+    image/*)
+        opener="$images";;
+    text/calendar)
+        opencalcurse -i "$1" && exit ;;
+    application/zip)
+        echo "nothing implemented" ;;
+    application/pdf|application/epub*)
+        opener="$READER";;
+    application/*)
+        (LANG=de_DE.utf8 setsid -f libreoffice "$@" &) && exit;;
+    ???)
+        notify-send "o" "not yet handleable";;
+    *)
+        opener="$xdg-open" ;;
+esac
+
+test -n "$opener" && setsid -f $interm "$opener" "$1" >/dev/null 2>&1 &

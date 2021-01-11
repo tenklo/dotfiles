@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mouse=$(upower --dump | grep -A 7 "\smouse" | grep "percentage" | sed "s/.*\s\([0-9]*%\)/\1/")
+headphones=$(upower --dump | grep -A 7 "\sheadphone" | grep "percentage" | sed "s/.*\s\([0-9]*%\)/\1/")
+[ ! -z "$mouse" ] && output=" $mouse"
+[ ! -z "$headphones" ] && output="$output  $headphones"
+[ ! -z "$output" ] && echo "  $output"

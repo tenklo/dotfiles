@@ -1,0 +1,4 @@
+#!/bin/sh
+
+test -d "$1" && path="$1"
+setsid -f $TERMINAL -e $SHELL -ic "cd '$path'; $SHELL -i"

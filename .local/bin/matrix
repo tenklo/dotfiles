@@ -1,0 +1,2 @@
+#!/bin/sh
+[ $[$RANDOM % 2] = 0 ] && xtitle "matrix" && cmatrix -ab | lolcat || (xtitle "matrix" && cmatrix -ab)

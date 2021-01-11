@@ -1,0 +1,12 @@
+#!/bin/sh
+title="pomodoro"
+starten="Die Arbeit starten!"
+pause="Pause machen!"
+worktime=20m
+pausetime=5m
+while true
+    notify-send "$title" "$starten"
+    sleep $worktime
+    notify-send "️️$title" "$pause"
+    sleep $pausetime
+do :; done

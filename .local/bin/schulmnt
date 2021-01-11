@@ -1,0 +1,8 @@
+#!/bin/sh
+credfile="/home/karsten/.local/share/data/.schulcredentials"
+tauschmntpoint="/mnt/schule_tausch/"
+privatmntpoint="/mnt/schule_privat/"
+sudo mount.cifs //its/karsten.kloess $privatmntpoint -o credentials=$credfile,vers=1.0
+sudo mount.cifs //its/tausch $tauschmntpoint -o credentials=$credfile,vers=1.0
+# sudo mount.cifs //its/karsten.kloess /mnt/schule_privat -o username=Karsten.Kloess,vers=1.0
+# sudo mount.cifs //its/tausch /mnt/schule_tausch -o username=Karsten.Kloess,vers=1.0

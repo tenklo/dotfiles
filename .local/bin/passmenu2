@@ -1,0 +1,35 @@
+#!/bin/sh
+
+shopt -s nullglob globstar
+
+typeit=1
+if [[ $1 == "--type" ]]; then
+	typeit=0
+	shift
+fi
+
+prefix=${PASSWORD_STORE_DIR-~/.password-store}
+password_files=( "$prefix"/**/*.gpg )
+password_files=( "${password_files[@]#"$prefix"/}" )
+password_files=( "${password_files[@]%.gpg}" )
+
+[ "$1" = "otp" ] && password=$(printf '%s\n' "${password_files[@]}" | grep -i otp | dmenu) || password=$(printf '%s\n' "${password_files[@]}" | dmenu)
+
+[[ -n $password ]] || exit
+
+echo "$password" | grep -q "otp$" && password=$(pass otp "$password") || password=$(pass "$password")
+
+lines=$(echo "$password" | wc -l)
+[ "$lines" = 1 ] && op="$password"
+
+test -z "$op" && [ "$1" = "username" ] && op="$(echo "$password" | grep -i "username" | cut -d' ' -f2)"
+test -z "$op" && [ "$1" = "password" ] && op="$(echo "$password" | head -n 1)"
+
+test -n "$op" && echo "$op" && exit
+
+test -z "$op" && wassup=$(echo "$password" | tail -n $(expr $lines - 1) | cut -d':' -f1) && options=$(echo -e "$wassup\nPassword") && choice=$(echo "$options" | dmenu ) || exit
+[ "$choice" = "Password" ] && op="$(echo "$password" | head -n 1)" || op="$(echo "$password" | grep "$choice" | cut -d' ' -f2)"
+
+test -z "$op" && exit
+
+echo "$op"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# 1 ist standard output, 2 ist standard error
+# 2>&1 redirected standard error zu standard output, was bereits zu /dev/null redirected ist
+export _JAVA_AWT_WM_NONREPARENTING=1
+snap run phpstorm > /dev/null 2>&1
+#phpstorm
+#phpstorm > /dev/null 2>&1
+#phpstorm 2>&1
+#setsid phpstorm > /dev/null

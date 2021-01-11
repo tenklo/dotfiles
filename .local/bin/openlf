@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$TERMINAL -t "lf" -e $SHELL -c 'tmp="$(mktemp)" && command lf -last-dir-path="$tmp" "$@" && test -f "$tmp" && dir="$(command cat "$tmp")" && rm -f "$tmp" && test -d "$dir" && cd "$dir" && exec $SHELL'

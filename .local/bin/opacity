@@ -1,0 +1,14 @@
+#!/bin/sh
+
+alacrittyconf="$XDG_CONFIG_HOME/alacritty/alacritty.yml"
+xres="$XDG_CONFIG_HOME/X11/xresources"
+
+case $1 in
+    off) opacity=1.0;;
+    toggle) grep "background_opacity: 1.0" $alacrittyconf > /dev/null && opacity=0.9 || opacity=1.0 ;;
+    *[0-9]*) opacity="0.$1";;
+    *) opacity=0.95;;
+esac
+# notify-send -u low -t 1000 "alacritty opacity" "$opacity"
+# sed -i "s/\(background_opacity: \).*$/\1$opacity/" $alacrittyconf
+sed -i "s/\(st\.alpha: \).*$/\1$opacity/" $xres && xrdb -merge $xres

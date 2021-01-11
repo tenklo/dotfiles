@@ -1,0 +1,4 @@
+#!/bin/sh
+file=~/.local/bin/$(ls ~/.local/bin | dmenu) || exit
+
+test -f "$file" && echo "$file"

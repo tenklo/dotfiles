@@ -1,0 +1,13 @@
+#!/bin/sh
+
+confdir=${XDG_CONFIG_HOME:-$HOME/.config}/calcurse
+path=${XDG_DATA_HOME:-$HOME/.local/share}/calcurse
+isalldatadir=$path/.all
+datadir=$(ls $path | dmenu )
+test -f "$isalldatadir" && rm -f "$isalldatadir"
+calcurseupdateall
+test -z "$datadir" && exit
+pidof calcurse > /dev/null && pkill calcurse
+$TERMINAL -t calcurse -e calcurse -D "$path/$datadir" -c "$path/$datadir/$datadir" -C $confdir "$@" &
+echo "$datadir"
+[ "all" == "$datadir" ] && touch "$isalldatadir"

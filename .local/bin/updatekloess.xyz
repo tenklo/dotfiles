@@ -1,0 +1,7 @@
+#!/bin/bash
+
+backuppath="root@homepi:/home/storage/share/backups/$(hostname)"
+pathtobackup="/home/"
+excludes='"karsten/Nextcloud/*","karsten/nextcloud_work/*","karsten/documents/virtualization/*","karsten/.ssh/*"'
+
+rsync -Pvr -e 'ssh -p 69' /home/karsten/documents/projekte/localhost/kloess.org/ karsten@kloess.xyz:/var/www/html/main/

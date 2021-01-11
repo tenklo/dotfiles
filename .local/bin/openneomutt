@@ -1,0 +1,5 @@
+#!/bin/sh
+
+pidof protonmail-bridge || setsid -f protonmail-bridge
+(mw -Y > /dev/null 2>&1 && mailnotify) &
+setsid -f $TERMINAL -t neomutt -e neomutt

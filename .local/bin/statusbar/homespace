@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "$(df /home | awk 'FNR == 2 {print $5}')"
+#echo "$(df /home | awk 'FNR == 2 {print $5}')used"
