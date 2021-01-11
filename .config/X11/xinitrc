@@ -2,6 +2,8 @@
 clipmenud &
 sxhkd &
 dunst &
+(mpd && mpc repeat on && mpc mpc random on) &
+calcurse --daemon &
 
 makescheme
 xsetroot -cursor_name left_ptr &
