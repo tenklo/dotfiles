@@ -1,0 +1,83 @@
+#!/bin/sh
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	mkd="mkdir -pv" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="sudo shutdown -h now" \
+	f="$FILE" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="sudo pacman" \
+	xi="sudo xbps-install" \
+	xr="sudo xbps-remove -R" \
+	xq="xbps-query" \
+	z="zathura"
+
+alias \
+	magit="nvim -c MagitOnly" \
+	ref="shortcut-sync >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcuts ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
+	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
+	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+
+    ncw=~/nextcloud_work
+alias xcolorrgb="xcolor --format rgb"
+alias id3makeartist-title="id3 -a "%1" -t "%2"" # add eg "* - *.m4a"
+alias edc='sudo mount UUID=4A9EFA407D02ABB1 /mnt/edcusb/ && notify-send "edcusb" "mounted"'
+alias uedc='sudo umount /mnt/edcusb/ && notify-send -u critical "edcusb" "unmounted"'
+alias gS='cd ~/documents/screenshots; ls -lh'
+alias swapcaps='setxkbmap -option caps:swapescape &'
+alias vimdiff='nvim -d'
+alias ..='cd ..; ls -lh'
+alias ...='cd ../..; ls -lh'
+alias .='ls -lh'
+alias .c='cd ~/.config; ls -lah'
+alias .s='cd ~/.scripts; ls -lah'
+alias crontab="crontab -i"
+alias diff='diff --color=auto'
+alias e='$EDITOR'
+alias gitac='git add .;git commit'
+alias gnas='cd /media/nas; ls -lh'
+alias grep='grep --color=auto'
+alias gt='cd "$(du ~/* ~/.local ~/.config | cut -f2 | fzf)"; ls -lh'
+alias killx='killall Xorg'
+alias la='exa -lag --color=always --group-directories-first'
+alias lh='exa -lg --color=always --group-directories-first'
+alias ls='exa --color=always --group-directories-first'
+alias r='source ranger'
+alias f='source ranger'
+alias sb='source ~/.bashrc'
+alias ssh='TERM=ansi ssh'
+alias ubw='export BW_SESSION="$(bw unlock --raw)"'
+alias ydl='youtube-dl'
+alias getmusic='youtube-dl -f 140 -x'
+alias arl='autorandr -l laptopstandalone'
+alias arc='autorandr -c'
+alias calcurse='calcurse -D ~/.local/share/calcurse/all -C ~/.config/calcurse'
+alias abook="abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook"
+
+
+alias schulproxys='export http_proxy="http://proxy.its-stuttgart.de:3128/"; export https_proxy="http://proxy.its-stuttgart.de:3128/"; export ftp_proxy="http://proxy.its-stuttgart.de:3128/"; export no_proxy="localhost,127.0.0.1,.its-stuttgart.de"; export HTTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export HTTPS_PROXY="http://proxy.its-stuttgart.de:3128/"; export FTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export NO_PROXY="localhost,127.0.0.1,.its-stuttgart.de"'
+
