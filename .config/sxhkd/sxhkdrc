@@ -29,8 +29,8 @@ super + shift + b
 super + o ; {a,b,f,h,m,p,w,t,z,c,v,1,2}
     {authy,firefox,openfilemanager,$TERMINAL -e htop,startthunderbird,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
 
-super + c ; {c,d,f,h,m,o,r,s,v}
-    {opencalc,dailystandups,openlf,$TERMINAL -e htop,openneomutt,cliptc o,opennewsboat,sshconnections,openvimwiki}
+super + c ; {c,d,f,h,m,o,r,s,v,1}
+    {opencalc,dailystandups,openlf,$TERMINAL -e htop,openneomutt,cliptc o,opennewsboat,sshconnections,openvimwiki,opencalcurse}
 
 super + v ; {w}
 	{win10}
@@ -52,7 +52,7 @@ super + F1
 super + F2
     dmenu-emoji.sh
 super + y ; {p,s,n,c}
-	{ctrldeadbeef prev,ctrldeadbeef play,ctrldeadbeef next,ctrldeadbeef nowp}
+	{mpc prev,mpc toggle,mpc next,notify-send "now playing" "$(mpc current || echo "nothing playing")"}
 
 super + F5
     o "$(editconfigs)"
