@@ -1,6 +1,7 @@
 set previewer ~/.config/lf/preview
 set icons
 set relativenumber on
+set hiddenfiles ".*:snap:StudioProjects:Guild Wars:lost+found"
 
 # commands
 cmd open ${{
@@ -29,6 +30,10 @@ cmd chmod ${{
 
 cmd openterminalhere ${{
     openterminalat "$PWD"
+}}
+
+cmd listshortcuts ${{
+    less ~/.local/share/data/shortcuts
 }}
 
 # unmaps
@@ -61,4 +66,5 @@ map ch chmod
 map @ push $<space>"$f"<left><left><left><left><left>
 
 # shortcuts
+map H listshortcuts
 source "~/.config/lf/shortcuts.conf"
