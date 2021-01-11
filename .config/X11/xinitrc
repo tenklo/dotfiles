@@ -17,7 +17,7 @@ autorandr -c &
 picom &
 unclutter &
 
-dwmblocks
+dwmblocks &
 while :; do
 	ssh-agent dwm
 done
