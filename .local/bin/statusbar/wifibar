@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-INTERFACE=wlp0s20f3
+INTERFACE=$(cat $XDG_DATA_HOME/data/wifiinterface)
 
 #------------------------------------------------------------------------
 if [[ -z "$INTERFACE" ]] ; then
