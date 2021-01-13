@@ -1,11 +1,11 @@
 #!/bin/sh
 
-dataf="/home/karsten/.local/share/data/shortcuts"
+dataf="${XDG_DATA_HOME:-$HOME/.local/share}/data/shortcuts"
 
-ranger_shortcutsf="/home/karsten/.config/ranger/shortcuts.conf"
-lf_shortcutsf="/home/karsten/.config/lf/shortcuts.conf"
-bash_shortcutsf="/home/karsten/.config/bash/shortcuts"
-shell_shortcutsf="/home/karsten/.config/shell/shortcuts"
+ranger_shortcutsf="${XDG_CONFIG_HOME:-$HOME/.config}/ranger/shortcuts.conf"
+lf_shortcutsf="${XDG_CONFIG_HOME:-$HOME/.config}/lf/shortcuts.conf"
+bash_shortcutsf="${XDG_CONFIG_HOME:-$HOME/.config}/bash/shortcuts"
+shell_shortcutsf="${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcuts"
 
 rm -f "$ranger_shortcutsf" "$bash_shortcutsf" "$lf_shortcutsf" "$shell_shortcutsf"
 
