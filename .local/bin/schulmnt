@@ -1,5 +1,5 @@
 #!/bin/sh
-credfile="/home/karsten/.local/share/data/.schulcredentials"
+credfile="${XDG_DATA_HOME:-$HOME/.local/share}/data/.schulcredentials"
 tauschmntpoint="/mnt/schule_tausch/"
 privatmntpoint="/mnt/schule_privat/"
 sudo mount.cifs //its/karsten.kloess $privatmntpoint -o credentials=$credfile,vers=1.0

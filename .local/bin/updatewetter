@@ -1,4 +1,4 @@
 #!/bin/sh
-loc=/home/karsten/.local/share/data
+loc=${XDG_DATA_HOME:-$HOME/.local/share}/data
 curl wttr.in/stuttgart?lang=de > $loc/wetter
 (curl wttr.in/stuttgart?format=%c+%t+%p > $loc/wetterstatus) || rm -f $loc/wetterstatus

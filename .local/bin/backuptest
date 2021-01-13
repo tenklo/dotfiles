@@ -12,5 +12,5 @@ fi
 
 rsync -auP --delete --exclude={"$excludes"} -e ssh "$pathtobackup" "$backuppath/full"
 
-# rsync -ua --delete -vP --inplace --exclude={"/home/karsten/Nextcloud/*","/home/karsten/nextcloud_work/*","/home/karsten/documents/virtualization/*","/home/karsten/.ssh/*"} --backup --backup-dir="$backuppath/incr/$DAY" "$pathtobackup" "$backuppath/full/"
+# rsync -ua --delete -vP --inplace --exclude={"$HOME/Nextcloud/*","$HOME/nextcloud_work/*","$HOME/documents/virtualization/*","$HOME/.ssh/*"} --backup --backup-dir="$backuppath/incr/$DAY" "$pathtobackup" "$backuppath/full/"
 # rsync -a --delete --quiet --inplace --backup --backup-dir="$backuppath"/incr/$DAY "$pathtobackup" "$backuppath"/full/

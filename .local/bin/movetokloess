@@ -1,7 +1,7 @@
 #!/bin/sh
 tomovefolder=crepseite/template
 folder=kloess.org/petitecreperie
-tomove=/home/karsten/documents/projekte/localhost/crepseite/template
+tomove=$HOME/documents/projekte/localhost/crepseite/template
 dest="dnvdicev@host217.checkdomain.de:/var/www/vhosts/dnvdicev.host217.checkdomain.de/$folder"
 read -p "Move $tomovefolder to $folder ? (y/N)" ANS
 [ -z $ANS ] && exit || [ $ANS != "y" ] && exit

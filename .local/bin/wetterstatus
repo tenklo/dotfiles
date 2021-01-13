@@ -1,5 +1,5 @@
 #!/bin/sh
-src="/home/karsten/.local/share/data/wetterstatus"
+src="${XDG_DATA_HOME:-$HOME/.local/share}/data/wetterstatus"
 [ -f $src ] || exit
 grep -qiv "location" "$src" && echo " $(cat "$src" | awk '{print $2 "  " $3 " " $4}')" | sed -e "s/ $//" -e "s/°C/°/" -e "s/+//" -e "s/^ //"
 #[ $(cat $src | wc -l) -eq 0 ] && [ $(grep -iv "location" "$src") ] && echo " $(cat $src | awk '{print $2 "  " $3 " " $4}')" | sed -e "s/ $//" -e "s/°C/°/" -e "s/+//" || echo ""

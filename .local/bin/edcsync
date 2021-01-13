@@ -2,13 +2,13 @@
 
 edcusbmntpnt="/mnt/edcusb"
 uuid=4A9EFA407D02ABB1
-keepassfile="/home/karsten/Nextcloud/Documents/psPasswords.kdbx"
-gnupassstore="/home/karsten/.password-store"
+keepassfile="$HOME/Nextcloud/Documents/psPasswords.kdbx"
+gnupassstore="$HOME/.password-store"
 keepasspwdest="$edcusbmntpnt/psPasswords.kdbx"
 gnupasspwdest="$edcusbmntpnt/.$(hostname)_password-store"
-musicloc="/home/karsten/Nextcloud/nasdaten/music/"
+musicloc="$HOME/Nextcloud/nasdaten/music/"
 musicdest="$edcusbmntpnt/music"
-isosloc="/home/karsten/documents/isos/"
+isosloc="$HOME/documents/isos/"
 isosdest="$edcusbmntpnt/isos"
 
 pwop="-p"
