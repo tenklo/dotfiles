@@ -8,6 +8,7 @@ datadirs=$(command ls)
 mkdir all
 for d in $datadirs
 do
+    [ -f "$d/$d" ] || touch "$d/$d"
     cp -r "$path/$d/notes/" "all/"
     cat "$d/$d" >> "all/all"
     cat "$d/todo" >> "all/todo"
