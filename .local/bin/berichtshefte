@@ -1,6 +1,6 @@
 #!/bin/sh
 
-path=/home/karsten/nextcloud_work/Berichtsheft
+path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
 from=fooo
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"

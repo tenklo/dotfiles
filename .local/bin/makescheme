@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wploc="/home/karsten/.config/wallpaper"
+wploc="${XDG_CONFIG_HOME:-$HOME/.config}/wallpaper"
 pic="$wploc"
 
 [ -f "$pic" ] || exit

@@ -1,6 +1,6 @@
 #!/bin/sh
 currentID="83265129487"
-path=/home/karsten/documents/notizen/dailystandup
+path=$HOME/documents/notizen/dailystandup
 today="heute"
 tmrw="morgen"
 twod="übermorgen"

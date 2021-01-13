@@ -1,3 +1,3 @@
 #!/bin/sh
 #curl wttr.in
-cat /home/karsten/.local/share/data/wetter
+cat ${XDG_DATA_HOME:-$HOME/.local/share}/data/wetter
