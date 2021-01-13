@@ -2,10 +2,10 @@
 clipmenud &
 sxhkd &
 dunst &
-(mpd && mpc repeat on && mpc mpc random on) &
+(mpd && mpc repeat on && mpc random on) &
 calcurse --daemon &
 
-makescheme
+(autorandr -c; makescheme) &
 xsetroot -cursor_name left_ptr &
 toggleredshift &
 togglelocker &
@@ -13,7 +13,6 @@ togglelocker &
 nextcloud &
 
 setxkbmap -option caps:swapescape &
-autorandr -c &
 picom &
 unclutter &
 
