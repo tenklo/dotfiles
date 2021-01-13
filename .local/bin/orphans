@@ -4,4 +4,3 @@
 
 [ "$1" = "rm" ] && sudo pacman -Rns $(pacman -Qtdq) && exit
 [ "$1" = "-h" ] && echo "'orphans rm' to delete orphans" && exit
-exit
