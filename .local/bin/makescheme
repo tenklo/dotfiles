@@ -3,7 +3,7 @@
 wploc="${XDG_CONFIG_HOME:-$HOME/.config}/wallpaper"
 pic="$wploc"
 
-[ -f "$pic" ] || exit
+[ -f "$pic" ] || exit 1
 
 wal -c
 wal -ni "$pic"
