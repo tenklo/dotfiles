@@ -2,7 +2,6 @@
 clipmenud &
 sxhkd &
 dunst &
-(mpd && mpc repeat on && mpc random on) &
 calcurse --daemon &
 
 (autorandr -c; makescheme) &
