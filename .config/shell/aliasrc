@@ -41,6 +41,8 @@ alias \
 	ref="shortcut-sync >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcuts ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
 	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+    wget="wget --hsts-file="$XDG_CACHE_HOME"/wget-hsts"
+    yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
     ncw=~/nextcloud_work
 alias xcolorrgb="xcolor --format rgb"
