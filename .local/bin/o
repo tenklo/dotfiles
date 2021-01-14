@@ -29,8 +29,7 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
     gopher*)
         opener="$gopherbrowser";;
     http*|www.*)
-        opener="$webbrowser"
-        setsid -f xterm -e "$opener" "$1" >/dev/null 2>&1 && exit ;;
+        opener="$webbrowser";;
     *.html)
         opener="$webbrowser";;
 esac
