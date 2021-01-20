@@ -18,5 +18,5 @@ case $selection in
 esac
 
 [ ! -z "$date" ] && file="$path/$date.md" || exit
-[ ! -f $file ] && echo -e "# <++>\n\n## <++>\n\n<++>\n\n# <++>\n\n<++>" >> $file
+[ ! -f $file ] && echo -e "# <++>\n\n## <++>\n\n<++>\n\n# Heute\n\n<++>" >> $file
 $TERMINAL -e $EDITOR $file
