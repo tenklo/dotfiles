@@ -58,6 +58,9 @@ case "$mime" in
         opener="$READER";;
     application/*)
         (LANG=de_DE.utf8 setsid -f libreoffice "$@" &) && exit;;
+    application/pgp-keys)
+        opener="gpg --import";;
+
     ???)
         notify-send "o" "not yet handleable";;
     *)
