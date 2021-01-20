@@ -52,15 +52,14 @@ case "$mime" in
         opener="$images";;
     text/calendar)
         opencalcurse -i "$1" && exit ;;
+    application/pgp-keys)
+        opener="gpg --import";;
     application/zip)
         echo "nothing implemented" ;;
     application/pdf|application/epub*)
         opener="$READER";;
     application/*)
         (LANG=de_DE.utf8 setsid -f libreoffice "$@" &) && exit;;
-    application/pgp-keys)
-        opener="gpg --import";;
-
     ???)
         notify-send "o" "not yet handleable";;
     *)
