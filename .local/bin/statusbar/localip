@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+route=$(ip route get 1 2>&1)
+echo "$route" | grep -iq "unreachable" && echo "" && exit
+local_ip="$(echo "$route" | awk -F'src' '{print $2; exit}')"
+local_ip="${local_ip/uid*}"
+[[ -z "$local_ip" ]] && local_ip="$(ifconfig -a | awk '/broadcast/ {print $2; exit}')"
+echo "$local_ip" | grep -qiv "unreachable" && echo "$local_ip" | sed 's/ //g' || echo ""
