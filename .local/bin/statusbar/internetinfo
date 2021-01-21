@@ -29,8 +29,8 @@ QUALITY=$(grep $INTERFACE /proc/net/wireless | awk '{ print int($3 * 100 / 70) }
 IP=$(localip)
 
 #------------------------------------------------------------------------
-output=" $(outsidereachable)"
-test -n "$QUALITY" && output="$output $QUALITY"
+outsidereachable > /dev/null && output=" " || output=" "
+test -n "$QUALITY" && output="$output $QUALITY%"
 # test -n "$IP" && output="$output $IP"
 
 echo "$output"
