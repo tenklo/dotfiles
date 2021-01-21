@@ -31,6 +31,6 @@ IP=$(localip)
 #------------------------------------------------------------------------
 outsidereachable > /dev/null && output=" " || output=" "
 test -n "$QUALITY" && output="$output $QUALITY%"
-# test -n "$IP" && output="$output $IP"
+test -n "$IP" && output="$output $IP"
 
 echo "$output"
