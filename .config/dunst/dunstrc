@@ -154,7 +154,7 @@
     stack_duplicates = true
 
     # Hide the count of stacked notifications with the same content
-    hide_duplicate_count = false
+    hide_duplicate_count = true
 
     # Display indicators for URLs (U) and actions (A).
     show_indicators = yes
@@ -169,7 +169,11 @@
 
     # Paths to default icons.
 #    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
-    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
+    icon_path = /usr/share/icons/Adwaita/48x48/status/:/usr/share/icons/Adwaita/48x48/devices/:/usr/share/icons/Adwaita/48x48/places/:/usr/share/icons/Adwaita/48x48/places/:/usr/share/icons/Adwaita/48x48/actions/:/usr/share/icons/Adwaita/48x48/apps/:/usr/share/icons/Adwaita/48x48/categories/:/usr/share/icons/Adwaita/48x48/legacy/:/usr/share/icons/Adwaita/48x48/mimetypes/
+
+
+
+
 
     ### History ###
 
@@ -372,11 +376,11 @@
 #        If the notification is already drawn, it won't get undrawn.
 # pushback: same as delay, but when switching into fullscreen, the notification will get
 #           withdrawn from screen again and will get delayed like a new notification
-#[fullscreen_delay_everything]
-#    fullscreen = delay
-#[fullscreen_show_critical]
-#    msg_urgency = critical
-#    fullscreen = show
+[fullscreen_delay_everything]
+    fullscreen = delay
+[fullscreen_show_critical]
+    msg_urgency = critical
+    fullscreen = show
 
 #[espeak]
 #    summary = "*"
