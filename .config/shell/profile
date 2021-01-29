@@ -17,6 +17,7 @@ export TERMINAL="st"
 export READER="zathura"
 export PAGER=w3m
 export MANPAGER=less
+export MERGETOOL="nvim -d"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
