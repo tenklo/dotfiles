@@ -80,6 +80,7 @@ alias arc='autorandr -c'
 alias calcurse='calcurse -D ~/.local/share/calcurse/all -C ~/.config/calcurse'
 alias abook="abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook"
 alias muttlog="cat $XDG_CONFIG_HOME/mutt/log"
+alias cat='bat --pager less'
 
 
 alias schulproxys='export http_proxy="http://proxy.its-stuttgart.de:3128/"; export https_proxy="http://proxy.its-stuttgart.de:3128/"; export ftp_proxy="http://proxy.its-stuttgart.de:3128/"; export no_proxy="localhost,127.0.0.1,.its-stuttgart.de"; export HTTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export HTTPS_PROXY="http://proxy.its-stuttgart.de:3128/"; export FTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export NO_PROXY="localhost,127.0.0.1,.its-stuttgart.de"'
