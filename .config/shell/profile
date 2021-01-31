@@ -13,6 +13,7 @@ unsetopt PROMPT_SP
 # Default programs:
 export EDITOR="nvim"
 export BROWSER="o"
+export GUIBROWSER="librewolf"
 export TERMINAL="st"
 export READER="zathura"
 export PAGER=w3m
