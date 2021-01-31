@@ -2,10 +2,9 @@
 
 DAY=$(date +%A)
 remote="root@homepi"
-backuppath="$remote:/home/storage/share/backups/$(hostname)"
-pathstobackup=("${XDG_CONFIG_HOME:-$HOME/.config}" "${XDG_DATA_HOME:-$HOME/.local/share}" "$HOME/.local/bin")
-excludes='"karsten/Nextcloud/*","karsten/nextcloud_work/*","karsten/documents/virtualization/*","karsten/.ssh/*"'
+backuppath="/home/storage/share/backups/$(hostname)"
+pathstobackup=("${XDG_CONFIG_HOME:-$HOME/.config/}" "${XDG_DATA_HOME:-$HOME/.local/share/}" "$HOME/.local/bin/")
 
 for path in "${pathstobackup[@]}"; do
-    rsync -a --delete --inplace --backup --backup-dir="/incr/$DAY$path" "$path" "$backuppath/full$path"
+    rsync -a --delete --inplace --backup --backup-dir="$backuppath/incr/$DAY/" "$path" "$remote:$backuppath/full$path/"
 done
