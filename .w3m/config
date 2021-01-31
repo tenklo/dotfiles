@@ -79,7 +79,7 @@ editor /usr/bin/nvim
 mailto_options 1
 mailer /usr/bin/mail
 extbrowser surf
-extbrowser2 firefox --new-window
+extbrowser2 librewolf --new-window
 extbrowser3 o
 extbrowser4 mpv
 extbrowser5 
