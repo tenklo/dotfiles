@@ -28,6 +28,8 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
         notify-send "o" "loading media";;
     *lbry.tv/*|*odysee.com*)
         setsid -f $interm mpv --ytdl-raw-options=username=spamram@protonmail.com,password=$(pass ps/lbry.tv/account | head -n 1) "$1"; exit;;
+    http*.jpg)
+        o $(dlpico "$1"); exit;;
     gopher*)
         opener="$gopherbrowser";;
     http*|www.*)
