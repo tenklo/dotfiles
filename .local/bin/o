@@ -8,6 +8,7 @@ test -d "$@" && echo "this is a directory, nothing to do" && exit
 
 webbrowser=w3m
 gopherbrowser=lynx
+geminibrowser=amfora
 videoaudio=mpv
 videoaudioweb=mpv
 reader=$READER
@@ -32,6 +33,8 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
         o $(dlpico "$1"); exit;;
     gopher*)
         opener="$gopherbrowser";;
+    gemini*)
+        opener="$geminibrowser";;
     http*|www.*)
         opener="$webbrowser";;
     *.html)
