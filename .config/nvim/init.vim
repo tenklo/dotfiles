@@ -25,6 +25,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'mzlogin/vim-markdown-toc'
+" webbrowser
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 call plug#end()
 
 let g:vimwiki_list = [{'path': '~/Nextcloud/vimwiki/'}]
