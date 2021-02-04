@@ -9,7 +9,7 @@ engine=$(sort $engines | cut -d';' -f1 | $menu)
 url=$(grep "$engine" $engines | cut -d';' -f2)
 [ -z "$url" ] && exit
 
-test -n "$1" && search="$@" || search=$(echo "https://" | $menu )
+test -n "$1" && search="$@" || search=$(printf "https://\ngopher://\ngemini://" | $menu )
 test -z "$search" && exit
 
 [ "$url" = "none" ] && echo "$search" || echo "$url$search"
