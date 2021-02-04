@@ -60,7 +60,7 @@ case "$mime" in
     application/pgp-keys)
         opener="gpg --import";;
     application/zip)
-        echo "nothing implemented" ;;
+        setsid -f unzip -l "$1" | less; exit;;
     application/pdf|application/epub*)
         opener="$READER";;
     application/*)
