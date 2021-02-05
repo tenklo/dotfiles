@@ -10,6 +10,7 @@ duckduckgo searchengine;https://duckduckgo.com/?q=
 duden.de;https://www.duden.de/suchen/dudenonline/
 ebay.de;https://www.ebay.de/sch/i.html?&_nkw=
 english oxford dictionary;https://www.oxfordlearnersdictionaries.com/spellcheck/english/?q=
+gemini searchengine gus.guru;gemini://gus.guru/search?
 github;https://github.com/search?q=
 gls sendungsverfolgung;https://www.gls-pakete.de/en/parcel-tracking#?trackingNumber=
 google;https://www.google.de/search?q=
