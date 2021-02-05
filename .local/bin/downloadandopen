@@ -1,0 +1,4 @@
+#!/bin/sh
+# download and output path
+
+o "$(dlandop "$1")"
