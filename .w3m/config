@@ -82,7 +82,7 @@ extbrowser surf
 extbrowser2 librewolf --new-window
 extbrowser3 o
 extbrowser4 mpv
-extbrowser5 
+extbrowser5 downloadandopen
 extbrowser6 
 extbrowser7 
 extbrowser8 

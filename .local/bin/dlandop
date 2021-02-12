@@ -1,0 +1,4 @@
+#!/bin/sh
+# download and output path
+
+tmp="$(mktemp)" && wget --quiet --output-document="$tmp" "$1" && echo "$tmp"
