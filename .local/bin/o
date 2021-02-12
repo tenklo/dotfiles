@@ -61,6 +61,8 @@ case "$mime" in
         opener="gpg --import";;
     application/zip)
         setsid -f unzip -l "$1" | less; exit;;
+    application/x-rar)
+        setsid -f unrar l "$1" | less; exit;;
     application/pdf|application/epub*)
         opener="$READER";;
     application/*)
