@@ -49,6 +49,8 @@ super + shift + x
 
 super + F1
     clipmenu
+super + shift + F1
+	clipmenu && xsel -o | tr \\\n \\\r | sed 's/\r*$//g' | xdotool type --clearmodifiers --file -
 super + F2
     dmenu-emoji.sh
 super + y ; {p,s,n,c}
