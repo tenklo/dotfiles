@@ -12,6 +12,10 @@ cmd mkdir push %mkdir<space>-p<space>
 
 cmd mkfile push %touch<space>
 
+cmd aunpack ${{
+    aunpack "$f"
+}}
+
 cmd setwallpaper ${{
     setbg "$f"
 }}
@@ -64,6 +68,8 @@ map <c-t> openterminalhere
 map ch chmod
 
 map @ push $<space>"$f"<left><left><left><left><left>
+
+map x aunpack "$f"
 
 # shortcuts
 map H listshortcuts
