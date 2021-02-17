@@ -11,20 +11,27 @@ musicdest="$edcusbmntpnt/music"
 isosloc="$HOME/documents/isos/"
 isosdest="$edcusbmntpnt/isos"
 
-pwop="-p"
-musicop="-m"
-isoop="-i"
-
 lsblkop=$(lsblk -f)
 lsblk -f | grep -i "$uuid" | grep -i "$edcusbmntpnt" > /dev/null || exit
 
-[ -z "$1" ] && echo -e "Give Options\n    $pwop    for passwords\n    $musicop    for music\n    $isoop    for isos\n    -a    for everything" && exit
+syncpw() {
+    [ -f "$keepassfile" ] && rsync -vu "$keepassfile" "$keepasspwdest" && echo "keepass passwords synced." || echo "keepass passwords not synced."
+    [ -d "$gnupassstore" ] && rsync -vru "$gnupassstore" "$gnupasspwdest" && echo "pass passwords synced." || echo "pass passwords not synced."
+}
 
+syncmusic() {
+    [ -d $musicloc ] && [ -d $musicdest ] && rsync -vru "$musicloc" "$musicdest" && echo "music synced." || echo "music not synced."
+}
 
-[ "$1" = "-a" -o "$1" = "$pwop" ] && [ -f "$keepassfile" ] && rsync -vu "$keepassfile" "$keepasspwdest" && echo "keepass passwords synced." || echo "keepass passwords not synced."
-[ "$1" = "-a" -o "$1" = "$pwop" ] && [ -d "$gnupassstore" ] && rsync -vru "$gnupassstore" "$gnupasspwdest" && echo "pass passwords synced." || echo "pass passwords not synced."
+syncisos() {
+    [ -d $isosloc ] && [ -d $isosdest ] && rsync -vru "$isosloc" "$isosdest" && echo "isos synced." || echo "isos not synced."
+}
 
-[ "$1" = "-a" -o "$1" = "$musicop" ] && [ -d $musicloc ] && [ -d $musicdest ] && rsync -vru "$musicloc" "$musicdest" && echo "music synced." || echo "music not synced."
-
-[ "$1" = "-a" -o "$1" = "$isoop" ] && [ -d $isosloc ] && [ -d $isosdest ] && rsync -vru "$isosloc" "$isosdest" && echo "isos synced." || echo "isos not synced."
+while getopts "aimp" o; do case "${o}" in
+    a) syncpw; syncmusic; syncisos;;
+    i) syncisos;;
+    m) syncmusic;;
+    p) syncpw;;
+    *) echo -e "Give Options\n    $pwop    for passwords\n    $musicop    for music\n    $isoop    for isos\n    -a    for everything" && exit
+esac done
 echo "Done."
