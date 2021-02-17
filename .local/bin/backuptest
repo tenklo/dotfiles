@@ -2,7 +2,9 @@
 
 DAY=$(date +%A)
 remote="root@homepi"
-backuppath="/home/storage/share/backups/$(hostname)"
+hostname=$(hostname)
+test -n "$hostname" || exit 1
+backuppath="/home/storage/share/backups/$hostname"
 pathstobackup=("${XDG_CONFIG_HOME:-$HOME/.config/}" "${XDG_DATA_HOME:-$HOME/.local/share/}" "$HOME/.local/bin/")
 
 for path in "${pathstobackup[@]}"; do
