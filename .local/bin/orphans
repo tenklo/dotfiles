@@ -2,7 +2,7 @@
 # returns number of orphans on system. use rm option to remove existing orphans
 
 helptext() {
-    printf "orphans help:\norphans -r to delete orphans\norphans -s to list how many orphans are on the system (empty meaning none)";
+    printf "orphans help:\n    orphans -r to delete orphans\n    orphans -s to list how many orphans are on the system (empty meaning none)";
 }
 
 while getopts "hrs" o; do case "${o}" in
