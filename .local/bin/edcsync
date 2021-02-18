@@ -3,7 +3,7 @@
 edcusbmntpnt="/mnt/edcusb"
 uuid=4A9EFA407D02ABB1
 keepassfile="$HOME/Nextcloud/Documents/psPasswords.kdbx"
-gnupassstore="$HOME/.password-store"
+gnupassstore="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
 keepasspwdest="$edcusbmntpnt/psPasswords.kdbx"
 gnupasspwdest="$edcusbmntpnt/.$(hostname)_password-store"
 musicloc="$HOME/Nextcloud/nasdaten/music/"
