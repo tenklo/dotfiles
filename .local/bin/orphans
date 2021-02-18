@@ -1,10 +1,14 @@
 #!/bin/sh
 # returns number of orphans on system. use rm option to remove existing orphans
 
+helptext() {
+    printf "orphans -r to delete orphans\norphans -s to list how many orphans are on the system (empty meaning none)";
+}
 
 while getopts "hrs" o; do case "${o}" in
     r) sudo pacman -Rns $(pacman -Qtdq);;
     s) or=$(pacman -Qtdq | wc -l) && [ "$or" -gt 0 ] && echo "  $or orphans";;
-    *) printf "orphans -r to delete orphans\norphans -s to list how many orphans are on the system";;
+    *) helptext;;
 esac done
 echo ""
+test -z "$@" && helptext
