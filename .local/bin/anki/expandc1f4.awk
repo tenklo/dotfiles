@@ -1,4 +1,5 @@
 #!/bin/awk -f
+# This script takes a text file, the exported note type "Choose 1 from 4" from anki, and outputs lines to be imported into anki again. Every previous card is turned into four new cards, asking if the option you were originally able to choose from is actually the right answer
 
 BEGIN {
 FS = "|"
