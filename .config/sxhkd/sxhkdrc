@@ -29,8 +29,8 @@ super + shift + b
 super + o ; {a,b,f,h,m,p,w,t,z,c,v,1,2}
     {authy,$GUIBROWSER,openfilemanager,$TERMINAL -e htop,startthunderbird,keepassxc,win10,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
 
-super + c ; {c,d,f,h,m,o,r,s,v,1,3}
-    {opencalc,dailystandups,openlf,$TERMINAL -e htop,openneomutt,cliptc o,opennewsboat,sshconnections,openvimwiki,opencalcurse,openncmpcpp}
+super + c ; {c,d,f,h,m,o,r,s,v,y,1,3}
+    {opencalc,dailystandups,openlf,$TERMINAL -e htop,openneomutt,cliptc o,opennewsboat,sshconnections,openvimwiki,openytfzf,opencalcurse,openncmpcpp}
 
 super + v ; {w}
 	{win10}
