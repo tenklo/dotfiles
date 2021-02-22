@@ -7,8 +7,7 @@ helptext() {
 
 while getopts "hrs" o; do case "${o}" in
     r) sudo pacman -Rns $(pacman -Qtdq);;
-    s) or=$(pacman -Qtdq | wc -l) && [ "$or" -gt 0 ] && echo "  $or orphans";;
+    s) or=$(pacman -Qtdq | wc -l) && [ "$or" -gt 0 ] && echo "  $or orphans" || echo "";;
     *) helptext;;
 esac done
-echo ""
 test -z "$@" && helptext
