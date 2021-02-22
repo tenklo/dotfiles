@@ -1,0 +1,4 @@
+#/bin/sh
+
+q=$(echo "" | dmenu)
+$TERMINAL -e ytfzf "$q"
