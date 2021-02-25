@@ -10,8 +10,12 @@ prevweek=".."
 all="all"
 selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$all" | dmenu -p "Berichtsheft") || exit
 
+all () {
+    libreoffice "$path/$(ls "$path" | sort -r | dmenu)";
+}
+
 case $selection in
-    $all) $TERMINAL -e libreoffice "$path/$(ls "$path" | sort -r | dmenu)"; exit;;
+    $all) all; exit;;
     $thisweek) [ $(date +%u) -eq 1 ] && file="$(date -dthis-monday +%y%m%d)$suffix" || file="$(date -dlast-monday +%y%m%d)$suffix";;
     $nextweek) file="$(date -dnext-monday +%y%m%d)$suffix";;
     $prevweek) [ $(date +%u) -eq 1 ] && file="$(date -dlast-monday +%y%m%d)$suffix" || file="$(date -d'monday-14 days' +%y%m%d)$suffix";;
