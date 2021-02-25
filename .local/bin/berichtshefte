@@ -28,7 +28,7 @@ esac
 monday=$(echo "$file" | cut -d'_' -f1)
 file="$path/$file"
 
-to="$(date -d "$monday" +%d.%m) - $(date -d "$monday +4 days" +%d.%m.%Y)"
+to="$(date -d "$monday" +%d.%m.) - $(date -d "$monday +4 days" +%d.%m.%Y)"
 
 [ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$from#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
 openinlo "$file"
