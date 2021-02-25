@@ -15,7 +15,7 @@ all () {
 }
 
 openinlo () {
-    libreoffice "$1"
+    libreoffice "$1" > /dev/null 2>&1
 }
 
 case $selection in
@@ -30,4 +30,4 @@ file="$path/$file"
 to="$(date -d "$monday" +%d.%m) - $(date -d "$monday +4 days" +%d.%m.%Y)"
 
 [ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$from#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
-openinlo "$file" > /dev/null 2>&1
+openinlo "$file"
