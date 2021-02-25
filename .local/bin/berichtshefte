@@ -3,6 +3,7 @@
 
 # Options
 viewoutput=true
+opener="libreoffice"
 
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
@@ -19,11 +20,12 @@ all () {
 }
 
 openinlo () {
-    [ "$viewoutput" = "true" ] && libreoffice "$1" > /dev/null 2>&1
+    [ "$viewoutput" = "true" ] && $opener "$1" > /dev/null 2>&1
 }
 
-while getopts "o" o; do case "${o}" in
+while getopts "op:" o; do case "${o}" in
     o) viewoutput=false;;
+    p) opener="$OPTARG";;
 esac done
 
 case $selection in
