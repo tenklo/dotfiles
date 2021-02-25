@@ -1,6 +1,9 @@
 #!/bin/sh
 # allows the user to choose existing and create new report booklets. The correct dates for the week are filled in automatically
 
+# Options
+viewoutput=true
+
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
 from=fooo
@@ -16,8 +19,12 @@ all () {
 }
 
 openinlo () {
-    libreoffice "$1" > /dev/null 2>&1
+    [ "$viewoutput" = "true" ] && libreoffice "$1" > /dev/null 2>&1
 }
+
+while getopts "o" o; do case "${o}" in
+    o) viewoutput=false;;
+esac done
 
 case $selection in
     $all) all; exit;;
