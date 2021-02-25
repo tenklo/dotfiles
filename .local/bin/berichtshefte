@@ -11,7 +11,11 @@ all="all"
 selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$all" | dmenu -p "Berichtsheft") || exit
 
 all () {
-    libreoffice "$path/$(ls "$path" | sort -r | dmenu)";
+    openinlo "$path/$(ls "$path" | sort -r | dmenu)";
+}
+
+openinlo () {
+    libreoffice "$1"
 }
 
 case $selection in
@@ -26,4 +30,4 @@ file="$path/$file"
 to="$(date -d "$monday" +%d.%m) - $(date -d "$monday +4 days" +%d.%m.%Y)"
 
 [ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$from#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
-libreoffice "$file" > /dev/null 2>&1
+openinlo "$file" > /dev/null 2>&1
