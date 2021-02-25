@@ -1,4 +1,5 @@
 #!/bin/sh
+# allows the user to choose existing and create new report booklets. The correct dates for the week are filled in automatically
 
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
