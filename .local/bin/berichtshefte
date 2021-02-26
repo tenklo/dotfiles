@@ -7,7 +7,10 @@ opener="libreoffice"
 
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
-from=fooo
+placeholderausbildungswoche=~Ausbildungswoche~
+placehholderausbildungsjahr=~Ausbildungsjahr~
+placeholderfaecher=~Faecher&Inhalt~
+placeholderstunden=~StundenProFach~
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"
 nextweek="next"
 thisweek="."
@@ -39,5 +42,5 @@ file="$path/$file"
 
 to="$(date -d "$monday" +%d.%m.) - $(date -d "$monday +4 days" +%d.%m.%Y)"
 
-[ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$from#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
+[ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
 openinlo "$file"
