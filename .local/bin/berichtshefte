@@ -5,17 +5,18 @@
 viewoutput=true
 opener="libreoffice"
 
+placehholderausbildungsjahr=~Ausbildungsjahr~
+placeholderausbildungswoche=~Ausbildungswoche~
+placeholderbetrtaetigkeit=~BetrieblicheTaetigkeiten~
+placeholderfaecher=~Faecher&Inhalt~
+placeholdername=~NameAzubi~
+placeholdersonstiges=~Sonstiges~
+placeholderstundenbetrtaetigkeit=~StundenProBetrTaetigkeit~
+placeholderstundenfaecher=~StundenProFach~
+placeholderstundensonstiges=~StundenProSonstiges~
+
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
-placeholderausbildungswoche=~Ausbildungswoche~
-placehholderausbildungsjahr=~Ausbildungsjahr~
-placeholderfaecher=~Faecher&Inhalt~
-placeholderstundenfaecher=~StundenProFach~
-placeholdersonstiges=~Sonstiges~
-placeholderstundensonstiges=~StundenProSonstiges~
-placeholderbetrtaetigkeit=~BetrieblicheTaetigkeiten~
-placeholderstundenbetrtaetigkeit=~StundenProBetrTaetigkeit~
-
 ausbildungsjahr=$(expr $(python -c "from datetime import date as d; print(d.today() - d(2019, 9, 1))" | sed 's/\(^[0-9]*\s\).*$/\1/') / 365 + 1)
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"
 nextweek="next"
@@ -30,6 +31,11 @@ all () {
 
 openinlo () {
     [ "$viewoutput" = "true" ] && $opener "$1" > /dev/null 2>&1
+}
+
+modifytemplate(){
+    (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
+
 }
 
 while getopts "op:" o; do case "${o}" in
@@ -48,5 +54,5 @@ file="$path/$file"
 
 to="$(date -d "$monday" +%d.%m.) - $(date -d "$monday +4 days" +%d.%m.%Y)"
 
-[ -f "$file" ] || (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
+[ -f "$file" ] || modifytemplate
 openinlo "$file"
