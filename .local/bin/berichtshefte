@@ -10,7 +10,13 @@ tmp=/tmp/berichtsheft
 placeholderausbildungswoche=~Ausbildungswoche~
 placehholderausbildungsjahr=~Ausbildungsjahr~
 placeholderfaecher=~Faecher&Inhalt~
-placeholderstunden=~StundenProFach~
+placeholderstundenfaecher=~StundenProFach~
+placeholdersonstiges=~Sonstiges~
+placeholderstundensonstiges=~StundenProSonstiges~
+placeholderbetrtaetigkeit=~BetrieblicheTaetigkeiten~
+placeholderstundenbetrtaetigkeit=~StundenProBetrTaetigkeit~
+
+ausbildungsjahr=$(expr $(python -c "from datetime import date as d; print(d.today() - d(2019, 9, 1))" | sed 's/\(^[0-9]*\s\).*$/\1/') / 365 + 1)
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"
 nextweek="next"
 thisweek="."
