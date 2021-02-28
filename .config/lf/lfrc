@@ -57,6 +57,7 @@ map D delete
 map yy copy
 map dd cut
 map cc reload
+map <c-l> clear
 map o open
 map ee $$EDITOR "$f"
 map es $sudo $EDITOR "$f"

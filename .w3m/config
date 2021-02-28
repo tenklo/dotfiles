@@ -1,7 +1,7 @@
 tabstop 8
 indent_incr 4
-pixel_per_char 11
-pixel_per_line 27
+pixel_per_char 16
+pixel_per_line 36
 frame 0
 target_self 0
 open_tab_blank 0
@@ -78,11 +78,11 @@ urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap
 editor /usr/bin/nvim
 mailto_options 1
 mailer /usr/bin/mail
-extbrowser surf
-extbrowser2 librewolf --new-window
-extbrowser3 o
-extbrowser4 mpv
-extbrowser5 downloadandopen
+extbrowser librewolf --new-window
+extbrowser2 o
+extbrowser3 mpv
+extbrowser4 downloadandopen
+extbrowser5
 extbrowser6
 extbrowser7
 extbrowser8
