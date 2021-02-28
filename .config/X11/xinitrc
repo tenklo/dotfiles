@@ -1,7 +1,7 @@
 [[ -f ~/.config/X11/xresources ]] && xrdb -merge -I$HOME ~/.config/X11/xresources &
 clipmenud &
 sxhkd &
-(sleep 2s && dunst) &
+(sleep 10s && dunst) &
 calcurse --daemon &
 
 (autorandr -c; makescheme) &
