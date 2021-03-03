@@ -24,6 +24,9 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
         opener=yed;;
     *.sc)
         opener=sc-im;;
+    *.nsd)
+        interm="";
+        opener=structorizer;;
     *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*)
         opener="$videoaudioweb"
         notify-send "o" "loading media";;
