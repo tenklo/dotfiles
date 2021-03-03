@@ -16,6 +16,10 @@ cmd aunpack ${{
     aunpack "$f"
 }}
 
+cmd guifilemanager ${{
+    pcmanfm "$PWD"
+}}
+
 cmd setwallpaper ${{
     setbg "$f"
 }}
@@ -71,6 +75,8 @@ map ch chmod
 map @ push $<space>"$f"<left><left><left><left><left>
 
 map x aunpack "$f"
+
+map O guifilemanager
 
 # shortcuts
 map H listshortcuts
