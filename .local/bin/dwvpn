@@ -1,7 +1,7 @@
 #!/bin/sh
 
 connect() {
-    creds=$(pass digitalworx/vpn/kk-vpn) && (sudo vpnc --gateway "$(echo "$creds" | grep "Server" | cut -d' ' -f2)" --id "$(echo "$creds" | grep "Gruppenname" | cut -d' ' -f2)" --username "$(echo "$creds" | grep "Username" | cut -d' ' -f2)" --secret "$(echo "$creds" | grep "Sharedsecret" | cut -d' ' -f2)" --password "$(echo "$creds" | head -n 1)" || echo "vpn already up?" && exit) && notify-send "dwvpn" "connected"
+    creds=$(pass digitalworx/vpn/kk-vpn) && (sudo vpnc --gateway "$(echo "$creds" | grep "Server" | cut -d' ' -f2)" --id "$(echo "$creds" | grep "Gruppenname" | cut -d' ' -f2)" --username "$(echo "$creds" | grep "Username" | cut -d' ' -f2)" --secret "$(echo "$creds" | grep "Sharedsecret" | cut -d' ' -f2)" --password "$(echo "$creds" | head -n 1)" || echo "vpn already up?" && exit 2) && notify-send "dwvpn" "connected"
 }
 
 disconnect() {
@@ -11,5 +11,5 @@ disconnect() {
 while getopts "cdh" o; do case "${o}" in
     c) connect || exit 1 ;;
     d) disconnect || exit 1 ;;
-    *) echo "dwvpn help" && echo "Options:" && echo "    -u to connect" && echo "    -d to disconnect" && exit 2;;
+    *) echo "dwvpn help" && echo "Options:" && echo "    -c to connect" && echo "    -d to disconnect" && exit 0;;
 esac done
