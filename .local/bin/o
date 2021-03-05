@@ -24,11 +24,12 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
         opener=yed;;
     *.sc)
         opener=sc-im;;
-    *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*)
+    *.nsd)
+        interm="";
+        opener=structorizer;;
+    *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*|*lbry.tv/*|*odysee.com*)
         opener="$videoaudioweb"
         notify-send "o" "loading media";;
-    *lbry.tv/*|*odysee.com*)
-        setsid -f $interm mpv --ytdl-raw-options=username=spamram@protonmail.com,password=$(pass ps/lbry.tv/account | head -n 1) "$1"; exit;;
     http*.jpg)
         opener="downloadandopen";;
     gopher*)
