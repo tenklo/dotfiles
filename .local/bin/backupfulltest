@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#rsync -a --exclude={'file1.txt','dir1/*','dir2'} src_directory/ dst_directory/
+
+DAY=$(date +%A)
+remote="root@homepi"
+hostname=$(hostname)
+test -n "$hostname" || exit 1
+backuppath="/home/storage/share/backups/$hostname"
+pathstobackup=("/")
+
+for path in "${pathstobackup[@]}"; do
+    rsync -aP --delete --inplace --backup --exclude={'mnt/*','tmp/*','sys/*','dev/*','var/*','proc/*','home/*/Nextcloud','home/*/nextcloud_work','home/*/documents/VirtualBox VMs','media/*','lost+found'} --backup-dir="$backuppath/incr/$DAY/" "$path" "$remote:$backuppath/full/"
+done
