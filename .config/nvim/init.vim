@@ -146,7 +146,6 @@ map <leader>o :w! \| !opout <c-r>%<CR><CR>
 "reload dwmblocks on save
 autocmd BufWritePost ~/.local/src/dwmblocks/blocks.h !cd ~/.local/src/dwmblocks/; sudo make install && killall -q dwmblocks;setsid dwmblocks
 
-
 "Plugin stuff
 
 " ------Vim Auto Closetag------
