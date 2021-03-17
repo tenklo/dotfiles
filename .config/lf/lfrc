@@ -60,6 +60,7 @@ map cc reload
 map <c-l> clear
 map o open
 map ee $$EDITOR "$f"
+map eE $emacs "$f"
 map es $sudo $EDITOR "$f"
 map SD $sudo rm "$f"
 
