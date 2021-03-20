@@ -20,17 +20,6 @@ interm="$TERMINAL -e"
 
 # handle special extensions & links
 case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
-    *.org)
-        opener=emacs;;
-    *.graphml)
-        opener=yed;;
-    *.sc)
-        opener=sc-im;;
-    *.nsd)
-        interm="";
-        opener=structorizer;;
-    *.odt)
-        (LANG=de_DE.utf8 setsid -f libreoffice "$@" &) && exit;;
     *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*|*lbry.tv/*|*odysee.com*)
         opener="$videoaudioweb"
         notify-send "o" "loading media";;
@@ -44,6 +33,17 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
         opener="$webbrowser";;
     *.html)
         opener="$webbrowser";;
+    *.org)
+        opener=emacs;;
+    *.graphml)
+        opener=yed;;
+    *.sc)
+        opener=sc-im;;
+    *.nsd)
+        interm="";
+        opener=structorizer;;
+    *.odt)
+        (LANG=de_DE.utf8 setsid -f libreoffice "$@" &) && exit;;
 esac
 test -n "$opener" && setsid -f $interm "$opener" "$1" >/dev/null 2>&1 && exit
 
