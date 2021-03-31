@@ -20,7 +20,7 @@ interm="$TERMINAL -e"
 
 # handle special extensions & links
 case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
-    *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*|*lbry.tv/*|*odysee.com*)
+    *youtube.com/watch*|*youtube.com/playlist*|*youtu.be*|*hooktube.com*|*bitchute.com*|*invidio.us/watch*|*videos.lukesmith.xyz/*|*soundcloud.com/*|*tagesschau.de/video*|*lbry.tv/*|*odysee.com*|*vm.tiktok.com/*)
         opener="$videoaudioweb"
         notify-send "o" "loading media";;
     http*.jpg)
