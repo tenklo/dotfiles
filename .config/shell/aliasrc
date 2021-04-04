@@ -85,6 +85,8 @@ alias cat='bat --pager less'
 alias cliptopng='xclip -selection clipboard -target image/png -out' # add sth like > output.png
 alias qrtourl='zbarimg -q'
 
+# alias rmduplicateparagraphs=awk -v RS= -v ORS='\n\n' '!seen[$0]++' # add filename as arg; alias doenst work, command does tho so c&p
+
 
 alias schulproxys='export http_proxy="http://proxy.its-stuttgart.de:3128/"; export https_proxy="http://proxy.its-stuttgart.de:3128/"; export ftp_proxy="http://proxy.its-stuttgart.de:3128/"; export no_proxy="localhost,127.0.0.1,.its-stuttgart.de"; export HTTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export HTTPS_PROXY="http://proxy.its-stuttgart.de:3128/"; export FTP_PROXY="http://proxy.its-stuttgart.de:3128/"; export NO_PROXY="localhost,127.0.0.1,.its-stuttgart.de"'
 

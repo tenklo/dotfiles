@@ -8,8 +8,12 @@ disconnect() {
     (sudo pkill vpnc && notify-send -u low "dwvpn" "disconnected" || echo "vpn already down?" && exit 2)
 }
 
+helptext() {
+    echo "dwvpn help" && echo "Options:" && echo "    -c to connect" && echo "    -d to disconnect"
+}
+
 while getopts "cdh" o; do case "${o}" in
-    c) connect || exit 1 ;;
-    d) disconnect || exit 1 ;;
-    *) echo "dwvpn help" && echo "Options:" && echo "    -c to connect" && echo "    -d to disconnect" && exit 0;;
+    c) connect || exit 1; exit 0 ;;
+    d) disconnect || exit 1; exit 0;;
 esac done
+helptext

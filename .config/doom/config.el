@@ -60,3 +60,21 @@
 ;; insert todays date
 (defun insert-todays-date-headline-standup () (interactive)
        (insert (shell-command-to-string "echo -n \"* $(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
+
+(defun jta-reformat-pretty-xml-html ()
+  "Reformats xml to make it readable (respects current selection)."
+  (interactive)
+  (save-excursion
+    (let ((beg (point-min))
+          (end (point-max)))
+      (if (and mark-active transient-mark-mode)
+          (progn
+            (setq beg (min (point) (mark)))
+            (setq end (max (point) (mark))))
+        (widen))
+      (setq end (copy-marker end t))
+      (goto-char beg)
+      (while (re-search-forward ">\\s-*<" end t)
+        (replace-match ">\n<" t t))
+      (goto-char beg)
+      (indent-region beg end nil))))
