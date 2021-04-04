@@ -11,7 +11,8 @@ togglelocker &
 
 nextcloud &
 
-setxkbmap -option caps:swapescape &
+#setxkbmap -option caps:swapescape &
+setxkbmap -option ctrl:nocaps
 picom &
 unclutter &
 
