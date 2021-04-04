@@ -1,6 +1,9 @@
 "normal nvim stuff
 let mapleader =","
 
+" map control + g to escape in insertmode
+imap <c-g> <esc>
+
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
 	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
