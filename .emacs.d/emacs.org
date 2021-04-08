@@ -338,11 +338,10 @@ Don't prompt eval confirmation
 ** Package for TOC
 
 #+begin_src emacs-lisp
-  (if (require 'toc-org nil t)
-      (progn
-        (add-hook 'org-mode-hook 'toc-org-mode))
 
-    (warn "toc-org not found"))
+  (use-package toc-org
+    :hook (org-mode-hook . toc-org-mode))
+
 #+end_src
 * Development
 ** Commenting
