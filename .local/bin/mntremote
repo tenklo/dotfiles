@@ -4,7 +4,7 @@
 # fusermount3 -u /mount/point
 
 menu="dmenu -l 20"
-options="-o idmap=user -o reconnect $@"
+options="-o idmap=user -o reconnect -o follow_symlinks $@"
 projects=~/.local/share/data/remotes
 test -f "$projects" && project="$(sort "$projects" | cut -d';' -f1 | $menu)" && test -n "$project" && remote="$(grep "$project" "$projects" | cut -d';' -f2)" && mntpoint="$(grep "$project" "$projects" | cut -d';' -f3)"
 
