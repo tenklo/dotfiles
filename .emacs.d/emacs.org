@@ -501,6 +501,23 @@ Defining leader keys using the general package.
     ("l" evil-window-increase-width "increase width"))
 
 #+end_src
+* Terminals
+** term-mode
+
+This doesn't work, as expected yet, I'll have to look into it if it gets annoying..
+
+#+begin_src emacs-lisp
+
+  (use-package term
+    :config
+    (setq explicit-shell-file-name "bash")
+    (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+
+  (use-package eterm-256color
+    :hook (term-mode . eterm-256color-mode))
+
+#+end_src
+
 * Custom Solutions
 ** Link Handler
 
