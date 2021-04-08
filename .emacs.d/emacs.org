@@ -10,6 +10,7 @@ Emacs has a built in package manager but it doesn’t make it easy to automatica
 
 #+begin_src emacs-lisp
 
+  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   (require 'package)
 
   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -363,6 +364,8 @@ You'll likely need to install a corresponding mode and language server outside o
 *** lsp-mode
 
 See [[https://github.com/emacs-lsp/lsp-mode/][lsp-mode (Github)]]
+
+Installation of lsp-mode likes to fail because were not able to install the "spinner" package. Running ~M-x package-refresh-contents~ seems to fix this. Maybe not.
 
 #+begin_src emacs-lisp
 
