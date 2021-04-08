@@ -606,7 +606,7 @@ Defining leader keys using the general package.
 * Terminals
 ** term-mode
 
-This doesn't work, as expected yet, I'll have to look into it if it gets annoying..
+This doesn't work as expected yet, I'll have to look into it if it gets annoying..
 
 #+begin_src emacs-lisp
 
