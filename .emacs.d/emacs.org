@@ -54,6 +54,12 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+end_src
 
+** Doom Snippets
+
+#+begin_src emacs-lisp
+
+  (use-package doom-themes)
+
 #+end_src
 
 ** Font Configuration
@@ -134,14 +140,6 @@ This section configures basic UI settings that remove unneeded elements to make 
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
-
-#+end_src
-
-** Doom Snippets
-
-#+begin_src emacs-lisp
-
-  (use-package doom-themes)
 
 #+end_src
 
