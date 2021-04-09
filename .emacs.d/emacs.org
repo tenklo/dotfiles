@@ -529,6 +529,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 #+end_src
 
 ** Magit
+
 #+begin_src emacs-lisp
 
   (use-package magit
@@ -536,7 +537,9 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
 #+end_src
+
 ** Projectile
+
 #+begin_src emacs-lisp
 
   (use-package projectile
@@ -553,6 +556,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
     :config (counsel-projectile-mode))
 
 #+end_src
+
 ** Rainbow Delimiters
 
 [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth. This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
@@ -566,6 +570,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 * Keybindings
 ** Evil Mode
+
 #+begin_src emacs-lisp
 
   (use-package evil
@@ -596,6 +601,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
     (evil-org-agenda-set-keys))
 
 #+end_src
+
 ** Undo System
 
 [[https://github.com/emacsmirror/undo-fu][undo-fu]]
@@ -634,13 +640,16 @@ Defining leader keys using the general package.
 
 #+end_src
 ** General Global Bindings
+
 #+begin_src emacs-lisp
 
   ;;Make ESC quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 #+end_src
+
 ** Hydra
+
 #+begin_src emacs-lisp
 
   (use-package hydra
@@ -676,6 +685,7 @@ Defining leader keys using the general package.
     ("l" evil-window-increase-width "increase width"))
 
 #+end_src
+
 * Terminals
 ** term-mode
 
@@ -753,6 +763,7 @@ One advantage of =shell-mode= on Windows is that it's the only way to run =cmd.e
     (setq explicit-powershell.exe-args '()))
 
 #+end_src
+
 ** Eshell
 
 [[https://www.gnu.org/software/emacs/manual/html_mono/eshell.html#Contributors-to-Eshell][Eshell]] is Emacs' own shell implementation written in Emacs Lisp.  It provides you with a cross-platform implementation (even on Windows!) of the common GNU utilities you would find on Linux and macOS (=ls=, =rm=, =mv=, =grep=, etc).  It also allows you to call Emacs Lisp functions directly from the shell and you can even set up aliases (like aliasing =vim= to =find-file=).  Eshell is also an Emacs Lisp REPL which allows you to evaluate full expressions at the shell.
@@ -902,6 +913,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
       "H" 'dired-hide-dotfiles-mode))
 
 #+end_src
+
 * System Settings
 
 Here, device specific configurations shall be declared. As soon as we know how.
