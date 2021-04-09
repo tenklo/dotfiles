@@ -198,6 +198,8 @@ This section configures basic UI settings that remove unneeded elements to make 
     (setq org-log-into-drawer t)
     (setq org-agenda-files
           '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
+            "~/nextcloud_work/Documents/standups.org"
+            "~/nextcloud_work/Documents/workAgenda.org"
             "~/tasks.org"))
     (setq org-capture-templates
           `(("t" "Tasks / Projects")
