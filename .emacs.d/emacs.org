@@ -830,14 +830,19 @@ Here, device specific configurations shall be declared. As soon as we know how.
 
 This is a ugly work around regarding the font size, until we know more.
 
+** DWHPD
+
 #+begin_src emacs-lisp
 
   (when (equal system-name "dwhpd")
-    (set-face-attribute 'default nil :height 160))
   (setq org-agenda-files
         '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
           "~/nextcloud_work/Documents/standups.org"
           "~/nextcloud_work/Documents/workAgenda.org"))
+    (set-face-attribute 'default nil :height 140))
+
+#+end_src
+
 ** T490S
 
 #+begin_src emacs-lisp
