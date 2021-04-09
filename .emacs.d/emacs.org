@@ -829,6 +829,19 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
       "H" 'dired-hide-dotfiles-mode))
 
 #+end_src
+* System Settings
+
+Here, device specific configurations shall be declared. As soon as we know how.
+
+This is a ugly work around regarding the font size, until we know more.
+
+#+begin_src emacs-lisp
+
+  (when (equal system-name "dwhpd")
+    (set-face-attribute 'default nil :height 160))
+
+#+end_src
+
 * Custom Solutions
 ** Link Handler
 
