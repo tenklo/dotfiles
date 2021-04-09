@@ -841,3 +841,12 @@ Invoke by browse-url-generic
         (executable-find "o"))
 
 #+end_src
+
+** Todays date for Daily Standup notes
+
+#+begin_src emacs-lisp
+
+  (defun insert-todays-date-headline-standup () (interactive)
+         (insert (shell-command-to-string "echo -n \"* $(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
+
+#+end_src
