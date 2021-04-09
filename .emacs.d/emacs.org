@@ -4,6 +4,24 @@
 * About
 This file generates init.el which can be loaded by Emacs at startup.
 
+* Startup Performance
+
+#+begin_src emacs-lisp
+
+  ;; The default is 800 kilobytes.  Measured in bytes.
+  (setq gc-cons-threshold (* 50 1000 1000))
+
+  (defun efs/display-startup-time ()
+    (message "Emacs loaded in %s with %d garbage collections."
+             (format "%.2f seconds"
+                     (float-time
+                       (time-subtract after-init-time before-init-time)))
+             gcs-done))
+
+  (add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
+#+end_src
+
 * Package System Setup
 
 Emacs has a built in package manager but it doesn’t make it easy to automatically install packages on a new system the first time you pull down your configuration. use-package is a really helpful package used in this configuration to make it a lot easier to automate the installation and configuration of everything else we use.
@@ -30,6 +48,7 @@ Installation problems seem to often get fixed by executing =package-refresh-cont
 
   (require 'use-package)
   (setq use-package-always-ensure t)
+  (setq use-package-verbose t)
 
 #+end_src
 
@@ -119,10 +138,11 @@ This section configures basic UI settings that remove unneeded elements to make 
 #+begin_src emacs-lisp
 
   (use-package which-key
-    :init (which-key-mode)
+    :defer 0
     :diminish which-key-mode
     :config
-    (setq which-key-idle-delay 0.3))
+    (which-key-mode)
+    (setq which-key-idle-delay 0.2))
 
 #+end_src
 ** Ivy and Counsel
@@ -145,6 +165,7 @@ This section configures basic UI settings that remove unneeded elements to make 
     (setq ivy-initial-inputs-alist nil)) ; don't start searches with ^
 
   (use-package ivy-rich
+    :after ivy
     :init
     (ivy-rich-mode 1))
 
@@ -172,7 +193,8 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  (use-package command-log-mode)
+  (use-package command-log-mode
+    :commands command-log-mode)
 
 #+end_src
 ** Recent Files
@@ -487,7 +509,8 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 ** Magit
 #+begin_src emacs-lisp
 
-  (use-package magit)
+  (use-package magit
+    :commands magit-status)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
 #+end_src
@@ -504,6 +527,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
     (setq projectile-switch-project-action #'projectile-dired))
 
   (use-package counsel-projectile
+    :after projectile
     :config (counsel-projectile-mode))
 
 #+end_src
@@ -571,6 +595,7 @@ Defining leader keys using the general package.
 #+begin_src emacs-lisp
 
   (use-package general
+    :after evil
     :config
     (general-create-definer kk/leader-keys
       :keymaps '(normal insert visual emacs)
@@ -596,7 +621,8 @@ Defining leader keys using the general package.
 ** Hydra
 #+begin_src emacs-lisp
 
-  (use-package hydra)
+  (use-package hydra
+    :defer t)
 
   (defhydra hydra-text-scale (:timeout 4)
     "scale text"
@@ -650,6 +676,7 @@ If you have evil-collection installed, term-mode will enter char mode when you u
 #+begin_src emacs-lisp
 
   (use-package term
+    :commands term
     :config
     (setq explicit-shell-file-name "bash")
     (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
@@ -740,7 +767,8 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
           eshell-hist-ignoredups t
           eshell-scroll-to-bottom-on-input t))
 
-  (use-package eshell-git-prompt)
+  (use-package eshell-git-prompt
+    :after eshell)
 
   (use-package eshell
     :hook (eshell-first-time-mode . efs/configure-eshell)
@@ -831,12 +859,14 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
       "h" 'dired-single-up-directory
       "l" 'dired-single-buffer))
 
-  (use-package dired-single)
+  (use-package dired-single
+    :after dired)
 
   (use-package all-the-icons-dired
     :hook (dired-mode . all-the-icons-dired-mode))
 
   (use-package dired-open
+    :after dired
     :config
     ;; Doesn't work as expected!
     ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
@@ -901,5 +931,16 @@ Invoke by browse-url-generic
 
   (defun insert-todays-date-headline-standup () (interactive)
          (insert (shell-command-to-string "echo -n \"* $(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
+
+#+end_src
+
+* Runtime Performance
+
+Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
+
+#+begin_src emacs-lisp
+
+  ;; Make gc pauses faster by decreasing the threshold.
+  (setq gc-cons-threshold (* 2 1000 1000))
 
 #+end_src
