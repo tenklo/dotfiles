@@ -57,11 +57,12 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+end_src
 
-** Doom Snippets
+** Themes
 
 #+begin_src emacs-lisp
 
   (use-package doom-themes)
+  (load-theme 'doom-dracula t)
 
 #+end_src
 
@@ -70,7 +71,6 @@ This section configures basic UI settings that remove unneeded elements to make 
 #+begin_src emacs-lisp
 
   (set-face-attribute 'default nil :font "Inconsolata" :height 180)
-  (load-theme 'doom-dracula t)
 
 #+end_src
 
