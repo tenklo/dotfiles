@@ -858,7 +858,7 @@ This is a ugly work around regarding the font size, until we know more.
         '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
           "~/nextcloud_work/Documents/standups.org"
           "~/nextcloud_work/Documents/workAgenda.org"
-          "~/tasks.org"))
+          "~/tasks.org")))
 
 #+end_src
 
