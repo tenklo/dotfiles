@@ -478,31 +478,35 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to install the language server
 
-;#+begin_src emacs-lisp
-(use-package typescript-mode
-:mode "\\.ts\\"
-:hook (typescript-mode . lsp-deferred)
-:config
-(setq typescript-indent-level 2))
-;#+end_src
+#+begin_src emacs-lisp
+
+  (use-package typescript-mode
+    :mode "\\.ts\\'"
+    :hook (typescript-mode . lsp-deferred)
+    :config
+    (setq typescript-indent-level 2))
+
+#+end_src
 
 *** PHP
-;#+begin_src emacs-lisp
 
-(use-package php-mode
-:mode "\\.php\\"
-:hook (php-mode . lsp-deferred))
+#+begin_src emacs-lisp
 
-;#+end_src
+  (use-package php-mode
+    :mode "\\.php\\'"
+    :hook (php-mode . lsp-deferred))
+
+#+end_src
+
 *** Python
 
-;#+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
-(use-package python-mode
-:mode "\\.py\\"
-:hook (python-mode . lsp-deferred))
+  (use-package python-mode
+    :mode "\\.py\\'"
+    :hook (python-mode . lsp-deferred))
 
-;#+end_src
+#+end_src
 
 ** Company Mode
 
