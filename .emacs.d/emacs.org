@@ -838,6 +838,11 @@ This is a ugly work around regarding the font size, until we know more.
         '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
           "~/nextcloud_work/Documents/standups.org"
           "~/nextcloud_work/Documents/workAgenda.org"))
+** T490S
+
+#+begin_src emacs-lisp
+
+  (when (equal system-name "t490s")
   (setq org-agenda-files
         '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
           "~/nextcloud_work/Documents/standups.org"
