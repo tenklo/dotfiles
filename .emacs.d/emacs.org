@@ -171,6 +171,7 @@ This section configures basic UI settings that remove unneeded elements to make 
     :bind (("M-x" . counsel-M-x)
            ("C-x b" . counsel-switch-buffer)
            ("C-x C-f" . counsel-find-file)
+           ("C-x r b" . counsel-bookmark)
            :map minibuffer-local-map
            ("C-r" . 'counsel-minibuffer-history))
     :config
