@@ -15,7 +15,7 @@ This file generates init.el which can be loaded by Emacs at startup.
     (message "Emacs loaded in %s with %d garbage collections."
              (format "%.2f seconds"
                      (float-time
-                       (time-subtract after-init-time before-init-time)))
+                      (time-subtract after-init-time before-init-time)))
              gcs-done))
 
   (add-hook 'emacs-startup-hook #'efs/display-startup-time)
@@ -418,7 +418,7 @@ Don't prompt eval confirmation
 ** Diary
 
 #+begin_src emacs-lisp
-(setq diary-file "~/nextcloud_work/Documents/diary")
+  (setq diary-file "~/nextcloud_work/Documents/diary")
 #+end_src
 
 * Development
