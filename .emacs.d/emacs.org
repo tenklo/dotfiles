@@ -431,14 +431,15 @@ Don't prompt eval confirmation
 
 #+end_src
 
-** Language Servers
+** Languages
+*** IDE Features with lsp-mode
 
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode (homepage)]] and the [[https://emacs-lsp.github.io/lsp-mode/page/languages/][languages part]] of said homepage.
 
 To use lsp-mode for any language, check the above places first.
 You'll likely need to install a corresponding mode and language server outside on your system.
 
-*** lsp-mode
+**** lsp-mode
 
 See [[https://github.com/emacs-lsp/lsp-mode/][lsp-mode (Github)]]
 
@@ -455,7 +456,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 #+end_src
 
-**** Header Breadcrumb
+***** Header Breadcrumb
 
 #+begin_src emacs-lisp
   (defun kk/lsp-mode-setup()
@@ -464,7 +465,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
     :hook (lsp-mode . kk/lsp-mode-setup))
 #+end_src
 
-**** lsp-ui
+***** lsp-ui
 
 #+begin_src emacs-lisp
 
@@ -475,7 +476,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 #+end_src
 
-**** treemacs
+***** treemacs
 
 #+begin_src emacs-lisp
 
