@@ -687,6 +687,8 @@ Defining leader keys using the general package.
   ;;Make ESC quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+  (global-set-key (kbd "C-x k") 'kill-this-buffer)
+
 #+end_src
 
 ** Hydra
