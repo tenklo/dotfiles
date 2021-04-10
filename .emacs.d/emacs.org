@@ -610,6 +610,17 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+end_src
 
+** Flycheck
+
+#+begin_src emacs-lisp
+
+  (use-package flycheck
+    :defer t
+    :config
+    (global-flycheck-mode))
+
+#+end_src
+
 * Keybindings
 ** Evil Mode
 
