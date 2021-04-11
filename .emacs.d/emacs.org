@@ -656,6 +656,32 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+end_src
 
+*** Special Evil Modemap
+
+#+begin_src emacs-lisp
+
+  (defvar kk/intercept-mode-map (make-sparse-keymap)
+    "High precedence keymap.")
+
+  (define-minor-mode kk/intercept-mode
+    "Global minor mode for higher precedence evil keybindings."
+    :global t)
+
+  (kk/intercept-mode)
+
+  (dolist (state '(normal visual insert))
+    (evil-make-intercept-map
+     ;; NOTE: This requires an evil version from 2018-03-20 or later
+     (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
+     state))
+
+  (evil-define-key 'normal kk/intercept-mode-map
+    (kbd "SPC f") 'find-file
+    (kbd "g j") 'evil-next-visual-line
+    (kbd "g k") 'evil-previous-visual-line)
+
+#+end_src
+
 ** Undo System
 
 [[https://github.com/emacsmirror/undo-fu][undo-fu]]
