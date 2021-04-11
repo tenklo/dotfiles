@@ -142,7 +142,7 @@ This section configures basic UI settings that remove unneeded elements to make 
     :diminish which-key-mode
     :config
     (which-key-mode)
-    (setq which-key-idle-delay 0.2))
+    (setq which-key-idle-delay 0.3))
 
 #+end_src
 ** Ivy and Counsel
