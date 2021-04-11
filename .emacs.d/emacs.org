@@ -742,6 +742,10 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
+  (global-set-key (kbd "C-c a") 'org-agenda)
+
+  (global-set-key (kbd "C-c g") 'magit-status)
+
 #+end_src
 
 ** Hydra
