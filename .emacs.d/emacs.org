@@ -653,7 +653,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
-    (evil-set-initial-state 'messegas-buffer-mode 'normal)
+    (evil-set-initial-state 'messages-buffer-mode 'normal)
     (evil-set-initial-state 'dashboard-mode 'normal))
 
   (use-package evil-collection
