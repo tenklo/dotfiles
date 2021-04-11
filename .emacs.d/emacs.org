@@ -481,9 +481,10 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 #+begin_src emacs-lisp
 
   (use-package lsp-treemacs
+    :after lsp-mode
     :commands treemacs)
 
-  (global-set-key (kbd "C-c t") 'treemacs)
+  (global-set-key (kbd "C-c t") 'lsp-treemacs-symbols)
 
 
 #+end_src
