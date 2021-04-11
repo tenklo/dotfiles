@@ -518,8 +518,22 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 #+begin_src emacs-lisp
 
   (use-package python-mode
-    :mode "\\.py\\'"
-    :hook (python-mode . lsp-deferred))
+    :hook (python-mode . lsp-deferred)
+    :custom
+    (dap-python-debugger 'debugpy)
+    :config
+    (require 'dap-python))
+
+#+end_src
+
+You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =pyvenv-activate= command should configure Emacs to cause =lsp-mode= and =dap-mode= to use the virtual environment when they are loaded, just select the path to your virtual environment before loading your project.
+
+#+begin_src emacs-lisp
+
+  (use-package pyvenv
+    :after python-mode
+    :config
+    (pyvenv-mode 1))
 
 #+end_src
 
