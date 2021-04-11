@@ -866,7 +866,7 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
       (setq eshell-destroy-buffer-when-process-dies t)
       (setq eshell-visual-commands '("htop" "zsh" "vim")))
 
-    (eshell-git-prompt-use-theme 'powerline))
+    (eshell-git-prompt-use-theme 'default))
 
 #+end_src
 
