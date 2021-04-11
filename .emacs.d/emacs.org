@@ -1037,7 +1037,7 @@ This is a ugly work around regarding the font size, until we know more.
 
 #+begin_src emacs-lisp
 
-  (when (equal system-name "t490s")
+  (when (equal system-name "T490s")
     (setq org-agenda-files
           '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
             "~/nextcloud_work/Documents/standups.org"
