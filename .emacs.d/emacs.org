@@ -784,7 +784,8 @@ Defining leader keys using the general package.
     ("j" evil-window-decrease-height "decrease height")
     ("k" evil-window-increase-height "increase height")
     ("h" evil-window-decrease-width "decrease width")
-    ("l" evil-window-increase-width "increase width"))
+    ("l" evil-window-increase-width "increase width")
+    ("f" make-frame "make frame"))
 
 #+end_src
 
