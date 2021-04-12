@@ -748,6 +748,8 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-c m") 'mu4e)
 
+  (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+
 #+end_src
 
 ** Hydra
