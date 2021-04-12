@@ -1114,7 +1114,16 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
+  (defun kk/switch-desktop ()
+    (interactive)
+    ;; If save-silently-p is non-nil, saves all the file-visiting buffers
+    ;;  without querying the user.
+    (let ((save-silently nil))
+      (save-some-buffers save-silently))
+    (desktop-change-dir (read-directory-name "Change to directory: ")))
+
   (desktop-save-mode 1)
+  (setq desktop-files-not-to-save "")
 
 #+end_src
 
