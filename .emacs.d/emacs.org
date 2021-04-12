@@ -1021,7 +1021,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+begin_src emacs-lisp
 
   (use-package mu4e
-    :defer 10
+    :defer 0
     :ensure nil
     :load-path "/usr/share/emacs/site-lisp/mu4e/"
     :config
