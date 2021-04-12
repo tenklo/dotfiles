@@ -1103,6 +1103,22 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+end_src
 
 * System Settings
+* Restoring
+** winner-mode
+#+begin_src emacs-lisp
+
+  (winner-mode)
+
+#+end_src
+
+** desktop-save-mode
+
+#+begin_src emacs-lisp
+
+  (desktop-save-mode 1)
+
+#+end_src
+
 
 Here, device specific configurations shall be declared. As soon as we know how.
 
