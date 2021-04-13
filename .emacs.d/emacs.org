@@ -22,7 +22,7 @@ Here variables shall be set, which will be used through the config to set system
                                 "~/nextcloud_work/Documents/workAgenda.org"
                                 "~/tasks.org"))))
 
-        #+end_src
+#+end_src
 
 * About
 This file generates init.el which can be loaded by Emacs at startup.
