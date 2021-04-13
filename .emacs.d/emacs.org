@@ -1,6 +1,29 @@
 #+title Emacs Configuration
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
+* System Specific Settings
+
+Here variables shall be set, which will be used through the config to set system specific values.
+
+#+begin_src emacs-lisp
+
+  (pcase system-name
+    ("dwhpd"
+     (setq kk/default-font-size 140)
+     (setq kk/org-agenda-files (list
+                                "~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
+                                "~/nextcloud_work/Documents/standups.org"
+                                "~/nextcloud_work/Documents/workAgenda.org")))
+    ("T490s"
+     (setq kk/default-font-size 180)
+     (setq kk/org-agenda-files (list
+                                "~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
+                                "~/nextcloud_work/Documents/standups.org"
+                                "~/nextcloud_work/Documents/workAgenda.org"
+                                "~/tasks.org"))))
+
+        #+end_src
+
 * About
 This file generates init.el which can be loaded by Emacs at startup.
 
@@ -109,7 +132,7 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  (set-face-attribute 'default nil :font "Inconsolata" :height 180)
+  (set-face-attribute 'default nil :font "Inconsolata" :height kk/default-font-size)
 
 #+end_src
 
@@ -271,6 +294,7 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (setq org-agenda-start-with-log-mode t)
     (setq org-log-done 'time)
     (setq org-log-into-drawer t)
+    (setq org-agenda-files kk/org-agenda-files)
     (setq org-capture-templates
           `(("t" "Tasks / Projects")
             ("tt" "Task" entry (file+olp "~/tasks.org" "Inbox")
@@ -1131,38 +1155,6 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
         desktop-auto-save-timeout 30)
 
   (desktop-save-mode 1)
-
-#+end_src
-
-* System Specific Settings
-
-Here, device specific configurations shall be declared. As soon as we know how.
-
-This is a ugly work around regarding the font size, until we know more.
-
-** DWHPD
-
-#+begin_src emacs-lisp
-
-  (when (equal system-name "dwhpd")
-    (setq org-agenda-files
-          '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
-            "~/nextcloud_work/Documents/standups.org"
-            "~/nextcloud_work/Documents/workAgenda.org"))
-    (set-face-attribute 'default nil :height 140))
-
-#+end_src
-
-** T490S
-
-#+begin_src emacs-lisp
-
-  (when (equal system-name "T490s")
-    (setq org-agenda-files
-          '("~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
-            "~/nextcloud_work/Documents/standups.org"
-            "~/nextcloud_work/Documents/workAgenda.org"
-            "~/tasks.org")))
 
 #+end_src
 
