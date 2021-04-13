@@ -9,6 +9,8 @@ xsetroot -cursor_name left_ptr &
 toggleredshift &
 togglelocker &
 
+emacs --daemon
+
 nextcloud &
 
 #setxkbmap -option caps:swapescape &
