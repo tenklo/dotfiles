@@ -1125,6 +1125,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                     (mu4e-sent-folder  . "/kloess@digital-worx.de/Sent")
                     (mu4e-refile-folder  . "/kloess@digital-worx.de/Archives")
                     (mu4e-trash-folder  . "/kloess@digital-worx.de/Trash")
+                    (mu4e-maildir-shortcuts .
+                                            ((:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
                     (mu4e-bookmarks .
                                     ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
                                      (:name "Inbox digital-worx" :query "m:/kloess@digital-worx.de/Inbox" :key ?i)
