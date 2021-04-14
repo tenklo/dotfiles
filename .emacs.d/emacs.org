@@ -677,6 +677,14 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+* Tramp
+
+#+begin_src emacs-lisp
+
+(setq tramp-default-method "ssh")
+
+#+end_src
+
 * Keybindings
 ** Evil Mode
 
