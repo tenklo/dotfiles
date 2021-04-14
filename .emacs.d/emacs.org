@@ -658,6 +658,14 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+*** show-paren-mode
+
+#+begin_src emacs-lisp
+
+  (show-paren-mode 1)
+
+#+end_src
+
 ** Flycheck
 
 #+begin_src emacs-lisp
