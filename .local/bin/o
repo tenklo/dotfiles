@@ -13,7 +13,7 @@ videoaudio=mpv
 videoaudioweb=mpv
 reader=$READER
 images=sxiv
-text=$EDITOR
+text="nvim"
 interm="$TERMINAL -e"
 
 # combining handeling of special extensions & using mime-types
@@ -55,7 +55,7 @@ case "$mime" in
     text/x-lisp)
         opener=emacs;;
     text/plain|text/x-*|inode/x-empty|application/json|application/csv|text/xml)
-        opener="$EDITOR";;
+        opener=$text;;
     video/*|audio/*)
         opener="$videoaudio";;
     text/html)
