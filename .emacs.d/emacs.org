@@ -20,7 +20,11 @@ Here variables shall be set, which will be used through the config to set system
                                 "~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
                                 "~/nextcloud_work/Documents/standups.org"
                                 "~/nextcloud_work/Documents/workAgenda.org"
-                                "~/tasks.org"))))
+                                "~/tasks.org")))
+    (_
+     (setq kk/default-font-size 150)
+     (setq kk/org-agenda-files '(""))))
+
 
 #+end_src
 
@@ -134,7 +138,7 @@ This section configures basic UI settings that remove unneeded elements to make 
 
   (defun kk/set-font-faces ()
     (message "Settings faces!")
-    (set-face-attribute 'default nil :font "Inconsolata" :height kk/default-font-size))
+    (set-face-attribute 'default nil :font kk/default-font :height kk/default-font-size))
 
   (if (daemonp)
       (add-hook 'after-make-frame-functions
