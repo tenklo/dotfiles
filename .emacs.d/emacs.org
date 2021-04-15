@@ -695,7 +695,6 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
   (defun kk/text-mode-completion-setup ()
     (interactive)
     (add-to-list 'company-backends 'company-ispell))
-    ;; (setq company-ispell-dictionary (file-truename "~/.emacs.d/misc/english-words.txt")))
 
   (add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
 
