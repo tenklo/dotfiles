@@ -925,6 +925,8 @@ One advantage of =shell-mode= on Windows is that it's the only way to run =cmd.e
     (setq explicit-shell-file-name "powershell.exe")
     (setq explicit-powershell.exe-args '()))
 
+  (setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+
 #+end_src
 
 ** Eshell
