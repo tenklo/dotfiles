@@ -607,13 +607,12 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
   (use-package company
     :defer 0
+    :hook (prog-mode . company-mode)
     :bind (:map company-active-map
                 ("<tab>" . company-complete-selection))
     :custom
     (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0)
-    :config
-    (global-company-mode))
+    (company-idle-delay 0.0))
 
   (use-package company-box
     :hook (company-mode . company-box-mode))
