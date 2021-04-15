@@ -1133,15 +1133,19 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                     (mu4e-trash-folder  . "/kloess@digital-worx.de/Trash")
                     (mu4e-maildir-shortcuts .
                                             ((:maildir "/kloess@digital-worx.de/INBOX" :key ?i)
+                                             (:maildir "/kloess@digital-worx.de/Archives" :key ?a)
                                              (:maildir "/kloess@digital-worx.de/Trash" :key ?t)
                                              (:maildir "/kloess@digital-worx.de/Drafts" :key ?d)
                                              (:maildir "/kloess@digital-worx.de/Junk" :key ?j)
+                                             (:maildir "/kloess@digital-worx.de/digital worx" :key ?x)
+                                             (:maildir "/kloess@digital-worx.de/asvin" :key ?v)
                                              (:maildir "/kloess@digital-worx.de/kohlhammer" :key ?k)
                                              (:maildir "/kloess@digital-worx.de/Porsche" :key ?p)
                                              (:maildir "/kloess@digital-worx.de/privileg" :key ?o)
                                              (:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
                     (mu4e-bookmarks .
                                     ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                     (:name "Unread all" :query "m:/kloess@digital-worx.de/Inbox AND flag:unread or m:/karsten.kloess@its-stuttgart.de/Inbox AND flag:unread" :key ?a)
                                      (:name "Inbox digital-worx" :query "m:/kloess@digital-worx.de/Inbox" :key ?i)
                                      (:name "Today's messages digital-worx" :query "date:today..now" :key ?t)
                                      (:name "Last 7 days digital-worx" :query "date:7d..now" :hide-unread t :key ?w)
@@ -1170,6 +1174,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                              (:maildir "/karsten.kloess@its-stuttgart.de/Sent" :key ?s)))
                     (mu4e-bookmarks .
                                     ((:name "Unread Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                     (:name "Unread all" :query "m:/kloess@digital-worx.de/Inbox AND flag:unread or m:/karsten.kloess@its-stuttgart.de/Inbox AND flag:unread" :key ?a)
                                      (:name "Inbox Schule" :query "m:/karsten.kloess@its-stuttgart.de/Inbox" :key ?i)
                                      (:name "Today's messages Schule" :query "date:today..now" :key ?t)
                                      (:name "Last 7 days Schule" :query "date:7d..now" :hide-unread t :key ?w)
