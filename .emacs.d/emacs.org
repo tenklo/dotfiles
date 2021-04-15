@@ -688,6 +688,51 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+* Writing
+** Word Completion
+
+#+begin_src emacs-lisp
+
+  (defun kk/text-mode-completion-setup ()
+    (interactive)
+    (add-to-list 'company-backends 'company-ispell))
+    ;; (setq company-ispell-dictionary (file-truename "~/.emacs.d/misc/english-words.txt")))
+
+  (add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
+
+#+end_src
+
+** Spellcheck
+
+#+begin_src emacs-lisp
+
+  (add-hook 'text-mode-hook 'flyspell-mode)
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+
+#+end_src
+
+** guess-language
+
+#+begin_src emacs-lisp
+
+  (use-package guess-language         ; Automatically detect language for Flyspell
+    :ensure t
+    :defer t
+    :init (add-hook 'text-mode-hook #'guess-language-mode)
+    :config
+    (setq guess-language-langcodes '((en . ("en_US" "English"))
+                                     (de . ("de_DE" "Italian")))
+          guess-language-languages '(en de)
+          guess-language-min-paragraph-length 40)
+    :diminish guess-language-mode)
+
+#+end_src
+
 * Keybindings
 ** Evil Mode
 
