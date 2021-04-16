@@ -1165,6 +1165,9 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
            ;; digital-worx
            (make-mu4e-context
             :name "dx"
+            :enter-func (lambda ()
+                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                            (revert-buffer)))
             :match-func
             (lambda (msg)
               (when msg
@@ -1197,6 +1200,9 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
            (make-mu4e-context
             :name "schule"
+            :enter-func (lambda ()
+                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                            (revert-buffer)))
             :match-func
             (lambda (msg)
               (when msg
