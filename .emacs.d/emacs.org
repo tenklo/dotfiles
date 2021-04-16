@@ -1189,14 +1189,15 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                              (:maildir "/kloess@digital-worx.de/kohlhammer" :key ?k)
                                              (:maildir "/kloess@digital-worx.de/Porsche" :key ?p)
                                              (:maildir "/kloess@digital-worx.de/privileg" :key ?o)
+                                             (:maildir "/kloess@digital-worx.de/Sent" :key ?s)
                                              (:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
                     (mu4e-bookmarks .
                                     ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Unread all" :query "m:/kloess@digital-worx.de/Inbox AND flag:unread or m:/karsten.kloess@its-stuttgart.de/Inbox AND flag:unread" :key ?a)
-                                     (:name "Inbox digital-worx" :query "m:/kloess@digital-worx.de/Inbox" :key ?i)
                                      (:name "Today's messages digital-worx" :query "date:today..now" :key ?t)
                                      (:name "Last 7 days digital-worx" :query "date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with images digital-worx" :query "mime:image/*" :key ?p)))))
+                                     (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
+                                     (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
+                                     (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
 
            (make-mu4e-context
             :name "schule"
@@ -1211,22 +1212,24 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                     (user-full-name    . "Karsten Klöss")
                     (mu4e-drafts-folder  . "/karsten.kloess@its-stuttgart.de/Drafts")
                     (mu4e-sent-folder  . "/karsten.kloess@its-stuttgart.de/Sent")
-                    ;; (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archives")
+                    (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archiv")
                     (mu4e-trash-folder  . "/karsten.kloess@its-stuttgart.de/Trash")
                     (mu4e-maildir-shortcuts .
                                             ((:maildir "/karsten.kloess@its-stuttgart.de/INBOX" :key ?i)
+                                             (:maildir "/karsten.kloess@its-stuttgart.de/Archiv" :key ?a)
                                              (:maildir "/karsten.kloess@its-stuttgart.de/Trash" :key ?t)
                                              (:maildir "/karsten.kloess@its-stuttgart.de/Drafts" :key ?d)
                                              (:maildir "/karsten.kloess@its-stuttgart.de/Junk" :key ?j)
                                              (:maildir "/karsten.kloess@its-stuttgart.de/Sent" :key ?s)))
                     (mu4e-bookmarks .
                                     ((:name "Unread Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Unread all" :query "m:/kloess@digital-worx.de/Inbox AND flag:unread or m:/karsten.kloess@its-stuttgart.de/Inbox AND flag:unread" :key ?a)
-                                     (:name "Inbox Schule" :query "m:/karsten.kloess@its-stuttgart.de/Inbox" :key ?i)
                                      (:name "Today's messages Schule" :query "date:today..now" :key ?t)
                                      (:name "Last 7 days Schule" :query "date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with images Schule" :query "mime:image/*" :key ?p))))))))
-  ;; :leave-func '(kk/add-standard-bookmarks)))))
+                                     (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
+                                     (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p))))))))
+
+#+end_src
+
 * Passwords
 
 #+begin_src emacs-lisp
