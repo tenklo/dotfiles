@@ -1154,7 +1154,11 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     (setq mu4e-maildir "~/.local/share/mail")
 
     ;; Configure the function to use for sending mail
-    (setq message-send-mail-function 'smtpmail-send-it)
+    (setq sendmail-program "/usr/bin/msmtp"
+          message-sendmail-f-is-evil t
+          message-sendmail-extra-arguments '("--read-envelope-from")
+          send-mail-function 'smtpmail-send-it
+          message-send-mail-function 'message-send-mail-with-sendmail)
 
     (setq mu4e-contexts
           (list
@@ -1167,9 +1171,6 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                 (string-prefix-p "/kloess@digital-worx.de" (mu4e-message-field msg :maildir))))
             :vars '((user-mail-address . "kloess@digital-worx.de")
                     (user-full-name    . "Karsten Klöss")
-                    (smtpmail-smtp-server . "mail.digital-worx.de")
-                    (smtpmail-smtp-service . 587)
-                    (smtpmail-stream-type . starttls)
                     (mu4e-drafts-folder  . "/kloess@digital-worx.de/Drafts")
                     (mu4e-sent-folder  . "/kloess@digital-worx.de/Sent")
                     (mu4e-refile-folder  . "/kloess@digital-worx.de/Archives")
@@ -1202,9 +1203,6 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                 (string-prefix-p "/karsten.kloess@its-stuttgart.de" (mu4e-message-field msg :maildir))))
             :vars '((user-mail-address . "karsten.kloess@its-stuttgart.de")
                     (user-full-name    . "Karsten Klöss")
-                    (smtpmail-smtp-server . "mail.its-stuttgart.de")
-                    (smtpmail-smtp-service . 587)
-                    (smtpmail-stream-type . starttls)
                     (mu4e-drafts-folder  . "/karsten.kloess@its-stuttgart.de/Drafts")
                     (mu4e-sent-folder  . "/karsten.kloess@its-stuttgart.de/Sent")
                     ;; (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archives")
