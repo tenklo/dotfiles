@@ -724,9 +724,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
     :defer t
     :init (add-hook 'text-mode-hook #'guess-language-mode)
     :config
-    (setq guess-language-langcodes '((en . ("en_US" "English"))
-                                     (de . ("de_DE" "Italian")))
-          guess-language-languages '(en de)
+    (setq guess-language-langcodes '((de . ("de_DE" "German"))
+                                     (en . ("en_US" "English")))
+          guess-language-languages '(de en)
           guess-language-min-paragraph-length 40)
     :diminish guess-language-mode)
 
