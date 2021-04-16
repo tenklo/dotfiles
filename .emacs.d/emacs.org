@@ -1227,6 +1227,21 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Last 7 days Schule" :query "date:7d..now" :hide-unread t :key ?w)
                                      (:name "Messages with images Schule" :query "mime:image/*" :key ?p))))))))
   ;; :leave-func '(kk/add-standard-bookmarks)))))
+* Passwords
+
+#+begin_src emacs-lisp
+
+  (use-package password-store)
+
+  (use-package password-store-otp)
+
+  (use-package pass)
+
+  (use-package auth-source-pass
+    :defer 0
+    :config
+    (setq auth-sources '(password-store))
+    (auth-source-pass-enable))
 
 #+end_src
 
