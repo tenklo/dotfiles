@@ -1,0 +1,8 @@
+#!/bin/sh
+
+new=""
+newmailtext=" "
+
+mu find flag:unread > /dev/null 2>&1 && new="$newmailtext"
+
+echo "$new"
