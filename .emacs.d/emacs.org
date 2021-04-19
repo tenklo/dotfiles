@@ -1147,6 +1147,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     ;; Display options
     (setq mu4e-view-show-images t)
     (setq mu4e-view-show-addresses 't)
+    (setq mu4e-headers-include-related nil)
 
     ;; This is set to 't' to avoid mail syncing issues when using mbsync
     (setq mu4e-change-filenames-when-moving t)
