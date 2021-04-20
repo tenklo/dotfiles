@@ -731,7 +731,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
   (use-package guess-language         ; Automatically detect language for Flyspell
     :ensure t
     :defer t
-    :init (add-hook 'text-mode-hook #'guess-language-mode)
+    :init (add-hook 'ispell-minor-mode-hook #'guess-language-mode)
     :config
     (setq guess-language-langcodes '((de . ("de_DE" "German"))
                                      (en . ("en_US" "English")))
