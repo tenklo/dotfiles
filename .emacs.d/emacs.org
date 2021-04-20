@@ -679,6 +679,15 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** indent-guide
+
+#+begin_src emacs-lisp
+
+  (use-package indent-guide
+    :hook (prog-mode . indent-guide-mode))
+
+#+end_src
+
 * Tramp
 
 #+begin_src emacs-lisp
