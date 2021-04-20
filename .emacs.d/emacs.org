@@ -701,9 +701,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (require 'company)
   (defun kk/text-mode-completion-setup ()
     (interactive)
+    (require 'company)
     (add-to-list 'company-backends 'company-ispell))
 
   (add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
