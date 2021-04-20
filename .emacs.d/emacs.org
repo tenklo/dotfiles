@@ -688,6 +688,14 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** format-all
+
+#+begin_src emacs-lisp
+
+(use-package format-all)
+
+#+end_src
+
 * Tramp
 
 #+begin_src emacs-lisp
