@@ -690,6 +690,15 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** indent-guide
+
+#+begin_src emacs-lisp
+
+  (use-package indent-guide
+    :hook (prog-mode . indent-guide-mode))
+
+#+end_src
+
 * Tramp
 
 #+begin_src emacs-lisp
@@ -703,9 +712,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (require 'company)
   (defun kk/text-mode-completion-setup ()
     (interactive)
+    (require 'company)
     (add-to-list 'company-backends 'company-ispell))
 
   (add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
@@ -733,7 +742,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
   (use-package guess-language         ; Automatically detect language for Flyspell
     :ensure t
     :defer t
-    :init (add-hook 'text-mode-hook #'guess-language-mode)
+    :init (add-hook 'ispell-minor-mode-hook #'guess-language-mode)
     :config
     (setq guess-language-langcodes '((de . ("de_DE" "German"))
                                      (en . ("en_US" "English")))
