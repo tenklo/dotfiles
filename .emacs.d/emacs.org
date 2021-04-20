@@ -860,6 +860,8 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-c C-<return>") 'term)
 
+  (global-set-key (kbd "C-M-j") 'list-buffers)
+
 #+end_src
 
 ** Hydra
