@@ -273,6 +273,14 @@ This Prescient configuration is optimized for use in System Crafters videos and 
   (global-set-key "\C-c\ \C-r" 'recentf-open-files)
 
 #+end_src
+** Calendar
+
+#+begin_src emacs-lisp
+  (use-package calendar
+    :config
+    (setq calendar-week-start-day 1))
+#+end_src
+
 * Org Mode
 ** Basic
 #+begin_src emacs-lisp
