@@ -1160,6 +1160,42 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 * Managing Email with mu4e
 
+** Signatures
+
+#+begin_src emacs-lisp
+
+  (defun kk/mu4e-choose-signature ()
+    "Insert one of a number of sigs"
+    (interactive)
+    (let ((message-signature
+           (mu4e-read-option "Signature:"
+                             '(("work" .
+                                (concat
+                                 "-------------------------------------\n"
+                                 "digital worx GmbH\n"
+                                 "Schulze-Delitzsch-Str. 16\n"
+                                 "70565 Stuttgart\n"
+                                 "\n"
+                                 "Tel. 0711 220 40 93 0\n"
+                                 "Fax. 0711 220 40 93 44\n"
+                                 "\n"
+                                 "kloess@digital-worx.de\n"
+                                 "\n"
+                                 "http://www.digital-worx.de\n"
+                                 "-------------------------------------\n"
+                                 "Geschaeftsfuehrer:\n"
+                                 "Sven Rahlfs\n"
+                                 "Mirko Ross\n"
+                                 "\n"
+                                 "HRB 22 5281 Amtsgericht Stuttgart\n"
+                                 "USt.-Id. Nr.: DE218401190\n"
+                                 "-------------------------------------"))))))
+      (message-insert-signature)))
+
+#+end_src
+
+** General
+
 #+begin_src emacs-lisp
 
   (defun kk/mu4e-add-standard-bookmarks ()
@@ -1198,6 +1234,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
           message-sendmail-extra-arguments '("--read-envelope-from")
           send-mail-function 'smtpmail-send-it
           message-send-mail-function 'message-send-mail-with-sendmail)
+
+    (add-hook 'mu4e-compose-mode-hook (lambda () (local-set-key (kbd "C-c C-w" #'kk/mu4e-choose-signature))))
 
     (setq mu4e-contexts
           (list
