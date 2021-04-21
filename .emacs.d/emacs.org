@@ -457,6 +457,17 @@ Don't prompt eval confirmation
   (setq diary-file "~/nextcloud_work/Documents/diary")
 #+end_src
 
+** Skeletons
+
+#+begin_src emacs-lisp
+
+  (define-skeleton kk/test-skeleton
+    "This is some test skeleton" nil
+    "#+TITLE: Some test Title\n"
+    "#+AUTHOR: Karsten Klöss\n")
+
+#+end_src
+
 * Development
 ** Commenting
 
