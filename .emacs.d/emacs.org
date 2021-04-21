@@ -881,6 +881,13 @@ Defining leader keys using the general package.
 
 #+end_src
 
+** Search
+#+begin_src emacs-lisp
+
+  (global-set-key (kbd "M-s f") 'rgrep)
+
+#+end_src
+
 ** Hydra
 
 #+begin_src emacs-lisp
