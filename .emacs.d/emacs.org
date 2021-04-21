@@ -707,6 +707,14 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** format-all
+
+#+begin_src emacs-lisp
+
+(use-package format-all)
+
+#+end_src
+
 * Tramp
 
 #+begin_src emacs-lisp
@@ -878,6 +886,8 @@ Defining leader keys using the general package.
   (global-set-key (kbd "C-c <return>") 'eshell)
 
   (global-set-key (kbd "C-c C-<return>") 'term)
+
+  (global-set-key (kbd "C-M-j") 'list-buffers)
 
 #+end_src
 
