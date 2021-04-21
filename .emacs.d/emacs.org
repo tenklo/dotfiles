@@ -187,7 +187,7 @@ This section configures basic UI settings that remove unneeded elements to make 
 
   (use-package ivy
     :diminish
-    :bind (("C-f" . swiper)
+    :bind (("M-s s" . swiper)
            :map ivy-minibuffer-map
            ("TAB" . ivy-alt-done)
            ("C-l" . ivy-alt-done)
