@@ -889,6 +889,8 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-M-j") 'ibuffer)
 
+  (global-set-key (kbd "C-c c") 'kk/open-calendar)
+
 #+end_src
 
 ** Search
@@ -1336,6 +1338,38 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                 (org-mime-change-element-style
                  "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
                                "#f6f6f6" "#2f3337")))))
+
+#+end_src
+
+* Calendar
+
+#+begin_src emacs-lisp
+
+  (use-package calfw
+    :disabled
+    :commands cfw:open-org-calendar
+    :config
+    (setq cfw:fchar-junction ?╋
+          cfw:fchar-vertical-line ?┃
+          cfw:fchar-horizontal-line ?━
+          cfw:fchar-left-junction ?┣
+          cfw:fchar-right-junction ?┫
+          cfw:fchar-top-junction ?┯
+          cfw:fchar-top-left-corner ?┏
+          cfw:fchar-top-right-corner ?┓)
+
+    (use-package calfw-org
+      :config
+      (setq cfw:org-agenda-schedule-args '(:timestamp)))
+    (use-package calfw-cal)
+
+    (defun kk/open-calendar ()
+      (interactive)
+      (cfw:open-calendar-buffer
+       :contents-sources
+       (list
+        (cfw:org-create-source "Green")
+        (cfw:cal-create-source "Orange")))))
 
 #+end_src
 
