@@ -887,14 +887,16 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-c C-<return>") 'term)
 
-  (global-set-key (kbd "C-M-j") 'list-buffers)
+  (global-set-key (kbd "C-M-j") 'ibuffer)
 
 #+end_src
 
 ** Search
 #+begin_src emacs-lisp
 
-  (global-set-key (kbd "M-s f") 'rgrep)
+  (global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
+
+  (global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
 
 #+end_src
 
