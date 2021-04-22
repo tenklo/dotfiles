@@ -1146,7 +1146,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     :config
     (evil-collection-define-key 'normal 'dired-mode-map
       "h" 'dired-single-up-directory
-      "l" 'dired-single-buffer))
+      "l" 'dired-single-buffer
+      "L" 'dired-open-xdg))
 
   (use-package dired-single
     :after dired)
