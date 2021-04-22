@@ -1346,8 +1346,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+begin_src emacs-lisp
 
   (use-package calfw
-    :disabled
-    :commands cfw:open-org-calendar
+    :defer 0
     :config
     (setq cfw:fchar-junction ?╋
           cfw:fchar-vertical-line ?┃
@@ -1356,20 +1355,23 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
           cfw:fchar-right-junction ?┫
           cfw:fchar-top-junction ?┯
           cfw:fchar-top-left-corner ?┏
-          cfw:fchar-top-right-corner ?┓)
+          cfw:fchar-top-right-corner ?┓))
 
-    (use-package calfw-org
-      :config
-      (setq cfw:org-agenda-schedule-args '(:timestamp)))
-    (use-package calfw-cal)
+  (use-package calfw-org
+    :after calfw
+    :config
+    (setq cfw:org-agenda-schedule-args '(:timestamp)))
 
-    (defun kk/open-calendar ()
-      (interactive)
-      (cfw:open-calendar-buffer
-       :contents-sources
-       (list
-        (cfw:org-create-source "Green")
-        (cfw:cal-create-source "Orange")))))
+  (use-package calfw-cal
+    :after calfw)
+
+  (defun kk/open-calendar ()
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source "Green")
+      (cfw:cal-create-source "Orange"))))
 
 #+end_src
 
