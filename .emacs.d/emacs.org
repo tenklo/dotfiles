@@ -741,7 +741,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (add-hook 'text-mode-hook 'flyspell-mode)
+  ;; (add-hook 'text-mode-hook 'flyspell-mode)
 
 #+end_src
 
