@@ -893,6 +893,16 @@ Defining leader keys using the general package.
 
 #+end_src
 
+** Insertions
+
+I guess the =C-c i= area makes sense, standing for *I* nsertions.
+
+#+begin_src emacs-lisp
+
+  (global-set-key (kbd "C-c i d") 'insert-todays-date-headline-standup)
+
+#+end_src
+
 ** Search
 #+begin_src emacs-lisp
 
