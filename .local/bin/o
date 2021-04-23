@@ -63,7 +63,7 @@ case "$mime" in
     image/*)
         opener="$images";;
     text/calendar)
-        opencalcurse -i "$1" && exit ;;
+        emacsclient -e -c "(icalendar-import-file \"$1\" \"~/nextcloud_work/Documents/diary\")" && exit ;;
     application/pgp-keys)
         opener="gpg --import";;
     application/zip)
