@@ -138,7 +138,7 @@ This section configures basic UI settings that remove unneeded elements to make 
 
   (defun kk/set-font-faces ()
     (message "Settings faces!")
-    (set-face-attribute 'default nil :font kk/default-font :height kk/default-font-size))
+    (set-face-attribute 'default nil :height kk/default-font-size))
 
   (if (daemonp)
       (add-hook 'after-make-frame-functions
