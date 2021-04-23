@@ -1370,7 +1370,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
   (use-package calfw-org
     :after calfw
     :config
-    (setq cfw:org-agenda-schedule-args '(:timestamp)))
+    (setq cfw:org-agenda-schedule-args '(:timestamp :deadline)))
 
   (use-package calfw-cal
     :after calfw)
