@@ -359,7 +359,8 @@ This Prescient configuration is optimized for use in System Crafters videos and 
            ((agenda "" ((org-deadline-warning-days 12)))
             (todo "NEXT"
                   ((org-agenda-overriding-header "Next Tasks")))
-            (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+            (todo "ACTIVE"
+                  ((org-agenda-overriding-header "Active Projects")))))
 
           ("n" "Next Tasks"
            ((todo "NEXT"
