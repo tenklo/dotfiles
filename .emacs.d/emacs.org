@@ -787,6 +787,19 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** typographical editing
+
+[[https://github.com/jorgenschaefer/typoel][typo.el on github]].
+
+#+begin_src emacs-lisp
+
+  (use-package typo
+    :config
+    (add-hook 'text-mode-hook #'typo-mode)
+    (setq-default typo-language 'German))
+
+#+end_src
+
 * Keybindings
 ** Evil Mode
 
