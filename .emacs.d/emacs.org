@@ -1132,6 +1132,15 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+end_src
 
+* Webbrowser
+
+#+begin_src emacs-lisp
+
+  (use-package eww
+    :config (setq browse-url-browser-function 'eww))
+
+#+end_src
+
 * File Management
 ** Dired
 
