@@ -1242,9 +1242,10 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
-* Managing Email with mu4e
+* Communication
+** Managing Email with mu4e
 
-** Signatures
+*** Signatures
 
 #+begin_src emacs-lisp
 
@@ -1278,7 +1279,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
-** General
+*** General
 
 #+begin_src emacs-lisp
 
@@ -1391,7 +1392,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
-** org-mime
+*** org-mime
 
 #+begin_src emacs-lisp
 
@@ -1407,6 +1408,54 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                 (org-mime-change-element-style
                  "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
                                "#f6f6f6" "#2f3337")))))
+
+#+end_src
+
+** RSS
+
+#+begin_src emacs-lisp
+
+  (use-package elfeed
+    :commands elfeed
+    :config
+    (setq elfeed-feeds
+          '(("http://www.tagesschau.de/export/podcast/hi/tagesschau-in-100-sekunden/" news)
+            ("https://www.heise.de/rss/heise-Rubrik-IT-atom.xml" news tech)
+            ("https://unixsheikh.com/feed.rss" tech linux privacy)
+            ("https://lukesmith.xyz/rss.xml" personal tech)
+            ("https://www.brandonsanderson.com/feed/" books fantasy)
+            ("https://serpentsec.com/feed/" security)
+            ("https://based.cooking/rss.xml" cooking)
+            "https://videos.lukesmith.xyz/feeds/videos.xml?accountId=3"
+            ("https://youtube.com/feeds/videos.xml?channel_id=UCKqoiG45T1OkQkUEq5dEMzA" knifes victorinox yt)
+            ("https://youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg" yt tech linux)
+            ("https://youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw" yt cooking)
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCsVWpmoRsNAWZb59b6Pt9Kg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCTHij3Ac5GizLsn5yB4IX_Q"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCm9faLh4Rrmlp8FR9MPsJxg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCZNhwA1B5YqiY1nLzmM0ZRg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCfp-lNJy4QkIGnaEE6NtDSg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCts-8ZqS339n-9nxy3DN8Cg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCbTDXDBHApa_cvcOx86yJOA"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UC5QwYlOxcT1higtcJVGzCCg"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UClcE-kVhqyiHCcjYwcpfj9w"
+            "https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ"
+            "https://lbryfeed.melroy.org/channel/tv/Lunduke"
+            "https://lbryfeed.melroy.org/channel/tv/christitustech"
+            "https://lbryfeed.melroy.org/channel/tv/brodierobertson"
+            "https://lbryfeed.melroy.org/channel/tv/techlore"
+            "https://lbryfeed.melroy.org/channel/tv/distrotube"
+            "https://notrelated.xyz/rss"
+            ("http://feeds.soundcloud.com/users/soundcloud:users:261098918/sounds.rss" privacy security tech)
+            "https://old.reddit.com/r/linux.rss"
+            "https://old.reddit.com/r/archlinux.rss"
+            "https://old.reddit.com/r/suckless.rss"
+            ("https://www.archlinux.org/feeds/news/" linux tech arch)
+            "https://store.pine64.org/shop/feed/"
+            "http://suckless.org/atom.xml"
+            "https://old.reddit.com/r/archlinux/comments/m8os1k/language_is_partially_wrong_with_plasma.rss"
+            "https://www.reddit.com/r/emacs/.rss")))
 
 #+end_src
 
