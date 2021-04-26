@@ -1493,6 +1493,20 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
+* Other
+** Speed Reading
+
+#+begin_src emacs-lisp
+
+  (use-package spray
+    :config
+    (setq spray-wpm 400)
+    (add-hook 'spray-mode-hook '(lambda ()
+                                  (turn-off-evil-mode)))
+    (advice-add 'spray-quit :after 'turn-on-evil-mode))
+
+#+end_src
+
 * Passwords
 
 #+begin_src emacs-lisp
