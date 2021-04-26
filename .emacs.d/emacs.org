@@ -924,6 +924,8 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-c r") 'elfeed)
 
+  (global-set-key (kbd "C-c s") 'spray-mode)
+
 #+end_src
 ** Movement
 *** Move Where I Mean
