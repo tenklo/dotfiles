@@ -795,7 +795,6 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
   (use-package typo
     :config
-    (add-hook 'text-mode-hook #'typo-mode)
     (setq-default typo-language 'German))
 
 #+end_src
