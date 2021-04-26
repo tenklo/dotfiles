@@ -1419,6 +1419,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
   (use-package elfeed
     :commands elfeed
     :config
+    (bind-key "C-<return>" #'kk/browse-url-at-point-with-o elfeed-show-mode-map)
     (setq elfeed-feeds
           '(("http://www.tagesschau.de/export/podcast/hi/tagesschau-in-100-sekunden/" news)
             ("https://www.heise.de/rss/heise-Rubrik-IT-atom.xml" news tech)
@@ -1562,6 +1563,19 @@ Invoke by browse-url-generic
 
   (setq browse-url-generic-program
         (executable-find "o"))
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+  (defun kk/open-with-o (arg &rest rest)
+    (interactive)
+    (start-process "" nil "o" arg))
+
+  (defun kk/browse-url-at-point-with-o ()
+    (interactive)
+    (let ((browse-url-browser-function 'kk/open-with-o))
+      (browse-url-at-point)))
 
 #+end_src
 
