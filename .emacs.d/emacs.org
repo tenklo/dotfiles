@@ -950,6 +950,9 @@ Defining leader keys using the general package.
     :config
     (global-set-key (kbd "C-a") 'mwim-beginning)
     (global-set-key (kbd "C-e") 'mwim-end)
+    (add-hook 'evil-visual-state-entry-hook (lambda ()
+                                              (define-key evil-visual-state-map (kbd "C-e") 'mwim-end)
+                                              (define-key evil-visual-state-map (kbd "C-a") 'mwim-beginning)))
     (add-hook 'evil-normal-state-entry-hook (lambda ()
                                               (define-key evil-normal-state-map (kbd "C-e") 'mwim-end)
                                               (define-key evil-normal-state-map (kbd "C-a") 'mwim-beginning)))
