@@ -734,6 +734,19 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** Editorconfig
+
+[[https://editorconfig.org/][Editorconfig.org]]
+
+#+begin_src emacs-lisp
+
+  (use-package editorconfig
+    :ensure t
+    :config
+    (editorconfig-mode 1))
+
+#+end_src
+
 * Tramp
 
 #+begin_src emacs-lisp
