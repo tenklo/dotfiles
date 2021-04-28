@@ -782,6 +782,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
   (use-package smartparens
     :defer t
+    :hook (prog-mode . smartparens-mode)
     :config
     (require 'smartparens-config))
 
