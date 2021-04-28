@@ -609,6 +609,26 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 #+end_src
 
 *** HTML + CSS
+
+#+begin_src emacs-lisp
+
+  (use-package web-mode
+    :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
+    :config
+    (setq-default web-mode-code-indent-offset 2)
+    (setq-default web-mode-markup-indent-offset 2)
+    (setq-default web-mode-attribute-indent-offset 2))
+
+  ;; 1. Start the server with `httpd-start'
+  ;; 2. Use `impatient-mode' on any buffer
+  (use-package impatient-mode
+    :defer t)
+
+  (use-package skewer-mode
+    :defer t)
+
+#+end_src
+
 **** Emmet
 
 #+begin_src emacs-lisp
