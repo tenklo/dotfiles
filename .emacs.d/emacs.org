@@ -1301,7 +1301,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 - =*= - Lots of other auto-marking functions
 - =k= / =K= - "Kill" marked items (refresh buffer with =g= / =g r= to get them back)
 - Many operations can be done on a single file if there are no active marks!
- 
+
 **** Copying and Renaming files
 
 - =C= - Copy marked files (or if no files are marked, the current file)
