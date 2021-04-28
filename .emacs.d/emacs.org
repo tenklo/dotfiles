@@ -776,6 +776,17 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+*** smartparens
+
+#+begin_src emacs-lisp
+
+  (use-package smartparens
+    :defer t
+    :config
+    (require 'smartparens-config))
+
+#+end_src
+
 ** Flycheck
 
 #+begin_src emacs-lisp
