@@ -1729,11 +1729,10 @@ Invoke by browse-url-generic
 
   (defun kk/indent-buffer ()
     (interactive)
-    (point-to-register 'o)
-    (delete-trailing-whitespace)
-    (indent-region (point-min) (point-max) nil)
-    (untabify (point-min) (point-max))
-    (jump-to-register 'o))
+    (save-excursion
+      (delete-trailing-whitespace)
+      (indent-region (point-min) (point-max) nil)
+      (untabify (point-min) (point-max))))
 
 #+end_src
 * Runtime Performance
