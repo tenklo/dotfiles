@@ -282,6 +282,16 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (setq calendar-week-start-day 1))
 #+end_src
 
+** window numbering
+
+#+begin_src emacs-lisp
+
+  (use-package window-numbering
+    :config
+    (window-numbering-mode))
+
+#+end_src
+
 * Org Mode
 ** Basic
 #+begin_src emacs-lisp
