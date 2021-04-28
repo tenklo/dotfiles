@@ -2,7 +2,7 @@
 
 new=""
 newmailtext=" "
-
+mu index > /dev/null 2>&1 | emacsclient -e '(mu4e-update-index)' > /dev/null 2>&1
 mu find flag:unread > /dev/null 2>&1 && new="$newmailtext"
 
 echo "$new"
