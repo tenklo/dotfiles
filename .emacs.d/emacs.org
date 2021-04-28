@@ -1722,6 +1722,19 @@ Invoke by browse-url-generic
 
 #+end_src
 
+** Indent the whole buffer
+
+#+begin_src emacs-lisp
+
+  (defun kk/indent-buffer ()
+    (interactive)
+    (point-to-register 'o)
+    (delete-trailing-whitespace)
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (jump-to-register 'o))
+
+#+end_src
 * Runtime Performance
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
