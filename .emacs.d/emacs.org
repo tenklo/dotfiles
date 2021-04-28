@@ -277,6 +277,7 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
 #+begin_src emacs-lisp
   (use-package calendar
+    :defer t
     :config
     (setq calendar-week-start-day 1))
 #+end_src
@@ -486,6 +487,7 @@ Don't prompt eval confirmation
 #+begin_src emacs-lisp
 
   (use-package evil-nerd-commenter
+    :defer t
     :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 #+end_src
@@ -602,7 +604,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 #+begin_src emacs-lisp
 
   (use-package emmet-mode
-    :defer 0
+    :defer t
     :hook
     ((sgml-mode-hook . emmet-mode)
      (css-mode-hook . emmet-mode))
@@ -703,6 +705,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 #+begin_src emacs-lisp
 
   (use-package rainbow-delimiters
+    :defer t
     :hook (prog-mode . rainbow-delimiters-mode))
 
 #+end_src
@@ -739,7 +742,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package format-all)
+  (use-package format-all
+    :defer t)
 
 #+end_src
 
@@ -816,6 +820,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 #+begin_src emacs-lisp
 
   (use-package typo
+    :defer t
     :config
     (setq-default typo-language 'German))
 
@@ -1426,6 +1431,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
   (use-package org-mime
     :ensure t
+    :defer t
     :config
     (setq org-mime-export-options '(:section-numbers nil
                                                      :with-author nil
@@ -1527,6 +1533,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+begin_src emacs-lisp
 
   (use-package spray
+    :defer t
     :config
     (setq spray-wpm 400)
     (add-hook 'spray-mode-hook '(lambda ()
