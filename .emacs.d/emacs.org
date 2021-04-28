@@ -969,8 +969,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package undo-fu
-    :init)
+  (use-package undo-fu)
 
   (define-key evil-normal-state-map "u" 'undo-fu-only-undo)
   (define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
