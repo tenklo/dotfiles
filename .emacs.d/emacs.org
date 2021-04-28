@@ -823,9 +823,17 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 #+begin_src emacs-lisp
 
   (use-package editorconfig
-    :ensure t
     :config
     (editorconfig-mode 1))
+
+#+end_src
+
+** know-your-http-well
+
+#+begin_src emacs-lisp
+
+  (use-package know-your-http-well
+    :defer t)
 
 #+end_src
 
