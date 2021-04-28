@@ -1241,12 +1241,32 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+end_src
 
-* Webbrowser
+* Browser
+
+** eww
 
 #+begin_src emacs-lisp
 
   (use-package eww
     :config (setq browse-url-browser-function 'eww))
+
+#+end_src
+
+** elpher
+
+#+begin_src emacs-lisp
+
+  (use-package elpher
+    :defer t
+    :config
+    (advice-add 'eww-browse-url :around 'elpher:eww-browse-url)
+
+    (defun elpher:eww-browse-url (original url &optional new-window)
+      "Handle gemini links."
+      (cond ((string-match-p "\\`\\(gemini\\|gopher\\)://" url)
+             (require 'elpher)
+             (elpher-go url))
+            (t (funcall original url new-window)))))
 
 #+end_src
 
