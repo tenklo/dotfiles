@@ -289,7 +289,7 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (setq calendar-week-start-day 1))
 #+end_src
 
-** window numbering
+** Window Numbering
 
 #+begin_src emacs-lisp
 
@@ -520,7 +520,7 @@ Don't prompt eval confirmation
 To use lsp-mode for any language, check the above places first.
 You'll likely need to install a corresponding mode and language server outside on your system.
 
-**** lsp-mode
+**** Lsp-Mode
 
 See [[https://github.com/emacs-lsp/lsp-mode/][lsp-mode (Github)]]
 
@@ -546,7 +546,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
     :hook (lsp-mode . kk/lsp-mode-setup))
 #+end_src
 
-***** lsp-ui
+***** Lsp-Ui
 
 #+begin_src emacs-lisp
 
@@ -557,7 +557,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 #+end_src
 
-***** treemacs
+***** Treemacs
 
 #+begin_src emacs-lisp
 
@@ -584,7 +584,6 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+end_src
 
-*** PHP
 *** Angular
 
 [[Https://Github.Com/Adamniederer/Ng2-Mode][Ng2-Mode Github]]
@@ -596,6 +595,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+end_src
 
+*** Php
 
 #+begin_src emacs-lisp
 
@@ -629,7 +629,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-*** HTML + CSS
+*** Html + Css
 
 #+begin_src emacs-lisp
 
@@ -701,7 +701,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-** Debugging with dap-mode
+** Debugging With Dap-Mode
 
 [[https://emacs-lsp.github.io/dap-mode/][dap-mode]] is an excellent package for bringing rich debugging capabilities to Emacs via the [[https://microsoft.github.io/debug-adapter-protocol/][Debug Adapter Protocol]].  You should check out the [[https://emacs-lsp.github.io/dap-mode/page/configuration/][configuration docs]] to learn how to configure the debugger for your language.  Also make sure to check out the documentation for the debug adapter to see what configuration parameters are available to use for your debug templates!
 
@@ -789,7 +789,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-*** show-paren-mode
+*** Show-Paren-Mode
 
 #+begin_src emacs-lisp
 
@@ -797,7 +797,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-*** smartparens
+*** Smartparens
 
 #+begin_src emacs-lisp
 
@@ -820,7 +820,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-** indent-guide
+** Indent-Guide
 
 #+begin_src emacs-lisp
 
@@ -829,7 +829,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-** format-all
+** Format-All
 
 #+begin_src emacs-lisp
 
@@ -850,7 +850,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
-** know-your-http-well
+** Know-Your-Http-Well
 
 #+begin_src emacs-lisp
 
@@ -908,7 +908,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+end_src
 
-** guess-language
+** Guess-Language
 
 #+begin_src emacs-lisp
 
@@ -925,7 +925,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+end_src
 
-** typographical editing
+** Typographical Editing
 
 [[https://github.com/jorgenschaefer/typoel][typo.el on github]].
 
@@ -1146,7 +1146,7 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 #+end_src
 
 * Terminals
-** term-mode
+** Term-Mode
 
 =term-mode= is a built-in terminal emulator in Emacs. Because it is written in Emacs Lisp, you can start using it immediately with very little configuration. If you are on Linux or macOS, term-mode is a great choice to get started because it supports fairly complex terminal applications (htop, vim, etc) and works pretty reliably. However, because it is written in Emacs Lisp, it can be slower than other options like vterm. The speed will only be an issue if you regularly run console apps with a lot of output.
 
@@ -1174,7 +1174,7 @@ If you have evil-collection installed, term-mode will enter char mode when you u
 
 #+end_src
 
-*** Better term-mode colors
+*** Better Term-Mode Colors
 
 The =eterm-256color= package enhances the output of =term-mode= to enable handling of a wider range of color codes so that many popular terminal applications look as you would expect them to.  Keep in mind that this package requires =ncurses= to be installed on your machine so that it has access to the =tic= program.  Most Linux distributions come with this program installed already so you may not have to do anything extra to use it.
 
@@ -1185,7 +1185,7 @@ The =eterm-256color= package enhances the output of =term-mode= to enable handli
 
 #+end_src
 
-** vterm
+** Vterm
 
 [[https://github.com/akermu/emacs-libvterm/][vterm]] is an improved terminal emulator package which uses a compiled native module to interact with the underlying terminal applications.  This enables it to be much faster than =term-mode= and to also provide a more complete terminal emulation experience.
 
@@ -1202,7 +1202,7 @@ Make sure that you have the [[https://github.com/akermu/emacs-libvterm/#requirem
 
 #+end_src
 
-** shell-mode
+** Shell-Mode
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Interactive-Shell.html#Interactive-Shell][shell-mode]] is a middle ground between =term-mode= and Eshell.  It is *not* a terminal emulator so more complex terminal programs will not run inside of it.  It does have much better integration with Emacs because all command input in this mode is handled by Emacs and then sent to the underlying shell once you press Enter.  This means that you can use =evil-mode='s editing motions on the command line, unlike in the terminal emulator modes above.
 
@@ -1279,7 +1279,7 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 * Browser
 
-** eww
+** Eww
 
 #+begin_src emacs-lisp
 
@@ -1290,7 +1290,7 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+end_src
 
-** elpher
+** Elpher
 
 #+begin_src emacs-lisp
 
@@ -1561,7 +1561,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
-*** org-mime
+*** Org-Mime
 
 #+begin_src emacs-lisp
 
@@ -1704,14 +1704,15 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+end_src
 
 * Restoring
-** winner-mode
+** Winner-Mode
+
 #+begin_src emacs-lisp
 
   (winner-mode)
 
 #+end_src
 
-** desktop-save-mode
+** Desktop-Save-Mode
 
 #+begin_src emacs-lisp
 
@@ -1759,7 +1760,7 @@ Invoke by browse-url-generic
 
 #+end_src
 
-** Todays date for Daily Standup notes
+** Todays Date For Daily Standup Notes
 
 #+begin_src emacs-lisp
 
@@ -1768,7 +1769,7 @@ Invoke by browse-url-generic
 
 #+end_src
 
-** Indent the whole buffer
+** Indent The Whole Buffer
 
 #+begin_src emacs-lisp
 
