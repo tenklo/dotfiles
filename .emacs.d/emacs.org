@@ -1685,6 +1685,15 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
+** Auto-Reverting
+
+#+begin_src emacs-lisp
+
+  (setq global-auto-revert-non-file-buffers t)
+  (global-auto-revert-mode)
+
+#+end_src
+
 * Passwords
 
 #+begin_src emacs-lisp
