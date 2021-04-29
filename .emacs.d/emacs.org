@@ -1382,7 +1382,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+begin_src emacs-lisp
 
   (defun kk/mu4e-choose-signature ()
-    "Insert one of a number of sigs"
+    "Insert one of a number of sigs."
     (interactive)
     (let ((message-signature
            (mu4e-read-option "Signature:"
