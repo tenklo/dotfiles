@@ -1554,6 +1554,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     :commands elfeed
     :config
     (defun kk/elfeed-show-visit-with-o ()
+      "Use the usual `elfeed-show-visit' command, but previously set
+  `browse-url-browser-function' to `kk/open-with-o'"
       (interactive)
       (let ((browse-url-browser-function 'kk/open-with-o))
         (elfeed-show-visit)))
