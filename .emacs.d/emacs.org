@@ -1730,6 +1730,8 @@ Invoke by browse-url-generic
 #+begin_src emacs-lisp
 
   (defun kk/tidy-buffer ()
+    "Indent and tidy up the current buffer.
+  Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
     (interactive)
     (save-excursion
       (delete-trailing-whitespace)
