@@ -41,7 +41,7 @@ Here variables shall be set, which will be used throughout the config to set sys
   (setq gc-cons-threshold (* 50 1000 1000))
 
   (defun kk/display-startup-time ()
-    "Display the time it took to load emacs to the Messages buffer.
+    "Display the time it took to load Emacs to the Messages buffer.
   Also displays the number of garbage collections which occured."
     (message "Emacs loaded in %s with %d garbage collections."
              (format "%.2f seconds"
@@ -540,7 +540,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 ***** Header Breadcrumb
 
 #+begin_src emacs-lisp
-  (defun kk/lsp-mode-setup()
+  (defun kk/lsp-mode-setup ()
     (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
 
     :hook (lsp-mode . kk/lsp-mode-setup))
