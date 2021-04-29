@@ -1621,6 +1621,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     :after calfw)
 
   (defun kk/open-calendar ()
+    "Open calendar calfw with additional sources."
     (interactive)
     (cfw:open-calendar-buffer
      :contents-sources
