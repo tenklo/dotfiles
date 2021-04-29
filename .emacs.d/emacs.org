@@ -8,7 +8,7 @@ This file generates init.el, which can be loaded by Emacs at startup.
 
 * System Specific Settings
 
-Here variables shall be set, which will be used through the config to set system specific values.
+Here variables shall be set, which will be used throughout the config to set system specific values.
 
 #+begin_src emacs-lisp
 
