@@ -590,8 +590,8 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+begin_src emacs-lisp
 
-  (Use-Package Ng2-Mode
-    :Defer T)
+  (use-package ng2-mode
+    :defer t)
 
 #+end_src
 
