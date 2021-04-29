@@ -585,6 +585,17 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 #+end_src
 
 *** PHP
+*** Angular
+
+[[Https://Github.Com/Adamniederer/Ng2-Mode][Ng2-Mode Github]]
+
+#+begin_src emacs-lisp
+
+  (Use-Package Ng2-Mode
+    :Defer T)
+
+#+end_src
+
 
 #+begin_src emacs-lisp
 
