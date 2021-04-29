@@ -1710,6 +1710,8 @@ Invoke by browse-url-generic
     (start-process "" nil "o" arg))
 
   (defun kk/browse-url-at-point-with-o ()
+    "Browse the url at point via `browse-url-at-point', using `kk/open-with-o'
+  as `browse-url-browser-function'."
     (interactive)
     (let ((browse-url-browser-function 'kk/open-with-o))
       (browse-url-at-point)))
