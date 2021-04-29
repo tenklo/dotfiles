@@ -1416,6 +1416,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+begin_src emacs-lisp
 
   (defun kk/mu4e-add-standard-bookmarks ()
+    "Add additional mu4e bookmarks to existing `mu4e-bookmarks'.
+  This is used to have standard bookmarks, to be added to context specific bookmarks."
     (interactive)
     (add-to-list 'mu4e-bookmarks '(:query "m:/kloess@digital-worx.de/Inbox or m:/karsten.kloess@its-stuttgart.de/Inbox" :name "All Inboxes" :key ?y :hide t) t)
     (add-to-list 'mu4e-bookmarks '(:query "flag:unread" :name "All Unread" :key ?x :hide t) t))
