@@ -859,6 +859,19 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+** Column Enforce Mode
+
+This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColumnRule][Eighty Column Rule]].
+
+#+begin_src emacs-lisp
+
+  (use-package column-enforce-mode
+    :hook (prog-mode . column-enforce-mode)
+    :config
+    (setq column-enforce-comments nil))
+
+#+end_src
+
 * Tramp
 
 #+begin_src emacs-lisp
