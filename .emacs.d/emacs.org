@@ -1249,7 +1249,9 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 #+begin_src emacs-lisp
 
   (use-package eww
-    :config (setq browse-url-browser-function 'eww))
+    :config (setq browse-url-browser-function 'eww
+                  shr-indentation 2
+                  shr-width 80))
 
 #+end_src
 
