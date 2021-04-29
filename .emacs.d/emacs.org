@@ -39,6 +39,8 @@ This file generates init.el which can be loaded by Emacs at startup.
   (setq gc-cons-threshold (* 50 1000 1000))
 
   (defun kk/display-startup-time ()
+    "Display the time it took to load emacs to the Messages buffer.
+  Also displays the number of garbage collections which occured."
     (message "Emacs loaded in %s with %d garbage collections."
              (format "%.2f seconds"
                      (float-time
@@ -137,6 +139,9 @@ This section configures basic UI settings that remove unneeded elements to make 
 #+begin_src emacs-lisp
 
   (defun kk/set-font-faces ()
+    "Set font faces.
+  This function can be called to set the faces after making a frame,
+  in case Emacs daemon is used."
     (message "Settings faces!")
     (set-face-attribute 'default nil :height kk/default-font-size))
 
@@ -297,11 +302,14 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 #+begin_src emacs-lisp
 
   (defun kk/org-mode-setup ()
+    "Set org-specific settings.
+  Intended to be used in an `org-mode-hook'."
     (org-indent-mode)
     (visual-line-mode 1)
     (setq-local display-line-numbers-type t))
 
   (defun kk/org-font-setup ()
+    "Set `org-mode' specific font settings."
     ;; Replace list hyphen with dot
     (font-lock-add-keywords 'org-mode
                             '(("^ *\\([-]\\) "
@@ -1211,6 +1219,7 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 #+begin_src emacs-lisp
 
   (defun kk/configure-eshell ()
+    "Configure the `eshell'."
     ;; Save command history when commands are entered
     (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
 
