@@ -1729,7 +1729,7 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/indent-buffer ()
+  (defun kk/tidy-buffer ()
     (interactive)
     (save-excursion
       (delete-trailing-whitespace)
