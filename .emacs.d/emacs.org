@@ -1285,7 +1285,6 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
   (use-package eww
     :config (setq browse-url-browser-function 'eww
-                  shr-indentation 2
                   shr-width 80))
 
 #+end_src
