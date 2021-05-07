@@ -16,13 +16,11 @@ Here variables shall be set, which will be used throughout the config to set sys
     ("dwhpd"
      (setq kk/default-font-size 140)
      (setq kk/org-agenda-files (list
-                                "~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
                                 "~/nextcloud_work/Documents/standups.org"
                                 "~/nextcloud_work/Documents/workAgenda.org")))
     ("T490s"
      (setq kk/default-font-size 180)
      (setq kk/org-agenda-files (list
-                                "~/nextcloud_work/digital-worx/Porsche/Schraubtechnikdatenbank/notizen/porsche.org"
                                 "~/nextcloud_work/Documents/standups.org"
                                 "~/nextcloud_work/Documents/workAgenda.org"
                                 "~/tasks.org")))
