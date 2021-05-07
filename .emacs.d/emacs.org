@@ -1105,6 +1105,10 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 
   (global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
 
+  (global-set-key (kbd "M-s M-d") 'kk/search-region-on-duden)
+
+  (global-set-key (kbd "M-s M-t") 'kk/search-region-on-dict)
+
 #+end_src
 
 ** Hydra
@@ -1805,6 +1809,26 @@ Invoke by browse-url-generic
       (untabify (point-min) (point-max))))
 
 #+end_src
+** Search Region Via Something
+
+#+begin_src emacs-lisp
+
+  (defun kk/search-region-via (url)
+    (interactive)
+    (eww (concat url (buffer-substring (region-beginning) (region-end)))))
+
+  (defun kk/search-region-on-dict ()
+    "Use dict.cc to find a translation to the region."
+    (interactive)
+    (kk/search-region-via "https://www.dict.cc/?s="))
+
+  (defun kk/search-region-on-duden ()
+    "Use duden.de to find a definition to the region."
+    (interactive)
+    (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
+
+#+end_src
+
 * Runtime Performance
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
