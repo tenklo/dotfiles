@@ -342,6 +342,9 @@ This Prescient configuration is optimized for use in System Crafters videos and 
             ("tp" "Project" entry (file+olp "~/nextcloud_work/Documents/workAgenda.org" "Inbox")
              "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 1)
 
+            ("b" "Bookmark" entry (file "~/documents/Bookmarks.org")
+             "* %? Bookmark\n  %U\n  %a\n  %i" :empty-lines 1)
+
             ("j" "Journal Entries")
             ("jj" "Journal" entry
              (file+olp+datetree "~/Journal.org")
