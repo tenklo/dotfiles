@@ -1780,7 +1780,7 @@ Invoke by browse-url-generic
 
   (defun kk/browse-url-at-point-with-o ()
     "Browse the url at point, opening it via o.
-  Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
+    Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
     (interactive)
     (let ((browse-url-browser-function 'kk/open-with-o))
       (browse-url-at-point)))
