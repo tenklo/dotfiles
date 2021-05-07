@@ -297,6 +297,14 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
 #+end_src
 
+** Registers
+
+#+begin_src emacs-lisp
+
+  (setq register-preview-delay 0)
+
+#+end_src
+
 * Org Mode
 ** Basic
 #+begin_src emacs-lisp
