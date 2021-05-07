@@ -1635,8 +1635,8 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
             ("https://www.archlinux.org/feeds/news/" linux linux tech arch)
             "https://store.pine64.org/shop/feed/"
             "http://suckless.org/atom.xml"
-            ("https://www.reddit.com/r/wallstreetbets.rss" investing reddit money)
-            ("https://www.reddit.com/r/emacs/.rss" reddit))))
+            ("https://old.reddit.com/r/wallstreetbets.rss" investing reddit money)
+            ("https://old.reddit.com/r/emacs/.rss" reddit))))
 
 #+end_src
 
