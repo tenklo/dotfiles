@@ -967,6 +967,10 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
+  (defun kk/evil-hook ()
+    (dolist (mode '(cfw:details-mode))
+      (add-to-list 'evil-emacs-state-modes)))
+
   (use-package evil
     :init
     (setq evil-want-integration t)
@@ -974,6 +978,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
     (setq evil-want-C-u-scroll t)
     (setq evil-want-C-i-jump t)
     (setq evil-want-C-i-jump t)
+    :hook (evil-mode . kk/evil-hook)
     :config
     (evil-mode 1)
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
