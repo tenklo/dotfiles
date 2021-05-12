@@ -1058,8 +1058,10 @@ Defining leader keys using the general package.
       "tt" '(counsel-load-theme :which-key "choose theme")
       "ts" '(hydra-text-scale/body :which-key "scale-text")
       "b" '(hydra-buffer-control/body :which-key "control buffers")
-      "j" '(hydra-bookmark-control/body :which-key "control bookmarks")
-      "w" '(hydra-window-size/body :which-key "change window size")))
+      "h" '(hydra-bookmark-control/body :which-key "control bookmarks")
+      "w" '(hydra-window-size/body :which-key "change window size")
+      "j" '(winner-undo :which-key "winner undo")
+      "k" '(winner-redo :which-key "winner redo")))
 
 #+end_src
 ** General Global Bindings
