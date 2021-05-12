@@ -415,7 +415,7 @@ This Prescient configuration is optimized for use in System Crafters videos and 
            ((todo "EXAM"
                   ((org-agenda-overriding-header "Scheduled Exams")
                    (org-agenda-files org-agenda-files)))
-           ((todo "HOMEWORK"
+            (todo "HOMEWORK"
                   ((org-agenda-overriding-header "Homework")
                    (org-agenda-files org-agenda-files)))
             (todo "SUBMISSION"
