@@ -1094,6 +1094,9 @@ Defining leader keys using the general package.
 
   (global-set-key (kbd "C-c s") 'spray-mode)
 
+  (global-set-key (kbd "C-c M-j") 'winner-undo)
+  (global-set-key (kbd "C-c M-k") 'winner-redo)
+
 #+end_src
 ** Movement
 *** Move Where I Mean
