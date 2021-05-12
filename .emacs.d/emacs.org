@@ -147,12 +147,32 @@ This section configures basic UI settings that remove unneeded elements to make 
     (message "Settings faces!")
     (set-face-attribute 'default nil :height kk/default-font-size))
 
+  (defun kk/org-font-setup ()
+    "Set `org-mode' specific font settings."
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+                            '(("^ *\\([-]\\) "
+                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+    ;; set faces for heading levels
+    (dolist (face '((org-level-1 . 1.2)
+                    (org-level-2 . 1.1)
+                    (org-level-3 . 1.05)
+                    (org-level-4 . 1.0)
+                    (org-level-5 . 1.1)
+                    (org-level-6 . 1.1)
+                    (org-level-7 . 1.1)
+                    (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face))))
+
   (if (daemonp)
       (add-hook 'after-make-frame-functions
                 (lambda (frame)
                   (setq doom-modeline-icon t)
-                  (with-selected-frame frame (kk/set-font-faces))))
-    (kk/set-font-faces))
+                  (with-selected-frame frame (kk/set-font-faces)
+                                       (kk/org-font-setup))))
+    (kk/set-font-faces)
+    (kk/org-font-setup))
 
 #+end_src
 
@@ -317,24 +337,6 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (org-indent-mode)
     (visual-line-mode 1)
     (setq-local display-line-numbers-type t))
-
-  (defun kk/org-font-setup ()
-    "Set `org-mode' specific font settings."
-    ;; Replace list hyphen with dot
-    (font-lock-add-keywords 'org-mode
-                            '(("^ *\\([-]\\) "
-                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-    ;; set faces for heading levels
-    (dolist (face '((org-level-1 . 1.2)
-                    (org-level-2 . 1.1)
-                    (org-level-3 . 1.05)
-                    (org-level-4 . 1.0)
-                    (org-level-5 . 1.1)
-                    (org-level-6 . 1.1)
-                    (org-level-7 . 1.1)
-                    (org-level-8 . 1.1)))
-      (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face))))
 
   (use-package org
     :hook (org-mode . kk/org-mode-setup)
