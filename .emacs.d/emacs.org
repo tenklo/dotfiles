@@ -409,6 +409,17 @@ This Prescient configuration is optimized for use in System Crafters videos and 
             (org-agenda-max-todos 20)
             (org-agenda-files org-agenda-files)))
 
+          ("A" "Academical"
+           ((todo "EXAM"
+                  ((org-agenda-overriding-header "Scheduled Exams")
+                   (org-agenda-files org-agenda-files)))
+           ((todo "HOMEWORK"
+                  ((org-agenda-overriding-header "Homework")
+                   (org-agenda-files org-agenda-files)))
+            (todo "SUBMISSION"
+                  ((org-agenda-overriding-header "Submissions")
+                   (org-agenda-files org-agenda-files)))))
+
           ("w" "Workflow Status"
            ((todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")
@@ -449,7 +460,9 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-          (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k)")))
+          (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)"
+                    "WAIT(w)" "HOLD(h)" "|" "COMPLETED(c)" "CANC(k)")
+          (sequence "EXAM(e)" "SUBMISSION(s)" "HOMEWORK(h)" "|" "DONE(d)")))
 
 #+end_src
 ** Babel
