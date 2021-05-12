@@ -1021,7 +1021,6 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
      state))
 
   (evil-define-key 'normal kk/intercept-mode-map
-    (kbd "SPC f") 'find-file
     (kbd "g j") 'evil-next-visual-line
     (kbd "g k") 'evil-previous-visual-line)
 
