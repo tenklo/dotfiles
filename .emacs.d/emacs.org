@@ -971,7 +971,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
   (defun kk/evil-hook ()
     (dolist (mode '(cfw:details-mode))
-      (add-to-list 'evil-emacs-state-modes)))
+      (add-to-list 'evil-emacs-state-modes mode)))
 
   (use-package evil
     :init
