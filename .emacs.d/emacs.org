@@ -434,12 +434,15 @@ This Prescient configuration is optimized for use in System Crafters videos and 
           ("A" "Academical"
            ((todo "EXAM"
                   ((org-agenda-overriding-header "Scheduled Exams")
-                   (org-agenda-files org-agenda-files)))
+                   (org-agenda-files org-agenda-files)
+                   (org-agenda-sorting-strategy '(deadline-up))))
             (todo "HOMEWORK"
                   ((org-agenda-overriding-header "Homework")
+                   (org-agenda-sorting-strategy '(deadline-up))
                    (org-agenda-files org-agenda-files)))
             (todo "SUBMISSION"
                   ((org-agenda-overriding-header "Submissions")
+                   (org-agenda-sorting-strategy '(deadline-up))
                    (org-agenda-files org-agenda-files)))))
 
           ("w" "Workflow Status"
