@@ -390,6 +390,10 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+#+end_src
+
 ** Todo Keywords
 
 #+begin_src emacs-lisp
@@ -402,7 +406,10 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
 #+end_src
 
-  ;; Configure custom agenda views
+** Custom Agenda Views
+
+#+begin_src emacs-lisp
+
   (setq org-agenda-custom-commands
         '(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 30)))
@@ -473,8 +480,8 @@ This Prescient configuration is optimized for use in System Crafters videos and 
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
 
+#+end_src
 
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 
   (require 'org-tempo)
