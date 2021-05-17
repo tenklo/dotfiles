@@ -439,16 +439,23 @@ This Prescient configuration is optimized for use in System Crafters videos and 
                         (org-agenda-files org-agenda-files)))))
 
           ("A" "Academical"
-           ((todo "EXAM"
+           ((agenda "" ((org-deadline-warning-days 90)
+                        (org-agenda-span 14)
+                        (org-agenda-time-grid nil)
+                        (org-agenda-include-diary nil)
+                        (org-agenda-files
+                         (list
+                          "~/nextcloud_work/schule/schule.org"))))
+            (todo "EXAM"
                   ((org-agenda-overriding-header "Scheduled Exams")
                    (org-agenda-files org-agenda-files)
                    (org-agenda-sorting-strategy '(deadline-up))))
             (todo "HOMEWORK"
-                  ((org-agenda-overriding-header "Homework")
+                  ((org-agenda-overriding-header "Homework due")
                    (org-agenda-sorting-strategy '(deadline-up))
                    (org-agenda-files org-agenda-files)))
             (todo "SUBMISSION"
-                  ((org-agenda-overriding-header "Submissions")
+                  ((org-agenda-overriding-header "Submissions due")
                    (org-agenda-sorting-strategy '(deadline-up))
                    (org-agenda-files org-agenda-files)))))
 
