@@ -482,7 +482,9 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
 #+end_src
 
+** Structure Templates
 
+#+begin_src emacs-lisp
 
   (require 'org-tempo)
 
