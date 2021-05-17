@@ -417,11 +417,19 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
           ("W" "Work Tasks" tags-todo "+work-email")
 
-          ;; Low-effort next actions
-          ("e" tags-todo "+Effort<15&+Effort>0"
-           ((org-agenda-overriding-header "Low Effort Tasks")
-            (org-agenda-max-todos 20)
-            (org-agenda-files org-agenda-files)))
+          ("e" "Tasks by Effort"
+           ((tags-todo "+Effort<2&+Effort>0"
+                       ((org-agenda-overriding-header "Low Effort Tasks")
+                        (org-agenda-max-todos 20)
+                        (org-agenda-files org-agenda-files)))
+            (tags-todo "+Effort<4&+Effort>1"
+                       ((org-agenda-overriding-header "Mid Effort Tasks")
+                        (org-agenda-max-todos 20)
+                        (org-agenda-files org-agenda-files)))
+            (tags-todo "+Effort>4"
+                       ((org-agenda-overriding-header "High Effort Tasks")
+                        (org-agenda-max-todos 20)
+                        (org-agenda-files org-agenda-files)))))
 
           ("A" "Academical"
            ((todo "EXAM"
