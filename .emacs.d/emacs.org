@@ -363,12 +363,12 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (setq org-capture-templates
           `(("t" "Tasks / Projects")
             ("tt" "Task" entry (file+olp "~/nextcloud_work/Documents/workAgenda.org" "Inbox")
-             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 0)
             ("tp" "Project" entry (file+olp "~/nextcloud_work/Documents/workAgenda.org" "Inbox")
-             "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 1)
+             "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 0)
 
             ("b" "Bookmark" entry (file "~/documents/Bookmarks.org")
-             "* %? Bookmark\n  %U\n  %a\n  %i" :empty-lines 1)
+             "* %? Bookmark\n  %U\n  %a\n  %i" :empty-lines 0)
 
             ("j" "Journal Entries")
             ("jj" "Journal" entry
@@ -376,16 +376,16 @@ This Prescient configuration is optimized for use in System Crafters videos and 
              "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
              ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
              :clock-in :clock-resume
-             :empty-lines 1)
+             :empty-lines 0)
             ("jm" "Meeting" entry
              (file+olp+datetree "~/Journal.org")
              "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
              :clock-in :clock-resume
-             :empty-lines 1)
+             :empty-lines 0)
 
             ("w" "Workflows")
             ("we" "Checking Email" entry (file+olp+datetree "~/Journal.org")
-             "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+             "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 0)
 
             ("m" "Metrics Capture")
             ("mw" "Weight" table-line (file+headline "~/Metrics.org" "Weight")
