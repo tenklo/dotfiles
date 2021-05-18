@@ -457,28 +457,30 @@ This Prescient configuration is optimized for use in System Crafters videos and 
                         (org-agenda-max-todos 20)
                         (org-agenda-files org-agenda-files)))))
 
+          ("w" "Work"
+           ((agenda "" ((org-deadline-warning-days 90)
+                        (org-agenda-span 7)
+                        (diary-file kk/work-diary-file)
+                        (org-agenda-files
+                         (list
+                          "~/nextcloud_work/Documents/workAgenda.org"
+                          "~/nextcloud_work/Documents/standups.org"))))
+            ,kk/org-agenda-next-block
+            ,kk/org-agenda-active-block))
+
           ("A" "Academical"
            ((agenda "" ((org-deadline-warning-days 90)
                         (org-agenda-span 14)
                         (org-agenda-time-grid nil)
-                        (org-agenda-include-diary nil)
+                        (diary-file kk/school-diary-file)
                         (org-agenda-files
                          (list
                           "~/nextcloud_work/schule/schule.org"))))
-            (todo "EXAM"
-                  ((org-agenda-overriding-header "Scheduled Exams")
-                   (org-agenda-files org-agenda-files)
-                   (org-agenda-sorting-strategy '(deadline-up))))
-            (todo "HOMEWORK"
-                  ((org-agenda-overriding-header "Homework due")
-                   (org-agenda-sorting-strategy '(deadline-up))
-                   (org-agenda-files org-agenda-files)))
-            (todo "SUBMISSION"
-                  ((org-agenda-overriding-header "Submissions due")
-                   (org-agenda-sorting-strategy '(deadline-up))
-                   (org-agenda-files org-agenda-files)))))
+            ,kk/org-agenda-academical-exam-block
+            ,kk/org-agenda-academical-homework-block
+            ,kk/org-agenda-academical-submissions-block))
 
-          ("w" "Workflow Status"
+          ("p" "Projects Status"
            ((todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")
                    (org-agenda-files org-agenda-files)))
@@ -505,6 +507,38 @@ This Prescient configuration is optimized for use in System Crafters videos and 
             (todo "CANC"
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
+
+#+end_src
+
+*** Reusable Blocks
+
+#+begin_src emacs-lisp
+
+  (setq kk/org-agenda-academical-exam-block
+        '(todo "EXAM"
+               ((org-agenda-overriding-header "Scheduled Exams")
+                (org-agenda-files org-agenda-files)
+                (org-agenda-sorting-strategy '(deadline-up)))))
+
+  (setq kk/org-agenda-academical-homework-block
+        '(todo "HOMEWORK"
+               ((org-agenda-overriding-header "Homework due")
+                (org-agenda-sorting-strategy '(deadline-up))
+                (org-agenda-files org-agenda-files))))
+
+  (setq kk/org-agenda-academical-submissions-block
+        '(todo "SUBMISSION"
+               ((org-agenda-overriding-header "Submissions due")
+                (org-agenda-sorting-strategy '(deadline-up))
+                (org-agenda-files org-agenda-files))))
+
+  (setq kk/org-agenda-next-block
+        '(todo "NEXT"
+               ((org-agenda-overriding-header "Next Tasks"))))
+
+  (setq kk/org-agenda-active-block
+        '(todo "ACTIVE"
+               ((org-agenda-overriding-header "Active Projects"))))
 
 #+end_src
 
