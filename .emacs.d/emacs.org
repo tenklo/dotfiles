@@ -833,6 +833,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
     (require 'dap-node)
     (dap-node-setup) ;; Automatically installs Node debug adapter if needed
 
+    (add-hook 'dap-stopped-hook
+              (lambda (arg) (call-interactively #'dap-hydra)))
+
     ;; Bind `C-c l d` to `dap-hydra` for easy access
     (general-define-key
      :keymaps 'lsp-mode-map
