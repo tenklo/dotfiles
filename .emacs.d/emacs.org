@@ -12,9 +12,22 @@ Here variables shall be set, which will be used throughout the config to set sys
 
 #+begin_src emacs-lisp
 
+  (defvar kk/default-font-size 150)
+  (defvar kk/default-diary-file "~/nextcloud_work/Documents/diary")
+  (defvar kk/personal-diary-file "")
+  (defvar kk/work-diary-file "")
+  (defvar kk/school-diary-file "")
+  (defvar kk/diary-files ())
+
   (pcase system-name
     ("dwhpd"
      (setq kk/default-font-size 140)
+     (setq kk/personal-diary-file "")
+     (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
+     (setq kk/school-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/diary-files (list kk/personal-diary-file
+                                kk/work-diary-file
+                                kk/school-diary-file))
      (setq kk/org-agenda-files (list
                                 "~/nextcloud_work/schule/schule.org"
                                 "~/nextcloud_work/Documents/standups.org"
@@ -29,7 +42,6 @@ Here variables shall be set, which will be used throughout the config to set sys
     (_
      (setq kk/default-font-size 150)
      (setq kk/org-agenda-files '(""))))
-
 
 #+end_src
 
@@ -250,8 +262,6 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 prescient.el provides some helpful behavior for sorting Ivy completion candidates based on how recently or frequently you select them.  This can be especially helpful when using =M-x= to run commands that you don't have bound to a key but still need to access occasionally.
 
-This Prescient configuration is optimized for use in System Crafters videos and streams, check out the [[https://youtu.be/T9kygXveEz0][video on prescient.el]] for more details on how to configure it!
-
 #+begin_src emacs-lisp
 
   (use-package ivy-prescient
@@ -350,12 +360,12 @@ This Prescient configuration is optimized for use in System Crafters videos and 
     (setq org-capture-templates
           `(("t" "Tasks / Projects")
             ("tt" "Task" entry (file+olp "~/nextcloud_work/Documents/workAgenda.org" "Inbox")
-             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 1)
+             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 0)
             ("tp" "Project" entry (file+olp "~/nextcloud_work/Documents/workAgenda.org" "Inbox")
-             "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 1)
+             "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 0)
 
             ("b" "Bookmark" entry (file "~/documents/Bookmarks.org")
-             "* %? Bookmark\n  %U\n  %a\n  %i" :empty-lines 1)
+             "* %? Bookmark\n  %U\n  %a\n  %i" :empty-lines 0)
 
             ("j" "Journal Entries")
             ("jj" "Journal" entry
@@ -363,16 +373,16 @@ This Prescient configuration is optimized for use in System Crafters videos and 
              "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
              ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
              :clock-in :clock-resume
-             :empty-lines 1)
+             :empty-lines 0)
             ("jm" "Meeting" entry
              (file+olp+datetree "~/Journal.org")
              "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
              :clock-in :clock-resume
-             :empty-lines 1)
+             :empty-lines 0)
 
             ("w" "Workflows")
             ("we" "Checking Email" entry (file+olp+datetree "~/Journal.org")
-             "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 1)
+             "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 0)
 
             ("m" "Metrics Capture")
             ("mw" "Weight" table-line (file+headline "~/Metrics.org" "Weight")
@@ -406,30 +416,36 @@ This Prescient configuration is optimized for use in System Crafters videos and 
 
 #+end_src
 
+** Merge Diary-Files
+
+#+begin_src emacs-lisp
+
+  (add-hook 'org-agenda-finalize-hook 'kk/merge-diary-files)
+
+#+end_src
+
 ** Custom Agenda Views
 
 #+begin_src emacs-lisp
 
   (setq org-agenda-custom-commands
-        '(("d" "Dashboard"
+        `(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 30)))
-            (todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")))
-            (todo "ACTIVE"
-                  ((org-agenda-overriding-header "Active Projects")))))
+            ,kk/org-agenda-next-block
+            ,kk/org-agenda-active-block
+            ,kk/org-agenda-academical-exam-block
+            ,kk/org-agenda-academical-homework-block
+            ,kk/org-agenda-academical-submissions-block))
 
           ("n" "Next Tasks"
-           ((todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")))))
-
-          ("W" "Work Tasks" tags-todo "+work-email")
+           (,kk/org-agenda-next-block))
 
           ("e" "Tasks by Effort"
-           ((tags-todo "+Effort<2&+Effort>0"
+           ((tags-todo "+Effort=1"
                        ((org-agenda-overriding-header "Low Effort Tasks")
                         (org-agenda-max-todos 20)
                         (org-agenda-files org-agenda-files)))
-            (tags-todo "+Effort<4&+Effort>1"
+            (tags-todo "+Effort<=4&+Effort>=2"
                        ((org-agenda-overriding-header "Mid Effort Tasks")
                         (org-agenda-max-todos 20)
                         (org-agenda-files org-agenda-files)))
@@ -438,28 +454,30 @@ This Prescient configuration is optimized for use in System Crafters videos and 
                         (org-agenda-max-todos 20)
                         (org-agenda-files org-agenda-files)))))
 
+          ("w" "Work"
+           ((agenda "" ((org-deadline-warning-days 90)
+                        (org-agenda-span 7)
+                        (diary-file kk/work-diary-file)
+                        (org-agenda-files
+                         (list
+                          "~/nextcloud_work/Documents/workAgenda.org"
+                          "~/nextcloud_work/Documents/standups.org"))))
+            ,kk/org-agenda-next-block
+            ,kk/org-agenda-active-block))
+
           ("A" "Academical"
            ((agenda "" ((org-deadline-warning-days 90)
                         (org-agenda-span 14)
                         (org-agenda-time-grid nil)
-                        (org-agenda-include-diary nil)
+                        (diary-file kk/school-diary-file)
                         (org-agenda-files
                          (list
                           "~/nextcloud_work/schule/schule.org"))))
-            (todo "EXAM"
-                  ((org-agenda-overriding-header "Scheduled Exams")
-                   (org-agenda-files org-agenda-files)
-                   (org-agenda-sorting-strategy '(deadline-up))))
-            (todo "HOMEWORK"
-                  ((org-agenda-overriding-header "Homework due")
-                   (org-agenda-sorting-strategy '(deadline-up))
-                   (org-agenda-files org-agenda-files)))
-            (todo "SUBMISSION"
-                  ((org-agenda-overriding-header "Submissions due")
-                   (org-agenda-sorting-strategy '(deadline-up))
-                   (org-agenda-files org-agenda-files)))))
+            ,kk/org-agenda-academical-exam-block
+            ,kk/org-agenda-academical-homework-block
+            ,kk/org-agenda-academical-submissions-block))
 
-          ("w" "Workflow Status"
+          ("p" "Projects Status"
            ((todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")
                    (org-agenda-files org-agenda-files)))
@@ -486,6 +504,38 @@ This Prescient configuration is optimized for use in System Crafters videos and 
             (todo "CANC"
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
+
+#+end_src
+
+*** Reusable Blocks
+
+#+begin_src emacs-lisp
+
+  (setq kk/org-agenda-academical-exam-block
+        '(todo "EXAM"
+               ((org-agenda-overriding-header "Scheduled Exams")
+                (org-agenda-files org-agenda-files)
+                (org-agenda-sorting-strategy '(deadline-up)))))
+
+  (setq kk/org-agenda-academical-homework-block
+        '(todo "HOMEWORK"
+               ((org-agenda-overriding-header "Homework due")
+                (org-agenda-sorting-strategy '(deadline-up))
+                (org-agenda-files org-agenda-files))))
+
+  (setq kk/org-agenda-academical-submissions-block
+        '(todo "SUBMISSION"
+               ((org-agenda-overriding-header "Submissions due")
+                (org-agenda-sorting-strategy '(deadline-up))
+                (org-agenda-files org-agenda-files))))
+
+  (setq kk/org-agenda-next-block
+        '(todo "NEXT"
+               ((org-agenda-overriding-header "Next Tasks"))))
+
+  (setq kk/org-agenda-active-block
+        '(todo "ACTIVE"
+               ((org-agenda-overriding-header "Active Projects"))))
 
 #+end_src
 
@@ -1743,6 +1793,14 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+end_src
 
+** Merge Diary-Files
+
+#+begin_src emacs-lisp
+
+  (add-hook 'cfw:calendar-mode-hook-hook 'kk/merge-diary-files)
+
+#+end_src
+
 * Other
 ** Speed Reading
 
@@ -1894,6 +1952,31 @@ Invoke by browse-url-generic
     "Use duden.de to find a definition to the region."
     (interactive)
     (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
+
+#+end_src
+** Multiple Diarys
+
+#+begin_src emacs-lisp
+
+  (defun kk/merge-diary-files ()
+    "Put the contents of `kk/diary-files' into `kk/default-diary-file'."
+    (interactive)
+    (message "Merging diary files...")
+    (eshell-command (format "echo \"\" > %s" kk/default-diary-file))
+    (kk/merge-files kk/default-diary-file kk/diary-files)
+    (message "Diary files merged."))
+
+  (defun kk/merge-files (output-file input-file-list)
+    "Loop over `input-file-list' and append contents to `output-file'."
+    (when (bufferp output-file)
+      (kill-buffer output-file))
+    (dolist (file input-file-list)
+      (kk/append-file-to-other-file file output-file)))
+
+  (defun kk/append-file-to-other-file (from to)
+    "Use eshell to append contents of `from'-file to `to'-file."
+    (when (file-exists-p from)
+      (eshell-command (format "cat \"%s\" >> \"%s\"" from to))))
 
 #+end_src
 
