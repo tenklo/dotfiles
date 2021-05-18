@@ -426,6 +426,40 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 ** Custom Agenda Views
 
+*** Reusable Blocks
+
+#+begin_src emacs-lisp
+
+  (setq kk/org-agenda-academical-exam-block
+        '(todo "EXAM"
+               ((org-agenda-overriding-header "Scheduled Exams")
+                (org-agenda-files org-agenda-files)
+                (org-agenda-sorting-strategy '(deadline-up)))))
+
+  (setq kk/org-agenda-academical-homework-block
+        '(todo "HOMEWORK"
+               ((org-agenda-overriding-header "Homework due")
+                (org-agenda-sorting-strategy '(deadline-up))
+                (org-agenda-files org-agenda-files))))
+
+  (setq kk/org-agenda-academical-submissions-block
+        '(todo "SUBMISSION"
+               ((org-agenda-overriding-header "Submissions due")
+                (org-agenda-sorting-strategy '(deadline-up))
+                (org-agenda-files org-agenda-files))))
+
+  (setq kk/org-agenda-next-block
+        '(todo "NEXT"
+               ((org-agenda-overriding-header "Next Tasks"))))
+
+  (setq kk/org-agenda-active-block
+        '(todo "ACTIVE"
+               ((org-agenda-overriding-header "Active Projects"))))
+
+#+end_src
+
+*** Commands
+
 #+begin_src emacs-lisp
 
   (setq org-agenda-custom-commands
@@ -504,38 +538,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             (todo "CANC"
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
-
-#+end_src
-
-*** Reusable Blocks
-
-#+begin_src emacs-lisp
-
-  (setq kk/org-agenda-academical-exam-block
-        '(todo "EXAM"
-               ((org-agenda-overriding-header "Scheduled Exams")
-                (org-agenda-files org-agenda-files)
-                (org-agenda-sorting-strategy '(deadline-up)))))
-
-  (setq kk/org-agenda-academical-homework-block
-        '(todo "HOMEWORK"
-               ((org-agenda-overriding-header "Homework due")
-                (org-agenda-sorting-strategy '(deadline-up))
-                (org-agenda-files org-agenda-files))))
-
-  (setq kk/org-agenda-academical-submissions-block
-        '(todo "SUBMISSION"
-               ((org-agenda-overriding-header "Submissions due")
-                (org-agenda-sorting-strategy '(deadline-up))
-                (org-agenda-files org-agenda-files))))
-
-  (setq kk/org-agenda-next-block
-        '(todo "NEXT"
-               ((org-agenda-overriding-header "Next Tasks"))))
-
-  (setq kk/org-agenda-active-block
-        '(todo "ACTIVE"
-               ((org-agenda-overriding-header "Active Projects"))))
 
 #+end_src
 
