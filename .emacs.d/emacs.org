@@ -43,7 +43,6 @@ Here variables shall be set, which will be used throughout the config to set sys
      (setq kk/default-font-size 150)
      (setq kk/org-agenda-files '(""))))
 
-
 #+end_src
 
 * Startup Performance
