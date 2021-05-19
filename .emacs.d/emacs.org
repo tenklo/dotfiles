@@ -40,7 +40,7 @@ Here variables shall be set, which will be used throughout the config to set sys
     ("T490s"
      (setq kk/default-font-size 180)
      (setq kk/default-diary-file "~/documents/diary")
-     (setq kk/personal-diary-file "~/Nextcloud/diary")
+     (setq kk/personal-diary-file "~/Nextcloud/Documents/diary")
      (setq kk/personal-agenda-file "~/Nextcloud/Documents/personal.org")
      (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
      (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
