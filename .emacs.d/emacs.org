@@ -530,7 +530,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                         (diary-file kk/personal-diary-file)
                         (org-agenda-files
                          (list
-                          kk/personal-agenda-file))))))
+                          kk/personal-agenda-file))))
+            (todo "TODO"
+                  ((org-agenda-files
+                    (list kk/personal-agenda-file))))))
 
           ("p" "Projects Status"
            ((todo "WAIT"
