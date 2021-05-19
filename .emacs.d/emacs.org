@@ -353,6 +353,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 * Org Mode
 ** Basic
+
 #+begin_src emacs-lisp
 
   (defun kk/org-mode-setup ()
@@ -439,7 +440,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 #+end_src
 
 ** Custom Agenda Views
-
 *** Reusable Blocks
 
 #+begin_src emacs-lisp
