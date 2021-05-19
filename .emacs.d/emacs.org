@@ -1830,7 +1830,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (add-hook 'cfw:calendar-mode-hook-hook 'kk/merge-diary-files)
+  (add-hook 'cfw:calendar-mode-hook 'kk/merge-diary-files)
 
 #+end_src
 
