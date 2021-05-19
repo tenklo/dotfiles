@@ -525,6 +525,13 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ,kk/org-agenda-academical-homework-block
             ,kk/org-agenda-academical-submissions-block))
 
+          ("P" "Personal"
+           ((agenda "" ((org-agenda-span 14)
+                        (diary-file kk/personal-diary-file)
+                        (org-agenda-files
+                         (list
+                          kk/personal-agenda-file))))))
+
           ("p" "Projects Status"
            ((todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")
