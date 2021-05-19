@@ -1056,6 +1056,8 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 * Keybindings
 ** Evil Mode
 
+I had issues with the undo-system. Setting =evil-undo-system= manually, outside of =customize=, wasn't doing it. Now =evil-undo-function= and =evil-redo-function= are set manually.
+
 #+begin_src emacs-lisp
 
   (defun kk/evil-hook ()
@@ -1074,6 +1076,9 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
     (evil-mode 1)
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+
+    (setq evil-undo-function 'undo-fu-only-undo)
+    (setq evil-redo-function 'undo-fu-only-redo)
 
     (evil-set-initial-state 'messages-buffer-mode 'normal)
     (evil-set-initial-state 'dashboard-mode 'normal))
@@ -1124,9 +1129,6 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 #+begin_src emacs-lisp
 
   (use-package undo-fu)
-
-  (define-key evil-normal-state-map "u" 'undo-fu-only-undo)
-  (define-key evil-normal-state-map "\C-r" 'undo-fu-only-redo)
 
 #+end_src
 
