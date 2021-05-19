@@ -599,7 +599,9 @@ Don't prompt eval confirmation
 ** Diary
 
 #+begin_src emacs-lisp
-  (setq diary-file "~/nextcloud_work/Documents/diary")
+
+  (setq diary-file kk/default-diary-file)
+
 #+end_src
 
 ** Skeletons
