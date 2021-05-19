@@ -13,35 +13,49 @@ Here variables shall be set, which will be used throughout the config to set sys
 #+begin_src emacs-lisp
 
   (defvar kk/default-font-size 150)
-  (defvar kk/default-diary-file "~/nextcloud_work/Documents/diary")
+  (defvar kk/default-diary-file "")
   (defvar kk/personal-diary-file "")
+  (defvar kk/personal-agenda-file "")
   (defvar kk/work-diary-file "")
+  (defvar kk/work-agenda-file "")
   (defvar kk/school-diary-file "")
+  (defvar kk/school-agenda-file "")
   (defvar kk/diary-files ())
+  (defvar kk/org-agenda-files '(""))
 
   (pcase system-name
     ("dwhpd"
      (setq kk/default-font-size 140)
-     (setq kk/personal-diary-file "")
+     (setq kk/default-diary-file "~/documents/diary")
      (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
+     (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
      (setq kk/school-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/school-agenda-file "~/nextcloud_work/schule/schule.org")
+     (setq kk/diary-files (list kk/work-diary-file
+                                kk/school-diary-file))
+     (setq kk/org-agenda-files (list
+                                kk/school-agenda-file
+                                "~/nextcloud_work/Documents/standups.org"
+                                kk/work-agenda-file)))
+    ("T490s"
+     (setq kk/default-font-size 180)
+     (setq kk/default-diary-file "~/documents/diary")
+     (setq kk/personal-diary-file "~/Nextcloud/diary")
+     (setq kk/personal-agenda-file "~/Nextcloud/Documents/personal.org")
+     (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
+     (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
+     (setq kk/school-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/school-agenda-file "~/nextcloud_work/schule/schule.org")
      (setq kk/diary-files (list kk/personal-diary-file
                                 kk/work-diary-file
                                 kk/school-diary-file))
      (setq kk/org-agenda-files (list
-                                "~/nextcloud_work/schule/schule.org"
+                                kk/personal-agenda-file
+                                kk/school-agenda-file
+                                kk/personal-agenda-file
                                 "~/nextcloud_work/Documents/standups.org"
-                                "~/nextcloud_work/Documents/workAgenda.org")))
-    ("T490s"
-     (setq kk/default-font-size 180)
-     (setq kk/org-agenda-files (list
-                                "~/nextcloud_work/schule/schule.org"
-                                "~/nextcloud_work/Documents/standups.org"
-                                "~/nextcloud_work/Documents/workAgenda.org"
-                                "~/tasks.org")))
-    (_
-     (setq kk/default-font-size 150)
-     (setq kk/org-agenda-files '(""))))
+                                kk/work-agenda-file
+                                "~/tasks.org"))))
 
 #+end_src
 
