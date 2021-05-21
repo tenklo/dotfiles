@@ -71,6 +71,12 @@ export _JAVA_AWT_WM_NONREPARENTING=1	# Fix for Java applications in dwm
 export CM_IGNORE_WINDOW="Bitwarden|Pass|pass"
 export PASSWORD_STORE_GENERATED_LENGTH=50
 
+export GUIX_LOCPATH=$HOME/.guix-profile/lib/locale
+GUIX_PROFILE="$HOME/.guix-profile"
+. "$GUIX_PROFILE/etc/profile"
+GUIX_PROFILE="$HOME/.config/guix/current"
+. "$GUIX_PROFILE/etc/profile"
+
 # This is the list for lf icons:
 export LF_ICONS="di=📁:\
 fi=📃:\
