@@ -1841,9 +1841,9 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
   (defun kk/open-calendar-with (this-diary-file this-org-agenda-files)
     "Open calendar calfw with `diary-file' and `org-agenda-files'."
     (interactive)
-      (let ((diary-file this-diary-file)
-            (org-agenda-files this-org-agenda-files))
-        (kk/open-calendar)))
+    (let ((diary-file this-diary-file)
+          (org-agenda-files this-org-agenda-files))
+      (kk/open-calendar)))
 
 #+end_src
 
