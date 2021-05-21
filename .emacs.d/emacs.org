@@ -2056,6 +2056,13 @@ Invoke by browse-url-generic
     "Use eshell to append contents of `from'-file to `to'-file."
     (when (file-exists-p from)
       (eshell-command (format "cat \"%s\" >> \"%s\"" from to))))
+* Customization Through Emacs
+
+Enable some disabled commands. Otherwise theres an annoying popup.
+
+#+begin_src emacs-lisp
+
+  (put 'narrow-to-region 'disabled nil)
 
 #+end_src
 
