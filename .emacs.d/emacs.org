@@ -596,6 +596,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 ** Babel
 
 Don't prompt eval confirmation
+
 #+begin_src emacs-lisp
 
   (setq org-confirm-babel-evaluate nil)
