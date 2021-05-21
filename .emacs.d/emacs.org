@@ -2110,6 +2110,8 @@ Invoke by browse-url-generic
 
 * Customization Through Emacs
 
+** Disabled Commands
+
 Enable some disabled commands. Otherwise theres an annoying popup.
 
 #+begin_src emacs-lisp
