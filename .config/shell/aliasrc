@@ -85,7 +85,7 @@ alias cat='bat --pager less'
 alias cliptopng='xclip -selection clipboard -target image/png -out' # add sth like > output.png
 alias qrtourl='zbarimg -q'
 
-alias emacs='emacsclient -cn'
+alias emacsc='emacsclient -cn'
 
 # alias rmduplicateparagraphs=awk -v RS= -v ORS='\n\n' '!seen[$0]++' # add filename as arg; alias doenst work, command does tho so c&p
 
