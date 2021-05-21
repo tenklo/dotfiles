@@ -2055,7 +2055,11 @@ Invoke by browse-url-generic
   (defun kk/append-file-to-other-file (from to)
     "Use eshell to append contents of `from'-file to `to'-file."
     (when (file-exists-p from)
-      (eshell-command (format "cat \"%s\" >> \"%s\"" from to))))
+      (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
+      (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
+
+#+end_src
+
 * Customization Through Emacs
 
 Enable some disabled commands. Otherwise theres an annoying popup.
