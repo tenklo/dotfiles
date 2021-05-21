@@ -1225,6 +1225,7 @@ Defining leader keys using the general package.
   (global-set-key (kbd "C-M-j") 'ibuffer)
 
   (global-set-key (kbd "C-c c") 'kk/open-calendar)
+  (global-set-key (kbd "C-c C") 'calendar)
 
   (global-set-key (kbd "C-c r") 'elfeed)
 
