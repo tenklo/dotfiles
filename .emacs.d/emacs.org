@@ -2120,6 +2120,15 @@ Enable some disabled commands. Otherwise theres an annoying popup.
 
 #+end_src
 
+** Customized Variables
+
+#+begin_src emacs-lisp
+
+  (custom-set-variables
+   '(calendar-date-style 'iso))
+
+#+end_src
+
 * Runtime Performance
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
