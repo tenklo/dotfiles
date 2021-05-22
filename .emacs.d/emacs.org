@@ -548,8 +548,18 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                         (org-agenda-files
                          (list
                           kk/personal-agenda-file))))
+            (todo "NEXT"
+                  ((org-agenda-files
+                    (list kk/personal-agenda-file))
+                   (org-agenda-overriding-header "NEXT Items")))
             (todo "TODO"
                   ((org-agenda-files
+                    (list kk/personal-agenda-file))
+                   (org-agenda-overriding-header "Unscheduled TODOs")
+                   (org-agenda-todo-ignore-with-date t)))
+            (todo "TODO"
+                  ((org-agenda-overriding-header "All TODOs")
+                   (org-agenda-files
                     (list kk/personal-agenda-file))))))
 
           ("p" "Projects Status"
