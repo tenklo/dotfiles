@@ -178,8 +178,8 @@ This section configures basic UI settings that remove unneeded elements to make 
     ;; Replace list hyphen with dot
     (font-lock-add-keywords 'org-mode
                             '(("^ *\\([-]\\) "
-                               (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
+                               (0 (prog1 () (compose-region (match-beginning 1)
+                                                            (match-end 1) "•"))))))
     ;; set faces for heading levels
     (dolist (face '((org-level-1 . 1.2)
                     (org-level-2 . 1.1)
