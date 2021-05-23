@@ -1277,6 +1277,7 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 
   (global-set-key (kbd "C-c i d") 'insert-todays-date-headline-standup)
 
+  (global-set-key (kbd "C-c i D") 'insert-tomorrows-date-headline-standup)
 #+end_src
 
 ** Search
@@ -2021,13 +2022,18 @@ Invoke by browse-url-generic
       (browse-url-at-point)))
 #+end_src
 
-** Todays Date For Daily Standup Notes
+** Date Headlines
 
 #+begin_src emacs-lisp
 
   (defun insert-todays-date-headline-standup () (interactive)
-         (insert (shell-command-to-string "echo -n \"* $(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
-
+         (insert
+          (shell-command-to-string "echo -n \"* $(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
+  
+  (defun insert-tomorrows-date-headline-standup () (interactive)
+         (insert
+          (shell-command-to-string
+           "echo -n \"* $(LC_ALL=de_DE.utf8 date --date='tomorrow' '+%A %d. %B %Y')\"")))
 #+end_src
 
 ** Indent The Whole Buffer
