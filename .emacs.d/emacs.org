@@ -1186,7 +1186,7 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   
   (kk/intercept-mode)
   
-  (dolist (state '(normal visual insert))
+  (dolist (state '(normal visual insert motion))
     (evil-make-intercept-map
      ;; NOTE: This requires an evil version from 2018-03-20 or later
      (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
@@ -1194,7 +1194,11 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   
   (evil-define-key 'normal kk/intercept-mode-map
     (kbd "g j") 'evil-next-visual-line
-    (kbd "g k") 'evil-previous-visual-line)
+    (kbd "g k") 'evil-previous-visual-line
+    (kbd "Y") 'org-store-link)
+  
+  (evil-define-key 'motion kk/intercept-mode-map
+    (kbd "Y") 'org-store-link)
   
 #+end_src
 
@@ -1267,6 +1271,7 @@ Defining leader keys using the general package.
   (global-set-key (kbd "C-c M-j") 'winner-undo)
   (global-set-key (kbd "C-c M-k") 'winner-redo)
   
+  (global-set-key (kbd "C-c l") 'org-store-link)
 #+end_src
 
 ** Movement
