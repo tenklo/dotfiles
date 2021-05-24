@@ -625,8 +625,9 @@ Don't prompt eval confirmation
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
   
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'kk/org-babel-tangle-config)))
-  
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook #'kk/org-babel-tangle-config)))
 #+end_src
 *** Configure Languages
 
