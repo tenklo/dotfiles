@@ -1302,10 +1302,10 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 
 #+begin_src emacs-lisp
   
-  (global-set-key (kbd "C-c i d") 'insert-todays-date-headline-standup)
-  (global-set-key (kbd "C-c i D") 'insert-tomorrows-date-headline-standup)
   (global-set-key (kbd "C-c i d") 'kk/insert-todays-date)
   (global-set-key (kbd "C-c i D") 'kk/insert-tomorrows-date)
+  (global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
+  (global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
   
 #+end_src
 
