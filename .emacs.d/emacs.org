@@ -52,7 +52,6 @@ Here variables shall be set, which will be used throughout the config to set sys
      (setq kk/org-agenda-files (list
                                 kk/personal-agenda-file
                                 kk/academical-agenda-file
-                                kk/personal-agenda-file
                                 "~/nextcloud_work/Documents/standups.org"
                                 kk/work-agenda-file
                                 "~/tasks.org"))))
