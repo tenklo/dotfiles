@@ -2059,24 +2059,28 @@ Invoke by browse-url-generic
   
   (defun kk/insert-todays-date ()
     (interactive)
-    (insert
-     (kk/date)))
+    (kk/insert-date "today"))
   
   (defun kk/insert-tomorrows-date ()
     (interactive)
-    (insert
-     (kk/date "tomorrow")))
+    (kk/insert-date "tomorrow"))
   
   (defun kk/date (&optional date-arg)
     "Return a date specified by `DATE_ARG'.
-  Calls the date function internally.
-  For format see code and just try it out."
+    Calls the date function internally.
+    For format see code and just try it out."
     (if date-arg
         (shell-command-to-string
          (concat "echo -n \"$(LC_ALL=de_DE.utf8 date --date='"
                  (concat date-arg "' '+%A %d. %B %Y')\"")))
       (shell-command-to-string
        "echo -n \"$(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
+  
+  (defun kk/insert-date (date-arg)
+    (interactive "sWhen? ")
+    (insert
+     (kk/date date-arg)))
+  
 #+end_src
 
 ** Indent The Whole Buffer
