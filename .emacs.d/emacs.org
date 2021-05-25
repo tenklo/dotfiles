@@ -2167,6 +2167,49 @@ Invoke by browse-url-generic
       (make-directory (concat dir sub-dir) parents)))
   
 #+end_src
+** Export Todays TODOs
+
+#+begin_src emacs-lisp
+  
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
+  
+  (defun kk/export-todays-todos ()
+    "Exports TODOs by using todays date as headline."
+    (interactive)
+    (kk/export-headline-as-html (kk/date))
+    nil)
+  
+  (defun kk/export-headline-as-html (hl)
+    "Export headline `HL' as html."
+    (interactive)
+    (save-excursion
+      (org-link-search hl)
+      (org-html-export-to-html nil t nil '())))
+  
+  (defun kk/push-file-to-remote (file location &optional scp-args)
+    "Push a file to somewhere via eshell.
+  Push `FILE' to `LOCATION'.
+  `LOCATION' needs the complete scp path, including server and user name.
+  Add scp args via `SCP-ARGS' like a port if necessary."
+    (interactive)
+    (if (equal scp-args 'nil)
+        (setq scp-args ""))
+    (eshell-command
+     (format "scp %s %s %s" scp-args file location)))
+  
+  (defun kk/export-and-push-todays-todos ()
+    (interactive)
+    (when (string-equal (buffer-file-name)
+                        (expand-file-name "~/Nextcloud/Documents/2021.org"))
+      (kk/export-todays-todos)
+      (kk/push-file-to-remote
+       (concat (file-name-sans-extension (buffer-file-name)) ".html")
+       "karsten@kloess.xyz:/var/www/html/main/" "-P 69")
+      (message "Pushed TODOs to server.")))
+  
+#+end_src
 
 * Customization Through Emacs
 
