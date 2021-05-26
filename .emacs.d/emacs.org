@@ -1254,6 +1254,7 @@ Defining leader keys using the general package.
       "k" '(winner-redo :which-key "winner redo")))
   
 #+end_src
+
 ** General Global Bindings
 
 #+begin_src emacs-lisp
