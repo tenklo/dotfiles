@@ -492,6 +492,18 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
         '(todo "ACTIVE"
                ((org-agenda-overriding-header "Active Projects"))))
   
+  (setq kk/org-agenda-unscheduled-todos
+        '(todo "TODO"
+               ((org-agenda-overriding-header "Unscheduled TODOs")
+                (org-agenda-todo-ignore-with-date t))))
+  
+  (defun kk/org-agenda-make-block-personal (reuseable-block character)
+    (let ((block reuseable-block))
+      (push '(org-agenda-files
+              '(list kk/personal-agenda-file))
+            (cddr block))
+      (remove-duplicates block)))
+  
 #+end_src
 
 *** Commands
