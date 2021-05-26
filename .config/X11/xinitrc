@@ -9,7 +9,7 @@ xsetroot -cursor_name left_ptr &
 toggleredshift &
 togglelocker &
 
-emacs --daemon
+emacs --daemon &
 
 nextcloud &
 
