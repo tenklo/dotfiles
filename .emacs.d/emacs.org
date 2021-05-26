@@ -1234,9 +1234,7 @@ Defining leader keys using the general package.
       :global-prefix "C-SPC")
   
     (kk/leader-keys
-      "t"  '(:ignore t :which-key "toggles")
-      "tt" '(counsel-load-theme :which-key "choose theme")
-      "ts" '(hydra-text-scale/body :which-key "scale-text")
+      "t"  '(hydra-daily-todos/body :which-key "todays TODOs")
       "b" '(hydra-buffer-control/body :which-key "control buffers")
       "h" '(hydra-bookmark-control/body :which-key "control bookmarks")
       "w" '(hydra-window-size/body :which-key "change window size")
@@ -1365,6 +1363,19 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
     ("h" evil-window-decrease-width "decrease width")
     ("l" evil-window-increase-width "increase width")
     ("f" make-frame "make frame"))
+  
+  (defhydra hydra-daily-todos (:timeout 5)
+    "go to the current days TODOs"
+    ("p" (lambda ()
+           (interactive)
+           (kk/find-org-file-at-headline
+            kk/personal-daily-todo-file (kk/date)))
+     "personal")
+    ("w" (lambda ()
+           (interactive)
+           (kk/find-org-file-at-headline
+            kk/work-daily-todo-file (kk/date)))
+     "work"))
   
 #+end_src
 
@@ -2220,6 +2231,17 @@ Invoke by browse-url-generic
        (concat (file-name-sans-extension (buffer-file-name)) ".html")
        "karsten@kloess.xyz:/var/www/html/main/" "-P 69")
       (message "Pushed TODOs to server.")))
+  
+#+end_src
+
+** Open Todays TODOs
+
+#+begin_src emacs-lisp
+  
+  (defun kk/find-org-file-at-headline (file hl)
+    (interactive)
+    (find-file file)
+    (org-link-search hl))
   
 #+end_src
 
