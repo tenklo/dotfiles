@@ -556,7 +556,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
           ("p" . "Personal")
           ("pp" "Agenda"
-           ((agenda "" ((org-agenda-span 14)
+           ((agenda "" ((org-agenda-span 7)
                         (diary-file kk/personal-diary-file)
                         (org-agenda-files
                          (list
