@@ -375,9 +375,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (setq org-agenda-files kk/org-agenda-files)
     (setq org-capture-templates
           `(("w" "Work")
-            ("tt" "Task" entry (file+olp kk/work-agenda-file "Inbox")
+            ("wt" "Task" entry (file+olp kk/work-agenda-file "Inbox")
              "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 0)
-            ("tp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
+            ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
              "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 0)
   
             ("p" "Personal")
@@ -411,10 +411,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
              "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
              :clock-in :clock-resume
              :empty-lines 0)
-  
-            ("w" "Workflows")
-            ("we" "Checking Email" entry (file+olp+datetree "~/Journal.org")
-             "* Checking Email :email:\n\n%?" :clock-in :clock-resume :empty-lines 0)
   
             ("m" "Metrics Capture")
             ("mw" "Weight" table-line (file+headline "~/Metrics.org" "Weight")
