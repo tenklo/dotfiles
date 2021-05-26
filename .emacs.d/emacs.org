@@ -524,9 +524,23 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                          (list
                           "~/nextcloud_work/Documents/workAgenda.org"
                           "~/nextcloud_work/Documents/standups.org"))))
-            ,kk/org-agenda-next-block
+            (todo "NEXT"
+                  ((org-agenda-files
+                    (list kk/work-agenda-file))
+                   (org-agenda-overriding-header "NEXT Items")))
             ,kk/org-agenda-active-block))
-  
+          ("wn" "NEXT Tasks"
+           ((todo "NEXT"
+                  ((org-agenda-overriding-header "Next Tasks")
+                   (org-agenda-files
+                    (list kk/work-agenda-file))))))
+          ("wu" "Unscheduled TODOs"
+           ((todo "TODO"
+                  ((org-agenda-files
+                    (list kk/work-agenda-file))
+                   (org-agenda-overriding-header "Unscheduled TODOs")
+                   (org-agenda-todo-ignore-with-date t)))))
+
           ("A" . "Academical")
           ("AA" "Academical Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
@@ -539,9 +553,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ,kk/org-agenda-academical-exam-block
             ,kk/org-agenda-academical-homework-block
             ,kk/org-agenda-academical-submissions-block))
-  
+
           ("p" . "Personal")
-          ("pp" "Personal Agenda"
+          ("pp" "Agenda"
            ((agenda "" ((org-agenda-span 14)
                         (diary-file kk/personal-diary-file)
                         (org-agenda-files
@@ -560,7 +574,18 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                   ((org-agenda-overriding-header "All TODOs")
                    (org-agenda-files
                     (list kk/personal-agenda-file))))))
-  
+          ("pn" "NEXT Tasks"
+           ((todo "NEXT"
+                  ((org-agenda-overriding-header "Next Tasks")
+                   (org-agenda-files
+                    (list kk/personal-agenda-file))))))
+          ("pu" "Unscheduled TODOs"
+           ((todo "TODO"
+                  ((org-agenda-files
+                    (list kk/personal-agenda-file))
+                   (org-agenda-overriding-header "Unscheduled TODOs")
+                   (org-agenda-todo-ignore-with-date t)))))
+
           ("P" "Projects Status"
            ((todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")
