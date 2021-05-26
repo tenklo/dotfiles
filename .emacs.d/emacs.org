@@ -516,7 +516,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                         (org-agenda-files org-agenda-files)))))
 
           ("w" . "Work")
-          ("ww" "Work Agenda"
+          ("ww" "Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
                         (org-agenda-span 7)
                         (diary-file kk/work-diary-file)
