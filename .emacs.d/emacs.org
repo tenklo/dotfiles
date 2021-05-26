@@ -488,7 +488,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 *** Commands
 
 #+begin_src emacs-lisp
-  
+
   (setq org-agenda-custom-commands
         `(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 30)))
@@ -497,10 +497,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ,kk/org-agenda-academical-exam-block
             ,kk/org-agenda-academical-homework-block
             ,kk/org-agenda-academical-submissions-block))
-  
+
           ("n" "Next Tasks"
            (,kk/org-agenda-next-block))
-  
+
           ("e" "Tasks by Effort"
            ((tags-todo "+Effort=1"
                        ((org-agenda-overriding-header "Low Effort Tasks")
@@ -514,7 +514,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                        ((org-agenda-overriding-header "High Effort Tasks")
                         (org-agenda-max-todos 20)
                         (org-agenda-files org-agenda-files)))))
-  
+
           ("w" . "Work")
           ("ww" "Work Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
@@ -613,7 +613,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             (todo "CANC"
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
-  
+
 #+end_src
 
 ** Structure Templates
