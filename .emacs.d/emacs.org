@@ -533,7 +533,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                         (org-agenda-files org-agenda-files)))))
 
           ("w" . "Work")
-          ("ww" "Work Agenda"
+          ("ww" "Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
                         (org-agenda-span 7)
                         (diary-file kk/work-diary-file)
@@ -558,8 +558,8 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                    (org-agenda-overriding-header "Unscheduled TODOs")
                    (org-agenda-todo-ignore-with-date t)))))
 
-          ("A" . "Academical")
-          ("AA" "Academical Agenda"
+          ("a" . "Academical")
+          ("aa" "Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
                         (org-agenda-span 14)
                         (org-agenda-time-grid nil)
@@ -570,11 +570,18 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ,kk/org-agenda-academical-exam-block
             ,kk/org-agenda-academical-homework-block
             ,kk/org-agenda-academical-submissions-block))
+          ("ae" "Exams"
+           (,kk/org-agenda-academical-exam-block))
+          ("ah" "Homework"
+           (,kk/org-agenda-academical-homework-block))
+          ("as" "Submissions"
+           (,kk/org-agenda-academical-submissions-block))
 
           ("p" . "Personal")
           ("pp" "Agenda"
            ((agenda "" ((org-agenda-span 7)
                         (diary-file kk/personal-diary-file)
+                        (org-deadline-warning-days 90)
                         (org-agenda-files
                          (list
                           kk/personal-agenda-file))))
