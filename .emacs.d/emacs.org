@@ -573,7 +573,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
           ("p" . "Personal")
           ("pp" "Agenda"
-           ((agenda "" ((org-agenda-span 14)
+           ((agenda "" ((org-agenda-span 7)
                         (diary-file kk/personal-diary-file)
                         (org-agenda-files
                          (list
@@ -581,16 +581,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             (todo "NEXT"
                   ((org-agenda-files
                     (list kk/personal-agenda-file))
-                   (org-agenda-overriding-header "NEXT Items")))
-            (todo "TODO"
-                  ((org-agenda-files
-                    (list kk/personal-agenda-file))
-                   (org-agenda-overriding-header "Unscheduled TODOs")
-                   (org-agenda-todo-ignore-with-date t)))
-            (todo "TODO"
-                  ((org-agenda-overriding-header "All TODOs")
-                   (org-agenda-files
-                    (list kk/personal-agenda-file))))))
+                   (org-agenda-overriding-header "NEXT Items")))))
           ("pn" "NEXT Tasks"
            ((todo "NEXT"
                   ((org-agenda-overriding-header "Next Tasks")
