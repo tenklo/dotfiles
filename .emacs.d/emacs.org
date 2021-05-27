@@ -23,7 +23,7 @@ Here variables shall be set, which will be used throughout the config to set sys
   (defvar kk/academical-diary-file "")
   (defvar kk/academical-agenda-file "")
   (defvar kk/diary-files ())
-  (defvar kk/org-agenda-files '(""))
+  (defvar kk/org-agenda-files '())
 
   (pcase system-name
     ("dwhpd"
