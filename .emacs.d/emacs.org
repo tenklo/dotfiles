@@ -528,7 +528,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                         (diary-file kk/work-diary-file)
                         (org-agenda-files
                          (list
-                          "~/nextcloud_work/Documents/workAgenda.org"
+                          kk/work-agenda-file
                           "~/nextcloud_work/Documents/standups.org"))))
             (todo "NEXT"
                   ((org-agenda-files
