@@ -626,8 +626,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
           ("D" "Done Tasks"
            ((todo "DONE"
-                  ((org-agenda-overriding-header "Done Tasks")
-                   (org-agenda-follow-mode 1)))))
+                  ((org-agenda-overriding-header "Done Tasks")))))
 
           ("P" "Projects Status"
            ((todo "WAIT"
