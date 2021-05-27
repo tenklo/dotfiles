@@ -1537,6 +1537,12 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 * Browser
 
+#+begin_src emacs-lisp
+
+  (setq browse-url-secondary-browser-function #'kk/open-with-o)
+
+#+end_src
+
 ** Eww
 
 #+begin_src emacs-lisp
