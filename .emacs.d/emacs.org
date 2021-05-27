@@ -381,46 +381,34 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (setq org-capture-templates
           `(("w" "Work")
             ("wt" "Task" entry (file+olp kk/work-agenda-file "Inbox")
-             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 0)
+             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
             ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
-             "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 0)
-  
+             "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
+
             ("p" "Personal")
             ("pt" "Task" entry (file+olp kk/personal-agenda-file "Inbox")
-             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 0)
+             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
             ("pp" "Project" entry (file+olp kk/personal-agenda-file "Inbox")
-             "* PLAN %?\n  %U\n  %a\n  %i" :empty-lines 0)
-  
+             "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
+
             ("a" "Academical")
             ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* TODO %?\n  %U\n  %a\n  %i" :empty-lines 0)
+             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
             ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* HOMEWORK %?\n  %U\n  %a\n  %i" :empty-lines 0)
+             "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
             ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* EXAM %?\n  %U\n  %a\n  %i" :empty-lines 0)
+             "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
             ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* SUBMISSION %?\n  %U\n  %a\n  %i" :empty-lines 0)
-  
-            ("b" "Bookmark" entry (file "~/documents/Bookmarks.org")
-             "* %? Bookmark\n  %U\n  %a\n  %i" :empty-lines 0)
-  
-            ("j" "Journal Entries")
-            ("jj" "Journal" entry
-             (file+olp+datetree "~/Journal.org")
-             "\n* %<%I:%M %p> - Journal :journal:\n\n%?\n\n"
-             ;; ,(dw/read-file-as-string "~/Notes/Templates/Daily.org")
-             :clock-in :clock-resume
-             :empty-lines 0)
-            ("jm" "Meeting" entry
-             (file+olp+datetree "~/Journal.org")
-             "* %<%I:%M %p> - %a :meetings:\n\n%?\n\n"
-             :clock-in :clock-resume
-             :empty-lines 0)
-  
-            ("m" "Metrics Capture")
-            ("mw" "Weight" table-line (file+headline "~/Metrics.org" "Weight")
-             "| %U | %^{Weight} | %^{Notes} |" :kill-buffer t)))
-  
+             "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)))
+
     (define-key global-map (kbd "C-c j")
       (lambda () (interactive) (org-capture nil)))
     (kk/org-font-setup))
