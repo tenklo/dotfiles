@@ -504,9 +504,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ,kk/org-agenda-academical-homework-block
             ,kk/org-agenda-academical-submissions-block))
 
-          ("n" "Next Tasks"
-           (,kk/org-agenda-next-block))
-
           ("e" "Tasks by Effort"
            ((tags-todo "+Effort=1"
                        ((org-agenda-overriding-header "Low Effort Tasks")
