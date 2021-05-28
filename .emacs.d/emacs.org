@@ -182,9 +182,8 @@ This section configures basic UI settings that remove unneeded elements to make 
     ;; Replace list hyphen with dot
     (font-lock-add-keywords 'org-mode
                             '(("^ *\\([-]\\) "
-                               (0 (prog1 ()
-                                    (compose-region (match-beginning 1)
-                                                    (match-end 1) "•")))))))
+                               (0 (prog1 () (compose-region (match-beginning 1)
+                                                            (match-end 1) "•")))))))
 
   (if (daemonp)
       (add-hook 'after-make-frame-functions
