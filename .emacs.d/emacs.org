@@ -377,6 +377,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (setq org-log-done 'note)
     (setq org-log-reschedule 'note)
     (setq org-log-into-drawer t)
+    (setq org-agenda-dim-blocked-tasks 'invisible)
     (setq org-agenda-files kk/org-agenda-files)
     (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
     (setq org-capture-templates
