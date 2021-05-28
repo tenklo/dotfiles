@@ -757,6 +757,15 @@ Don't prompt eval confirmation
 
 #+end_src
 
+** Org ID
+
+#+begin_src emacs-lisp
+  
+  (require 'org-id)
+  (setq org-id-link-to-org-use-id t)
+  
+#+end_src
+
 * Development
 ** Commenting
 
