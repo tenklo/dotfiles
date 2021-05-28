@@ -371,6 +371,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (setq org-enforce-todo-dependencies t)
     (setq org-track-ordered-property-with-tag t)
     (setq org-agenda-dim-blocked-tasks 'invisible)
+    (setq org-global-properties
+          `(("Effort_ALL" .
+             ,(concat "0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 "
+                      "10:00 20:00"))))
     (setq org-agenda-files kk/org-agenda-files)
     (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
     (setq org-capture-templates
