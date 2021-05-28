@@ -380,6 +380,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (setq org-clock-into-drawer "CLOCKING")
     (setq org-enforce-todo-checkbox-dependencies t)
     (setq org-enforce-todo-dependencies t)
+    (setq org-track-ordered-property-with-tag t)
     (setq org-agenda-dim-blocked-tasks 'invisible)
     (setq org-agenda-files kk/org-agenda-files)
     (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
