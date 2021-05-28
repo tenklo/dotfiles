@@ -349,14 +349,14 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 ** Basic
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/org-mode-setup ()
     "Set org-specific settings.
   Intended to be used in an `org-mode-hook'."
     (org-indent-mode)
     (visual-line-mode 1)
     (setq-local display-line-numbers-type t))
-
+  
   (use-package org
     :hook (org-mode . kk/org-mode-setup)
     :custom (org-agenda-include-diary t)
@@ -388,7 +388,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
              "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)
-
+  
             ("p" "Personal")
             ("pt" "Task" entry (file+olp kk/personal-agenda-file "Inbox")
              "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
@@ -396,7 +396,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("pp" "Project" entry (file+olp kk/personal-agenda-file "Inbox")
              "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)
-
+  
             ("a" "Academical")
             ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
              "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
@@ -410,21 +410,21 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
              "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)))
-
+  
     (define-key global-map (kbd "C-c j")
       (lambda () (interactive) (org-capture nil)))
     (kk/org-font-setup))
-
+  
   (use-package org-bullets
     :after org
     :hook
     (org-mode . org-bullets-mode)
     :custom
     (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-
-
+  
+  
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
-
+  
 #+end_src
 
 ** Todo Keywords
