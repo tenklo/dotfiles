@@ -402,6 +402,11 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
              "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)
   
+            ("pj" "Journal" entry
+             (file+olp+datetree kk/personal-journal)
+             "\n* %<%H:%M> Uhr\n\n%?\n\n"
+             :clock-in :clock-resume :empty-lines 1)
+  
             ("a" "Academical")
             ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
              "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
