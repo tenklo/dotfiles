@@ -28,7 +28,7 @@ Here variables shall be set, which will be used throughout the config to set sys
   (defvar kk/academical-agenda-file "")
   (defvar kk/diary-files ())
   (defvar kk/org-agenda-files '())
-
+  
   (pcase system-name
     ("dwhpd"
      (setq kk/default-font-size 140)
@@ -65,16 +65,19 @@ Here variables shall be set, which will be used throughout the config to set sys
                                 "~/nextcloud_work/Documents/standups.org"
                                 kk/work-agenda-file
                                 "~/tasks.org"))))
-
+  
 #+end_src
 
 * Startup Performance
+:PROPERTIES:
+:ID:       f9c539f0-90e3-4b9a-adbc-1098beba2d08
+:END:
 
 #+begin_src emacs-lisp
-
+  
   ;; The default is 800 kilobytes.  Measured in bytes.
   (setq gc-cons-threshold (* 50 1000 1000))
-
+  
   (defun kk/display-startup-time ()
     "Display the time it took to load Emacs to the Messages buffer.
   Also displays the number of garbage collections which occured."
@@ -83,49 +86,55 @@ Here variables shall be set, which will be used throughout the config to set sys
                      (float-time
                       (time-subtract after-init-time before-init-time)))
              gcs-done))
-
+  
   (add-hook 'emacs-startup-hook #'kk/display-startup-time)
-
+  
 #+end_src
 
 * Package System Setup
+:PROPERTIES:
+:ID:       9098e83f-8fe9-41cd-be54-815d2b2f8635
+:END:
 
 Emacs has a built in package manager but it doesn’t make it easy to automatically install packages on a new system the first time you pull down your configuration. use-package is a really helpful package used in this configuration to make it a lot easier to automate the installation and configuration of everything else we use.
 
 Installation problems seem to often get fixed by executing =package-refresh-contents=.
 
 #+begin_src emacs-lisp
-
+  
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
   (require 'package)
-
+  
   (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                            ("org" . "https://orgmode.org/elpa/")
                            ("elpa" . "https://elpa.gnu.org/packages/")
                            ))
-
+  
   (package-initialize)
   (unless package-archive-contents
     (package-refresh-contents))
-
+  
   ;;initialize use-package on non-Linux platforms
   (unless (package-installed-p 'use-package)
     (package-install 'use-package))
-
+  
   (require 'use-package)
   (setq use-package-always-ensure t)
   (setq use-package-verbose t)
-
+  
 #+end_src
 
 ** Automatic Package Updates
+:PROPERTIES:
+:ID:       f1f58cde-959f-4825-91fa-77e60c7ef26a
+:END:
 
 The auto-package-update package helps us keep our Emacs packages up to date!  It will prompt you after a certain number of days either at startup or at a specific time of day to remind you to update your packages.
 
 You can also use =M-x auto-package-update-now= to update right now!
 
 #+begin_src emacs-lisp
-
+  
   (use-package auto-package-update
     :custom
     (auto-package-update-interval 7)
@@ -134,54 +143,63 @@ You can also use =M-x auto-package-update-now= to update right now!
     :config
     (auto-package-update-maybe)
     (auto-package-update-at-time "09:00"))
-
+  
 #+end_src
 
 * UI Configuration
 ** General
+:PROPERTIES:
+:ID:       c6e9780a-5327-4d80-be76-5b4bedbbef61
+:END:
 
 This section configures basic UI settings that remove unneeded elements to make Emacs look a lot more minimal and modern.
 
 #+begin_src emacs-lisp
-
+  
   (setq inhibit-startup-message t)
-
+  
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
   (tooltip-mode -1)
   (set-fringe-mode 10)
   (menu-bar-mode -1)
   (setq visible-bell t)
-
+  
   (column-number-mode)
   (global-display-line-numbers-mode t)
   (setq display-line-numbers-type 'relative)
-
+  
   (dolist (mode '(treemacs-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
+  
 #+end_src
 
 ** Themes
+:PROPERTIES:
+:ID:       7f73149b-9504-443d-abfa-71fedfcfb54e
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package doom-themes)
   (load-theme 'doom-dracula t)
-
+  
 #+end_src
 
 ** Font Configuration
+:PROPERTIES:
+:ID:       7a99b405-cbd6-477c-bdec-f594e3883d89
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/set-font-faces ()
     "Set font faces.
   This function can be called to set the faces after making a frame,
   in case Emacs daemon is used."
     (message "Settings faces!")
     (set-face-attribute 'default nil :height kk/default-font-size))
-
+  
   (defun kk/org-font-setup ()
     "Set `org-mode' specific font settings."
     ;; Replace list hyphen with dot
@@ -189,7 +207,7 @@ This section configures basic UI settings that remove unneeded elements to make 
                             '(("^ *\\([-]\\) "
                                (0 (prog1 () (compose-region (match-beginning 1)
                                                             (match-end 1) "•")))))))
-
+  
   (if (daemonp)
       (add-hook 'after-make-frame-functions
                 (lambda (frame)
@@ -198,45 +216,54 @@ This section configures basic UI settings that remove unneeded elements to make 
                                        (kk/org-font-setup))))
     (kk/set-font-faces)
     (kk/org-font-setup))
-
+  
 #+end_src
 
 ** Better Modeline
+:PROPERTIES:
+:ID:       cf72fef8-5624-4d3e-951b-d5e3c7e3a171
+:END:
 
 [[https://github.com/seagle0128/doom-modeline][doom-modeline]] is a very attractive and rich (yet still minimal) mode line configuration for Emacs.
 [[https://github.com/seagle0128/doom-modeline#customize][Configuration options]]
 
 #+begin_src emacs-lisp
-
+  
   ;; NOTE: The first time you load your configuration on a new machine, you'll
   ;; need to run the following command interactively so that mode line icons
   ;; display correctly :
   ;;
   ;; M-x all-the-icons-install-fonts
   (use-package all-the-icons)
-
+  
   (use-package doom-modeline
     :ensure t
     :init (doom-modeline-mode 1)
     :custom (doom-modeline-hight 10))
-
+  
 #+end_src
 
 ** Which Key
+:PROPERTIES:
+:ID:       a35ee047-c0de-44ea-80d4-b17e49190274
+:END:
 #+begin_src emacs-lisp
-
+  
   (use-package which-key
     :defer 0
     :diminish which-key-mode
     :config
     (which-key-mode)
     (setq which-key-idle-delay 0.3))
-
+  
 #+end_src
 ** Ivy and Counsel
+:PROPERTIES:
+:ID:       5b7e1d41-6e02-4659-a5cb-a31f188cba6f
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package ivy
     :diminish
     :bind (("M-s s" . swiper)
@@ -254,7 +281,7 @@ This section configures basic UI settings that remove unneeded elements to make 
            ("C-d" . ivy-reverse-i-search-kill))
     :config
     (ivy-mode 1))
-
+  
   (use-package counsel
     :bind (("M-x" . counsel-M-x)
            ("C-x C-f" . counsel-find-file)
@@ -263,20 +290,23 @@ This section configures basic UI settings that remove unneeded elements to make 
            ("C-r" . 'counsel-minibuffer-history))
     :config
     (setq ivy-initial-inputs-alist nil)) ; don't start searches with ^
-
+  
   (use-package ivy-rich
     :after ivy
     :init
     (ivy-rich-mode 1))
-
+  
 #+end_src
 
 *** Improved Candidate Sorting with prescient.el
+:PROPERTIES:
+:ID:       7dcf01cb-4940-4c49-8010-5b372f0c8502
+:END:
 
 prescient.el provides some helpful behavior for sorting Ivy completion candidates based on how recently or frequently you select them.  This can be especially helpful when using =M-x= to run commands that you don't have bound to a key but still need to access occasionally.
 
 #+begin_src emacs-lisp
-
+  
   (use-package ivy-prescient
     :after counsel
     :custom
@@ -285,12 +315,15 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     ;; Uncomment the following line to have sorting remembered across sessions!
     (prescient-persist-mode 1)
     (ivy-prescient-mode 1))
-
+  
 #+end_src
 ** Helpful Package
+:PROPERTIES:
+:ID:       c07792fe-8800-4766-8d7f-a7e96ada27d4
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package helpful
     :custom
     (counsel-describe-function-function #'helpful-callable)
@@ -300,30 +333,39 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
-
+  
 #+end_src
 
 ** Command Log Mode
+:PROPERTIES:
+:ID:       3a4922ed-9f78-4fa3-9e12-956b31b6fedf
+:END:
 
 [[https://github.com/lewang/command-log-mode][command-log-mode]] is useful for displaying a panel showing each key binding you use in a panel on the right side of the frame.
 
 #+begin_src emacs-lisp
-
+  
   (use-package command-log-mode
     :commands command-log-mode)
-
+  
 #+end_src
 ** Recent Files
+:PROPERTIES:
+:ID:       9ac43bf7-a269-4fac-8ca4-aa648656a180
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (recentf-mode 1)
   (setq recentf-max-menu-items 25)
   (setq recentf-max-saved-items 25)
   (global-set-key "\C-c\ \C-r" 'recentf-open-files)
-
+  
 #+end_src
 ** Calendar
+:PROPERTIES:
+:ID:       1e8bd390-7d28-40b8-ae80-78a38454a0b5
+:END:
 
 #+begin_src emacs-lisp
   (use-package calendar
@@ -333,25 +375,34 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 #+end_src
 
 ** Window Numbering
+:PROPERTIES:
+:ID:       af8cd94d-966b-4ee1-8e61-15b721d522ea
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package window-numbering
     :config
     (window-numbering-mode))
-
+  
 #+end_src
 
 ** Registers
+:PROPERTIES:
+:ID:       433bafe4-ea43-4178-9c31-f3ad7ab54610
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq register-preview-delay 0)
-
+  
 #+end_src
 
 * Org Mode
 ** Basic
+:PROPERTIES:
+:ID:       83c77eee-de0a-450d-ae1f-e3a97851dfdf
+:END:
 
 #+begin_src emacs-lisp
   
@@ -438,76 +489,88 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 #+end_src
 
 ** Todo Keywords
+:PROPERTIES:
+:ID:       16687884-c8f0-4268-828e-22e9ee9d63a2
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq org-todo-keywords
         '((sequence "TODO(t@/!)" "NEXT(n@/!)" "PROG(r@)" "|" "DONE(d@)")
           (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)"
                     "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")
           (sequence "EXAM(e@)" "SUBMISSION(s@)" "HOMEWORK(m@)" "|" "DONE(d@)")))
-
+  
 #+end_src
 
 ** Merge Diary-Files
+:PROPERTIES:
+:ID:       292015b1-4bc0-4714-b48e-3a01665b5560
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (add-hook 'org-agenda-finalize-hook 'kk/merge-diary-files)
-
+  
 #+end_src
 
 ** Custom Agenda Views
 *** Reusable Blocks
+:PROPERTIES:
+:ID:       ff0f947f-f3ac-4d41-827a-0e417cf98c99
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq kk/org-agenda-academical-exam-block
         '(todo "EXAM"
                ((org-agenda-overriding-header "Scheduled Exams")
                 (org-agenda-files org-agenda-files)
                 (org-agenda-sorting-strategy '(deadline-up)))))
-
+  
   (setq kk/org-agenda-academical-homework-block
         '(todo "HOMEWORK"
                ((org-agenda-overriding-header "Homework due")
                 (org-agenda-sorting-strategy '(deadline-up))
                 (org-agenda-files org-agenda-files))))
-
+  
   (setq kk/org-agenda-academical-submissions-block
         '(todo "SUBMISSION"
                ((org-agenda-overriding-header "Submissions due")
                 (org-agenda-sorting-strategy '(deadline-up))
                 (org-agenda-files org-agenda-files))))
-
+  
   (setq kk/org-agenda-next-block
         '(todo "NEXT"
                ((org-agenda-overriding-header "Next Tasks"))))
-
+  
   (setq kk/org-agenda-active-block
         '(todo "ACTIVE"
                ((org-agenda-overriding-header "Active Projects"))))
-
+  
   (setq kk/org-agenda-unscheduled-todos
         '(todo "TODO"
                ((org-agenda-overriding-header "Unscheduled TODOs")
                 (org-agenda-todo-ignore-with-date t))))
-
+  
   (defun kk/org-agenda-make-block-personal (reuseable-block character)
     (let ((block reuseable-block))
       (push '(org-agenda-files
               '(list kk/personal-agenda-file))
             (cddr block))
       (remove-duplicates block)))
-
+  
 #+end_src
 
 *** Commands
+:PROPERTIES:
+:ID:       80f852cd-bd61-43b1-97f2-c1fcd91a8360
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq org-agenda-start-with-follow-mode t)
-
+  
   (setq org-agenda-custom-commands
         `(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 30)))
@@ -516,7 +579,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ,kk/org-agenda-academical-exam-block
             ,kk/org-agenda-academical-homework-block
             ,kk/org-agenda-academical-submissions-block))
-
+  
           ("e" "Tasks by Effort"
            ((tags-todo "+Effort=1"
                        ((org-agenda-overriding-header "Low Effort Tasks")
@@ -530,7 +593,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                        ((org-agenda-overriding-header "High Effort Tasks")
                         (org-agenda-max-todos 20)
                         (org-agenda-files org-agenda-files)))))
-
+  
           ("w" . "Work")
           ("ww" "Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
@@ -568,7 +631,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                   ((org-agenda-overriding-header "Next Tasks")
                    (org-agenda-files
                     (list kk/work-agenda-file))))))
-
+  
           ("a" . "Academical")
           ("aa" "Agenda"
            ((agenda "" ((org-deadline-warning-days 90)
@@ -601,7 +664,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                   ((org-agenda-overriding-header "Next Tasks")
                    (org-agenda-files
                     (list kk/academical-agenda-file))))))
-
+  
           ("p" . "Personal")
           ("pp" "Agenda"
            ((agenda "" ((org-agenda-span 7)
@@ -636,11 +699,11 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                   ((org-agenda-overriding-header "Next Tasks")
                    (org-agenda-files
                     (list kk/personal-agenda-file))))))
-
+  
           ("D" "Done Tasks"
            ((todo "DONE"
                   ((org-agenda-overriding-header "Done Tasks")))))
-
+  
           ("P" "Projects Status"
            ((todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")
@@ -668,83 +731,104 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             (todo "CANC"
                   ((org-agenda-overriding-header "Cancelled Projects")
                    (org-agenda-files org-agenda-files)))))))
-
+  
 #+end_src
 
 ** Structure Templates
+:PROPERTIES:
+:ID:       6f69a4a3-b1e6-4539-9cda-c1d57d4fa132
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (require 'org-tempo)
-
+  
   (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-
+  
 #+end_src
 
 ** Babel
+:PROPERTIES:
+:ID:       52b21da5-c0ea-4f02-b5d1-68dd24822ea8
+:END:
 
 Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
-
+  
   (setq org-confirm-babel-evaluate nil)
-
+  
 #+end_src
 
 *** Auto-tangle Configuration Files
+:PROPERTIES:
+:ID:       aab79177-8676-414e-9a9a-ba7a55b16d8b
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/org-babel-tangle-config ()
     (when (string-equal (buffer-file-name)
                         (expand-file-name "~/.emacs.d/emacs.org"))
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
-
+  
   (add-hook 'org-mode-hook
             (lambda ()
               (add-hook 'after-save-hook #'kk/org-babel-tangle-config)))
 #+end_src
 *** Configure Languages
+:PROPERTIES:
+:ID:       410e9e2a-90e0-4c3c-b485-5233286a9714
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (org-babel-do-load-languages
    'arg-babel-load-languages
    '((emacs-lisp . t)
      (python . t)))
-
+  
   (push '("conf-unix" . conf-unix) org-src-lang-modes)
-
+  
 #+end_src
 
 ** Package for TOC
+:PROPERTIES:
+:ID:       deec8c0f-9552-4e55-a65b-d1719975e174
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package toc-org
     :hook (org-mode-hook . toc-org-mode))
-
+  
 #+end_src
 ** Diary
+:PROPERTIES:
+:ID:       bd4efe9a-2561-497e-9fab-2e638e08011c
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq diary-file kk/default-diary-file)
-
+  
 #+end_src
 
 ** Skeletons
+:PROPERTIES:
+:ID:       70e00c63-054b-4664-8f24-5293c514f198
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (define-skeleton kk/test-skeleton
     "This is some test skeleton" nil
     "#+TITLE: Some test Title\n"
     "#+AUTHOR: Karsten Klöss\n")
-
+  
   (define-skeleton kk/daily-todos-today
     "Prefill the structure of my daily TODO list." nil
     "*** "
@@ -754,7 +838,7 @@ Don't prompt eval confirmation
     "- [ ] \n"
     "Sonstiges:\n"
     "- [ ] ")
-
+  
   (define-skeleton kk/daily-todos-tomorrow
     "Prefill the structure of my daily TODO list." nil
     "*** "
@@ -764,10 +848,13 @@ Don't prompt eval confirmation
     "- [ ] \n"
     "Sonstiges:\n"
     "- [ ] ")
-
+  
 #+end_src
 
 ** Org ID
+:PROPERTIES:
+:ID:       499c189e-01cc-4993-970c-27f6f300a9ff
+:END:
 
 #+begin_src emacs-lisp
   
@@ -778,13 +865,16 @@ Don't prompt eval confirmation
 
 * Development
 ** Commenting
+:PROPERTIES:
+:ID:       8652450b-b48e-4cb6-a0bc-7db9e7f1768f
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package evil-nerd-commenter
     :defer t
     :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
+  
 #+end_src
 
 ** Languages
@@ -796,139 +886,169 @@ To use lsp-mode for any language, check the above places first.
 You'll likely need to install a corresponding mode and language server outside on your system.
 
 **** Lsp-Mode
+:PROPERTIES:
+:ID:       d30198e0-eb14-45b7-94b0-2e4b377839e9
+:END:
 
 See [[https://github.com/emacs-lsp/lsp-mode/][lsp-mode (Github)]]
 
 Installation of lsp-mode likes to fail because were not able to install the "spinner" package. Running ~M-x package-refresh-contents~ seems to fix this. Maybe not.
 
 #+begin_src emacs-lisp
-
+  
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
     :init
     (setq lsp-keymap-prefix "C-c l")
     :config
     (lsp-enable-which-key-integration t))
-
+  
 #+end_src
 
 ***** Header Breadcrumb
+:PROPERTIES:
+:ID:       c5021796-0aee-4441-afa3-ea19822a801c
+:END:
 
 #+begin_src emacs-lisp
   (defun kk/lsp-mode-setup ()
     (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
-
+  
     :hook (lsp-mode . kk/lsp-mode-setup))
 #+end_src
 
 ***** Lsp-Ui
+:PROPERTIES:
+:ID:       607708a4-845a-4cd6-a72b-0cbc19354e13
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package lsp-ui
     :hook (lsp-mode . lsp-ui-mode)
     :custom
     (lsp-ui-doc-position 'bottom))
-
+  
 #+end_src
 
 ***** Treemacs
+:PROPERTIES:
+:ID:       200e3421-5bd7-4905-9ace-6d9f075a8cc5
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package lsp-treemacs
     :after lsp-mode
     :commands treemacs)
-
+  
   (global-set-key (kbd "C-c t") 'lsp-treemacs-symbols)
-
-
+  
+  
 #+end_src
 
 *** TypeScript
+:PROPERTIES:
+:ID:       d930e863-9173-423f-952d-d04f405cae35
+:END:
 
 Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to install the language server
 
 #+begin_src emacs-lisp
-
+  
   (use-package typescript-mode
     :mode "\\.ts\\'"
     :hook (typescript-mode . lsp-deferred)
     :config
     (setq typescript-indent-level 2))
-
+  
 #+end_src
 
 *** Angular
+:PROPERTIES:
+:ID:       9d2433de-10c3-458e-9ae0-fb9081b8f201
+:END:
 
 [[Https://Github.Com/Adamniederer/Ng2-Mode][Ng2-Mode Github]]
 
 #+begin_src emacs-lisp
-
+  
   (use-package ng2-mode
     :defer t)
-
+  
 #+end_src
 
 *** Php
+:PROPERTIES:
+:ID:       f4fe24a0-b722-415e-9523-e368d63b3de8
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package php-mode
     :mode "\\.php\\'"
     :hook (php-mode . lsp-deferred))
-
+  
 #+end_src
 
 *** Python
+:PROPERTIES:
+:ID:       daa05972-9f89-4ba8-88db-a37fd9835ed5
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package python-mode
     :hook (python-mode . lsp-deferred)
     :custom
     (dap-python-debugger 'debugpy)
     :config
     (require 'dap-python))
-
+  
 #+end_src
 
 You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =pyvenv-activate= command should configure Emacs to cause =lsp-mode= and =dap-mode= to use the virtual environment when they are loaded, just select the path to your virtual environment before loading your project.
 
 #+begin_src emacs-lisp
-
+  
   (use-package pyvenv
     :after python-mode
     :config
     (pyvenv-mode 1))
-
+  
 #+end_src
 
 *** Html + Css
+:PROPERTIES:
+:ID:       16ccfa0f-bb5f-48cf-bc59-f97cc7e95719
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package web-mode
     :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
     :config
     (setq-default web-mode-code-indent-offset 2)
     (setq-default web-mode-markup-indent-offset 2)
     (setq-default web-mode-attribute-indent-offset 2))
-
+  
   ;; 1. Start the server with `httpd-start'
   ;; 2. Use `impatient-mode' on any buffer
   (use-package impatient-mode
     :defer t)
-
+  
   (use-package skewer-mode
     :defer t)
-
+  
 #+end_src
 
 **** Emmet
+:PROPERTIES:
+:ID:       9a4a1ee5-68f6-4922-aba6-fc835a173960
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package emmet-mode
     :defer t
     :hook
@@ -936,52 +1056,67 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
      (css-mode-hook . emmet-mode))
     :bind (:map emmet-mode-keymap
                 ("C-<tab>" . emmet-expand-line)))
-
+  
 #+end_src
 
 *** Common Lisp
+:PROPERTIES:
+:ID:       d7e5748e-eaa2-4248-9d65-9f4b9b094d2e
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package sly
     :defer t)
-
+  
 #+end_src
 
 *** C#
+:PROPERTIES:
+:ID:       e1a0c1af-98a9-49b5-b8b9-a273a30a25ad
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package csharp-mode
     :defer t)
-
+  
 #+end_src
 
 *** Markdown
+:PROPERTIES:
+:ID:       eb0d2d39-66b5-4ae7-ba79-d73606cca25e
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package markdown-mode
     :defer t
     :mode "\\.md\\'")
-
+  
 #+end_src
 
 *** YAML
+:PROPERTIES:
+:ID:       0768352b-7c12-4e82-b973-ae01c034095a
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package yaml-mode
     :mode "\\.ya?ml\\'")
-
+  
 #+end_src
 
 ** Debugging With Dap-Mode
+:PROPERTIES:
+:ID:       f36ab9f7-3a7f-42fc-b5c1-e98f1eca2022
+:END:
 
 [[https://emacs-lsp.github.io/dap-mode/][dap-mode]] is an excellent package for bringing rich debugging capabilities to Emacs via the [[https://microsoft.github.io/debug-adapter-protocol/][Debug Adapter Protocol]].  You should check out the [[https://emacs-lsp.github.io/dap-mode/page/configuration/][configuration docs]] to learn how to configure the debugger for your language.  Also make sure to check out the documentation for the debug adapter to see what configuration parameters are available to use for your debug templates!
 
 #+begin_src emacs-lisp
-
+  
   (use-package dap-mode
     ;; Uncomment the config below if you want all UI panes to be hidden by default!
     ;; :custom
@@ -995,22 +1130,25 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
     ;; Set up Node debugging
     (require 'dap-node)
     (dap-node-setup) ;; Automatically installs Node debug adapter if needed
-
+  
     (add-hook 'dap-stopped-hook
               (lambda (arg) (call-interactively #'dap-hydra)))
-
+  
     ;; Bind `C-c l d` to `dap-hydra` for easy access
     (general-define-key
      :keymaps 'lsp-mode-map
      :prefix lsp-keymap-prefix
      "d" '(dap-hydra t :wk "debugger")))
-
+  
 #+end_src
 
 ** Company Mode
+:PROPERTIES:
+:ID:       c29ea118-4fbc-4989-a4a8-3dc9c66f3a5d
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package company
     :defer 0
     :hook (prog-mode . company-mode)
@@ -1019,26 +1157,32 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
     :custom
     (company-minimum-prefix-length 1)
     (company-idle-delay 0.0))
-
+  
   (use-package company-box
     :hook (company-mode . company-box-mode))
-
+  
 #+end_src
 
 ** Magit
+:PROPERTIES:
+:ID:       2f930ee5-f448-4b6a-b595-ccc070e9ed8a
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package magit
     :commands magit-status)
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
-
+  
 #+end_src
 
 ** Projectile
+:PROPERTIES:
+:ID:       1ffce63d-fc40-45ad-a836-de7b2626dd44
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package projectile
     :diminish projectile-mode
     :config (projectile-mode)
@@ -1047,149 +1191,188 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
     ("C-x p" . projectile-command-map)
     :init
     (setq projectile-switch-project-action #'projectile-dired))
-
+  
   (use-package counsel-projectile
     :after projectile
     :config (counsel-projectile-mode))
-
+  
 #+end_src
 
 ** Parenthesis
 *** Rainbow Delimiters
+:PROPERTIES:
+:ID:       2dbbbe78-f515-4d75-a7d4-934a3e2fed39
+:END:
 
 [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth. This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
 
 #+begin_src emacs-lisp
-
+  
   (use-package rainbow-delimiters
     :defer t
     :hook (prog-mode . rainbow-delimiters-mode))
-
+  
 #+end_src
 
 *** Show-Paren-Mode
+:PROPERTIES:
+:ID:       49a3f601-898c-4d33-88be-60bb4cc57eca
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (show-paren-mode 1)
-
+  
 #+end_src
 
 *** Smartparens
+:PROPERTIES:
+:ID:       3d30ffa8-8fec-4a26-ba8a-8bdb559ddcff
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package smartparens
     :defer t
     :hook (prog-mode . smartparens-mode)
     :config
     (require 'smartparens-config))
-
+  
 #+end_src
 
 ** Flycheck
+:PROPERTIES:
+:ID:       006d689d-ee55-4921-9ee8-c1446d181137
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package flycheck
     :defer t
     :config
     (global-flycheck-mode))
-
+  
 #+end_src
 
 ** Indent-Guide
+:PROPERTIES:
+:ID:       216b92ca-eec4-4b4e-8839-1d4bfe1f2942
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package indent-guide
     :hook (prog-mode . indent-guide-mode))
-
+  
 #+end_src
 
 ** Format-All
+:PROPERTIES:
+:ID:       7f64ca5c-750f-42cc-8bb8-69eb23c697f6
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package format-all
     :defer t)
-
+  
 #+end_src
 
 ** Editorconfig
+:PROPERTIES:
+:ID:       4be98407-abff-413c-870a-1c7838886ed6
+:END:
 
 [[https://editorconfig.org/][Editorconfig.org]]
 
 #+begin_src emacs-lisp
-
+  
   (use-package editorconfig
     :config
     (editorconfig-mode 1))
-
+  
 #+end_src
 
 ** Know-Your-Http-Well
+:PROPERTIES:
+:ID:       5e3278c6-acf1-4b7e-8b03-441d9b17c90f
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package know-your-http-well
     :defer t)
-
+  
 #+end_src
 
 ** Column Enforce Mode
+:PROPERTIES:
+:ID:       f756cd58-542e-4ba6-b758-60c6a6910d59
+:END:
 
 This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColumnRule][Eighty Column Rule]].
 
 #+begin_src emacs-lisp
-
+  
   (use-package column-enforce-mode
     :hook (prog-mode . column-enforce-mode)
     :config
     (setq column-enforce-comments nil))
-
+  
 #+end_src
 
 * Tramp
+:PROPERTIES:
+:ID:       4a3a0dba-4444-46ed-874c-116f24aec25e
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq tramp-default-method "ssh")
-
+  
 #+end_src
 
 * Writing
 ** Word Completion
+:PROPERTIES:
+:ID:       c86dfe0a-6753-4e59-b541-b7ba704609a4
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/text-mode-completion-setup ()
     (interactive)
     (require 'company)
     (add-to-list 'company-backends 'company-ispell))
-
+  
   (add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
-
+  
 #+end_src
 
 ** Spellcheck
+:PROPERTIES:
+:ID:       b57fe851-1de1-4cb9-9152-4dfa9b2a82e8
+:END:
 
 #+begin_src emacs-lisp
-
+  
   ;; (add-hook 'text-mode-hook 'flyspell-mode)
-
+  
 #+end_src
 
 #+begin_src emacs-lisp
-
+  
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
-
+  
 #+end_src
 
 ** Guess-Language
+:PROPERTIES:
+:ID:       c7ebf251-ccb7-4310-98fa-bde57dad4961
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package guess-language         ; Automatically detect language for Flyspell
     :ensure t
     :defer t
@@ -1200,33 +1383,39 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
           guess-language-languages '(de en)
           guess-language-min-paragraph-length 40)
     :diminish guess-language-mode)
-
+  
 #+end_src
 
 ** Typographical Editing
+:PROPERTIES:
+:ID:       2df53b97-fe9d-4256-aec7-4a51fba2db42
+:END:
 
 [[https://github.com/jorgenschaefer/typoel][typo.el on github]].
 
 #+begin_src emacs-lisp
-
+  
   (use-package typo
     :defer t
     :config
     (setq-default typo-language 'German))
-
+  
 #+end_src
 
 * Keybindings
 ** Evil Mode
+:PROPERTIES:
+:ID:       961524ac-e18f-4d19-9499-3011219705a7
+:END:
 
 I had issues with the undo-system. Setting =evil-undo-system= manually, outside of =customize=, wasn't doing it. Now =evil-undo-function= and =evil-redo-function= are set manually.
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/evil-hook ()
     (dolist (mode '(cfw:details-mode))
       (add-to-list 'evil-emacs-state-modes mode)))
-
+  
   (use-package evil
     :init
     (setq evil-want-integration t)
@@ -1239,72 +1428,81 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
     (evil-mode 1)
     (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
-
+  
     (setq evil-undo-function 'undo-fu-only-undo)
     (setq evil-redo-function 'undo-fu-only-redo)
-
+  
     (evil-set-initial-state 'messages-buffer-mode 'normal)
     (evil-set-initial-state 'dashboard-mode 'normal))
-
+  
   (use-package evil-collection
     :after evil
     :config
     (evil-collection-init))
-
+  
   (use-package evil-org
     :after org
     :hook (org-mode . (lambda () evil-org-mode))
     :config
     (require 'evil-org-agenda)
     (evil-org-agenda-set-keys))
-
+  
 #+end_src
 
 *** Special Evil Modemap
+:PROPERTIES:
+:ID:       0c1cd2ae-8af6-4783-bfce-d6d57e959ef6
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defvar kk/intercept-mode-map (make-sparse-keymap)
     "High precedence keymap.")
-
+  
   (define-minor-mode kk/intercept-mode
     "Global minor mode for higher precedence evil keybindings."
     :global t)
-
+  
   (kk/intercept-mode)
-
+  
   (dolist (state '(normal visual insert motion))
     (evil-make-intercept-map
      ;; NOTE: This requires an evil version from 2018-03-20 or later
      (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
      state))
-
+  
   (evil-define-key 'normal kk/intercept-mode-map
     (kbd "g j") 'evil-next-visual-line
     (kbd "g k") 'evil-previous-visual-line
     (kbd "Y") 'org-store-link)
-
+  
   (evil-define-key 'motion kk/intercept-mode-map
     (kbd "Y") 'org-store-link)
-
+  
 #+end_src
 
 ** Undo System
+:PROPERTIES:
+:ID:       f97a9725-7a2e-4a7a-ace6-bb209e837ab3
+:END:
 
 [[https://github.com/emacsmirror/undo-fu][undo-fu]]
 
 #+begin_src emacs-lisp
-
+  
   (use-package undo-fu)
-
+  
 #+end_src
 
 ** General Leader Keys
+:PROPERTIES:
+:ID:       ead33ed8-cd3e-4a41-9e70-b9902e3eadd6
+:END:
 
 Defining leader keys using the general package.
 
 #+begin_src emacs-lisp
-
+  
   (use-package general
     :after evil
     :config
@@ -1312,7 +1510,7 @@ Defining leader keys using the general package.
       :keymaps '(normal insert visual emacs)
       :prefix "SPC"
       :global-prefix "C-SPC")
-
+  
     (kk/leader-keys
       "t"  '(hydra-daily-todos/body :which-key "todays TODOs")
       "b" '(hydra-buffer-control/body :which-key "control buffers")
@@ -1320,55 +1518,61 @@ Defining leader keys using the general package.
       "w" '(hydra-window-size/body :which-key "change window size")
       "j" '(winner-undo :which-key "winner undo")
       "k" '(winner-redo :which-key "winner redo")))
-
+  
 #+end_src
 
 ** General Global Bindings
+:PROPERTIES:
+:ID:       9a4e9f97-7b95-4c35-a7f6-8f161dafcb14
+:END:
 
 #+begin_src emacs-lisp
-
+  
   ;;Make ESC quit prompts
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
+  
   (global-set-key (kbd "C-x k") 'kill-this-buffer)
-
+  
   (global-set-key (kbd "C-c a") 'org-agenda)
-
+  
   (global-set-key (kbd "C-c g") 'magit-status)
-
+  
   (global-set-key (kbd "C-c m") 'mu4e)
-
+  
   (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
   (global-set-key (kbd "C-x b") 'ido-switch-buffer)
-
+  
   (global-set-key (kbd "C-c <return>") 'eshell)
-
+  
   (global-set-key (kbd "C-c C-<return>") 'term)
-
+  
   (global-set-key (kbd "C-M-j") 'ibuffer)
-
+  
   (global-set-key (kbd "C-c c") 'kk/open-calendar)
   (global-set-key (kbd "C-c C") 'calendar)
-
+  
   (global-set-key (kbd "C-c r") 'elfeed)
-
+  
   (global-set-key (kbd "C-c s") 'spray-mode)
-
+  
   (global-set-key (kbd "C-c M-j") 'winner-undo)
   (global-set-key (kbd "C-c M-k") 'winner-redo)
-
+  
   (global-set-key (kbd "C-c l") 'org-store-link)
-
+  
   (global-set-key [f5] 'universal-argument)
-
+  
 #+end_src
 
 ** Movement
 *** Move Where I Mean
+:PROPERTIES:
+:ID:       a4f4359f-98b2-4559-a176-31457f38a685
+:END:
 [[https://github.com/alezost/mwim.el][mwim]]
 
 #+begin_src emacs-lisp
-
+  
   (use-package mwim
     :config
     (global-set-key (kbd "C-a") 'mwim-beginning)
@@ -1382,48 +1586,57 @@ Defining leader keys using the general package.
     (add-hook 'evil-insert-state-entry-hook (lambda ()
                                               (define-key evil-insert-state-map (kbd "C-e") 'mwim-end)
                                               (define-key evil-insert-state-map (kbd "C-a") 'mwim-beginning))))
-
+  
 #+end_src
 
 ** Insertions
+:PROPERTIES:
+:ID:       6141ad82-9dbe-4c2e-b879-5d58c91ae1ad
+:END:
 
 I guess the =C-c i= area makes sense, standing for *I* nsertions.
 
 #+begin_src emacs-lisp
-
+  
   (global-set-key (kbd "C-c i d") 'kk/insert-todays-date)
   (global-set-key (kbd "C-c i D") 'kk/insert-tomorrows-date)
   (global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
   (global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
-
+  
 #+end_src
 
 ** Search
+:PROPERTIES:
+:ID:       d942b98c-ed93-4e99-910a-b2b016fb5b5e
+:END:
 #+begin_src emacs-lisp
-
+  
   (global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
-
+  
   (global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
-
+  
   (global-set-key (kbd "M-s M-d") 'kk/search-region-on-duden)
-
+  
   (global-set-key (kbd "M-s M-t") 'kk/search-region-on-dict)
-
+  
 #+end_src
 
 ** Hydra
+:PROPERTIES:
+:ID:       9479a38d-48f6-4dcd-ba6c-0687c1cf5d90
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package hydra
     :defer t)
-
+  
   (defhydra hydra-text-scale (:timeout 4)
     "scale text"
     ("j" text-scale-increase "in")
     ("k" text-scale-decrease "out")
     ("f" nil "finished" :exit t))
-
+  
   (defhydra hydra-buffer-control (:timeout 4)
     "change buffers"
     ("l" counsel-switch-buffer "list" :exit t)
@@ -1431,14 +1644,14 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
     ("k" previous-buffer "previous")
     ("j" switch-to-next-buffer "next")
     ("f" nil "finished" :exit t))
-
-
+  
+  
   (defhydra hydra-bookmark-control (:timeout 5)
     "set and load bookmarks"
     ("s" bookmark-set "set")
     ("l" bookmark-bmenu-list "list")
     ("f" nil "finished" :exit t))
-
+  
   (defhydra hydra-window-size (:timeout 5)
     "change window sizes"
     ("u" balance-windows "balance")
@@ -1447,7 +1660,7 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
     ("h" evil-window-decrease-width "decrease width")
     ("l" evil-window-increase-width "increase width")
     ("f" make-frame "make frame"))
-
+  
   (defhydra hydra-daily-todos (:timeout 5)
     "go to the current days TODOs"
     ("p" (lambda ()
@@ -1460,11 +1673,14 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
            (kk/find-org-file-at-headline
             kk/work-daily-todo-file (kk/date)))
      "work"))
-
+  
 #+end_src
 
 * Terminals
 ** Term-Mode
+:PROPERTIES:
+:ID:       053b2951-f7c0-4f48-8e65-08e8c27dcad8
+:END:
 
 =term-mode= is a built-in terminal emulator in Emacs. Because it is written in Emacs Lisp, you can start using it immediately with very little configuration. If you are on Linux or macOS, term-mode is a great choice to get started because it supports fairly complex terminal applications (htop, vim, etc) and works pretty reliably. However, because it is written in Emacs Lisp, it can be slower than other options like vterm. The speed will only be an issue if you regularly run console apps with a lot of output.
 
@@ -1483,44 +1699,53 @@ Useful key bindings:
 If you have evil-collection installed, term-mode will enter char mode when you use Evil’s Insert mode
 
 #+begin_src emacs-lisp
-
+  
   (use-package term
     :commands term
     :config
     (setq explicit-shell-file-name "bash")
     (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
-
+  
 #+end_src
 
 *** Better Term-Mode Colors
+:PROPERTIES:
+:ID:       0402d420-d128-4a6c-bfd8-6905b6e63309
+:END:
 
 The =eterm-256color= package enhances the output of =term-mode= to enable handling of a wider range of color codes so that many popular terminal applications look as you would expect them to.  Keep in mind that this package requires =ncurses= to be installed on your machine so that it has access to the =tic= program.  Most Linux distributions come with this program installed already so you may not have to do anything extra to use it.
 
 #+begin_src emacs-lisp
-
+  
   (use-package eterm-256color
     :hook (term-mode . eterm-256color-mode))
-
+  
 #+end_src
 
 ** Vterm
+:PROPERTIES:
+:ID:       aad15610-78c1-442d-8924-1c5d8b707139
+:END:
 
 [[https://github.com/akermu/emacs-libvterm/][vterm]] is an improved terminal emulator package which uses a compiled native module to interact with the underlying terminal applications.  This enables it to be much faster than =term-mode= and to also provide a more complete terminal emulation experience.
 
 Make sure that you have the [[https://github.com/akermu/emacs-libvterm/#requirements][necessary dependencies]] installed before trying to use =vterm= because there is a module that will need to be compiled before you can use it successfully.
 
 #+begin_src emacs-lisp
-
+  
   (use-package vterm
     :commands vterm
     :config
     (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
     ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
     (setq vterm-max-scrollback 10000))
-
+  
 #+end_src
 
 ** Shell-Mode
+:PROPERTIES:
+:ID:       e85538d7-ba3b-488f-ab64-490572900b07
+:END:
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Interactive-Shell.html#Interactive-Shell][shell-mode]] is a middle ground between =term-mode= and Eshell.  It is *not* a terminal emulator so more complex terminal programs will not run inside of it.  It does have much better integration with Emacs because all command input in this mode is handled by Emacs and then sent to the underlying shell once you press Enter.  This means that you can use =evil-mode='s editing motions on the command line, unlike in the terminal emulator modes above.
 
@@ -1534,16 +1759,19 @@ Make sure that you have the [[https://github.com/akermu/emacs-libvterm/#requirem
 One advantage of =shell-mode= on Windows is that it's the only way to run =cmd.exe=, PowerShell, Git Bash, etc from within Emacs.  Here's an example of how you would set up =shell-mode= to run PowerShell on Windows:
 
 #+begin_src emacs-lisp
-
+  
   (when (eq system-type 'windows-nt)
     (setq explicit-shell-file-name "powershell.exe")
     (setq explicit-powershell.exe-args '()))
-
+  
   (setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
-
+  
 #+end_src
 
 ** Eshell
+:PROPERTIES:
+:ID:       d0cc6784-c8c3-4c07-89d0-fb4557e0f8c0
+:END:
 
 [[https://www.gnu.org/software/emacs/manual/html_mono/eshell.html#Contributors-to-Eshell][Eshell]] is Emacs' own shell implementation written in Emacs Lisp.  It provides you with a cross-platform implementation (even on Windows!) of the common GNU utilities you would find on Linux and macOS (=ls=, =rm=, =mv=, =grep=, etc).  It also allows you to call Emacs Lisp functions directly from the shell and you can even set up aliases (like aliasing =vim= to =find-file=).  Eshell is also an Emacs Lisp REPL which allows you to evaluate full expressions at the shell.
 
@@ -1561,74 +1789,83 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 - https://ambrevar.xyz/emacs-eshell-versus-shell/index.html
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/configure-eshell ()
     "Configure the `eshell'."
     ;; Save command history when commands are entered
     (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
-
+  
     ;; Truncate buffer for performance
     (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
-
+  
     ;; Bind some useful keys for evil-mode
     (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
     (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
     (evil-normalize-keymaps)
-
+  
     (setq eshell-history-size         10000
           eshell-buffer-maximum-lines 10000
           eshell-hist-ignoredups t
           eshell-scroll-to-bottom-on-input t))
-
+  
   (use-package eshell-git-prompt
     :after eshell)
-
+  
   (use-package eshell
     :hook (eshell-first-time-mode . kk/configure-eshell)
     :config
-
+  
     (with-eval-after-load 'esh-opt
       (setq eshell-destroy-buffer-when-process-dies t)
       (setq eshell-visual-commands '("htop" "zsh" "vim")))
-
+  
     (eshell-git-prompt-use-theme 'default))
-
+  
 #+end_src
 
 * Browser
+:PROPERTIES:
+:ID:       177f5f11-f4b5-47d5-9de0-573aac2d8484
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq browse-url-secondary-browser-function #'kk/open-with-o)
-
+  
 #+end_src
 
 ** Eww
+:PROPERTIES:
+:ID:       432f01bf-3251-448e-81c7-ad18c94d369d
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package eww
     :config (setq browse-url-browser-function 'eww
                   shr-width 80))
-
+  
 #+end_src
 
 ** Elpher
+:PROPERTIES:
+:ID:       f4d091e3-7ae6-4fe1-b930-ff32d8dde580
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package elpher
     :defer t
     :config
     (advice-add 'eww-browse-url :around 'elpher:eww-browse-url)
-
+  
     (defun elpher:eww-browse-url (original url &optional new-window)
       "Handle gemini links."
       (cond ((string-match-p "\\`\\(gemini\\|gopher\\)://" url)
              (require 'elpher)
              (elpher-go url))
             (t (funcall original url new-window)))))
-
+  
 #+end_src
 
 * File Management
@@ -1695,9 +1932,12 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 - =L= - Load an Emacs Lisp file into Emacs
 
 *** Configuration
+:PROPERTIES:
+:ID:       169de694-a0a7-4ac8-9d4d-2274d9f7152a
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package dired
     :ensure nil
     :commands (dired dired-jump)
@@ -1709,13 +1949,13 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
       "h" 'dired-single-up-directory
       "l" 'dired-single-buffer
       "L" 'dired-open-xdg))
-
+  
   (use-package dired-single
     :after dired)
-
+  
   (use-package all-the-icons-dired
     :hook (dired-mode . all-the-icons-dired-mode))
-
+  
   (use-package dired-open
     :after dired
     :config
@@ -1723,22 +1963,25 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
     (setq dired-open-extensions '(("png" . "sxiv")
                                   ("mkv" . "mpv"))))
-
+  
   (use-package dired-hide-dotfiles
     :hook (dired-mode . dired-hide-dotfiles-mode)
     :config
     (evil-collection-define-key 'normal 'dired-mode-map
       "H" 'dired-hide-dotfiles-mode))
-
+  
 #+end_src
 
 * Communication
 ** Managing Email with mu4e
 
 *** Signatures
+:PROPERTIES:
+:ID:       c9d3806f-ec11-44f3-85d1-a027c4e04dd6
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/mu4e-choose-signature ()
     "Insert one of a number of sigs."
     (interactive)
@@ -1766,22 +2009,25 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                  "USt.-Id. Nr.: DE218401190\n"
                                  "-------------------------------------"))))))
       (message-insert-signature)))
-
+  
 #+end_src
 
 *** General
+:PROPERTIES:
+:ID:       fc11d01f-223a-4844-ae9c-35f9da1d7f6d
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/mu4e-add-standard-bookmarks ()
     "Add additional mu4e bookmarks to existing `mu4e-bookmarks'.
   This is used to have standard bookmarks, to be added to context specific bookmarks."
     (interactive)
     (add-to-list 'mu4e-bookmarks '(:query "m:/kloess@digital-worx.de/Inbox or m:/karsten.kloess@its-stuttgart.de/Inbox" :name "All Inboxes" :key ?y :hide t) t)
     (add-to-list 'mu4e-bookmarks '(:query "flag:unread" :name "All Unread" :key ?x :hide t) t))
-
+  
   (add-hook 'mu4e-context-changed-hook 'kk/mu4e-add-standard-bookmarks)
-
+  
   (use-package mu4e
     :defer 0
     :ensure nil
@@ -1791,29 +2037,29 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     :config
     (setq mu4e-context-policy 'pick-first)
     (setq mu4e-compose-context-policy 'always-ask)
-
+  
     ;; Display options
     (setq mu4e-view-show-images t)
     (setq mu4e-view-show-addresses 't)
     (setq mu4e-headers-include-related nil)
-
+  
     ;; This is set to 't' to avoid mail syncing issues when using mbsync
     (setq mu4e-change-filenames-when-moving t)
-
+  
     ;; Refresh mail using isync every 5 minutes
     (setq mu4e-update-interval (* 5 60))
     (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
     (setq mu4e-maildir "~/.local/share/mail")
-
+  
     ;; Configure the function to use for sending mail
     (setq sendmail-program "/usr/bin/msmtp"
           message-sendmail-f-is-evil t
           message-sendmail-extra-arguments '("--read-envelope-from")
           send-mail-function 'smtpmail-send-it
           message-send-mail-function 'message-send-mail-with-sendmail)
-
+  
     (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
-
+  
     (setq mu4e-contexts
           (list
            ;; digital-worx
@@ -1852,7 +2098,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
                                      (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
                                      (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
-
+  
            (make-mu4e-context
             :name "schule"
             :enter-func (lambda ()
@@ -1881,13 +2127,16 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Last 7 days Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:7d..now" :hide-unread t :key ?w)
                                      (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
                                      (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p))))))))
-
+  
 #+end_src
 
 *** Org-Mime
+:PROPERTIES:
+:ID:       5568dec1-9d80-436b-9e6f-227ba4a6c5aa
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package org-mime
     :ensure t
     :defer t
@@ -1901,13 +2150,16 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                 (org-mime-change-element-style
                  "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
                                "#f6f6f6" "#2f3337")))))
-
+  
 #+end_src
 
 ** RSS
+:PROPERTIES:
+:ID:       1871feda-ab57-4cdf-b95f-0807960bb504
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package elfeed
     :commands elfeed
     :config
@@ -1956,13 +2208,16 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
             "http://suckless.org/atom.xml"
             ("https://old.reddit.com/r/wallstreetbets.rss" investing reddit money)
             ("https://old.reddit.com/r/emacs/.rss" reddit))))
-
+  
 #+end_src
 
 * Calendar
+:PROPERTIES:
+:ID:       1249cedd-ba02-4fcd-90fe-bf60f9dff913
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package calfw
     :defer 0
     :config
@@ -1974,15 +2229,15 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
           cfw:fchar-top-junction ?┯
           cfw:fchar-top-left-corner ?┏
           cfw:fchar-top-right-corner ?┓))
-
+  
   (use-package calfw-org
     :after calfw
     :config
     (setq cfw:org-agenda-schedule-args '(:timestamp :deadline)))
-
+  
   (use-package calfw-cal
     :after calfw)
-
+  
   (defun kk/open-calendar ()
     "Open calendar calfw with additional sources."
     (interactive)
@@ -1991,68 +2246,86 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
      (list
       (cfw:org-create-source "Green")
       (cfw:cal-create-source "Orange"))))
-
+  
 #+end_src
 
 ** Merge Diary-Files
+:PROPERTIES:
+:ID:       cb2e83af-8a9b-4773-8bea-5a55b5af9b84
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (add-hook 'cfw:calendar-mode-hook 'kk/merge-diary-files)
-
+  
 #+end_src
 
 ** View Exclusive Calendars
+:PROPERTIES:
+:ID:       198dc6ee-20cd-4ce4-91b6-6b3e122bb06b
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/open-calendar-with (this-diary-file this-org-agenda-files)
     "Open calendar calfw with `diary-file' and `org-agenda-files'."
     (interactive)
     (let ((diary-file this-diary-file)
           (org-agenda-files this-org-agenda-files))
       (kk/open-calendar)))
-
+  
 #+end_src
 
 *** Work
+:PROPERTIES:
+:ID:       fa9ef564-0bc3-47fb-9928-7b8cdf4f8c46
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/open-work-calendar ()
     "Open calendar calfw with work related sources."
     (interactive)
     (kk/open-calendar-with kk/work-diary-file (list kk/work-agenda-file)))
-
+  
 #+end_src
 
 *** Academical
+:PROPERTIES:
+:ID:       c604e714-8a2c-4d95-b287-05f3ae3350f2
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/open-academical-calendar ()
     "Open calendar calfw with academical sources."
     (interactive)
     (kk/open-calendar-with kk/academical-diary-file (list kk/academical-agenda-file)))
-
+  
 #+end_src
 
 *** Personal
+:PROPERTIES:
+:ID:       adb16ba2-661b-4660-a499-16b180e65a37
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/open-personal-calendar ()
     "Open calendar calfw with personal sources."
     (interactive)
     (kk/open-calendar-with kk/personal-diary-file (list kk/personal-agenda-file)))
-
+  
 #+end_src
 
 * Other
 ** Speed Reading
+:PROPERTIES:
+:ID:       1826f0b2-8616-4af6-ba0c-cbd197ff0e5d
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package spray
     :defer t
     :config
@@ -2060,61 +2333,76 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     (add-hook 'spray-mode-hook '(lambda ()
                                   (turn-off-evil-mode)))
     (advice-add 'spray-quit :after 'turn-on-evil-mode))
-
+  
 #+end_src
 
 ** Auto-Reverting
+:PROPERTIES:
+:ID:       ff37f87a-1cc1-471e-b9da-f66098afee87
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (setq global-auto-revert-non-file-buffers t)
   (global-auto-revert-mode)
-
+  
 #+end_src
 
 ** Ebooks
+:PROPERTIES:
+:ID:       06eb15f8-3474-4185-9ec2-59cd817952c6
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package ereader
     :hook
     (ereader-mode . (lambda ()
                       (display-line-numbers-mode 0)
                       (visual-line-mode 0))))
-
+  
 #+end_src
 
 * Passwords
+:PROPERTIES:
+:ID:       673f3c72-febd-4073-9997-116f0a41e96f
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (use-package password-store)
-
+  
   (use-package password-store-otp)
-
+  
   (use-package pass)
-
+  
   (use-package auth-source-pass
     :defer 0
     :config
     (setq auth-sources '(password-store))
     (auth-source-pass-enable))
-
+  
 #+end_src
 
 * Restoring
 ** Winner-Mode
+:PROPERTIES:
+:ID:       bbc070a9-f002-4647-8700-89a161f80726
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (winner-mode)
-
+  
 #+end_src
 
 ** Desktop-Save-Mode
+:PROPERTIES:
+:ID:       c38dc22c-ac80-46ee-b112-5d9e8b0c69b9
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/switch-desktop ()
     (interactive)
     ;; If save-silently-p is non-nil, saves all the file-visiting buffers
@@ -2122,35 +2410,38 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     (let ((save-silently nil))
       (save-some-buffers save-silently))
     (desktop-change-dir (read-directory-name "Change to directory: ")))
-
+  
   (setq desktop-files-not-to-save "^$" ; reload tramp buffers
         desktop-auto-save-timeout 30)
-
+  
   (desktop-save-mode 1)
-
+  
 #+end_src
 
 * Custom Solutions
 ** Link Handler
+:PROPERTIES:
+:ID:       c46c6da6-ea72-4479-bdb5-e88923aa9d8a
+:END:
 
 Using my standard opener script [[https://github.com/tenklo/dotfiles/blob/master/.local/bin/o][o]], e.g. to open video links in mpv.
 Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
-
+  
   (setq browse-url-generic-program
         (executable-find "o"))
-
+  
 #+end_src
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/open-with-o (arg &rest rest)
     "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
   Ignore `REST'."
     (interactive)
     (start-process "" nil "o" arg))
-
+  
   (defun kk/browse-url-at-point-with-o ()
     "Browse the url at point, opening it via o.
     Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
@@ -2160,17 +2451,20 @@ Invoke by browse-url-generic
 #+end_src
 
 ** Date Headlines
+:PROPERTIES:
+:ID:       3a3d308f-c015-49f3-87a8-2db87e5881b8
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/insert-todays-date ()
     (interactive)
     (kk/insert-date "today"))
-
+  
   (defun kk/insert-tomorrows-date ()
     (interactive)
     (kk/insert-date "tomorrow"))
-
+  
   (defun kk/date (&optional date-arg)
     "Return a date specified by `DATE_ARG'.
     Calls the date function internally.
@@ -2181,18 +2475,21 @@ Invoke by browse-url-generic
                  (concat date-arg "' '+%A %d. %B %Y')\"")))
       (shell-command-to-string
        "echo -n \"$(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
-
+  
   (defun kk/insert-date (date-arg)
     (interactive "sWhen? ")
     (insert
      (kk/date date-arg)))
-
+  
 #+end_src
 
 ** Indent The Whole Buffer
+:PROPERTIES:
+:ID:       f9c30b65-2d1d-4f7f-aa52-b630a92483ab
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/tidy-buffer ()
     "Indent and tidy up the current buffer.
   Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
@@ -2201,31 +2498,37 @@ Invoke by browse-url-generic
       (delete-trailing-whitespace)
       (indent-region (point-min) (point-max) nil)
       (untabify (point-min) (point-max))))
-
+  
 #+end_src
 ** Search Region Via Something
+:PROPERTIES:
+:ID:       054335ca-bb86-4a6f-8b5f-59cab6a750b9
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/search-region-via (url)
     (interactive)
     (eww (concat url (buffer-substring (region-beginning) (region-end)))))
-
+  
   (defun kk/search-region-on-dict ()
     "Use dict.cc to find a translation to the region."
     (interactive)
     (kk/search-region-via "https://www.dict.cc/?s="))
-
+  
   (defun kk/search-region-on-duden ()
     "Use duden.de to find a definition to the region."
     (interactive)
     (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
-
+  
 #+end_src
 ** Multiple Diarys
+:PROPERTIES:
+:ID:       b894e8f5-6637-4d28-b891-21e07709ccd4
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/merge-diary-files ()
     "Put the contents of `kk/diary-files' into `kk/default-diary-file'."
     (interactive)
@@ -2233,25 +2536,28 @@ Invoke by browse-url-generic
     (eshell-command (format "echo \"\" > %s" kk/default-diary-file))
     (kk/merge-files kk/default-diary-file kk/diary-files)
     (message "Diary files merged."))
-
+  
   (defun kk/merge-files (output-file input-file-list)
     "Loop over `input-file-list' and append contents to `output-file'."
     (when (bufferp output-file)
       (kill-buffer output-file))
     (dolist (file input-file-list)
       (kk/append-file-to-other-file file output-file)))
-
+  
   (defun kk/append-file-to-other-file (from to)
     "Use eshell to append contents of `from'-file to `to'-file."
     (when (file-exists-p from)
       (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
       (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
-
+  
 #+end_src
 ** Add New Mail Dir
+:PROPERTIES:
+:ID:       3c37e693-77c7-4295-a454-fedadc4800cd
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/mu4e-create-new-mail-folder (dir-name)
     "Create new mail folder for current context.
   Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
@@ -2262,45 +2568,48 @@ Invoke by browse-url-generic
                                                mu4e-maildir user-mail-address dir-name))
       (message
        "Your email setup is not properly configured for this to work.")))
-
+  
   (defun kk/mu4e-create-sub-folders-in (dir)
     "Create the folders cur, new and tmp inside of `DIR'.
   Parent directories will be created, if they don't exist."
     (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
     (message "Subdirectory '%s' created." dir))
-
+  
   (defun kk/create-sub-directories (dir sub-dirs &optional parents)
     "Create sub directories `SUB-DIRS' in the directory `DIR'.
   `DIR' needs a trailing slash.
-
+  
   The second (optional) argument `PARENTS', if
   non-nil, says whether to create parent directories that don't
   exist."
     (dolist (sub-dir sub-dirs)
       (make-directory (concat dir sub-dir) parents)))
-
+  
 #+end_src
 ** Export Todays TODOs
+:PROPERTIES:
+:ID:       09aa9971-1197-4f52-9bd6-b9330074480e
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (add-hook 'org-mode-hook
             (lambda ()
               (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
-
+  
   (defun kk/export-todays-todos ()
     "Exports TODOs by using todays date as headline."
     (interactive)
     (kk/export-headline-as-html (kk/date))
     nil)
-
+  
   (defun kk/export-headline-as-html (hl)
     "Export headline `HL' as html."
     (interactive)
     (save-excursion
       (org-link-search hl)
       (org-html-export-to-html nil t nil '())))
-
+  
   (defun kk/push-file-to-remote (file location &optional scp-args)
     "Push a file to somewhere via eshell.
   Push `FILE' to `LOCATION'.
@@ -2311,7 +2620,7 @@ Invoke by browse-url-generic
         (setq scp-args ""))
     (eshell-command
      (format "scp %s %s %s" scp-args file location)))
-
+  
   (defun kk/export-and-push-todays-todos ()
     (interactive)
     (when (string-equal (buffer-file-name)
@@ -2321,48 +2630,60 @@ Invoke by browse-url-generic
        (concat (file-name-sans-extension (buffer-file-name)) ".html")
        "karsten@kloess.xyz:/var/www/html/main/" "-P 69")
       (message "Pushed TODOs to server.")))
-
+  
 #+end_src
 
 ** Open Todays TODOs
+:PROPERTIES:
+:ID:       4fd4b149-f934-475a-b00a-18c82cd869ef
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (defun kk/find-org-file-at-headline (file hl)
     (interactive)
     (find-file file)
     (org-link-search hl))
-
+  
 #+end_src
 
 * Customization Through Emacs
 
 ** Disabled Commands
+:PROPERTIES:
+:ID:       019eee80-26e6-4eb1-95d2-ee805cc28578
+:END:
 
 Enable some disabled commands. Otherwise theres an annoying popup.
 
 #+begin_src emacs-lisp
-
+  
   (put 'narrow-to-region 'disabled nil)
-
+  
 #+end_src
 
 ** Customized Variables
+:PROPERTIES:
+:ID:       bce48bf6-269c-41cb-9f47-55f163a7fa68
+:END:
 
 #+begin_src emacs-lisp
-
+  
   (custom-set-variables
    '(calendar-date-style 'iso))
-
+  
 #+end_src
 
 * Runtime Performance
+:PROPERTIES:
+:ID:       54b0ce83-4adf-4b2e-bf88-d61dc2f25c25
+:END:
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
 
 #+begin_src emacs-lisp
-
+  
   ;; Make gc pauses faster by decreasing the threshold.
   (setq gc-cons-threshold (* 2 1000 1000))
-
+  
 #+end_src
