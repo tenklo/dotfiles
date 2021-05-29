@@ -7,13 +7,17 @@ This file generates init.el, which can be loaded by Emacs at startup.
 *Work In Progress.*
 
 * System Specific Settings
+:PROPERTIES:
+:ID:       e8b5f6db-329a-43e9-b7a1-911ca1d089ab
+:END:
 
 Here variables shall be set, which will be used throughout the config to set system specific values.
 
 #+begin_src emacs-lisp
-
+  
   (defvar kk/default-font-size 150)
   (defvar kk/default-diary-file "")
+  (defvar kk/personal-journal "")
   (defvar kk/personal-diary-file "")
   (defvar kk/personal-agenda-file "")
   (defvar kk/personal-daily-todo-file "")
@@ -43,6 +47,7 @@ Here variables shall be set, which will be used throughout the config to set sys
     ("T490s"
      (setq kk/default-font-size 180)
      (setq kk/default-diary-file "~/documents/diary")
+     (setq kk/personal-journal "~/Nextcloud/Documents/journal.org")
      (setq kk/personal-diary-file "~/Nextcloud/Documents/diary")
      (setq kk/personal-agenda-file "~/Nextcloud/Documents/personal.org")
      (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/2021.org")
