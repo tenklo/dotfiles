@@ -2645,6 +2645,68 @@ Invoke by browse-url-generic
   
 #+end_src
 
+** Org Focus Areas
+:PROPERTIES:
+:ID:       c7ad8558-658e-4394-a97c-82848a45d477
+:END:
+
+#+begin_src emacs-lisp
+  
+  (defun kk/focus-nothing ()
+    (interactive)
+    (kk/focus-on-these nil nil))
+  
+  (defun kk/focus-work ()
+    (interactive)
+    (kk/focus-on-these
+     (list kk/work-agenda-file)
+     (list kk/work-diary-file)))
+  
+  (defun kk/focus-personal ()
+    (interactive)
+    (kk/focus-on-these
+     (list kk/personal-agenda-file)
+     (list kk/personal-diary-file)))
+  
+  (defun kk/focus-academical ()
+    (interactive)
+    (kk/focus-on-these
+     (list kk/academical-agenda-file)
+     (list kk/academical-diary-file)))
+  
+  (defun kk/focus-work-academical ()
+    (interactive)
+    (kk/focus-on-these
+     (list kk/work-agenda-file
+           kk/academical-agenda-file)
+     (list kk/work-diary-file
+           kk/academical-diary-file)))
+  
+  (defun kk/focus-personal-academical ()
+    (interactive)
+    (kk/focus-on-these
+     (list kk/personal-agenda-file
+           kk/academical-agenda-file)
+     (list kk/personal-diary-file
+           kk/academical-diary-file)))
+  
+  (defun kk/focus-personal-work-academical ()
+    (interactive)
+    (kk/focus-on-these
+     (list kk/personal-agenda-file
+           kk/work-agenda-file
+           kk/academical-agenda-file)
+     (list kk/personal-diary-file
+           kk/work-diary-file
+           kk/academical-diary-file)))
+  
+  (defun kk/focus-on-these (agenda-files diary-files)
+    (interactive)
+    (setq org-agenda-files agenda-files)
+    (setq kk/diary-files diary-files))
+  
+#+end_src
+
 * Customization Through Emacs
 
 ** Disabled Commands
