@@ -569,8 +569,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
   
-  (setq org-agenda-start-with-follow-mode t)
-  
   (setq org-agenda-custom-commands
         `(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 30)))
