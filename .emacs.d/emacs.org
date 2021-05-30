@@ -2258,64 +2258,6 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
   
 #+end_src
 
-** View Exclusive Calendars
-:PROPERTIES:
-:ID:       198dc6ee-20cd-4ce4-91b6-6b3e122bb06b
-:END:
-
-#+begin_src emacs-lisp
-  
-  (defun kk/open-calendar-with (this-diary-file this-org-agenda-files)
-    "Open calendar calfw with `diary-file' and `org-agenda-files'."
-    (interactive)
-    (let ((diary-file this-diary-file)
-          (org-agenda-files this-org-agenda-files))
-      (kk/open-calendar)))
-  
-#+end_src
-
-*** Work
-:PROPERTIES:
-:ID:       fa9ef564-0bc3-47fb-9928-7b8cdf4f8c46
-:END:
-
-#+begin_src emacs-lisp
-  
-  (defun kk/open-work-calendar ()
-    "Open calendar calfw with work related sources."
-    (interactive)
-    (kk/open-calendar-with kk/work-diary-file (list kk/work-agenda-file)))
-  
-#+end_src
-
-*** Academical
-:PROPERTIES:
-:ID:       c604e714-8a2c-4d95-b287-05f3ae3350f2
-:END:
-
-#+begin_src emacs-lisp
-  
-  (defun kk/open-academical-calendar ()
-    "Open calendar calfw with academical sources."
-    (interactive)
-    (kk/open-calendar-with kk/academical-diary-file (list kk/academical-agenda-file)))
-  
-#+end_src
-
-*** Personal
-:PROPERTIES:
-:ID:       adb16ba2-661b-4660-a499-16b180e65a37
-:END:
-
-#+begin_src emacs-lisp
-  
-  (defun kk/open-personal-calendar ()
-    "Open calendar calfw with personal sources."
-    (interactive)
-    (kk/open-calendar-with kk/personal-diary-file (list kk/personal-agenda-file)))
-  
-#+end_src
-
 * Other
 ** Speed Reading
 :PROPERTIES:
