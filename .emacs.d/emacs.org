@@ -581,154 +581,52 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
           ("e" "Tasks by Effort"
            ((tags-todo "+Effort=1"
                        ((org-agenda-overriding-header "Low Effort Tasks")
-                        (org-agenda-max-todos 20)
-                        (org-agenda-files org-agenda-files)))
+                        (org-agenda-max-todos 20)))
             (tags-todo "+Effort<=4&+Effort>=2"
                        ((org-agenda-overriding-header "Mid Effort Tasks")
-                        (org-agenda-max-todos 20)
-                        (org-agenda-files org-agenda-files)))
+                        (org-agenda-max-todos 20)))
             (tags-todo "+Effort>4"
                        ((org-agenda-overriding-header "High Effort Tasks")
-                        (org-agenda-max-todos 20)
-                        (org-agenda-files org-agenda-files)))))
+                        (org-agenda-max-todos 20)))))
   
-          ("w" . "Work")
-          ("ww" "Agenda"
-           ((agenda "" ((org-deadline-warning-days 90)
-                        (org-agenda-span 7)
-                        (diary-file kk/work-diary-file)
-                        (org-agenda-files
-                         (list
-                          kk/work-agenda-file
-                          "~/nextcloud_work/Documents/standups.org"))))
-            (todo "NEXT"
-                  ((org-agenda-files
-                    (list kk/work-agenda-file))
-                   (org-agenda-overriding-header "NEXT Items")))
-            ,kk/org-agenda-active-block))
-          ("wn" "NEXT Tasks"
+          ("n" "NEXT Tasks"
            ((todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")
-                   (org-agenda-files
-                    (list kk/work-agenda-file))))))
-          ("wu" "Unscheduled TODOs"
-           ((todo "TODO"
-                  ((org-agenda-files
-                    (list kk/work-agenda-file))
-                   (org-agenda-overriding-header "Unscheduled TODOs")
-                   (org-agenda-todo-ignore-with-date t)))))
-          ("wd" "Today"
-           ((agenda "" ((org-deadline-warning-days 7)
-                        (org-agenda-span 1)
-                        (diary-file kk/work-diary-file)
-                        (org-agenda-files
-                         (list
-                          kk/work-agenda-file
-                          "~/nextcloud_work/Documents/standups.org"))))
-            (todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")
-                   (org-agenda-files
-                    (list kk/work-agenda-file))))))
+                  ((org-agenda-overriding-header "Next Tasks")))))
   
-          ("a" . "Academical")
-          ("aa" "Agenda"
-           ((agenda "" ((org-deadline-warning-days 90)
-                        (org-agenda-span 14)
-                        (org-agenda-time-grid nil)
-                        (diary-file kk/academical-diary-file)
-                        (org-agenda-files
-                         (list
-                          "~/nextcloud_work/schule/schule.org"))))
-            ,kk/org-agenda-academical-exam-block
-            ,kk/org-agenda-academical-homework-block
-            ,kk/org-agenda-academical-submissions-block))
-          ("ae" "Exams"
-           (,kk/org-agenda-academical-exam-block))
-          ("ah" "Homework"
-           (,kk/org-agenda-academical-homework-block))
-          ("as" "Submissions"
-           (,kk/org-agenda-academical-submissions-block))
-          ("ad" "Today"
-           ((agenda "" ((org-deadline-warning-days 7)
-                        (org-agenda-span 1)
-                        (diary-file kk/academical-diary-file)
-                        (org-agenda-files
-                         (list
-                          kk/academical-agenda-file))))
-            ,kk/org-agenda-academical-exam-block
-            ,kk/org-agenda-academical-homework-block
-            ,kk/org-agenda-academical-submissions-block
-            (todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")
-                   (org-agenda-files
-                    (list kk/academical-agenda-file))))))
-  
-          ("p" . "Personal")
-          ("pp" "Agenda"
-           ((agenda "" ((org-agenda-span 7)
-                        (diary-file kk/personal-diary-file)
-                        (org-deadline-warning-days 90)
-                        (org-agenda-files
-                         (list
-                          kk/personal-agenda-file))))
-            (todo "NEXT"
-                  ((org-agenda-files
-                    (list kk/personal-agenda-file))
-                   (org-agenda-overriding-header "NEXT Items")))))
-          ("pn" "NEXT Tasks"
-           ((todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")
-                   (org-agenda-files
-                    (list kk/personal-agenda-file))))))
-          ("pu" "Unscheduled TODOs"
+          ("u" "Unscheduled TODOs"
            ((todo "TODO"
-                  ((org-agenda-files
-                    (list kk/personal-agenda-file))
-                   (org-agenda-overriding-header "Unscheduled TODOs")
+                  ((org-agenda-overriding-header "Unscheduled TODOs")
                    (org-agenda-todo-ignore-with-date t)))))
-          ("pd" "Today"
+
+          ("h" "Today"
            ((agenda "" ((org-deadline-warning-days 7)
-                        (org-agenda-span 1)
-                        (diary-file kk/personal-diary-file)
-                        (org-agenda-files
-                         (list
-                          kk/personal-agenda-file))))
+                        (org-agenda-span 1)))
             (todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")
-                   (org-agenda-files
-                    (list kk/personal-agenda-file))))))
+                  ((org-agenda-overriding-header "Next Tasks")))))
   
           ("D" "Done Tasks"
            ((todo "DONE"
                   ((org-agenda-overriding-header "Done Tasks")))))
   
-          ("P" "Projects Status"
-           ((todo "WAIT"
-                  ((org-agenda-overriding-header "Waiting on External")
-                   (org-agenda-files org-agenda-files)))
+          ("p" "Projects Status"
+           ((todo "ACTIVE"
+                  ((org-agenda-overriding-header "Active Projects")))
+            (todo "WAIT"
+                  ((org-agenda-overriding-header "Waiting on External")))
             (todo "REVIEW"
-                  ((org-agenda-overriding-header "In Review")
-                   (org-agenda-files org-agenda-files)))
+                  ((org-agenda-overriding-header "In Review")))
             (todo "PLAN"
                   ((org-agenda-overriding-header "In Planning")
-                   (org-agenda-todo-list-sublevels nil)
-                   (org-agenda-files org-agenda-files)))
+                   (org-agenda-todo-list-sublevels nil)))
             (todo "BACKLOG"
                   ((org-agenda-overriding-header "Project Backlog")
-                   (org-agenda-todo-list-sublevels nil)
-                   (org-agenda-files org-agenda-files)))
+                   (org-agenda-todo-list-sublevels nil)))
             (todo "READY"
-                  ((org-agenda-overriding-header "Ready for Work")
-                   (org-agenda-files org-agenda-files)))
-            (todo "ACTIVE"
-                  ((org-agenda-overriding-header "Active Projects")
-                   (org-agenda-files org-agenda-files)))
+                  ((org-agenda-overriding-header "Ready for Work")))
             (todo "COMPLETED"
-                  ((org-agenda-overriding-header "Completed Projects")
-                   (org-agenda-files org-agenda-files)))
+                  ((org-agenda-overriding-header "Completed Projects")))
             (todo "CANC"
-                  ((org-agenda-overriding-header "Cancelled Projects")
-                   (org-agenda-files org-agenda-files)))))))
+                  ((org-agenda-overriding-header "Cancelled Projects")))))))
   
 #+end_src
 
