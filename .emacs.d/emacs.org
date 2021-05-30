@@ -1672,6 +1672,15 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
             kk/work-daily-todo-file (kk/date)))
      "work"))
   
+  (defhydra hydra-focus-areas ()
+    "Focus an area of life"
+    ("p" kk/focus-personal "personal" :exit t)
+    ("w" kk/focus-work "work" :exit t)
+    ("a" kk/focus-academical "academical" :exit t)
+    ("f" kk/focus-work-academical "work+academical" :exit t)
+    ("j" kk/focus-personal-academical "personal+academical" :exit t)
+    ("k" kk/focus-personal-work-academical "personal+work+academical" :exit t))
+  
 #+end_src
 
 * Terminals
