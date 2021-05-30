@@ -1511,6 +1511,7 @@ Defining leader keys using the general package.
   
     (kk/leader-keys
       "t"  '(hydra-daily-todos/body :which-key "todays TODOs")
+      "f" '(hydra-focus-areas/body :which-key "focus areas")
       "b" '(hydra-buffer-control/body :which-key "control buffers")
       "h" '(hydra-bookmark-control/body :which-key "control bookmarks")
       "w" '(hydra-window-size/body :which-key "change window size")
