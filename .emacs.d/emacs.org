@@ -2124,7 +2124,36 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Today's messages Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:today..now" :key ?t)
                                      (:name "Last 7 days Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:7d..now" :hide-unread t :key ?w)
                                      (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
-                                     (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p))))))))
+                                     (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p)))))
+  
+           (make-mu4e-context
+            :name "info@kloess.xyz"
+            :enter-func (lambda ()
+                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                            (revert-buffer)))
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/info@kloess.xyz" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address . "info@kloess.xyz")
+                    (user-full-name    . "Karsten Klöss")
+                    (mu4e-drafts-folder  . "/info@kloess.xyz/Drafts")
+                    (mu4e-sent-folder  . "/info@kloess.xyz/Sent")
+                    (mu4e-refile-folder  . "/info@kloess.xyz/Archive")
+                    (mu4e-trash-folder  . "/info@kloess.xyz/Trash")
+                    (mu4e-maildir-shortcuts .
+                                            ((:maildir "/info@kloess.xyz/INBOX" :key ?i)
+                                             (:maildir "/info@kloess.xyz/Archiv" :key ?a)
+                                             (:maildir "/info@kloess.xyz/Trash" :key ?t)
+                                             (:maildir "/info@kloess.xyz/Drafts" :key ?d)
+                                             (:maildir "/info@kloess.xyz/Junk" :key ?j)
+                                             (:maildir "/info@kloess.xyz/Sent" :key ?s)))
+                    (mu4e-bookmarks .
+                                    ((:name "Unread info@kloess" :query "m:/info@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                     (:name "Today's messages info@kloess" :query "m:/info@kloess.xyz/ AND date:today..now" :key ?t)
+                                     (:name "Last 7 days info@kloess" :query "m:/info@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                     (:name "Messages with attachments info@kloess" :query "m:/info@kloess.xyz/ flag:attach" :key ?a)
+                                     (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p))))))))
   
 #+end_src
 
