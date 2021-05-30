@@ -1972,7 +1972,6 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 * Communication
 ** Managing Email with mu4e
-
 *** Signatures
 :PROPERTIES:
 :ID:       c9d3806f-ec11-44f3-85d1-a027c4e04dd6
