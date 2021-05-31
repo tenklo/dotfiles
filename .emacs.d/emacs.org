@@ -590,8 +590,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                   ((org-agenda-overriding-header "Next Tasks")))))
   
           ("p" "Projects Status"
-           ((todo "ACTIVE"
-                  ((org-agenda-overriding-header "Active Projects")))
+           (,kk/org-agenda-active-block
             (todo "WAIT"
                   ((org-agenda-overriding-header "Waiting on External")))
             (todo "REVIEW"
