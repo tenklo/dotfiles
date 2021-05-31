@@ -1554,12 +1554,16 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
     ("p" (lambda ()
            (interactive)
            (kk/find-org-file-at-headline
-            kk/personal-daily-todo-file (kk/date)))
+            kk/personal-daily-todo-file (kk/date nil
+                                                 "%Y-%m-%d %A"
+                                                 "en_US.utf8")))
      "personal" :exit t)
     ("w" (lambda ()
            (interactive)
            (kk/find-org-file-at-headline
-            kk/work-daily-todo-file (kk/date)))
+            kk/work-daily-todo-file (kk/date nil
+                                                 "%Y-%m-%d %A"
+                                                 "en_US.utf8")))
      "work" :exit t))
   
   (defhydra hydra-focus-areas ()
@@ -2394,16 +2398,15 @@ Invoke by browse-url-generic
     (interactive)
     (kk/insert-date "tomorrow"))
   
-  (defun kk/date (&optional date-arg)
+  (defun kk/date (&optional date-arg format locale)
     "Return a date specified by `DATE_ARG'.
     Calls the date function internally.
     For format see code and just try it out."
-    (if date-arg
-        (shell-command-to-string
-         (concat "echo -n \"$(LC_ALL=de_DE.utf8 date --date='"
-                 (concat date-arg "' '+%A %d. %B %Y')\"")))
-      (shell-command-to-string
-       "echo -n \"$(LC_ALL=de_DE.utf8 date '+%A %d. %B %Y')\"")))
+    (shell-command-to-string
+     (format "echo -n \"$(LC_ALL=%s date --date='%s' '+%s')\""
+             (if locale locale "de_DE.utf8")
+             (if date-arg date-arg "today")
+             (if format format "%A %d. %B %Y"))))
   
   (defun kk/insert-date (date-arg)
     (interactive "sWhen? ")
