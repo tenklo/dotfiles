@@ -2008,7 +2008,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
                                      (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
                                      (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
-  
+
            (make-mu4e-context
             :name "schule"
             :enter-func (lambda ()
@@ -2065,7 +2065,79 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Today's messages info@kloess" :query "m:/info@kloess.xyz/ AND date:today..now" :key ?t)
                                      (:name "Last 7 days info@kloess" :query "m:/info@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
                                      (:name "Messages with attachments info@kloess" :query "m:/info@kloess.xyz/ flag:attach" :key ?a)
-                                     (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p))))))))
+                                     (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p)))))
+  
+           (make-mu4e-context
+            :name "jk@kloess.xyz"
+            :enter-func (lambda ()
+                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                            (revert-buffer)))
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/k@kloess.xyz" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address . "k@kloess.xyz")
+                    (user-full-name    . "Karsten Klöss")
+                    (mu4e-drafts-folder  . "/k@kloess.xyz/Drafts")
+                    (mu4e-sent-folder  . "/k@kloess.xyz/Sent")
+                    (mu4e-refile-folder  . "/k@kloess.xyz/Archive")
+                    (mu4e-trash-folder  . "/k@kloess.xyz/Trash")
+                    (mu4e-maildir-shortcuts .
+                                            ((:maildir "/k@kloess.xyz/INBOX" :key ?i)
+                                             (:maildir "/k@kloess.xyz/Archive" :key ?a)
+                                             (:maildir "/k@kloess.xyz/Trash" :key ?t)
+                                             (:maildir "/k@kloess.xyz/Drafts" :key ?d)
+                                             (:maildir "/k@kloess.xyz/Junk" :key ?j)
+                                             (:maildir "/k@kloess.xyz/digital worx" :key ?x)
+                                             (:maildir "/k@kloess.xyz/asvin" :key ?v)
+                                             (:maildir "/k@kloess.xyz/kohlhammer" :key ?k)
+                                             (:maildir "/k@kloess.xyz/Porsche" :key ?p)
+                                             (:maildir "/k@kloess.xyz/privileg" :key ?o)
+                                             (:maildir "/k@kloess.xyz/Sent" :key ?s)
+                                             (:maildir "/k@kloess.xyz/Wafios" :key ?w)))
+                    (mu4e-bookmarks .
+                                    ((:name "Unread k@kloess.xyz" :query "m:/k@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                     (:name "Today's messages k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:today..now" :key ?t)
+                                     (:name "Last 7 days k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                     (:name "Messages with calendar files k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:text/calendar" :key ?i)
+                                     (:name "Messages with attachments k@kloess.xyz" :query "m:/k@kloess.xyz/ flag:attach" :key ?a)
+                                     (:name "Messages with images k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:image/*" :key ?p)))))
+  
+           (make-mu4e-context
+            :name "karsten@kloess.xyz"
+            :enter-func (lambda ()
+                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                            (revert-buffer)))
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/karsten@kloess.xyz" (mu4e-message-field msg :maildir))))
+            :vars '((user-mail-address . "karsten@kloess.xyz")
+                    (user-full-name    . "Karsten Klöss")
+                    (mu4e-drafts-folder  . "/karsten@kloess.xyz/Drafts")
+                    (mu4e-sent-folder  . "/karsten@kloess.xyz/Sent")
+                    (mu4e-refile-folder  . "/karsten@kloess.xyz/Archive")
+                    (mu4e-trash-folder  . "/karsten@kloess.xyz/Trash")
+                    (mu4e-maildir-shortcuts .
+                                            ((:maildir "/karsten@kloess.xyz/INBOX" :key ?i)
+                                             (:maildir "/karsten@kloess.xyz/Archive" :key ?a)
+                                             (:maildir "/karsten@kloess.xyz/Trash" :key ?t)
+                                             (:maildir "/karsten@kloess.xyz/Drafts" :key ?d)
+                                             (:maildir "/karsten@kloess.xyz/Junk" :key ?j)
+                                             (:maildir "/karsten@kloess.xyz/digital worx" :key ?x)
+                                             (:maildir "/karsten@kloess.xyz/asvin" :key ?v)
+                                             (:maildir "/karsten@kloess.xyz/kohlhammer" :key ?k)
+                                             (:maildir "/karsten@kloess.xyz/Porsche" :key ?p)
+                                             (:maildir "/karsten@kloess.xyz/privileg" :key ?o)
+                                             (:maildir "/karsten@kloess.xyz/Sent" :key ?s)
+                                             (:maildir "/karsten@kloess.xyz/Wafios" :key ?w)))
+                    (mu4e-bookmarks .
+                                    ((:name "Unread karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                     (:name "Today's messages karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:today..now" :key ?t)
+                                     (:name "Last 7 days karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                     (:name "Messages with calendar files karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:text/calendar" :key ?i)
+                                     (:name "Messages with attachments karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ flag:attach" :key ?a)
+                                     (:name "Messages with images karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:image/*" :key ?p))))))))
   
 #+end_src
 
