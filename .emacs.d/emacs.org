@@ -1441,7 +1441,7 @@ Defining leader keys using the general package.
   (global-set-key (kbd "C-c l") 'org-store-link)
   
   (global-set-key [f5] 'universal-argument)
-
+  
 #+end_src
 
 ** Movement
@@ -2368,7 +2368,7 @@ Invoke by browse-url-generic
     (interactive)
     (let ((browse-url-browser-function 'kk/open-with-o))
       (browse-url-at-point)))
-
+  
 #+end_src
 
 ** Date Headlines
