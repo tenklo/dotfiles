@@ -453,10 +453,15 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
              "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)
   
-            ("pj" "Journal" entry
+            ("j" "Journal" entry
              (file+olp+datetree kk/personal-journal)
              "\n* %<%H:%M> Uhr\n\n%?\n\n"
              :clock-in :clock-resume :empty-lines 1)
+  
+            ("t" "Todays TODOs")
+            ("tp" "Todays Personal TODOs" entry
+             (file+olp+datetree kk/personal-daily-todo-file)
+             "\n* %<%A %d. %B %Y>\nwichtigste drei:\n- [ ]")
   
             ("a" "Academical")
             ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
@@ -496,7 +501,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 #+begin_src emacs-lisp
   
   (setq org-todo-keywords
-        '((sequence "TODO(t@/!)" "NEXT(n@/!)" "PROG(r@)" "|" "DONE(d@)")
+        '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
           (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)"
                     "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")
           (sequence "EXAM(e@)" "SUBMISSION(s@)" "HOMEWORK(m@)" "|" "DONE(d@)")))
@@ -571,24 +576,38 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                        ((org-agenda-overriding-header "High Effort Tasks")
                         (org-agenda-max-todos 20)))))
   
-          ("n" "NEXT Tasks"
-           ((todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")))))
+          ("w" . "Review Helper")
+          ("wa" "Archive These"
+           ((todo "DONE"
+                  ((org-agenda-overriding-header "Done Tasks")))))
   
-          ("u" "Unscheduled TODOs"
+          ("wn" "Set To NEXT"
            ((todo "TODO"
                   ((org-agenda-overriding-header "Unscheduled TODOs")
                    (org-agenda-todo-ignore-with-date t)))))
-
+  
+          ("ws" "Schedule These"
+           ((todo "NEXT"
+                  ((org-agenda-overriding-header "Unscheduled NEXT")
+                   (org-agenda-todo-ignore-scheduled t)))
+            (agenda ""
+                    ((org-agenda-span 'week)))))
+  
+          ("we" "Estimate These"
+           ((todo "NEXT"
+                       ((org-agenda-overriding-header
+                         "Scheduled NEXT Without Estimate (Week)")
+                        (org-agenda-span 'week)
+                        (org-agenda-effort-filter "=0")
+                        (org-agenda-include-diary nil)
+                        (org-agenda-skip-scheduled-if-done t)
+                        (org-agenda-entry-types '(:scheduled))))))
+  
           ("h" "Today"
            ((agenda "" ((org-deadline-warning-days 7)
                         (org-agenda-span 1)))
             (todo "NEXT"
                   ((org-agenda-overriding-header "Next Tasks")))))
-  
-          ("D" "Done Tasks"
-           ((todo "DONE"
-                  ((org-agenda-overriding-header "Done Tasks")))))
   
           ("p" "Projects Status"
            ((todo "ACTIVE"
@@ -1443,7 +1462,7 @@ Defining leader keys using the general package.
   (global-set-key (kbd "C-c l") 'org-store-link)
   
   (global-set-key [f5] 'universal-argument)
-  
+
 #+end_src
 
 ** Movement
@@ -1549,12 +1568,12 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
            (interactive)
            (kk/find-org-file-at-headline
             kk/personal-daily-todo-file (kk/date)))
-     "personal")
+     "personal" :exit t)
     ("w" (lambda ()
            (interactive)
            (kk/find-org-file-at-headline
             kk/work-daily-todo-file (kk/date)))
-     "work"))
+     "work" :exit t))
   
   (defhydra hydra-focus-areas ()
     "Focus an area of life"
@@ -2287,9 +2306,8 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
   
-  (defun kk/open-with-o (arg &rest rest)
-    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
-  Ignore `REST'."
+  (defun kk/open-with-o (arg)
+    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script."
     (interactive)
     (start-process "" nil "o" arg))
   
@@ -2299,6 +2317,7 @@ Invoke by browse-url-generic
     (interactive)
     (let ((browse-url-browser-function 'kk/open-with-o))
       (browse-url-at-point)))
+
 #+end_src
 
 ** Date Headlines
