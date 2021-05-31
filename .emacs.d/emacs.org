@@ -2054,7 +2054,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                     (mu4e-trash-folder  . "/info@kloess.xyz/Trash")
                     (mu4e-maildir-shortcuts .
                                             ((:maildir "/info@kloess.xyz/INBOX" :key ?i)
-                                             (:maildir "/info@kloess.xyz/Archiv" :key ?a)
+                                             (:maildir "/info@kloess.xyz/Archive" :key ?a)
                                              (:maildir "/info@kloess.xyz/Trash" :key ?t)
                                              (:maildir "/info@kloess.xyz/Drafts" :key ?d)
                                              (:maildir "/info@kloess.xyz/Junk" :key ?j)
