@@ -1549,12 +1549,12 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
            (interactive)
            (kk/find-org-file-at-headline
             kk/personal-daily-todo-file (kk/date)))
-     "personal")
+     "personal" :exit t)
     ("w" (lambda ()
            (interactive)
            (kk/find-org-file-at-headline
             kk/work-daily-todo-file (kk/date)))
-     "work"))
+     "work" :exit t))
   
   (defhydra hydra-focus-areas ()
     "Focus an area of life"
