@@ -459,28 +459,36 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
              "\n* %<%H:%M> Uhr\n\n%?\n\n"
              :clock-in :clock-resume :empty-lines 1)
   
-            ("t" "Todays TODOs")
-            ("tp" "Todays Personal TODOs" entry
+            ("b" "Books" entry
+             (file+olp kk/personal-agenda-file "Bücher")
+             "* %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+  
+            ("wT" "Todays Work TODOs" plain
+             (file+olp+datetree kk/work-daily-todo-file)
+             "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] "
+            :immediate-finish t :empty-lines 0 :jump-to-captured t)
+            ("pT" "Todays Personal TODOs" plain
              (file+olp+datetree kk/personal-daily-todo-file)
-             "\n* %<%A %d. %B %Y>\nwichtigste drei:\n- [ ]")
+             "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
+            :immediate-finish t :empty-lines 0 :jump-to-captured t)
   
-            ("a" "Academical")
-            ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)))
+          ("a" "Academical")
+          ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)))
   
-    (define-key global-map (kbd "C-c j")
-      (lambda () (interactive) (org-capture nil)))
-    (kk/org-font-setup))
+  (define-key global-map (kbd "C-c j")
+    (lambda () (interactive) (org-capture nil)))
+  (kk/org-font-setup))
   
   (use-package org-bullets
     :after org
