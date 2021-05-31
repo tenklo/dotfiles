@@ -504,8 +504,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   (setq org-todo-keywords
         '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
           (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)"
-                    "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")
-          (sequence "EXAM(e@)" "SUBMISSION(s@)" "HOMEWORK(m@)" "|" "DONE(d@)")))
+                    "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
   
 #+end_src
 
@@ -516,24 +515,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 :END:
 
 #+begin_src emacs-lisp
-  
-  (setq kk/org-agenda-academical-exam-block
-        '(todo "EXAM"
-               ((org-agenda-overriding-header "Scheduled Exams")
-                (org-agenda-files org-agenda-files)
-                (org-agenda-sorting-strategy '(deadline-up)))))
-  
-  (setq kk/org-agenda-academical-homework-block
-        '(todo "HOMEWORK"
-               ((org-agenda-overriding-header "Homework due")
-                (org-agenda-sorting-strategy '(deadline-up))
-                (org-agenda-files org-agenda-files))))
-  
-  (setq kk/org-agenda-academical-submissions-block
-        '(todo "SUBMISSION"
-               ((org-agenda-overriding-header "Submissions due")
-                (org-agenda-sorting-strategy '(deadline-up))
-                (org-agenda-files org-agenda-files))))
   
   (setq kk/org-agenda-next-block
         '(todo "NEXT"
@@ -561,23 +542,23 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
         `(("d" "Dashboard"
            ((agenda "" ((org-deadline-warning-days 30)))
             ,kk/org-agenda-next-block
-            ,kk/org-agenda-active-block
-            ,kk/org-agenda-academical-exam-block
-            ,kk/org-agenda-academical-homework-block
-            ,kk/org-agenda-academical-submissions-block))
+            ,kk/org-agenda-active-block))
   
           ("e" "Tasks by Effort"
-           ((tags-todo "+Effort=1"
+           ((tags-todo "+Effort>0&-Effort>1:00"
                        ((org-agenda-overriding-header "Low Effort Tasks")
                         (org-agenda-max-todos 20)))
-            (tags-todo "+Effort<=4&+Effort>=2"
+            (tags-todo "+TODO=NEXT"
                        ((org-agenda-overriding-header "Mid Effort Tasks")
                         (org-agenda-max-todos 20)))
-            (tags-todo "+Effort>4"
+            (tags-todo ">1"
                        ((org-agenda-overriding-header "High Effort Tasks")
                         (org-agenda-max-todos 20)))))
   
           ("w" . "Review Helper")
+          ("wt" "TODO these"
+           ((todo "SOMEDAY"
+                  ((org-agenda-overriding-header "SOMEDAYs")))))
           ("wa" "Archive These"
            ((todo "DONE"
                   ((org-agenda-overriding-header "Done Tasks")))))
@@ -2008,7 +1989,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                      (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
                                      (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
                                      (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
-
+  
            (make-mu4e-context
             :name "schule"
             :enter-func (lambda ()
