@@ -503,17 +503,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   
 #+end_src
 
-** Merge Diary-Files
-:PROPERTIES:
-:ID:       292015b1-4bc0-4714-b48e-3a01665b5560
-:END:
-
-#+begin_src emacs-lisp
-  
-  (add-hook 'org-agenda-finalize-hook 'kk/merge-diary-files)
-  
-#+end_src
-
 ** Custom Agenda Views
 *** Reusable Blocks
 :PROPERTIES:
@@ -1423,7 +1412,10 @@ Defining leader keys using the general package.
   
   (global-set-key (kbd "C-x k") 'kill-this-buffer)
   
-  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c a") '(lambda ()
+                                   (interactive)
+                                   (kk/merge-diary-files)
+                                   (org-agenda)))
   
   (global-set-key (kbd "C-c g") 'magit-status)
   
