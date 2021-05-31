@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # allows the user to choose existing and create new report booklets. The correct dates for the week are filled in automatically
 
 # Options
