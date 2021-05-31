@@ -8,51 +8,95 @@ opener="libreoffice"
 placehholderausbildungsjahr=~Ausbildungsjahr~
 placeholderausbildungswoche=~Ausbildungswoche~
 placeholderbetrtaetigkeit=~BetrieblicheTaetigkeiten~
-placeholderfaecher=~Faecher&Inhalt~
+placeholderfaecher="~FaecherInhalt~"
 placeholdername=~NameAzubi~
 placeholdersonstiges=~Sonstiges~
 placeholderstundenbetrtaetigkeit=~StundenProBetrTaetigkeit~
 placeholderstundenfaecher=~StundenProFach~
 placeholderstundensonstiges=~StundenProSonstiges~
 
+ausbildungsjahr=$(expr $(python -c "from datetime import date as d; print(d.today() - d(2019, 9, 1))" | sed 's/\(^[0-9]*\s\).*$/\1/') / 365 + 1)
+
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
-ausbildungsjahr=$(expr $(python -c "from datetime import date as d; print(d.today() - d(2019, 9, 1))" | sed 's/\(^[0-9]*\s\).*$/\1/') / 365 + 1)
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"
 nextweek="next"
 thisweek="."
 prevweek=".."
-all="all"
-selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$all" | dmenu -p "Berichtsheft") || exit
+all="all existing"
+bydate="by date"
+selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$all\n$bydate" | dmenu -p "Berichtsheft") || exit
+
+getconf(){
+    # test -f "$conffile" || {printf "No config specified" exit 1};
+    ausbildungsjahr="2/3"
+    # ausbildungsbeginn=$(grep "ausbildungsbeginn" "$conffile" | sed 's/ausbildungsbeginn\( \)+=\( \)+//g');
+    nameazubi="Karsten Klöss"
+    # nameazubi=$(grep "nameazubi" "$conffile" | sed 's/nameazubi\( \)+=\( \)+//g');
+}
 
 all () {
     openinlo "$path/$(ls "$path" | sort -r | dmenu)";
 }
 
 openinlo () {
-    [ "$viewoutput" = "true" ] && $opener "$1" > /dev/null 2>&1
+    [ "$viewoutput" = "true" ] && $opener "$1"
+}
+
+createnew(){
+    createtemp
+    modifytemplate
+    cd "$tmp" && zip -r "$file" "."
+}
+
+getdate () {
+    thedate=$(printf "" | dmenu -p "Date: ") || exit
+}
+
+getmondayfordate () {
+    mondayfordate=$(date --date "$1 -"$(($(date --date "$1" +%u)-1))" day" +%y%m%d)
+}
+
+createtemp() {
+    old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp"
 }
 
 modifytemplate(){
-    (old="$path/.template.odt" && notify-send "berichtshefte" "neu erstellt" && rm -rf "$tmp" && mkdir "$tmp" && unzip "$old" -d "$tmp" > /dev/null && sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" && cd "$tmp" && zip -r "$file" ".") > /dev/null
-
+    sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholdername#$nameazubi#g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placehholderausbildungsjahr#$ausbildungsjahr#g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderstundenbetrtaetigkeit##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderbetrtaetigkeit##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderstundensonstiges##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholdersonstiges##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderstundenfaecher##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderfaecher##g" "$tmp/content.xml" echo "failed to substitute"
 }
 
-while getopts "op:" o; do case "${o}" in
+getconf
+# test -f "$conffile" && printf "conf specified" || printf "conf not specified"
+
+while getopts "op:c:" o; do case "${o}" in
+    c) conffile="$OPTARG";;
     o) viewoutput=false;;
     p) opener="$OPTARG";;
 esac done
 
 case $selection in
     $all) all; exit;;
-    $thisweek) [ $(date +%u) -eq 1 ] && file="$(date -dthis-monday +%y%m%d)$suffix" || file="$(date -dlast-monday +%y%m%d)$suffix";;
+    $thisweek) today=$(date +%y%m%d) ;
+	       getmondayfordate $today ;
+	       file="$mondayfordate$suffix";;
     $nextweek) file="$(date -dnext-monday +%y%m%d)$suffix";;
     $prevweek) [ $(date +%u) -eq 1 ] && file="$(date -dlast-monday +%y%m%d)$suffix" || file="$(date -d'monday-14 days' +%y%m%d)$suffix";;
+    $bydate) getdate;
+	     getmondayfordate $thedate
+	     file="$mondayfordate$suffix";;
 esac
 monday=$(echo "$file" | cut -d'_' -f1)
 file="$path/$file"
 
 to="$(date -d "$monday" +%d.%m.) - $(date -d "$monday +4 days" +%d.%m.%Y)"
 
-[ -f "$file" ] || modifytemplate
+[ -f "$file" ] || createnew
 openinlo "$file"
