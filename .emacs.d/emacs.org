@@ -577,13 +577,11 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   
           ("we" "Estimate These"
            ((todo "NEXT"
-                       ((org-agenda-overriding-header
-                         "Scheduled NEXT Without Estimate (Week)")
-                        (org-agenda-span 'week)
-                        (org-agenda-effort-filter "=0")
-                        (org-agenda-include-diary nil)
-                        (org-agenda-skip-scheduled-if-done t)
-                        (org-agenda-entry-types '(:scheduled))))))
+                  ((org-agenda-overriding-header
+                    "Scheduled NEXT (maybe filter via s e)")
+                   (org-agenda-span 'week)
+                   (org-agenda-skip-scheduled-if-done t)
+                   (org-agenda-entry-types '(:scheduled))))))
   
           ("h" "Today"
            ((agenda "" ((org-deadline-warning-days 7)
