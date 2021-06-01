@@ -466,30 +466,30 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("wT" "Todays Work TODOs" plain
              (file+olp+datetree kk/work-daily-todo-file)
              "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] "
-            :immediate-finish t :empty-lines 0 :jump-to-captured t)
+             :immediate-finish t :empty-lines 0 :jump-to-captured t)
             ("pT" "Todays Personal TODOs" plain
              (file+olp+datetree kk/personal-daily-todo-file)
              "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
-            :immediate-finish t :empty-lines 0 :jump-to-captured t)
-  
-          ("a" "Academical")
-          ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
-           "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-           :empty-lines 0)
-          ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
-           "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-           :empty-lines 0)
-          ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
-           "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-           :empty-lines 0)
-          ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
-           "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-           :empty-lines 0)))
-  
-  (define-key global-map (kbd "C-c j")
-    (lambda () (interactive) (org-capture nil)))
-  (kk/org-font-setup))
-  
+             :immediate-finish t :empty-lines 0 :jump-to-captured t)
+
+            ("a" "Academical")
+            ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
+             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
+            ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
+             "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
+            ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
+             "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)
+            ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
+             "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+             :empty-lines 0)))
+
+    (define-key global-map (kbd "C-c j")
+      (lambda () (interactive) (org-capture nil)))
+    (kk/org-font-setup))
+
   (use-package org-bullets
     :after org
     :hook
