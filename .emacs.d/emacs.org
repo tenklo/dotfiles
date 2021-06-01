@@ -2532,7 +2532,9 @@ Invoke by browse-url-generic
   (defun kk/export-todays-todos ()
     "Exports TODOs by using todays date as headline."
     (interactive)
-    (kk/export-headline-as-html (kk/date))
+    (kk/export-headline-as-html (kk/date nil
+                                         "%Y-%m-%d %A"
+                                         "en_US.utf8"))
     nil)
   
   (defun kk/export-headline-as-html (hl)
