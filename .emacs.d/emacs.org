@@ -1562,8 +1562,8 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
            (interactive)
            (kk/find-org-file-at-headline
             kk/work-daily-todo-file (kk/date nil
-                                                 "%Y-%m-%d %A"
-                                                 "en_US.utf8")))
+                                             "%Y-%m-%d %A"
+                                             "en_US.utf8")))
      "work" :exit t))
   
   (defhydra hydra-focus-areas ()
