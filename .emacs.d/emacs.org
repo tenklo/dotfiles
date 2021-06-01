@@ -713,26 +713,6 @@ Don't prompt eval confirmation
     "#+TITLE: Some test Title\n"
     "#+AUTHOR: Karsten Klöss\n")
   
-  (define-skeleton kk/daily-todos-today
-    "Prefill the structure of my daily TODO list." nil
-    "*** "
-    (kk/insert-todays-date)
-    " [/]\n"
-    "Wichtigste drei:\n"
-    "- [ ] \n"
-    "Sonstiges:\n"
-    "- [ ] ")
-  
-  (define-skeleton kk/daily-todos-tomorrow
-    "Prefill the structure of my daily TODO list." nil
-    "*** "
-    (kk/insert-tomorrows-date)
-    " [/]\n"
-    "Wichtigste drei:\n"
-    "- [ ] \n"
-    "Sonstiges:\n"
-    "- [ ] ")
-  
 #+end_src
 
 ** Org ID
