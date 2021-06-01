@@ -7,6 +7,7 @@ test -d "$@" && echo "this is a directory, nothing to do" && exit
 
 
 webbrowser=w3m
+guiwebbrowser=librewolf
 gopherbrowser=lynx
 geminibrowser=amfora
 videoaudio=mpv
@@ -31,6 +32,9 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
         opener="$geminibrowser";;
     http*|www.*)
         opener="$webbrowser";;
+    file://*.html)
+        interm="";
+        opener="$guiwebbrowser";;
     *.html)
         opener="$webbrowser";;
     *.org)
