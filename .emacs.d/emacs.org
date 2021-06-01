@@ -405,14 +405,14 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 :END:
 
 #+begin_src emacs-lisp
-  
+
   (defun kk/org-mode-setup ()
     "Set org-specific settings.
   Intended to be used in an `org-mode-hook'."
     (org-indent-mode)
     (visual-line-mode 1)
     (setq-local display-line-numbers-type t))
-  
+
   (use-package org
     :hook (org-mode . kk/org-mode-setup)
     :custom (org-agenda-include-diary t)
@@ -445,7 +445,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
              "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)
-  
+
             ("p" "Personal")
             ("pt" "Task" entry (file+olp kk/personal-agenda-file "Inbox")
              "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
@@ -453,16 +453,16 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("pp" "Project" entry (file+olp kk/personal-agenda-file "Inbox")
              "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)
-  
+
             ("j" "Journal" entry
              (file+olp+datetree kk/personal-journal)
              "\n* %<%H:%M> Uhr\n\n%?\n\n"
              :clock-in :clock-resume :empty-lines 1)
-  
+
             ("b" "Books" entry
              (file+olp kk/personal-agenda-file "Bücher")
              "* %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
-  
+
             ("wT" "Todays Work TODOs" plain
              (file+olp+datetree kk/work-daily-todo-file)
              "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] "
@@ -496,10 +496,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (org-mode . org-bullets-mode)
     :custom
     (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
-  
-  
+
+
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
-  
+
 #+end_src
 
 ** Todo Keywords
@@ -712,26 +712,6 @@ Don't prompt eval confirmation
     "This is some test skeleton" nil
     "#+TITLE: Some test Title\n"
     "#+AUTHOR: Karsten Klöss\n")
-  
-  (define-skeleton kk/daily-todos-today
-    "Prefill the structure of my daily TODO list." nil
-    "*** "
-    (kk/insert-todays-date)
-    " [/]\n"
-    "Wichtigste drei:\n"
-    "- [ ] \n"
-    "Sonstiges:\n"
-    "- [ ] ")
-  
-  (define-skeleton kk/daily-todos-tomorrow
-    "Prefill the structure of my daily TODO list." nil
-    "*** "
-    (kk/insert-tomorrows-date)
-    " [/]\n"
-    "Wichtigste drei:\n"
-    "- [ ] \n"
-    "Sonstiges:\n"
-    "- [ ] ")
   
 #+end_src
 
@@ -1562,8 +1542,8 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
            (interactive)
            (kk/find-org-file-at-headline
             kk/work-daily-todo-file (kk/date nil
-                                                 "%Y-%m-%d %A"
-                                                 "en_US.utf8")))
+                                             "%Y-%m-%d %A"
+                                             "en_US.utf8")))
      "work" :exit t))
   
   (defhydra hydra-focus-areas ()
@@ -2298,6 +2278,18 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
   
 #+end_src
 
+** PDFs
+*** pdf-tools
+:PROPERTIES:
+:ID:       0b50472b-1f9c-45c3-9183-abf0f6e9590f
+:END:
+
+#+begin_src emacs-lisp
+  
+  (use-package pdf-tools)
+  
+#+end_src
+
 * Passwords
 :PROPERTIES:
 :ID:       673f3c72-febd-4073-9997-116f0a41e96f
@@ -2534,7 +2526,9 @@ Invoke by browse-url-generic
   (defun kk/export-todays-todos ()
     "Exports TODOs by using todays date as headline."
     (interactive)
-    (kk/export-headline-as-html (kk/date))
+    (kk/export-headline-as-html (kk/date nil
+                                         "%Y-%m-%d %A"
+                                         "en_US.utf8"))
     nil)
   
   (defun kk/export-headline-as-html (hl)
