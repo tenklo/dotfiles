@@ -465,11 +465,11 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
             ("wT" "Todays Work TODOs" plain
              (file+olp+datetree kk/work-daily-todo-file)
-             "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] "
+             (function kk/todays-work-todos)
              :immediate-finish t :empty-lines 0 :jump-to-captured t)
             ("pT" "Todays Personal TODOs" plain
              (file+olp+datetree kk/personal-daily-todo-file)
-             (function kk/todays-personal-todos (kk/date nil "%u"))
+             (function kk/todays-personal-todos)
              :immediate-finish t :empty-lines 0 :jump-to-captured t)
 
             ("a" "Academical")
@@ -2638,15 +2638,24 @@ Invoke by browse-url-generic
 #+end_src
 
 ** Capture Templates
+:PROPERTIES:
+:ID:       1aa551a5-7766-411c-b7f0-bdcfc0a338c7
+:END:
 
 #+begin_src emacs-lisp
-
-  (defun kk/todays-personal-todos (weekday)
+  
+  (defun kk/todays-personal-todos ()
     (interactive)
-    (format "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren%s"
-            (if (eq weekday 7)
-                "\n- [ ] Weekly Review" "")))
-
+    (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
+            (if (= (kk/date nil "%u" 7))
+                "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
+  
+  (defun kk/todays-work-todos ()
+    (interactive)
+    (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
+            (if (= (kk/date nil "%u" 1))
+                "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
+  
 #+end_src
 
 * Customization Through Emacs
