@@ -469,7 +469,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
              :immediate-finish t :empty-lines 0 :jump-to-captured t)
             ("pT" "Todays Personal TODOs" plain
              (file+olp+datetree kk/personal-daily-todo-file)
-             "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
+             (function kk/todays-personal-todos (kk/date nil "%u"))
              :immediate-finish t :empty-lines 0 :jump-to-captured t)
 
             ("a" "Academical")
@@ -2635,6 +2635,18 @@ Invoke by browse-url-generic
     (setq org-agenda-files agenda-files)
     (setq kk/diary-files diary-files))
   
+#+end_src
+
+** Capture Templates
+
+#+begin_src emacs-lisp
+
+  (defun kk/todays-personal-todos (weekday)
+    (interactive)
+    (format "Wichtigste drei:\n- [ ] \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren%s"
+            (if (eq weekday 7)
+                "\n- [ ] Weekly Review" "")))
+
 #+end_src
 
 * Customization Through Emacs
