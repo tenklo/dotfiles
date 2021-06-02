@@ -548,11 +548,17 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 #+begin_src emacs-lisp
   
   (setq org-agenda-custom-commands
-        `(("d" "Dashboard"
-           ((agenda "" ((org-deadline-warning-days 30)))
-            ,kk/org-agenda-next-block
-            ,kk/org-agenda-active-block))
-  
+        `(("d" "Deadlines"
+           ((agenda ""
+                    ((org-deadline-warning-days 365)
+                     (org-agenda-show-all-dates nil)))
+           (agenda ""
+                    ((org-agenda-span 'year))))
+           ((org-agenda-start-with-log-mode nil)
+            (org-deadline-warning-days 0)
+            (org-agenda-include-diary nil)
+            (org-agenda-entry-types '(:deadline))))
+
           ("e" "Tasks by Effort"
            ((tags-todo "+Effort>0&-Effort>1:00"
                        ((org-agenda-overriding-header "Low Effort Tasks")
