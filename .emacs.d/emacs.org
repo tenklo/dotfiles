@@ -511,8 +511,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
   (setq org-todo-keywords
         '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
-          (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)"
-                    "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
+          (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!) WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
 
 #+end_src
 
