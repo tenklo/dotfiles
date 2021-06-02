@@ -2648,13 +2648,13 @@ Invoke by browse-url-generic
   (defun kk/todays-personal-todos ()
     (interactive)
     (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
-            (if (= (kk/date nil "%u" 7))
+            (if (= (string-to-number (kk/date nil "%u")) 7)
                 "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
 
   (defun kk/todays-work-todos ()
     (interactive)
     (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
-            (if (= (kk/date nil "%u" 1))
+            (if (= (string-to-number (kk/date nil "%u")) 1)
                 "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
 
 #+end_src
