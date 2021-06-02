@@ -2362,8 +2362,9 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/open-with-o (arg)
-    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script."
+  (defun kk/open-with-o (arg &rest _rest)
+    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
+  Ignore `_REST'."
     (interactive)
     (start-process "" nil "o" arg))
 
