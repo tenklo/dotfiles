@@ -420,7 +420,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     :custom (org-agenda-include-diary t)
     :config
     (setq org-ellipsis " ▾")
-    (setq org-agenda-start-with-log-mode t)
     (setq org-log-done 'note)
     (setq org-log-reschedule 'note)
     (setq org-log-into-drawer t)
