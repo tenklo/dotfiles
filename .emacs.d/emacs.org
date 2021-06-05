@@ -486,7 +486,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
              "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)))
-
+  
+    (define-key org-mode-map (kbd "C-c C-x h")
+      (lambda () (interactive) (org-hide-entry)))
+  
     (define-key global-map (kbd "C-c j")
       (lambda () (interactive) (org-capture nil)))
     (kk/org-font-setup))
