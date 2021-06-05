@@ -419,6 +419,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     :hook (org-mode . kk/org-mode-setup)
     :custom (org-agenda-include-diary t)
     :config
+    (setq org-startup-folded 'content)
     (setq org-ellipsis " ▾")
     (setq org-log-done 'note)
     (setq org-log-reschedule 'note)
