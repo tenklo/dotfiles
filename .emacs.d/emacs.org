@@ -155,23 +155,25 @@ You can also use =M-x auto-package-update-now= to update right now!
 This section configures basic UI settings that remove unneeded elements to make Emacs look a lot more minimal and modern.
 
 #+begin_src emacs-lisp
-
-  (setq inhibit-startup-message t)
-
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (set-fringe-mode 10)
-  (menu-bar-mode -1)
-  (setq visible-bell t)
-
-  (column-number-mode)
-  (global-display-line-numbers-mode t)
-  (setq display-line-numbers-type 'relative)
-
-  (dolist (mode '(treemacs-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
+    
+    (setq inhibit-startup-message t)
+    
+    (scroll-bar-mode -1)
+    (tool-bar-mode -1)
+    (tooltip-mode -1)
+    (set-fringe-mode 10)
+    (menu-bar-mode -1)
+    (setq visible-bell t)
+    
+    (column-number-mode)
+    (global-display-line-numbers-mode t)
+    (setq display-line-numbers-type 'relative)
+    
+    (dolist (mode '(treemacs-mode-hook
+                    image-mode-hook
+                    doc-view-minor-mode-hook))
+      (add-hook mode (lambda () (display-line-numbers-mode 0))))
+    
 #+end_src
 
 ** Themes
