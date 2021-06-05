@@ -565,8 +565,8 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             (tags-todo ">1"
                        ((org-agenda-overriding-header "High Effort Tasks")
                         (org-agenda-max-todos 20)))))
-
-          ("w" . "Review Helper")
+  
+          ("w" . "Weekly Review Helper")
           ("wt" "TODO these"
            ((todo "SOMEDAY"
                   ((org-agenda-overriding-header "SOMEDAYs")))))
