@@ -33,28 +33,28 @@ Here variables shall be set, which will be used throughout the config to set sys
     ("dwhpd"
      (setq kk/default-font-size 140)
      (setq kk/default-diary-file "~/documents/diary")
-     (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
-     (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
-     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/2021.org")
-     (setq kk/academical-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+     (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+     (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
      (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
      (setq kk/diary-files (list kk/work-diary-file
                                 kk/academical-diary-file))
      (setq kk/org-agenda-files (list
                                 kk/academical-agenda-file
-                                "~/nextcloud_work/Documents/standups.org"
+                                "~/nextcloud_work/Documents/org/standups.org"
                                 kk/work-agenda-file)))
     ("T490s"
      (setq kk/default-font-size 180)
      (setq kk/default-diary-file "~/documents/diary")
-     (setq kk/personal-journal "~/Nextcloud/Documents/journal.org")
-     (setq kk/personal-diary-file "~/Nextcloud/Documents/diary")
-     (setq kk/personal-agenda-file "~/Nextcloud/Documents/personal.org")
-     (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/2021.org")
-     (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
-     (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
-     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/2021.org")
-     (setq kk/academical-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org")
+     (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
+     (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org")
+     (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
+     (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+     (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+     (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
      (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
      (setq kk/diary-files (list kk/personal-diary-file
                                 kk/work-diary-file
@@ -62,7 +62,7 @@ Here variables shall be set, which will be used throughout the config to set sys
      (setq kk/org-agenda-files (list
                                 kk/personal-agenda-file
                                 kk/academical-agenda-file
-                                "~/nextcloud_work/Documents/standups.org"
+                                "~/nextcloud_work/Documents/org/standups.org"
                                 kk/work-agenda-file
                                 "~/tasks.org"))))
 
