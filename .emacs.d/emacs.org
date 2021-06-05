@@ -614,11 +614,12 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
            ((org-agenda-start-with-log-mode t)))
   
           ("h" "Today"
-           ((agenda "" ((org-deadline-warning-days 7)
+           ((agenda "" ((org-deadline-warning-days 30)
+                        (org-agenda-skip-deadline-prewarning-if-scheduled t)
                         (org-agenda-span 1)))
             (todo "NEXT"
                   ((org-agenda-overriding-header "Next Tasks")))))
-
+  
           ("p" "Projects Status"
            (,kk/org-agenda-active-block
             (todo "WAIT"
