@@ -593,7 +593,26 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                    (org-agenda-span 'week)
                    (org-agenda-skip-scheduled-if-done t)
                    (org-agenda-entry-types '(:scheduled))))))
-
+          ("r" . "Review Past")
+          ("rh" "Review by Day"
+           ((agenda ""
+                    ((org-agenda-entry-types '())
+                     (org-agenda-include-diary t)
+                     (org-agenda-span 1))))
+           ((org-agenda-start-with-log-mode t)))
+          ("rw" "Review by Week"
+           ((agenda ""
+                    ((org-agenda-entry-types '())
+                     (org-agenda-include-diary t)
+                     (org-agenda-span 'week))))
+           ((org-agenda-start-with-log-mode t)))
+          ("rm" "Review by Month"
+           ((agenda ""
+                    ((org-agenda-entry-types '())
+                     (org-agenda-include-diary)
+                     (org-agenda-span 'month))))
+           ((org-agenda-start-with-log-mode t)))
+  
           ("h" "Today"
            ((agenda "" ((org-deadline-warning-days 7)
                         (org-agenda-span 1)))
