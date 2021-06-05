@@ -2577,7 +2577,7 @@ Invoke by browse-url-generic
   (defun kk/export-and-push-todays-todos ()
     (interactive)
     (when (string-equal (buffer-file-name)
-                        (expand-file-name "~/Nextcloud/Documents/2021.org"))
+                        (expand-file-name kk/personal-daily-todo-file))
       (kk/export-todays-todos)
       (kk/push-file-to-remote
        (concat (file-name-sans-extension (buffer-file-name)) ".html")
