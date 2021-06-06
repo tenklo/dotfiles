@@ -46,8 +46,8 @@ Here variables shall be set, which will be used throughout the config to set sys
                                 kk/work-agenda-file)))
     ("T490s"
      (setq kk/default-font-size 180)
-     (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org")
      (setq kk/default-diary-file "/tmp/diary")
+     (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
      (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
      (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org")
      (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
