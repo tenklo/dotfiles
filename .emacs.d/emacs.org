@@ -49,7 +49,7 @@ Here variables shall be set, which will be used throughout the config to set sys
      (setq kk/default-diary-file "/tmp/diary")
      (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
      (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
-     (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org")
+   (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org.gpg")
      (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
      (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
      (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
