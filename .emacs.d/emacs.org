@@ -584,6 +584,8 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
           ("ws" "Schedule These"
            ((todo "NEXT"
                   ((org-agenda-overriding-header "Unscheduled NEXT")
+                 (org-agenda-start-on-weekday nil)
+                 (org-agenda-span 8)
                    (org-agenda-todo-ignore-scheduled t)))
             (agenda ""
                     ((org-agenda-span 'week)))))
@@ -599,18 +601,24 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
           ("rh" "Review by Day"
            ((agenda ""
                     ((org-agenda-entry-types '())
+                   (org-agenda-time-grid nil)
+                   (org-agenda-archives-mode t)
                      (org-agenda-include-diary t)
                      (org-agenda-span 1))))
            ((org-agenda-start-with-log-mode t)))
           ("rw" "Review by Week"
            ((agenda ""
                     ((org-agenda-entry-types '())
+                   (org-agenda-time-grid nil)
+                   (org-agenda-archives-mode t)
                      (org-agenda-include-diary t)
                      (org-agenda-span 'week))))
            ((org-agenda-start-with-log-mode t)))
           ("rm" "Review by Month"
            ((agenda ""
                     ((org-agenda-entry-types '())
+                   (org-agenda-time-grid nil)
+                   (org-agenda-archives-mode t)
                      (org-agenda-include-diary)
                      (org-agenda-span 'month))))
            ((org-agenda-start-with-log-mode t)))
