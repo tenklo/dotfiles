@@ -32,29 +32,29 @@ Here variables shall be set, which will be used throughout the config to set sys
   (pcase system-name
     ("dwhpd"
      (setq kk/default-font-size 140)
-     (setq kk/default-diary-file "~/documents/diary")
-     (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
-     (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
-     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/2021.org")
-     (setq kk/academical-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/default-diary-file "/tmp/diary")
+     (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+     (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+     (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
      (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
      (setq kk/diary-files (list kk/work-diary-file
                                 kk/academical-diary-file))
      (setq kk/org-agenda-files (list
                                 kk/academical-agenda-file
-                                "~/nextcloud_work/Documents/standups.org"
+                                "~/nextcloud_work/Documents/org/standups.org"
                                 kk/work-agenda-file)))
     ("T490s"
      (setq kk/default-font-size 180)
-     (setq kk/default-diary-file "~/documents/diary")
-     (setq kk/personal-journal "~/Nextcloud/Documents/journal.org")
-     (setq kk/personal-diary-file "~/Nextcloud/Documents/diary")
-     (setq kk/personal-agenda-file "~/Nextcloud/Documents/personal.org")
-     (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/2021.org")
-     (setq kk/work-diary-file "~/nextcloud_work/Documents/workdiary")
-     (setq kk/work-agenda-file "~/nextcloud_work/Documents/workAgenda.org")
-     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/2021.org")
-     (setq kk/academical-diary-file "~/nextcloud_work/Documents/schuldiary")
+     (setq kk/default-diary-file "/tmp/diary")
+     (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
+     (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
+   (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org.gpg")
+     (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
+     (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+     (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+     (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
      (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
      (setq kk/diary-files (list kk/personal-diary-file
                                 kk/work-diary-file
@@ -62,7 +62,7 @@ Here variables shall be set, which will be used throughout the config to set sys
      (setq kk/org-agenda-files (list
                                 kk/personal-agenda-file
                                 kk/academical-agenda-file
-                                "~/nextcloud_work/Documents/standups.org"
+                                "~/nextcloud_work/Documents/org/standups.org"
                                 kk/work-agenda-file
                                 "~/tasks.org"))))
 
@@ -169,7 +169,9 @@ This section configures basic UI settings that remove unneeded elements to make 
   (global-display-line-numbers-mode t)
   (setq display-line-numbers-type 'relative)
 
-  (dolist (mode '(treemacs-mode-hook))
+  (dolist (mode '(treemacs-mode-hook
+                  image-mode-hook
+                  doc-view-minor-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 #+end_src
@@ -409,7 +411,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   (defun kk/org-mode-setup ()
     "Set org-specific settings.
   Intended to be used in an `org-mode-hook'."
-    (org-indent-mode)
     (visual-line-mode 1)
     (setq-local display-line-numbers-type t))
 
@@ -417,6 +418,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     :hook (org-mode . kk/org-mode-setup)
     :custom (org-agenda-include-diary t)
     :config
+  (setq org-startup-folded 'nofold)
+  (setq org-indent-indentation-per-level 2)
+  (setq org-edit-src-content-indentation 0)
     (setq org-ellipsis " ▾")
     (setq org-image-actual-width 500)
     (setq org-agenda-start-with-log-mode t)
@@ -427,7 +431,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
     (setq org-enforce-todo-checkbox-dependencies t)
     (setq org-enforce-todo-dependencies t)
     (setq org-track-ordered-property-with-tag t)
-    (setq org-agenda-dim-blocked-tasks 'invisible)
+    (setq org-agenda-dim-blocked-tasks 't)
     (setq org-sort-agenda-noeffort-is-high nil)
     (setq org-global-properties
           `(("Effort_ALL" .
@@ -487,6 +491,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
              "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
              :empty-lines 0)))
 
+    (define-key org-mode-map (kbd "C-c C-x h")
+      (lambda () (interactive) (org-hide-entry)))
+
     (define-key global-map (kbd "C-c j")
       (lambda () (interactive) (org-capture nil)))
     (kk/org-font-setup))
@@ -512,8 +519,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
   (setq org-todo-keywords
         '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
-          (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)"
-                    "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
+          (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)" "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
 
 #+end_src
 
@@ -570,7 +576,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                        ((org-agenda-overriding-header "High Effort Tasks")
                         (org-agenda-max-todos 20)))))
 
-          ("w" . "Review Helper")
+          ("w" . "Weekly Review Helper")
           ("wt" "TODO these"
            ((todo "SOMEDAY"
                   ((org-agenda-overriding-header "SOMEDAYs"))))
@@ -591,6 +597,8 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
           ("ws" "Schedule These"
            ((todo "NEXT"
                   ((org-agenda-overriding-header "Unscheduled NEXT")
+                 (org-agenda-start-on-weekday nil)
+                 (org-agenda-span 8)
                    (org-agenda-todo-ignore-scheduled t)))
             (agenda ""
                     ((org-agenda-span 'week)
@@ -607,9 +615,35 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
                    (org-agenda-entry-types '(:scheduled)))))
            ((org-agenda-start-with-follow-mode t)
             (org-agenda-start-with-log-mode nil)))
+          ("r" . "Review Past")
+          ("rh" "Review by Day"
+           ((agenda ""
+                    ((org-agenda-entry-types '())
+                   (org-agenda-time-grid nil)
+                   (org-agenda-archives-mode t)
+                     (org-agenda-include-diary t)
+                     (org-agenda-span 1))))
+           ((org-agenda-start-with-log-mode t)))
+          ("rw" "Review by Week"
+           ((agenda ""
+                    ((org-agenda-entry-types '())
+                   (org-agenda-time-grid nil)
+                   (org-agenda-archives-mode t)
+                     (org-agenda-include-diary t)
+                     (org-agenda-span 'week))))
+           ((org-agenda-start-with-log-mode t)))
+          ("rm" "Review by Month"
+           ((agenda ""
+                    ((org-agenda-entry-types '())
+                   (org-agenda-time-grid nil)
+                   (org-agenda-archives-mode t)
+                     (org-agenda-include-diary)
+                     (org-agenda-span 'month))))
+           ((org-agenda-start-with-log-mode t)))
 
           ("h" "Today"
-           ((agenda "" ((org-deadline-warning-days 7)
+           ((agenda "" ((org-deadline-warning-days 30)
+                        (org-agenda-skip-deadline-prewarning-if-scheduled t)
                         (org-agenda-span 1)))
             (todo "NEXT"
                   ((org-agenda-overriding-header "Next Tasks")))))
@@ -621,11 +655,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
             (todo "REVIEW"
                   ((org-agenda-overriding-header "In Review")))
             (todo "PLAN"
-                  ((org-agenda-overriding-header "In Planning")
-                   (org-agenda-todo-list-sublevels nil)))
+                ((org-agenda-overriding-header "In Planning")))
             (todo "BACKLOG"
-                  ((org-agenda-overriding-header "Project Backlog")
-                   (org-agenda-todo-list-sublevels nil)))
+                ((org-agenda-overriding-header "Project Backlog")))
             (todo "READY"
                   ((org-agenda-overriding-header "Ready for Work")))
             (todo "COMPLETED"
@@ -2380,8 +2412,9 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/open-with-o (arg)
-    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script."
+  (defun kk/open-with-o (arg &rest _rest)
+    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
+  Ignore `_REST'."
     (interactive)
     (start-process "" nil "o" arg))
 
@@ -2570,7 +2603,7 @@ Invoke by browse-url-generic
   (defun kk/export-and-push-todays-todos ()
     (interactive)
     (when (string-equal (buffer-file-name)
-                        (expand-file-name "~/Nextcloud/Documents/2021.org"))
+                        (expand-file-name kk/personal-daily-todo-file))
       (kk/export-todays-todos)
       (kk/push-file-to-remote
        (concat (file-name-sans-extension (buffer-file-name)) ".html")
@@ -2665,13 +2698,13 @@ Invoke by browse-url-generic
   (defun kk/todays-personal-todos ()
     (interactive)
     (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
-            (if (= (kk/date nil "%u" 7))
+            (if (= (string-to-number (kk/date nil "%u")) 7)
                 "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
 
   (defun kk/todays-work-todos ()
     (interactive)
     (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
-            (if (= (kk/date nil "%u" 1))
+            (if (= (string-to-number (kk/date nil "%u")) 1)
                 "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
 
 #+end_src
