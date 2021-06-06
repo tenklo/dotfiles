@@ -411,7 +411,6 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   (defun kk/org-mode-setup ()
     "Set org-specific settings.
   Intended to be used in an `org-mode-hook'."
-    (org-indent-mode)
     (visual-line-mode 1)
     (setq-local display-line-numbers-type t))
 
