@@ -1977,7 +1977,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     ;; This is set to 't' to avoid mail syncing issues when using mbsync
     (setq mu4e-change-filenames-when-moving t)
 
-    ;; Refresh mail using isync every 5 minutes
+    ;; Refresh mail using mbsync every 5 minutes
     (setq mu4e-update-interval (* 5 60))
     (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
     (setq mu4e-maildir "~/.local/share/mail")
