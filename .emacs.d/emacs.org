@@ -556,6 +556,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
         `(("d" "Deadlines"
            ((agenda ""
                     ((org-deadline-warning-days 365)
+		   (org-agenda-span 1)
                      (org-agenda-show-all-dates nil)))
            (agenda ""
                     ((org-agenda-span 'year))))
