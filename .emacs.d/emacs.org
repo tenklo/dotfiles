@@ -2247,6 +2247,10 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 :PROPERTIES:
 :ID:       1249cedd-ba02-4fcd-90fe-bf60f9dff913
 :END:
+** Calfw
+:PROPERTIES:
+:ID:       b6918f87-bd7f-4ace-8184-1e06bc9abb9f
+:END:
 
 #+begin_src emacs-lisp
 
