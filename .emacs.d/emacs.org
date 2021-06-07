@@ -2247,6 +2247,10 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 :PROPERTIES:
 :ID:       1249cedd-ba02-4fcd-90fe-bf60f9dff913
 :END:
+** Calfw
+:PROPERTIES:
+:ID:       b6918f87-bd7f-4ace-8184-1e06bc9abb9f
+:END:
 
 #+begin_src emacs-lisp
 
@@ -2279,6 +2283,47 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
      (list
       (cfw:org-create-source "Green")
       (cfw:cal-create-source "Orange"))))
+
+#+end_src
+
+** Make It German
+:PROPERTIES:
+:ID:       4e620164-5340-4f96-bec9-27f6d57e3f63
+:END:
+This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#h5o-32][this]] entry in the emacs wiki.
+
+#+begin_src emacs-lisp
+
+(setq solar-n-hemi-seasons
+      '("Frühlingsanfang" "Sommeranfang" "Herbstanfang" "Winteranfang"))
+
+(setq holiday-general-holidays
+      '((holiday-fixed 1 1 "Neujahr")
+        (holiday-fixed 5 1 "Tag der Arbeit")
+        (holiday-fixed 10 3 "Tag der Deutschen Einheit")))
+
+;; Feiertage für Baden-Württemberg, weitere auskommentiert
+(setq holiday-christian-holidays
+      '((holiday-float 12 0 -4 "1. Advent" 24)
+        (holiday-float 12 0 -3 "2. Advent" 24)
+        (holiday-float 12 0 -2 "3. Advent" 24)
+        (holiday-float 12 0 -1 "4. Advent" 24)
+        (holiday-fixed 12 25 "1. Weihnachtstag")
+        (holiday-fixed 12 26 "2. Weihnachtstag")
+        (holiday-fixed 1 6 "Heilige Drei Könige")
+        ;; (holiday-easter-etc -48 "Rosenmontag")
+        ;; (holiday-easter-etc -3 "Gründonnerstag")
+        (holiday-easter-etc  -2 "Karfreitag")
+        (holiday-easter-etc   0 "Ostersonntag")
+        (holiday-easter-etc  +1 "Ostermontag")
+        (holiday-easter-etc +39 "Christi Himmelfahrt")
+        (holiday-easter-etc +49 "Pfingstsonntag")
+        (holiday-easter-etc +50 "Pfingstmontag")
+        (holiday-easter-etc +60 "Fronleichnam")
+        ;; (holiday-fixed 8 15 "Mariae Himmelfahrt")
+        (holiday-fixed 11 1 "Allerheiligen")
+        ;; (holiday-float 11 3 1 "Buss- und Bettag" 16)
+        (holiday-float 11 0 1 "Totensonntag" 20)))
 
 #+end_src
 
