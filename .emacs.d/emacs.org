@@ -2264,7 +2264,9 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
           cfw:fchar-right-junction ?┫
           cfw:fchar-top-junction ?┯
           cfw:fchar-top-left-corner ?┏
-          cfw:fchar-top-right-corner ?┓))
+        cfw:fchar-top-right-corner ?┓)
+  (set-face-attribute
+   'cfw:face-holiday nil :background "#610300" :foreground "#0BE0CE" :weight 'bold))
 
   (use-package calfw-org
     :after calfw
