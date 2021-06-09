@@ -776,6 +776,13 @@ Don't prompt eval confirmation
 
 #+end_src
 
+   #+begin_src emacs-lisp
+
+  (set-face-attribute
+   'org-agenda-date-weekend nil :foreground "#E10500" :weight 'ultra-bold)
+
+   #+end_src
+
 * Development
 ** Commenting
 :PROPERTIES:
