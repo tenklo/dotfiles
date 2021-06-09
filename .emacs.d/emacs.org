@@ -776,6 +776,33 @@ Don't prompt eval confirmation
 
 #+end_src
 
+** Holidays Like Weekends
+   :PROPERTIES:
+   :ID:       68549608-f074-4ab2-98e7-3cb927d8854c
+   :END:
+   Code taken from [[https://lists.gnu.org/archive/html/emacs-orgmode/2010-11/msg00542.html][here]].
+
+   #+begin_src emacs-lisp
+
+   (setq org-agenda-day-face-function
+	 (defun kk/org-agenda-day-face-holidays-function (date)
+	   "Compute DATE face for holidays."
+	   (unless (org-agenda-todayp date)
+	     (dolist (file (org-agenda-files nil 'ifmode))
+	       (let ((face
+		      (dolist (entry (org-agenda-get-day-entries file date))
+			(let ((category (with-temp-buffer
+					  (insert entry)
+					  (org-get-category (point-min)))))
+			  (when (or (string= "Holidays" category)
+				    (string= "Vacation" category)
+				    (string= "Urlaub" category)
+				    (string= "Feiertage" category))
+			    (return 'org-agenda-date-weekend))))))
+		 (when face (return face)))))))
+
+   #+end_src
+
    #+begin_src emacs-lisp
 
   (set-face-attribute
