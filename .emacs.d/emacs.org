@@ -1471,6 +1471,7 @@ Defining leader keys using the general package.
     :global-prefix "C-SPC")
 
   (kk/leader-keys
+    "o" '(hydra-favorite-files/body :which-key "favorite files")
     "t" '(hydra-daily-todos/body :which-key "todays TODOs")
     "f" '(hydra-focus-areas/body :which-key "focus areas")
     "b" '(hydra-buffer-control/body :which-key "control buffers")
@@ -1640,6 +1641,32 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
                                            "%Y-%m-%d %A"
                                            "en_US.utf8")))
    "work" :exit t))
+
+(defhydra hydra-favorite-files ()
+  ("e" (lambda ()
+	 (interactive)
+	 (find-file "~/.emacs.d/emacs.org")) "emacs.org")
+  ("j" (lambda ()
+	 (interactive)
+	 (find-file kk/personal-journal)) "journal")
+  ("w" (lambda ()
+	 (interactive)
+	 (find-file kk/work-agenda-file)) "work agenda")
+  ("W" (lambda ()
+	 (interactive)
+	 (find-file kk/work-diary-file)) "work diary")
+  ("a" (lambda ()
+	 (interactive)
+	 (find-file kk/academical-agenda-file)) "school agenda")
+  ("A" (lambda ()
+	 (interactive)
+	 (find-file kk/academical-diary-file)) "school diary")
+  ("p" (lambda ()
+	 (interactive)
+	 (find-file kk/personal-agenda-file)) "personal agenda")
+  ("P" (lambda ()
+	 (interactive)
+	 (find-file kk/personal-diary-file)) "diary agenda"))
 
 (defhydra hydra-focus-areas ()
   "Focus an area of life"
