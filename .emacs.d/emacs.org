@@ -2463,6 +2463,13 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (use-package pdf-tools)
 
 #+end_src
+** Presentations
+
+#+begin_src emacs-lisp
+
+(use-package org-tree-slide)
+
+#+end_src
 
 * Passwords
 :PROPERTIES:
