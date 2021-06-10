@@ -1055,6 +1055,17 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+end_src
 
+*** SQL
+:PROPERTIES:
+:ID:       ce270c8c-46ff-4d70-a178-e9e060ba3e30
+:END:
+
+#+begin_src emacs-lisp
+
+(use-package sqlformat)
+
+#+end_src
+
 ** Debugging With Dap-Mode
 :PROPERTIES:
 :ID:       f36ab9f7-3a7f-42fc-b5c1-e98f1eca2022
