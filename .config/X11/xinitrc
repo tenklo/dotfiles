@@ -14,7 +14,7 @@ emacs --daemon &
 nextcloud &
 
 #setxkbmap -option caps:swapescape &
-setxkbmap -option ctrl:nocaps
+setxkbmap -option ctrl:nocaps &
 picom &
 unclutter &
 
