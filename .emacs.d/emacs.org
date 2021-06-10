@@ -15,56 +15,56 @@ Here variables shall be set, which will be used throughout the config to set sys
 
 #+begin_src emacs-lisp
 
-  (defvar kk/default-font-size 150)
-  (defvar kk/default-diary-file "")
-  (defvar kk/personal-journal "")
-  (defvar kk/personal-diary-file "")
-  (defvar kk/personal-agenda-file "")
-  (defvar kk/personal-daily-todo-file "")
-  (defvar kk/work-diary-file "")
-  (defvar kk/work-agenda-file "")
-  (defvar kk/work-daily-todo-file "")
-  (defvar kk/academical-diary-file "")
-  (defvar kk/academical-agenda-file "")
-  (defvar kk/diary-files ())
-  (defvar kk/org-agenda-files '())
+(defvar kk/default-font-size 150)
+(defvar kk/default-diary-file "")
+(defvar kk/personal-journal "")
+(defvar kk/personal-diary-file "")
+(defvar kk/personal-agenda-file "")
+(defvar kk/personal-daily-todo-file "")
+(defvar kk/work-diary-file "")
+(defvar kk/work-agenda-file "")
+(defvar kk/work-daily-todo-file "")
+(defvar kk/academical-diary-file "")
+(defvar kk/academical-agenda-file "")
+(defvar kk/diary-files ())
+(defvar kk/org-agenda-files '())
 
-  (pcase system-name
-    ("dwhpd"
-     (setq kk/default-font-size 140)
-     (setq kk/default-diary-file "/tmp/diary")
-     (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
-     (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
-     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
-     (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
-     (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
-     (setq kk/diary-files (list kk/work-diary-file
-                                kk/academical-diary-file))
-     (setq kk/org-agenda-files (list
-                                kk/academical-agenda-file
-                                "~/nextcloud_work/Documents/org/standups.org"
-                                kk/work-agenda-file)))
-    ("T490s"
-     (setq kk/default-font-size 180)
-     (setq kk/default-diary-file "/tmp/diary")
-     (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
-     (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
+(pcase system-name
+  ("dwhpd"
+   (setq kk/default-font-size 140)
+   (setq kk/default-diary-file "/tmp/diary")
+   (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+   (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+   (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+   (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
+   (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
+   (setq kk/diary-files (list kk/work-diary-file
+                              kk/academical-diary-file))
+   (setq kk/org-agenda-files (list
+                              kk/academical-agenda-file
+                              "~/nextcloud_work/Documents/org/standups.org"
+                              kk/work-agenda-file)))
+  ("T490s"
+   (setq kk/default-font-size 180)
+   (setq kk/default-diary-file "/tmp/diary")
+   (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
+   (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
    (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org.gpg")
-     (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
-     (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
-     (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
-     (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
-     (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
-     (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
-     (setq kk/diary-files (list kk/personal-diary-file
-                                kk/work-diary-file
-                                kk/academical-diary-file))
-     (setq kk/org-agenda-files (list
-                                kk/personal-agenda-file
-                                kk/academical-agenda-file
-                                "~/nextcloud_work/Documents/org/standups.org"
-                                kk/work-agenda-file
-                                "~/tasks.org"))))
+   (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
+   (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+   (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+   (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+   (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
+   (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
+   (setq kk/diary-files (list kk/personal-diary-file
+                              kk/work-diary-file
+                              kk/academical-diary-file))
+   (setq kk/org-agenda-files (list
+                              kk/personal-agenda-file
+                              kk/academical-agenda-file
+                              "~/nextcloud_work/Documents/org/standups.org"
+                              kk/work-agenda-file
+                              "~/tasks.org"))))
 
 #+end_src
 
@@ -75,19 +75,19 @@ Here variables shall be set, which will be used throughout the config to set sys
 
 #+begin_src emacs-lisp
 
-  ;; The default is 800 kilobytes.  Measured in bytes.
-  (setq gc-cons-threshold (* 50 1000 1000))
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
 
-  (defun kk/display-startup-time ()
-    "Display the time it took to load Emacs to the Messages buffer.
-  Also displays the number of garbage collections which occured."
-    (message "Emacs loaded in %s with %d garbage collections."
-             (format "%.2f seconds"
-                     (float-time
-                      (time-subtract after-init-time before-init-time)))
-             gcs-done))
+(defun kk/display-startup-time ()
+  "Display the time it took to load Emacs to the Messages buffer.
+Also displays the number of garbage collections which occured."
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
 
-  (add-hook 'emacs-startup-hook #'kk/display-startup-time)
+(add-hook 'emacs-startup-hook #'kk/display-startup-time)
 
 #+end_src
 
@@ -102,25 +102,25 @@ Installation problems seem to often get fixed by executing =package-refresh-cont
 
 #+begin_src emacs-lisp
 
-  (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-  (require 'package)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(require 'package)
 
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                           ("org" . "https://orgmode.org/elpa/")
-                           ("elpa" . "https://elpa.gnu.org/packages/")
-                           ))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+                         ))
 
-  (package-initialize)
-  (unless package-archive-contents
-    (package-refresh-contents))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-  ;;initialize use-package on non-Linux platforms
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package))
+;;initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-  (require 'use-package)
-  (setq use-package-always-ensure t)
-  (setq use-package-verbose t)
+(require 'use-package)
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
 
 #+end_src
 
@@ -135,14 +135,14 @@ You can also use =M-x auto-package-update-now= to update right now!
 
 #+begin_src emacs-lisp
 
-  (use-package auto-package-update
-    :custom
-    (auto-package-update-interval 7)
-    (auto-package-update-prompt-before-update t)
-    (auto-package-update-hide-results t)
-    :config
-    (auto-package-update-maybe)
-    (auto-package-update-at-time "09:00"))
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
 
 #+end_src
 
@@ -156,23 +156,23 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  (setq inhibit-startup-message t)
+(setq inhibit-startup-message t)
 
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1)
-  (set-fringe-mode 10)
-  (menu-bar-mode -1)
-  (setq visible-bell t)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(set-fringe-mode 10)
+(menu-bar-mode -1)
+(setq visible-bell t)
 
-  (column-number-mode)
-  (global-display-line-numbers-mode t)
-  (setq display-line-numbers-type 'relative)
+(column-number-mode)
+(global-display-line-numbers-mode t)
+(setq display-line-numbers-type 'relative)
 
-  (dolist (mode '(treemacs-mode-hook
-                  image-mode-hook
-                  doc-view-minor-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+(dolist (mode '(treemacs-mode-hook
+                image-mode-hook
+                doc-view-minor-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 #+end_src
 
@@ -183,8 +183,8 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  (use-package doom-themes)
-  (load-theme 'doom-dracula t)
+(use-package doom-themes)
+(load-theme 'doom-dracula t)
 
 #+end_src
 
@@ -195,29 +195,29 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  (defun kk/set-font-faces ()
-    "Set font faces.
-  This function can be called to set the faces after making a frame,
-  in case Emacs daemon is used."
-    (message "Settings faces!")
-    (set-face-attribute 'default nil :height kk/default-font-size))
+(defun kk/set-font-faces ()
+  "Set font faces.
+This function can be called to set the faces after making a frame,
+in case Emacs daemon is used."
+  (message "Settings faces!")
+  (set-face-attribute 'default nil :height kk/default-font-size))
 
-  (defun kk/org-font-setup ()
-    "Set `org-mode' specific font settings."
-    ;; Replace list hyphen with dot
-    (font-lock-add-keywords 'org-mode
-                            '(("^ *\\([-]\\) "
-                               (0 (prog1 () (compose-region (match-beginning 1)
-                                                            (match-end 1) "•")))))))
+(defun kk/org-font-setup ()
+  "Set `org-mode' specific font settings."
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1)
+                                                          (match-end 1) "•")))))))
 
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (setq doom-modeline-icon t)
-                  (with-selected-frame frame (kk/set-font-faces)
-                                       (kk/org-font-setup))))
-    (kk/set-font-faces)
-    (kk/org-font-setup))
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (setq doom-modeline-icon t)
+                (with-selected-frame frame (kk/set-font-faces)
+                                     (kk/org-font-setup))))
+  (kk/set-font-faces)
+  (kk/org-font-setup))
 
 #+end_src
 
@@ -231,17 +231,17 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  ;; NOTE: The first time you load your configuration on a new machine, you'll
-  ;; need to run the following command interactively so that mode line icons
-  ;; display correctly :
-  ;;
-  ;; M-x all-the-icons-install-fonts
-  (use-package all-the-icons)
+;; NOTE: The first time you load your configuration on a new machine, you'll
+;; need to run the following command interactively so that mode line icons
+;; display correctly :
+;;
+;; M-x all-the-icons-install-fonts
+(use-package all-the-icons)
 
-  (use-package doom-modeline
-    :ensure t
-    :init (doom-modeline-mode 1)
-    :custom (doom-modeline-hight 10))
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :custom (doom-modeline-hight 10))
 
 #+end_src
 
@@ -251,12 +251,12 @@ This section configures basic UI settings that remove unneeded elements to make 
 :END:
 #+begin_src emacs-lisp
 
-  (use-package which-key
-    :defer 0
-    :diminish which-key-mode
-    :config
-    (which-key-mode)
-    (setq which-key-idle-delay 0.3))
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
 
 #+end_src
 ** Ivy and Counsel
@@ -266,37 +266,37 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+begin_src emacs-lisp
 
-  (use-package ivy
-    :diminish
-    :bind (("M-s s" . swiper)
-           :map ivy-minibuffer-map
-           ("TAB" . ivy-alt-done)
-           ("C-l" . ivy-alt-done)
-           ("C-j" . ivy-next-line)
-           ("C-k" . ivy-previous-line)
-           :map ivy-switch-buffer-map
-           ("C-k" . ivy-previous-line)
-           ("C-l" . ivy-done)
-           ("C-d" . ivy-switch-buffer-kill)
-           :map ivy-reverse-i-search-map
-           ("C-k" . ivy-previous-line)
-           ("C-d" . ivy-reverse-i-search-kill))
-    :config
-    (ivy-mode 1))
+(use-package ivy
+  :diminish
+  :bind (("M-s s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
 
-  (use-package counsel
-    :bind (("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("C-x r b" . counsel-bookmark)
-           :map minibuffer-local-map
-           ("C-r" . 'counsel-minibuffer-history))
-    :config
-    (setq ivy-initial-inputs-alist nil)) ; don't start searches with ^
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file)
+         ("C-x r b" . counsel-bookmark)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history))
+  :config
+  (setq ivy-initial-inputs-alist nil)) ; don't start searches with ^
 
-  (use-package ivy-rich
-    :after ivy
-    :init
-    (ivy-rich-mode 1))
+(use-package ivy-rich
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
 
 #+end_src
 
@@ -309,14 +309,14 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (use-package ivy-prescient
-    :after counsel
-    :custom
-    (ivy-prescient-enable-filtering nil)
-    :config
-    ;; Uncomment the following line to have sorting remembered across sessions!
-    (prescient-persist-mode 1)
-    (ivy-prescient-mode 1))
+(use-package ivy-prescient
+  :after counsel
+  :custom
+  (ivy-prescient-enable-filtering nil)
+  :config
+  ;; Uncomment the following line to have sorting remembered across sessions!
+  (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
 
 #+end_src
 ** Helpful Package
@@ -326,15 +326,15 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (use-package helpful
-    :custom
-    (counsel-describe-function-function #'helpful-callable)
-    (counsel-descrive-variable-function #'helpful-variable)
-    :bind
-    ([remap describe-function] . counsel-describe-function)
-    ([remap describe-command] . helpful-command)
-    ([remap describe-variable] . counsel-describe-variable)
-    ([remap describe-key] . helpful-key))
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-descrive-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
 
 #+end_src
 
@@ -347,8 +347,8 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (use-package command-log-mode
-    :commands command-log-mode)
+(use-package command-log-mode
+  :commands command-log-mode)
 
 #+end_src
 ** Recent Files
@@ -358,10 +358,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (recentf-mode 1)
-  (setq recentf-max-menu-items 25)
-  (setq recentf-max-saved-items 25)
-  (global-set-key "\C-c\ \C-r" 'recentf-open-files)
+(recentf-mode 1)
+(setq recentf-max-menu-items 25)
+(setq recentf-max-saved-items 25)
+(global-set-key "\C-c\ \C-r" 'recentf-open-files)
 
 #+end_src
 ** Calendar
@@ -370,10 +370,10 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 :END:
 
 #+begin_src emacs-lisp
-  (use-package calendar
-    :defer t
-    :config
-    (setq calendar-week-start-day 1))
+(use-package calendar
+  :defer t
+  :config
+  (setq calendar-week-start-day 1))
 #+end_src
 
 ** Window Numbering
@@ -383,9 +383,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (use-package window-numbering
-    :config
-    (window-numbering-mode))
+(use-package window-numbering
+  :config
+  (window-numbering-mode))
 
 #+end_src
 
@@ -396,7 +396,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (setq register-preview-delay 0)
+(setq register-preview-delay 0)
 
 #+end_src
 
@@ -408,104 +408,104 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (defun kk/org-mode-setup ()
-    "Set org-specific settings.
-  Intended to be used in an `org-mode-hook'."
-    (visual-line-mode 1)
-    (setq-local display-line-numbers-type t))
+(defun kk/org-mode-setup ()
+  "Set org-specific settings.
+Intended to be used in an `org-mode-hook'."
+  (visual-line-mode 1)
+  (setq-local display-line-numbers-type t))
 
-  (use-package org
-    :hook (org-mode . kk/org-mode-setup)
-    :custom (org-agenda-include-diary t)
-    :config
+(use-package org
+  :hook (org-mode . kk/org-mode-setup)
+  :custom (org-agenda-include-diary t)
+  :config
   (setq org-startup-folded 'nofold)
   (setq org-edit-src-content-indentation 0)
   (setq org-startup-indented t)
-    (setq org-ellipsis " ▾")
-    (setq org-image-actual-width 500)
-    (setq org-log-done 'note)
-    (setq org-log-reschedule 'note)
-    (setq org-log-into-drawer t)
-    (setq org-clock-into-drawer "CLOCKING")
-    (setq org-enforce-todo-checkbox-dependencies t)
-    (setq org-enforce-todo-dependencies t)
-    (setq org-track-ordered-property-with-tag t)
-    (setq org-agenda-dim-blocked-tasks 't)
-    (setq org-sort-agenda-noeffort-is-high nil)
-    (setq org-global-properties
-          `(("Effort_ALL" .
-             ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
-                      "6:00"))))
-    (setq org-columns-default-format
-          (concat "#+COLUMNS: %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
-                  "%6CLOCKSUM(Clock) %6EFFORT(Effort){:}"))
-    (setq org-agenda-files kk/org-agenda-files)
-    (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
-    (setq org-capture-templates
-          `(("w" "Work")
-            ("wt" "Task" entry (file+olp kk/work-agenda-file "Inbox")
-             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
-             "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
+  (setq org-ellipsis " ▾")
+  (setq org-image-actual-width 500)
+  (setq org-log-done 'note)
+  (setq org-log-reschedule 'note)
+  (setq org-log-into-drawer t)
+  (setq org-clock-into-drawer "CLOCKING")
+  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-enforce-todo-dependencies t)
+  (setq org-track-ordered-property-with-tag t)
+  (setq org-agenda-dim-blocked-tasks 't)
+  (setq org-sort-agenda-noeffort-is-high nil)
+  (setq org-global-properties
+        `(("Effort_ALL" .
+           ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
+                    "6:00"))))
+  (setq org-columns-default-format
+        (concat "#+COLUMNS: %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
+                "%6CLOCKSUM(Clock) %6EFFORT(Effort){:}"))
+  (setq org-agenda-files kk/org-agenda-files)
+  (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
+  (setq org-capture-templates
+        `(("w" "Work")
+          ("wt" "Task" entry (file+olp kk/work-agenda-file "Inbox")
+           "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
+           "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
 
-            ("p" "Personal")
-            ("pt" "Task" entry (file+olp kk/personal-agenda-file "Inbox")
-             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("pp" "Project" entry (file+olp kk/personal-agenda-file "Inbox")
-             "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
+          ("p" "Personal")
+          ("pt" "Task" entry (file+olp kk/personal-agenda-file "Inbox")
+           "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("pp" "Project" entry (file+olp kk/personal-agenda-file "Inbox")
+           "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
 
-            ("j" "Journal" entry
-             (file+olp+datetree kk/personal-journal)
-             "\n* %<%H:%M> Uhr\n\n%?\n\n"
-             :clock-in :clock-resume :empty-lines 1)
+          ("j" "Journal" entry
+           (file+olp+datetree kk/personal-journal)
+           "\n* %<%H:%M> Uhr\n\n%?\n\n"
+           :clock-in :clock-resume :empty-lines 1)
 
-            ("b" "Books" entry
-             (file+olp kk/personal-agenda-file "Bücher")
-             "* %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+          ("b" "Books" entry
+           (file+olp kk/personal-agenda-file "Bücher")
+           "* %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
 
-            ("wT" "Todays Work TODOs" plain
-             (file+olp+datetree kk/work-daily-todo-file)
-             (function kk/todays-work-todos)
-             :immediate-finish t :empty-lines 0 :jump-to-captured t)
-            ("pT" "Todays Personal TODOs" plain
-             (file+olp+datetree kk/personal-daily-todo-file)
-             (function kk/todays-personal-todos)
-             :immediate-finish t :empty-lines 0 :jump-to-captured t)
+          ("wT" "Todays Work TODOs" plain
+           (file+olp+datetree kk/work-daily-todo-file)
+           (function kk/todays-work-todos)
+           :immediate-finish t :empty-lines 0 :jump-to-captured t)
+          ("pT" "Todays Personal TODOs" plain
+           (file+olp+datetree kk/personal-daily-todo-file)
+           (function kk/todays-personal-todos)
+           :immediate-finish t :empty-lines 0 :jump-to-captured t)
 
-            ("a" "Academical")
-            ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)
-            ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
-             "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
-             :empty-lines 0)))
+          ("a" "Academical")
+          ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("ah" "Homework" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* HOMEWORK %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("ae" "Exam" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* EXAM %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("as" "Submission" entry (file+olp kk/academical-agenda-file "Inbox")
+           "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)))
 
-    (define-key org-mode-map (kbd "C-c C-x h")
-      (lambda () (interactive) (org-hide-entry)))
+  (define-key org-mode-map (kbd "C-c C-x h")
+    (lambda () (interactive) (org-hide-entry)))
 
-    (define-key global-map (kbd "C-c j")
-      (lambda () (interactive) (org-capture nil)))
-    (kk/org-font-setup))
+  (define-key global-map (kbd "C-c j")
+    (lambda () (interactive) (org-capture nil)))
+  (kk/org-font-setup))
 
-  (use-package org-bullets
-    :after org
-    :hook
-    (org-mode . org-bullets-mode)
-    :custom
-    (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+(use-package org-bullets
+  :after org
+  :hook
+  (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 
-  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+(advice-add 'org-refile :after 'org-save-all-org-buffers)
 
 #+end_src
 
@@ -516,9 +516,9 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (setq org-todo-keywords
-        '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
-          (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)" "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
+(setq org-todo-keywords
+      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
+        (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)" "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
 
 #+end_src
 
@@ -530,18 +530,18 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (setq kk/org-agenda-next-block
-        '(todo "NEXT"
-               ((org-agenda-overriding-header "Next Tasks"))))
+(setq kk/org-agenda-next-block
+      '(todo "NEXT"
+             ((org-agenda-overriding-header "Next Tasks"))))
 
-  (setq kk/org-agenda-active-block
-        '(todo "ACTIVE"
-               ((org-agenda-overriding-header "Active Projects"))))
+(setq kk/org-agenda-active-block
+      '(todo "ACTIVE"
+             ((org-agenda-overriding-header "Active Projects"))))
 
-  (setq kk/org-agenda-unscheduled-todos
-        '(todo "TODO"
-               ((org-agenda-overriding-header "Unscheduled TODOs")
-                (org-agenda-todo-ignore-with-date t))))
+(setq kk/org-agenda-unscheduled-todos
+      '(todo "TODO"
+             ((org-agenda-overriding-header "Unscheduled TODOs")
+              (org-agenda-todo-ignore-with-date t))))
 
 #+end_src
 
@@ -552,118 +552,118 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (setq org-agenda-custom-commands
-        `(("d" "Deadlines"
-           ((agenda ""
-                    ((org-deadline-warning-days 365)
-		   (org-agenda-span 1)
-                     (org-agenda-show-all-dates nil)))
-           (agenda ""
-                    ((org-agenda-span 'year))))
-           ((org-agenda-start-with-log-mode nil)
-            (org-deadline-warning-days 0)
-            (org-agenda-include-diary nil)
-            (org-agenda-entry-types '(:deadline))))
+(setq org-agenda-custom-commands
+      `(("d" "Deadlines"
+         ((agenda ""
+                  ((org-deadline-warning-days 365)
+                   (org-agenda-span 1)
+                   (org-agenda-show-all-dates nil)))
+          (agenda ""
+                  ((org-agenda-span 'year))))
+         ((org-agenda-start-with-log-mode nil)
+          (org-deadline-warning-days 0)
+          (org-agenda-include-diary nil)
+          (org-agenda-entry-types '(:deadline))))
 
-          ("e" "Tasks by Effort"
-           ((tags-todo "+Effort>0&-Effort>1:00"
-                       ((org-agenda-overriding-header "Low Effort Tasks")
-                        (org-agenda-max-todos 20)))
-            (tags-todo "+TODO=NEXT"
-                       ((org-agenda-overriding-header "Mid Effort Tasks")
-                        (org-agenda-max-todos 20)))
-            (tags-todo ">1"
-                       ((org-agenda-overriding-header "High Effort Tasks")
-                        (org-agenda-max-todos 20)))))
+        ("e" "Tasks by Effort"
+         ((tags-todo "+Effort>0&-Effort>1:00"
+                     ((org-agenda-overriding-header "Low Effort Tasks")
+                      (org-agenda-max-todos 20)))
+          (tags-todo "+TODO=NEXT"
+                     ((org-agenda-overriding-header "Mid Effort Tasks")
+                      (org-agenda-max-todos 20)))
+          (tags-todo ">1"
+                     ((org-agenda-overriding-header "High Effort Tasks")
+                      (org-agenda-max-todos 20)))))
 
-          ("w" . "Weekly Review Helper")
-          ("wt" "TODO these"
-           ((todo "SOMEDAY"
-                  ((org-agenda-overriding-header "SOMEDAYs"))))
-           ((org-agenda-start-with-follow-mode t)))
-          ("wa" "Archive These"
-           ((todo "DONE"
-                  ((org-agenda-overriding-header "Done Tasks"))))
-           ((org-agenda-start-with-follow-mode t)
-            (org-agenda-start-with-log-mode nil)))
+        ("w" . "Weekly Review Helper")
+        ("wt" "TODO these"
+         ((todo "SOMEDAY"
+                ((org-agenda-overriding-header "SOMEDAYs"))))
+         ((org-agenda-start-with-follow-mode t)))
+        ("wa" "Archive These"
+         ((todo "DONE"
+                ((org-agenda-overriding-header "Done Tasks"))))
+         ((org-agenda-start-with-follow-mode t)
+          (org-agenda-start-with-log-mode nil)))
 
-          ("wn" "Set To NEXT"
-           ((todo "TODO"
-                  ((org-agenda-overriding-header "Unscheduled TODOs")
-                   (org-agenda-todo-ignore-with-date t))))
-           ((org-agenda-start-with-follow-mode t)
-            (org-agenda-start-with-log-mode nil)))
+        ("wn" "Set To NEXT"
+         ((todo "TODO"
+                ((org-agenda-overriding-header "Unscheduled TODOs")
+                 (org-agenda-todo-ignore-with-date t))))
+         ((org-agenda-start-with-follow-mode t)
+          (org-agenda-start-with-log-mode nil)))
 
-          ("ws" "Schedule These"
-           ((todo "NEXT"
-                  ((org-agenda-overriding-header "Unscheduled NEXT")
+        ("ws" "Schedule These"
+         ((todo "NEXT"
+                ((org-agenda-overriding-header "Unscheduled NEXT")
                  (org-agenda-start-on-weekday nil)
                  (org-agenda-span 8)
-                   (org-agenda-todo-ignore-scheduled t)))
-            (agenda ""
-                    ((org-agenda-span 'week)
-                     (org-agenda-start-on-weekday nil))))
-           ((org-agenda-start-with-follow-mode t)
-            (org-agenda-start-with-log-mode nil)))
+                 (org-agenda-todo-ignore-scheduled t)))
+          (agenda ""
+                  ((org-agenda-span 'week)
+                   (org-agenda-start-on-weekday nil))))
+         ((org-agenda-start-with-follow-mode t)
+          (org-agenda-start-with-log-mode nil)))
 
-          ("we" "Estimate These"
-           ((todo "NEXT"
-                  ((org-agenda-overriding-header
-                    "Scheduled NEXT (maybe filter via s e)")
-                   (org-agenda-span 'week)
-                   (org-agenda-skip-scheduled-if-done t)
-                   (org-agenda-entry-types '(:scheduled)))))
-           ((org-agenda-start-with-follow-mode t)
-            (org-agenda-start-with-log-mode nil)))
-          ("r" . "Review Past")
-          ("rd" "Review by Day"
-           ((agenda ""
-                    ((org-agenda-entry-types '())
+        ("we" "Estimate These"
+         ((todo "NEXT"
+                ((org-agenda-overriding-header
+                  "Scheduled NEXT (maybe filter via s e)")
+                 (org-agenda-span 'week)
+                 (org-agenda-skip-scheduled-if-done t)
+                 (org-agenda-entry-types '(:scheduled)))))
+         ((org-agenda-start-with-follow-mode t)
+          (org-agenda-start-with-log-mode nil)))
+        ("r" . "Review Past")
+        ("rd" "Review by Day"
+         ((agenda ""
+                  ((org-agenda-entry-types '())
                    (org-agenda-time-grid nil)
                    (org-agenda-archives-mode t)
-                     (org-agenda-include-diary t)
-                     (org-agenda-span 1))))
-           ((org-agenda-start-with-log-mode t)))
-          ("rw" "Review by Week"
-           ((agenda ""
-                    ((org-agenda-entry-types '())
+                   (org-agenda-include-diary t)
+                   (org-agenda-span 1))))
+         ((org-agenda-start-with-log-mode t)))
+        ("rw" "Review by Week"
+         ((agenda ""
+                  ((org-agenda-entry-types '())
                    (org-agenda-time-grid nil)
                    (org-agenda-archives-mode t)
-                     (org-agenda-include-diary t)
-                     (org-agenda-span 'week))))
-           ((org-agenda-start-with-log-mode t)))
-          ("rm" "Review by Month"
-           ((agenda ""
-                    ((org-agenda-entry-types '())
+                   (org-agenda-include-diary t)
+                   (org-agenda-span 'week))))
+         ((org-agenda-start-with-log-mode t)))
+        ("rm" "Review by Month"
+         ((agenda ""
+                  ((org-agenda-entry-types '())
                    (org-agenda-time-grid nil)
                    (org-agenda-archives-mode t)
-                     (org-agenda-include-diary)
-                     (org-agenda-span 'month))))
-           ((org-agenda-start-with-log-mode t)))
+                   (org-agenda-include-diary)
+                   (org-agenda-span 'month))))
+         ((org-agenda-start-with-log-mode t)))
 
-          ("h" "Today"
-           ((agenda "" ((org-deadline-warning-days 30)
-                        (org-agenda-skip-deadline-prewarning-if-scheduled t)
-                        (org-agenda-span 1)))
-            (todo "NEXT"
-                  ((org-agenda-overriding-header "Next Tasks")))))
+        ("h" "Today"
+         ((agenda "" ((org-deadline-warning-days 30)
+                      (org-agenda-skip-deadline-prewarning-if-scheduled t)
+                      (org-agenda-span 1)))
+          (todo "NEXT"
+                ((org-agenda-overriding-header "Next Tasks")))))
 
-          ("p" "Projects Status"
-           (,kk/org-agenda-active-block
-            (todo "WAIT"
-                  ((org-agenda-overriding-header "Waiting on External")))
-            (todo "REVIEW"
-                  ((org-agenda-overriding-header "In Review")))
-            (todo "PLAN"
+        ("p" "Projects Status"
+         (,kk/org-agenda-active-block
+          (todo "WAIT"
+                ((org-agenda-overriding-header "Waiting on External")))
+          (todo "REVIEW"
+                ((org-agenda-overriding-header "In Review")))
+          (todo "PLAN"
                 ((org-agenda-overriding-header "In Planning")))
-            (todo "BACKLOG"
+          (todo "BACKLOG"
                 ((org-agenda-overriding-header "Project Backlog")))
-            (todo "READY"
-                  ((org-agenda-overriding-header "Ready for Work")))
-            (todo "COMPLETED"
-                  ((org-agenda-overriding-header "Completed Projects")))
-            (todo "CANC"
-                  ((org-agenda-overriding-header "Cancelled Projects")))))))
+          (todo "READY"
+                ((org-agenda-overriding-header "Ready for Work")))
+          (todo "COMPLETED"
+                ((org-agenda-overriding-header "Completed Projects")))
+          (todo "CANC"
+                ((org-agenda-overriding-header "Cancelled Projects")))))))
 
 #+end_src
 
@@ -674,11 +674,11 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
 
 #+begin_src emacs-lisp
 
-  (require 'org-tempo)
+(require 'org-tempo)
 
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("py" . "src python"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 
 #+end_src
 
@@ -691,7 +691,7 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (setq org-confirm-babel-evaluate nil)
+(setq org-confirm-babel-evaluate nil)
 
 #+end_src
 
@@ -702,15 +702,15 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (defun kk/org-babel-tangle-config ()
-    (when (string-equal (buffer-file-name)
-                        (expand-file-name "~/.emacs.d/emacs.org"))
-      (let ((org-confirm-babel-evaluate nil))
-        (org-babel-tangle))))
+(defun kk/org-babel-tangle-config ()
+  (when (string-equal (buffer-file-name)
+                      (expand-file-name "~/.emacs.d/emacs.org"))
+    (let ((org-confirm-babel-evaluate nil))
+      (org-babel-tangle))))
 
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook #'kk/org-babel-tangle-config)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'kk/org-babel-tangle-config)))
 #+end_src
 *** Configure Languages
 :PROPERTIES:
@@ -719,12 +719,12 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (org-babel-do-load-languages
-   'arg-babel-load-languages
-   '((emacs-lisp . t)
-     (python . t)))
+(org-babel-do-load-languages
+ 'arg-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)))
 
-  (push '("conf-unix" . conf-unix) org-src-lang-modes)
+(push '("conf-unix" . conf-unix) org-src-lang-modes)
 
 #+end_src
 
@@ -735,8 +735,8 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (use-package toc-org
-    :hook (org-mode-hook . toc-org-mode))
+(use-package toc-org
+  :hook (org-mode-hook . toc-org-mode))
 
 #+end_src
 ** Diary
@@ -746,7 +746,7 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (setq diary-file kk/default-diary-file)
+(setq diary-file kk/default-diary-file)
 
 #+end_src
 
@@ -757,10 +757,10 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (define-skeleton kk/test-skeleton
-    "This is some test skeleton" nil
-    "#+TITLE: Some test Title\n"
-    "#+AUTHOR: Karsten Klöss\n")
+(define-skeleton kk/test-skeleton
+  "This is some test skeleton" nil
+  "#+TITLE: Some test Title\n"
+  "#+AUTHOR: Karsten Klöss\n")
 
 #+end_src
 
@@ -771,44 +771,44 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (require 'org-id)
-  (setq org-id-link-to-org-use-id t)
+(require 'org-id)
+(setq org-id-link-to-org-use-id t)
 
 #+end_src
 
 ** Holidays Like Weekends
-   :PROPERTIES:
-   :ID:       68549608-f074-4ab2-98e7-3cb927d8854c
-   :END:
-   Code taken from [[https://lists.gnu.org/archive/html/emacs-orgmode/2010-11/msg00542.html][here]].
+:PROPERTIES:
+:ID:       68549608-f074-4ab2-98e7-3cb927d8854c
+:END:
+Code taken from [[https://lists.gnu.org/archive/html/emacs-orgmode/2010-11/msg00542.html][here]].
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
-   (setq org-agenda-day-face-function
-	 (defun kk/org-agenda-day-face-holidays-function (date)
-	   "Compute DATE face for holidays."
-	   (unless (org-agenda-todayp date)
-	     (dolist (file (org-agenda-files nil 'ifmode))
-	       (let ((face
-		      (dolist (entry (org-agenda-get-day-entries file date))
-			(let ((category (with-temp-buffer
-					  (insert entry)
-					  (org-get-category (point-min)))))
-			  (when (or (string= "Holidays" category)
-				    (string= "Vacation" category)
-				    (string= "Urlaub" category)
-				    (string= "Feiertage" category))
-			    (return 'org-agenda-date-weekend))))))
-		 (when face (return face)))))))
+(setq org-agenda-day-face-function
+      (defun kk/org-agenda-day-face-holidays-function (date)
+        "Compute DATE face for holidays."
+        (unless (org-agenda-todayp date)
+          (dolist (file (org-agenda-files nil 'ifmode))
+            (let ((face
+                   (dolist (entry (org-agenda-get-day-entries file date))
+                     (let ((category (with-temp-buffer
+                                       (insert entry)
+                                       (org-get-category (point-min)))))
+                       (when (or (string= "Holidays" category)
+                                 (string= "Vacation" category)
+                                 (string= "Urlaub" category)
+                                 (string= "Feiertage" category))
+                         (return 'org-agenda-date-weekend))))))
+              (when face (return face)))))))
 
-   #+end_src
+#+end_src
 
-   #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 
-  (set-face-attribute
-   'org-agenda-date-weekend nil :foreground "#E10500" :weight 'ultra-bold)
+(set-face-attribute
+ 'org-agenda-date-weekend nil :foreground "#E10500" :weight 'ultra-bold)
 
-   #+end_src
+#+end_src
 
 * Development
 ** Commenting
@@ -818,9 +818,9 @@ Don't prompt eval confirmation
 
 #+begin_src emacs-lisp
 
-  (use-package evil-nerd-commenter
-    :defer t
-    :bind ("M-/" . evilnc-comment-or-uncomment-lines))
+(use-package evil-nerd-commenter
+  :defer t
+  :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
 #+end_src
 
@@ -843,12 +843,12 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 #+begin_src emacs-lisp
 
-  (use-package lsp-mode
-    :commands (lsp lsp-deferred)
-    :init
-    (setq lsp-keymap-prefix "C-c l")
-    :config
-    (lsp-enable-which-key-integration t))
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :config
+  (lsp-enable-which-key-integration t))
 
 #+end_src
 
@@ -858,10 +858,10 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 :END:
 
 #+begin_src emacs-lisp
-  (defun kk/lsp-mode-setup ()
-    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+(defun kk/lsp-mode-setup ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
 
-    :hook (lsp-mode . kk/lsp-mode-setup))
+  :hook (lsp-mode . kk/lsp-mode-setup))
 #+end_src
 
 ***** Lsp-Ui
@@ -871,10 +871,10 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 #+begin_src emacs-lisp
 
-  (use-package lsp-ui
-    :hook (lsp-mode . lsp-ui-mode)
-    :custom
-    (lsp-ui-doc-position 'bottom))
+(use-package lsp-ui
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-position 'bottom))
 
 #+end_src
 
@@ -885,11 +885,11 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 
 #+begin_src emacs-lisp
 
-  (use-package lsp-treemacs
-    :after lsp-mode
-    :commands treemacs)
+(use-package lsp-treemacs
+  :after lsp-mode
+  :commands treemacs)
 
-  (global-set-key (kbd "C-c t") 'lsp-treemacs-symbols)
+(global-set-key (kbd "C-c t") 'lsp-treemacs-symbols)
 
 
 #+end_src
@@ -903,11 +903,11 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+begin_src emacs-lisp
 
-  (use-package typescript-mode
-    :mode "\\.ts\\'"
-    :hook (typescript-mode . lsp-deferred)
-    :config
-    (setq typescript-indent-level 2))
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2))
 
 #+end_src
 
@@ -920,8 +920,8 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+begin_src emacs-lisp
 
-  (use-package ng2-mode
-    :defer t)
+(use-package ng2-mode
+  :defer t)
 
 #+end_src
 
@@ -932,9 +932,9 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+begin_src emacs-lisp
 
-  (use-package php-mode
-    :mode "\\.php\\'"
-    :hook (php-mode . lsp-deferred))
+(use-package php-mode
+  :mode "\\.php\\'"
+  :hook (php-mode . lsp-deferred))
 
 #+end_src
 
@@ -945,12 +945,12 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 #+begin_src emacs-lisp
 
-  (use-package python-mode
-    :hook (python-mode . lsp-deferred)
-    :custom
-    (dap-python-debugger 'debugpy)
-    :config
-    (require 'dap-python))
+(use-package python-mode
+  :hook (python-mode . lsp-deferred)
+  :custom
+  (dap-python-debugger 'debugpy)
+  :config
+  (require 'dap-python))
 
 #+end_src
 
@@ -958,10 +958,10 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package pyvenv
-    :after python-mode
-    :config
-    (pyvenv-mode 1))
+(use-package pyvenv
+  :after python-mode
+  :config
+  (pyvenv-mode 1))
 
 #+end_src
 
@@ -972,20 +972,20 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package web-mode
-    :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
-    :config
-    (setq-default web-mode-code-indent-offset 2)
-    (setq-default web-mode-markup-indent-offset 2)
-    (setq-default web-mode-attribute-indent-offset 2))
+(use-package web-mode
+  :mode "(\\.\\(html?\\|ejs\\|tsx\\|jsx\\)\\'"
+  :config
+  (setq-default web-mode-code-indent-offset 2)
+  (setq-default web-mode-markup-indent-offset 2)
+  (setq-default web-mode-attribute-indent-offset 2))
 
-  ;; 1. Start the server with `httpd-start'
-  ;; 2. Use `impatient-mode' on any buffer
-  (use-package impatient-mode
-    :defer t)
+;; 1. Start the server with `httpd-start'
+;; 2. Use `impatient-mode' on any buffer
+(use-package impatient-mode
+  :defer t)
 
-  (use-package skewer-mode
-    :defer t)
+(use-package skewer-mode
+  :defer t)
 
 #+end_src
 
@@ -996,13 +996,13 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package emmet-mode
-    :defer t
-    :hook
-    ((sgml-mode-hook . emmet-mode)
-     (css-mode-hook . emmet-mode))
-    :bind (:map emmet-mode-keymap
-                ("C-<tab>" . emmet-expand-line)))
+(use-package emmet-mode
+  :defer t
+  :hook
+  ((sgml-mode-hook . emmet-mode)
+   (css-mode-hook . emmet-mode))
+  :bind (:map emmet-mode-keymap
+              ("C-<tab>" . emmet-expand-line)))
 
 #+end_src
 
@@ -1013,8 +1013,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package sly
-    :defer t)
+(use-package sly
+  :defer t)
 
 #+end_src
 
@@ -1025,8 +1025,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package csharp-mode
-    :defer t)
+(use-package csharp-mode
+  :defer t)
 
 #+end_src
 
@@ -1037,9 +1037,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package markdown-mode
-    :defer t
-    :mode "\\.md\\'")
+(use-package markdown-mode
+  :defer t
+  :mode "\\.md\\'")
 
 #+end_src
 
@@ -1050,8 +1050,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package yaml-mode
-    :mode "\\.ya?ml\\'")
+(use-package yaml-mode
+  :mode "\\.ya?ml\\'")
 
 #+end_src
 
@@ -1075,28 +1075,28 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package dap-mode
-    ;; Uncomment the config below if you want all UI panes to be hidden by default!
-    ;; :custom
-    ;; (lsp-enable-dap-auto-configure nil)
-    ;; :config
-    ;; (dap-ui-mode 1)
-    ;; Customize which windows to display with
-    ;; (dap-auto-configure-features '(sessions locals tooltip))
-    :commands dap-debug
-    :config
-    ;; Set up Node debugging
-    (require 'dap-node)
-    (dap-node-setup) ;; Automatically installs Node debug adapter if needed
+(use-package dap-mode
+  ;; Uncomment the config below if you want all UI panes to be hidden by default!
+  ;; :custom
+  ;; (lsp-enable-dap-auto-configure nil)
+  ;; :config
+  ;; (dap-ui-mode 1)
+  ;; Customize which windows to display with
+  ;; (dap-auto-configure-features '(sessions locals tooltip))
+  :commands dap-debug
+  :config
+  ;; Set up Node debugging
+  (require 'dap-node)
+  (dap-node-setup) ;; Automatically installs Node debug adapter if needed
 
-    (add-hook 'dap-stopped-hook
-              (lambda (arg) (call-interactively #'dap-hydra)))
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra)))
 
-    ;; Bind `C-c l d` to `dap-hydra` for easy access
-    (general-define-key
-     :keymaps 'lsp-mode-map
-     :prefix lsp-keymap-prefix
-     "d" '(dap-hydra t :wk "debugger")))
+  ;; Bind `C-c l d` to `dap-hydra` for easy access
+  (general-define-key
+   :keymaps 'lsp-mode-map
+   :prefix lsp-keymap-prefix
+   "d" '(dap-hydra t :wk "debugger")))
 
 #+end_src
 
@@ -1107,17 +1107,17 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package company
-    :defer 0
-    :hook (prog-mode . company-mode)
-    :bind (:map company-active-map
-                ("<tab>" . company-complete-selection))
-    :custom
-    (company-minimum-prefix-length 1)
-    (company-idle-delay 0.0))
+(use-package company
+  :defer 0
+  :hook (prog-mode . company-mode)
+  :bind (:map company-active-map
+              ("<tab>" . company-complete-selection))
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0))
 
-  (use-package company-box
-    :hook (company-mode . company-box-mode))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 #+end_src
 
@@ -1128,9 +1128,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package magit
-    :commands magit-status)
-  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+(use-package magit
+  :commands magit-status)
+(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 
 #+end_src
 
@@ -1141,18 +1141,18 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package projectile
-    :diminish projectile-mode
-    :config (projectile-mode)
-    :custom ((projectile-completion-system 'ivy))
-    :bind-keymap
-    ("C-x p" . projectile-command-map)
-    :init
-    (setq projectile-switch-project-action #'projectile-dired))
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'ivy))
+  :bind-keymap
+  ("C-x p" . projectile-command-map)
+  :init
+  (setq projectile-switch-project-action #'projectile-dired))
 
-  (use-package counsel-projectile
-    :after projectile
-    :config (counsel-projectile-mode))
+(use-package counsel-projectile
+  :after projectile
+  :config (counsel-projectile-mode))
 
 #+end_src
 
@@ -1166,9 +1166,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package rainbow-delimiters
-    :defer t
-    :hook (prog-mode . rainbow-delimiters-mode))
+(use-package rainbow-delimiters
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 #+end_src
 
@@ -1179,7 +1179,7 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (show-paren-mode 1)
+(show-paren-mode 1)
 
 #+end_src
 
@@ -1190,11 +1190,11 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package smartparens
-    :defer t
-    :hook (prog-mode . smartparens-mode)
-    :config
-    (require 'smartparens-config))
+(use-package smartparens
+  :defer t
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
 
 #+end_src
 
@@ -1205,10 +1205,10 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package flycheck
-    :defer t
-    :config
-    (global-flycheck-mode))
+(use-package flycheck
+  :defer t
+  :config
+  (global-flycheck-mode))
 
 #+end_src
 
@@ -1219,8 +1219,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package indent-guide
-    :hook (prog-mode . indent-guide-mode))
+(use-package indent-guide
+  :hook (prog-mode . indent-guide-mode))
 
 #+end_src
 
@@ -1231,8 +1231,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package format-all
-    :defer t)
+(use-package format-all
+  :defer t)
 
 #+end_src
 
@@ -1245,9 +1245,9 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package editorconfig
-    :config
-    (editorconfig-mode 1))
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
 
 #+end_src
 
@@ -1258,8 +1258,8 @@ You can use the pyvenv package to use =virtualenv= environments in Emacs.  The =
 
 #+begin_src emacs-lisp
 
-  (use-package know-your-http-well
-    :defer t)
+(use-package know-your-http-well
+  :defer t)
 
 #+end_src
 
@@ -1272,10 +1272,10 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
-  (use-package column-enforce-mode
-    :hook (prog-mode . column-enforce-mode)
-    :config
-    (setq column-enforce-comments nil))
+(use-package column-enforce-mode
+  :hook (prog-mode . column-enforce-mode)
+  :config
+  (setq column-enforce-comments nil))
 
 #+end_src
 
@@ -1286,7 +1286,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
-  (setq tramp-default-method "ssh")
+(setq tramp-default-method "ssh")
 
 #+end_src
 
@@ -1298,12 +1298,12 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
-  (defun kk/text-mode-completion-setup ()
-    (interactive)
-    (require 'company)
-    (add-to-list 'company-backends 'company-ispell))
+(defun kk/text-mode-completion-setup ()
+  (interactive)
+  (require 'company)
+  (add-to-list 'company-backends 'company-ispell))
 
-  (add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
+(add-hook 'text-mode-hook 'kk/text-mode-completion-setup)
 
 #+end_src
 
@@ -1314,13 +1314,13 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
-  ;; (add-hook 'text-mode-hook 'flyspell-mode)
+;; (add-hook 'text-mode-hook 'flyspell-mode)
 
 #+end_src
 
 #+begin_src emacs-lisp
 
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+(add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
 #+end_src
 
@@ -1331,16 +1331,16 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
-  (use-package guess-language         ; Automatically detect language for Flyspell
-    :ensure t
-    :defer t
-    :init (add-hook 'ispell-minor-mode-hook #'guess-language-mode)
-    :config
-    (setq guess-language-langcodes '((de . ("de_DE" "German"))
-                                     (en . ("en_US" "English")))
-          guess-language-languages '(de en)
-          guess-language-min-paragraph-length 40)
-    :diminish guess-language-mode)
+(use-package guess-language         ; Automatically detect language for Flyspell
+  :ensure t
+  :defer t
+  :init (add-hook 'ispell-minor-mode-hook #'guess-language-mode)
+  :config
+  (setq guess-language-langcodes '((de . ("de_DE" "German"))
+                                   (en . ("en_US" "English")))
+        guess-language-languages '(de en)
+        guess-language-min-paragraph-length 40)
+  :diminish guess-language-mode)
 
 #+end_src
 
@@ -1353,10 +1353,10 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+begin_src emacs-lisp
 
-  (use-package typo
-    :defer t
-    :config
-    (setq-default typo-language 'German))
+(use-package typo
+  :defer t
+  :config
+  (setq-default typo-language 'German))
 
 #+end_src
 
@@ -1370,40 +1370,40 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
 
 #+begin_src emacs-lisp
 
-  (defun kk/evil-hook ()
-    (dolist (mode '(cfw:details-mode))
-      (add-to-list 'evil-emacs-state-modes mode)))
+(defun kk/evil-hook ()
+  (dolist (mode '(cfw:details-mode))
+    (add-to-list 'evil-emacs-state-modes mode)))
 
-  (use-package evil
-    :init
-    (setq evil-want-integration t)
-    (setq evil-want-keybinding nil)
-    (setq evil-want-C-u-scroll t)
-    (setq evil-want-C-i-jump t)
-    (setq evil-want-C-i-jump t)
-    :hook (evil-mode . kk/evil-hook)
-    :config
-    (evil-mode 1)
-    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-    (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-i-jump t)
+  (setq evil-want-C-i-jump t)
+  :hook (evil-mode . kk/evil-hook)
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
-    (setq evil-undo-function 'undo-fu-only-undo)
-    (setq evil-redo-function 'undo-fu-only-redo)
+  (setq evil-undo-function 'undo-fu-only-undo)
+  (setq evil-redo-function 'undo-fu-only-redo)
 
-    (evil-set-initial-state 'messages-buffer-mode 'normal)
-    (evil-set-initial-state 'dashboard-mode 'normal))
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
 
-  (use-package evil-collection
-    :after evil
-    :config
-    (evil-collection-init))
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
-  (use-package evil-org
-    :after org
-    :hook (org-mode . (lambda () evil-org-mode))
-    :config
-    (require 'evil-org-agenda)
-    (evil-org-agenda-set-keys))
+(use-package evil-org
+  :after org
+  :hook (org-mode . (lambda () evil-org-mode))
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
 #+end_src
 
@@ -1414,28 +1414,28 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
 
 #+begin_src emacs-lisp
 
-  (defvar kk/intercept-mode-map (make-sparse-keymap)
-    "High precedence keymap.")
+(defvar kk/intercept-mode-map (make-sparse-keymap)
+  "High precedence keymap.")
 
-  (define-minor-mode kk/intercept-mode
-    "Global minor mode for higher precedence evil keybindings."
-    :global t)
+(define-minor-mode kk/intercept-mode
+  "Global minor mode for higher precedence evil keybindings."
+  :global t)
 
-  (kk/intercept-mode)
+(kk/intercept-mode)
 
-  (dolist (state '(normal visual insert motion))
-    (evil-make-intercept-map
-     ;; NOTE: This requires an evil version from 2018-03-20 or later
-     (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
-     state))
+(dolist (state '(normal visual insert motion))
+  (evil-make-intercept-map
+   ;; NOTE: This requires an evil version from 2018-03-20 or later
+   (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
+   state))
 
-  (evil-define-key 'normal kk/intercept-mode-map
-    (kbd "g j") 'evil-next-visual-line
-    (kbd "g k") 'evil-previous-visual-line
-    (kbd "Y") 'org-store-link)
+(evil-define-key 'normal kk/intercept-mode-map
+  (kbd "g j") 'evil-next-visual-line
+  (kbd "g k") 'evil-previous-visual-line
+  (kbd "Y") 'org-store-link)
 
-  (evil-define-key 'motion kk/intercept-mode-map
-    (kbd "Y") 'org-store-link)
+(evil-define-key 'motion kk/intercept-mode-map
+  (kbd "Y") 'org-store-link)
 
 #+end_src
 
@@ -1448,7 +1448,7 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
 
 #+begin_src emacs-lisp
 
-  (use-package undo-fu)
+(use-package undo-fu)
 
 #+end_src
 
@@ -1461,22 +1461,22 @@ Defining leader keys using the general package.
 
 #+begin_src emacs-lisp
 
-  (use-package general
-    :after evil
-    :config
-    (general-create-definer kk/leader-keys
-      :keymaps '(normal insert visual emacs)
-      :prefix "SPC"
-      :global-prefix "C-SPC")
+(use-package general
+  :after evil
+  :config
+  (general-create-definer kk/leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
 
-    (kk/leader-keys
-      "t" '(hydra-daily-todos/body :which-key "todays TODOs")
-      "f" '(hydra-focus-areas/body :which-key "focus areas")
-      "b" '(hydra-buffer-control/body :which-key "control buffers")
-      "h" '(hydra-bookmark-control/body :which-key "control bookmarks")
-      "w" '(hydra-window-size/body :which-key "change window size")
-      "j" '(winner-undo :which-key "winner undo")
-      "k" '(winner-redo :which-key "winner redo")))
+  (kk/leader-keys
+    "t" '(hydra-daily-todos/body :which-key "todays TODOs")
+    "f" '(hydra-focus-areas/body :which-key "focus areas")
+    "b" '(hydra-buffer-control/body :which-key "control buffers")
+    "h" '(hydra-bookmark-control/body :which-key "control bookmarks")
+    "w" '(hydra-window-size/body :which-key "change window size")
+    "j" '(winner-undo :which-key "winner undo")
+    "k" '(winner-redo :which-key "winner redo")))
 
 #+end_src
 
@@ -1487,42 +1487,42 @@ Defining leader keys using the general package.
 
 #+begin_src emacs-lisp
 
-  ;;Make ESC quit prompts
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+;;Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-  (global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
-  (global-set-key (kbd "C-c a") '(lambda ()
-                                   (interactive)
-                                   (kk/merge-diary-files)
-                                   (org-agenda)))
+(global-set-key (kbd "C-c a") '(lambda ()
+                                 (interactive)
+                                 (kk/merge-diary-files)
+                                 (org-agenda)))
 
-  (global-set-key (kbd "C-c g") 'magit-status)
+(global-set-key (kbd "C-c g") 'magit-status)
 
-  (global-set-key (kbd "C-c m") 'mu4e)
+(global-set-key (kbd "C-c m") 'mu4e)
 
-  (global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
-  (global-set-key (kbd "C-x b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+(global-set-key (kbd "C-x b") 'ido-switch-buffer)
 
-  (global-set-key (kbd "C-c <return>") 'eshell)
+(global-set-key (kbd "C-c <return>") 'eshell)
 
-  (global-set-key (kbd "C-c C-<return>") 'term)
+(global-set-key (kbd "C-c C-<return>") 'term)
 
-  (global-set-key (kbd "C-M-j") 'ibuffer)
+(global-set-key (kbd "C-M-j") 'ibuffer)
 
-  (global-set-key (kbd "C-c c") 'kk/open-calendar)
-  (global-set-key (kbd "C-c C") 'calendar)
+(global-set-key (kbd "C-c c") 'kk/open-calendar)
+(global-set-key (kbd "C-c C") 'calendar)
 
-  (global-set-key (kbd "C-c r") 'elfeed)
+(global-set-key (kbd "C-c r") 'elfeed)
 
-  (global-set-key (kbd "C-c s") 'spray-mode)
+(global-set-key (kbd "C-c s") 'spray-mode)
 
-  (global-set-key (kbd "C-c M-j") 'winner-undo)
-  (global-set-key (kbd "C-c M-k") 'winner-redo)
+(global-set-key (kbd "C-c M-j") 'winner-undo)
+(global-set-key (kbd "C-c M-k") 'winner-redo)
 
-  (global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c l") 'org-store-link)
 
-  (global-set-key [f5] 'universal-argument)
+(global-set-key [f5] 'universal-argument)
 
 #+end_src
 
@@ -1535,19 +1535,19 @@ Defining leader keys using the general package.
 
 #+begin_src emacs-lisp
 
-  (use-package mwim
-    :config
-    (global-set-key (kbd "C-a") 'mwim-beginning)
-    (global-set-key (kbd "C-e") 'mwim-end)
-    (add-hook 'evil-visual-state-entry-hook (lambda ()
-                                              (define-key evil-visual-state-map (kbd "C-e") 'mwim-end)
-                                              (define-key evil-visual-state-map (kbd "C-a") 'mwim-beginning)))
-    (add-hook 'evil-normal-state-entry-hook (lambda ()
-                                              (define-key evil-normal-state-map (kbd "C-e") 'mwim-end)
-                                              (define-key evil-normal-state-map (kbd "C-a") 'mwim-beginning)))
-    (add-hook 'evil-insert-state-entry-hook (lambda ()
-                                              (define-key evil-insert-state-map (kbd "C-e") 'mwim-end)
-                                              (define-key evil-insert-state-map (kbd "C-a") 'mwim-beginning))))
+(use-package mwim
+  :config
+  (global-set-key (kbd "C-a") 'mwim-beginning)
+  (global-set-key (kbd "C-e") 'mwim-end)
+  (add-hook 'evil-visual-state-entry-hook (lambda ()
+                                            (define-key evil-visual-state-map (kbd "C-e") 'mwim-end)
+                                            (define-key evil-visual-state-map (kbd "C-a") 'mwim-beginning)))
+  (add-hook 'evil-normal-state-entry-hook (lambda ()
+                                            (define-key evil-normal-state-map (kbd "C-e") 'mwim-end)
+                                            (define-key evil-normal-state-map (kbd "C-a") 'mwim-beginning)))
+  (add-hook 'evil-insert-state-entry-hook (lambda ()
+                                            (define-key evil-insert-state-map (kbd "C-e") 'mwim-end)
+                                            (define-key evil-insert-state-map (kbd "C-a") 'mwim-beginning))))
 
 #+end_src
 
@@ -1560,10 +1560,10 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 
 #+begin_src emacs-lisp
 
-  (global-set-key (kbd "C-c i d") 'kk/insert-todays-date)
-  (global-set-key (kbd "C-c i D") 'kk/insert-tomorrows-date)
-  (global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
-  (global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
+(global-set-key (kbd "C-c i d") 'kk/insert-todays-date)
+(global-set-key (kbd "C-c i D") 'kk/insert-tomorrows-date)
+(global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
+(global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
 
 #+end_src
 
@@ -1573,13 +1573,13 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 :END:
 #+begin_src emacs-lisp
 
-  (global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
+(global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
 
-  (global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
+(global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
 
-  (global-set-key (kbd "M-s M-d") 'kk/search-region-on-duden)
+(global-set-key (kbd "M-s M-d") 'kk/search-region-on-duden)
 
-  (global-set-key (kbd "M-s M-t") 'kk/search-region-on-dict)
+(global-set-key (kbd "M-s M-t") 'kk/search-region-on-dict)
 
 #+end_src
 
@@ -1590,64 +1590,64 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 
 #+begin_src emacs-lisp
 
-  (use-package hydra
-    :defer t)
+(use-package hydra
+  :defer t)
 
-  (defhydra hydra-text-scale (:timeout 4)
-    "scale text"
-    ("j" text-scale-increase "in")
-    ("k" text-scale-decrease "out")
-    ("f" nil "finished" :exit t))
+(defhydra hydra-text-scale (:timeout 4)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("f" nil "finished" :exit t))
 
-  (defhydra hydra-buffer-control (:timeout 4)
-    "change buffers"
-    ("l" counsel-switch-buffer "list" :exit t)
-    ("c" kill-current-buffer "kill current" :exit t)
-    ("k" previous-buffer "previous")
-    ("j" switch-to-next-buffer "next")
-    ("f" nil "finished" :exit t))
+(defhydra hydra-buffer-control (:timeout 4)
+  "change buffers"
+  ("l" counsel-switch-buffer "list" :exit t)
+  ("c" kill-current-buffer "kill current" :exit t)
+  ("k" previous-buffer "previous")
+  ("j" switch-to-next-buffer "next")
+  ("f" nil "finished" :exit t))
 
 
-  (defhydra hydra-bookmark-control (:timeout 5)
-    "set and load bookmarks"
-    ("s" bookmark-set "set")
-    ("l" bookmark-bmenu-list "list")
-    ("f" nil "finished" :exit t))
+(defhydra hydra-bookmark-control (:timeout 5)
+  "set and load bookmarks"
+  ("s" bookmark-set "set")
+  ("l" bookmark-bmenu-list "list")
+  ("f" nil "finished" :exit t))
 
-  (defhydra hydra-window-size (:timeout 5)
-    "change window sizes"
-    ("u" balance-windows "balance")
-    ("j" evil-window-decrease-height "decrease height")
-    ("k" evil-window-increase-height "increase height")
-    ("h" evil-window-decrease-width "decrease width")
-    ("l" evil-window-increase-width "increase width")
-    ("f" make-frame "make frame"))
+(defhydra hydra-window-size (:timeout 5)
+  "change window sizes"
+  ("u" balance-windows "balance")
+  ("j" evil-window-decrease-height "decrease height")
+  ("k" evil-window-increase-height "increase height")
+  ("h" evil-window-decrease-width "decrease width")
+  ("l" evil-window-increase-width "increase width")
+  ("f" make-frame "make frame"))
 
-  (defhydra hydra-daily-todos (:timeout 5)
-    "go to the current days TODOs"
-    ("p" (lambda ()
-           (interactive)
-           (kk/find-org-file-at-headline
-            kk/personal-daily-todo-file (kk/date nil
-                                                 "%Y-%m-%d %A"
-                                                 "en_US.utf8")))
-     "personal" :exit t)
-    ("w" (lambda ()
-           (interactive)
-           (kk/find-org-file-at-headline
-            kk/work-daily-todo-file (kk/date nil
-                                             "%Y-%m-%d %A"
-                                             "en_US.utf8")))
-     "work" :exit t))
+(defhydra hydra-daily-todos (:timeout 5)
+  "go to the current days TODOs"
+  ("p" (lambda ()
+         (interactive)
+         (kk/find-org-file-at-headline
+          kk/personal-daily-todo-file (kk/date nil
+                                               "%Y-%m-%d %A"
+                                               "en_US.utf8")))
+   "personal" :exit t)
+  ("w" (lambda ()
+         (interactive)
+         (kk/find-org-file-at-headline
+          kk/work-daily-todo-file (kk/date nil
+                                           "%Y-%m-%d %A"
+                                           "en_US.utf8")))
+   "work" :exit t))
 
-  (defhydra hydra-focus-areas ()
-    "Focus an area of life"
-    ("p" kk/focus-personal "personal" :exit t)
-    ("w" kk/focus-work "work" :exit t)
-    ("a" kk/focus-academical "academical" :exit t)
-    ("f" kk/focus-work-academical "work+academical" :exit t)
-    ("j" kk/focus-personal-academical "personal+academical" :exit t)
-    ("k" kk/focus-personal-work-academical "personal+work+academical" :exit t))
+(defhydra hydra-focus-areas ()
+  "Focus an area of life"
+  ("p" kk/focus-personal "personal" :exit t)
+  ("w" kk/focus-work "work" :exit t)
+  ("a" kk/focus-academical "academical" :exit t)
+  ("f" kk/focus-work-academical "work+academical" :exit t)
+  ("j" kk/focus-personal-academical "personal+academical" :exit t)
+  ("k" kk/focus-personal-work-academical "personal+work+academical" :exit t))
 
 #+end_src
 
@@ -1675,11 +1675,11 @@ If you have evil-collection installed, term-mode will enter char mode when you u
 
 #+begin_src emacs-lisp
 
-  (use-package term
-    :commands term
-    :config
-    (setq explicit-shell-file-name "bash")
-    (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+(use-package term
+  :commands term
+  :config
+  (setq explicit-shell-file-name "bash")
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
 
 #+end_src
 
@@ -1692,8 +1692,8 @@ The =eterm-256color= package enhances the output of =term-mode= to enable handli
 
 #+begin_src emacs-lisp
 
-  (use-package eterm-256color
-    :hook (term-mode . eterm-256color-mode))
+(use-package eterm-256color
+  :hook (term-mode . eterm-256color-mode))
 
 #+end_src
 
@@ -1708,12 +1708,12 @@ Make sure that you have the [[https://github.com/akermu/emacs-libvterm/#requirem
 
 #+begin_src emacs-lisp
 
-  (use-package vterm
-    :commands vterm
-    :config
-    (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
-    ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
-    (setq vterm-max-scrollback 10000))
+(use-package vterm
+  :commands vterm
+  :config
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")  ;; Set this to match your custom shell prompt
+  ;;(setq vterm-shell "zsh")                       ;; Set this to customize the shell to launch
+  (setq vterm-max-scrollback 10000))
 
 #+end_src
 
@@ -1735,11 +1735,11 @@ One advantage of =shell-mode= on Windows is that it's the only way to run =cmd.e
 
 #+begin_src emacs-lisp
 
-  (when (eq system-type 'windows-nt)
-    (setq explicit-shell-file-name "powershell.exe")
-    (setq explicit-powershell.exe-args '()))
+(when (eq system-type 'windows-nt)
+  (setq explicit-shell-file-name "powershell.exe")
+  (setq explicit-powershell.exe-args '()))
 
-  (setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+(setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
 
 #+end_src
 
@@ -1765,36 +1765,36 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+begin_src emacs-lisp
 
-  (defun kk/configure-eshell ()
-    "Configure the `eshell'."
-    ;; Save command history when commands are entered
-    (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+(defun kk/configure-eshell ()
+  "Configure the `eshell'."
+  ;; Save command history when commands are entered
+  (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
 
-    ;; Truncate buffer for performance
-    (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
+  ;; Truncate buffer for performance
+  (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
 
-    ;; Bind some useful keys for evil-mode
-    (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
-    (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
-    (evil-normalize-keymaps)
+  ;; Bind some useful keys for evil-mode
+  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "C-r") 'counsel-esh-history)
+  (evil-define-key '(normal insert visual) eshell-mode-map (kbd "<home>") 'eshell-bol)
+  (evil-normalize-keymaps)
 
-    (setq eshell-history-size         10000
-          eshell-buffer-maximum-lines 10000
-          eshell-hist-ignoredups t
-          eshell-scroll-to-bottom-on-input t))
+  (setq eshell-history-size         10000
+        eshell-buffer-maximum-lines 10000
+        eshell-hist-ignoredups t
+        eshell-scroll-to-bottom-on-input t))
 
-  (use-package eshell-git-prompt
-    :after eshell)
+(use-package eshell-git-prompt
+  :after eshell)
 
-  (use-package eshell
-    :hook (eshell-first-time-mode . kk/configure-eshell)
-    :config
+(use-package eshell
+  :hook (eshell-first-time-mode . kk/configure-eshell)
+  :config
 
-    (with-eval-after-load 'esh-opt
-      (setq eshell-destroy-buffer-when-process-dies t)
-      (setq eshell-visual-commands '("htop" "zsh" "vim")))
+  (with-eval-after-load 'esh-opt
+    (setq eshell-destroy-buffer-when-process-dies t)
+    (setq eshell-visual-commands '("htop" "zsh" "vim")))
 
-    (eshell-git-prompt-use-theme 'default))
+  (eshell-git-prompt-use-theme 'default))
 
 #+end_src
 
@@ -1805,7 +1805,7 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+begin_src emacs-lisp
 
-  (setq browse-url-secondary-browser-function #'kk/open-with-o)
+(setq browse-url-secondary-browser-function #'kk/open-with-o)
 
 #+end_src
 
@@ -1816,9 +1816,9 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+begin_src emacs-lisp
 
-  (use-package eww
-    :config (setq browse-url-browser-function 'eww
-                  shr-width 80))
+(use-package eww
+  :config (setq browse-url-browser-function 'eww
+                shr-width 80))
 
 #+end_src
 
@@ -1829,17 +1829,17 @@ For more thoughts on Eshell, check out these articles by Pierre Neidhardt:
 
 #+begin_src emacs-lisp
 
-  (use-package elpher
-    :defer t
-    :config
-    (advice-add 'eww-browse-url :around 'elpher:eww-browse-url)
+(use-package elpher
+  :defer t
+  :config
+  (advice-add 'eww-browse-url :around 'elpher:eww-browse-url)
 
-    (defun elpher:eww-browse-url (original url &optional new-window)
-      "Handle gemini links."
-      (cond ((string-match-p "\\`\\(gemini\\|gopher\\)://" url)
-             (require 'elpher)
-             (elpher-go url))
-            (t (funcall original url new-window)))))
+  (defun elpher:eww-browse-url (original url &optional new-window)
+    "Handle gemini links."
+    (cond ((string-match-p "\\`\\(gemini\\|gopher\\)://" url)
+           (require 'elpher)
+           (elpher-go url))
+          (t (funcall original url new-window)))))
 
 #+end_src
 
@@ -1913,37 +1913,37 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (use-package dired
-    :ensure nil
-    :commands (dired dired-jump)
-    :bind (("C-x C-j" . dired-jump))
-    :custom ((dired-listing-switches "-Alh --group-directories-first"))
-    :hook (dired-mode . dired-hide-details-mode)
-    :config
-    (evil-collection-define-key 'normal 'dired-mode-map
-      "h" 'dired-single-up-directory
-      "l" 'dired-single-buffer
-      "L" 'dired-open-xdg))
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-Alh --group-directories-first"))
+  :hook (dired-mode . dired-hide-details-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer
+    "L" 'dired-open-xdg))
 
-  (use-package dired-single
-    :after dired)
+(use-package dired-single
+  :after dired)
 
-  (use-package all-the-icons-dired
-    :hook (dired-mode . all-the-icons-dired-mode))
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
 
-  (use-package dired-open
-    :after dired
-    :config
-    ;; Doesn't work as expected!
-    ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
-    (setq dired-open-extensions '(("png" . "sxiv")
-                                  ("mkv" . "mpv"))))
+(use-package dired-open
+  :after dired
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "sxiv")
+                                ("mkv" . "mpv"))))
 
-  (use-package dired-hide-dotfiles
-    :hook (dired-mode . dired-hide-dotfiles-mode)
-    :config
-    (evil-collection-define-key 'normal 'dired-mode-map
-      "H" 'dired-hide-dotfiles-mode))
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
 
 #+end_src
 
@@ -1956,33 +1956,33 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (defun kk/mu4e-choose-signature ()
-    "Insert one of a number of sigs."
-    (interactive)
-    (let ((message-signature
-           (mu4e-read-option "Signature:"
-                             '(("work" .
-                                (concat
-                                 "-------------------------------------\n"
-                                 "digital worx GmbH\n"
-                                 "Schulze-Delitzsch-Str. 16\n"
-                                 "70565 Stuttgart\n"
-                                 "\n"
-                                 "Tel. 0711 220 40 93 0\n"
-                                 "Fax. 0711 220 40 93 44\n"
-                                 "\n"
-                                 "kloess@digital-worx.de\n"
-                                 "\n"
-                                 "http://www.digital-worx.de\n"
-                                 "-------------------------------------\n"
-                                 "Geschaeftsfuehrer:\n"
-                                 "Sven Rahlfs\n"
-                                 "Mirko Ross\n"
-                                 "\n"
-                                 "HRB 22 5281 Amtsgericht Stuttgart\n"
-                                 "USt.-Id. Nr.: DE218401190\n"
-                                 "-------------------------------------"))))))
-      (message-insert-signature)))
+(defun kk/mu4e-choose-signature ()
+  "Insert one of a number of sigs."
+  (interactive)
+  (let ((message-signature
+         (mu4e-read-option "Signature:"
+                           '(("work" .
+                              (concat
+                               "-------------------------------------\n"
+                               "digital worx GmbH\n"
+                               "Schulze-Delitzsch-Str. 16\n"
+                               "70565 Stuttgart\n"
+                               "\n"
+                               "Tel. 0711 220 40 93 0\n"
+                               "Fax. 0711 220 40 93 44\n"
+                               "\n"
+                               "kloess@digital-worx.de\n"
+                               "\n"
+                               "http://www.digital-worx.de\n"
+                               "-------------------------------------\n"
+                               "Geschaeftsfuehrer:\n"
+                               "Sven Rahlfs\n"
+                               "Mirko Ross\n"
+                               "\n"
+                               "HRB 22 5281 Amtsgericht Stuttgart\n"
+                               "USt.-Id. Nr.: DE218401190\n"
+                               "-------------------------------------"))))))
+    (message-insert-signature)))
 
 #+end_src
 
@@ -1993,217 +1993,217 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (defun kk/mu4e-add-standard-bookmarks ()
-    "Add additional mu4e bookmarks to existing `mu4e-bookmarks'.
-  This is used to have standard bookmarks, to be added to context specific bookmarks."
-    (interactive)
-    (add-to-list 'mu4e-bookmarks '(:query "m:/kloess@digital-worx.de/Inbox or m:/karsten.kloess@its-stuttgart.de/Inbox or m:/info@kloess.xyz/Inbox or m:/karsten@kloess.xyz/Inbox or m:/k@kloess.xyz/Inbox" :name "All Inboxes" :key ?y) t)
-    (add-to-list 'mu4e-bookmarks '(:query "flag:unread" :name "All Unread" :key ?x) t))
+(defun kk/mu4e-add-standard-bookmarks ()
+  "Add additional mu4e bookmarks to existing `mu4e-bookmarks'.
+This is used to have standard bookmarks, to be added to context specific bookmarks."
+  (interactive)
+  (add-to-list 'mu4e-bookmarks '(:query "m:/kloess@digital-worx.de/Inbox or m:/karsten.kloess@its-stuttgart.de/Inbox or m:/info@kloess.xyz/Inbox or m:/karsten@kloess.xyz/Inbox or m:/k@kloess.xyz/Inbox" :name "All Inboxes" :key ?y) t)
+  (add-to-list 'mu4e-bookmarks '(:query "flag:unread" :name "All Unread" :key ?x) t))
 
-  (add-hook 'mu4e-context-changed-hook 'kk/mu4e-add-standard-bookmarks)
+(add-hook 'mu4e-context-changed-hook 'kk/mu4e-add-standard-bookmarks)
 
-  (use-package mu4e
-    :defer 0
-    :ensure nil
-    :load-path "/usr/share/emacs/site-lisp/mu4e/"
-    :custom
-    (mu4e-confirm-quit)
-    :config
-    (setq mu4e-context-policy 'pick-first)
-    (setq mu4e-compose-context-policy 'always-ask)
+(use-package mu4e
+  :defer 0
+  :ensure nil
+  :load-path "/usr/share/emacs/site-lisp/mu4e/"
+  :custom
+  (mu4e-confirm-quit)
+  :config
+  (setq mu4e-context-policy 'pick-first)
+  (setq mu4e-compose-context-policy 'always-ask)
 
-    ;; Display options
-    (setq mu4e-view-show-images t)
-    (setq mu4e-view-show-addresses 't)
-    (setq mu4e-headers-include-related nil)
+  ;; Display options
+  (setq mu4e-view-show-images t)
+  (setq mu4e-view-show-addresses 't)
+  (setq mu4e-headers-include-related nil)
 
-    (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+  (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
-    ;; This is set to 't' to avoid mail syncing issues when using mbsync
-    (setq mu4e-change-filenames-when-moving t)
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
 
-    ;; Refresh mail using mbsync every 5 minutes
-    (setq mu4e-update-interval (* 5 60))
-    (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
-    (setq mu4e-maildir "~/.local/share/mail")
+  ;; Refresh mail using mbsync every 5 minutes
+  (setq mu4e-update-interval (* 5 60))
+  (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
+  (setq mu4e-maildir "~/.local/share/mail")
 
-    ;; Configure the function to use for sending mail
-    (setq sendmail-program "/usr/bin/msmtp"
-          message-sendmail-f-is-evil t
-          message-sendmail-extra-arguments '("--read-envelope-from")
-          send-mail-function 'smtpmail-send-it
-          message-send-mail-function 'message-send-mail-with-sendmail)
+  ;; Configure the function to use for sending mail
+  (setq sendmail-program "/usr/bin/msmtp"
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        send-mail-function 'smtpmail-send-it
+        message-send-mail-function 'message-send-mail-with-sendmail)
 
-    (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
+  (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
 
-    (setq mu4e-contexts
-          (list
-           ;; digital-worx
-           (make-mu4e-context
-            :name "dx"
-            :enter-func (lambda ()
-                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                            (revert-buffer)))
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/kloess@digital-worx.de" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "kloess@digital-worx.de")
-                    (user-full-name    . "Karsten Klöss")
-                    (mu4e-drafts-folder  . "/kloess@digital-worx.de/Drafts")
-                    (mu4e-sent-folder  . "/kloess@digital-worx.de/Sent")
-                    (mu4e-refile-folder  . "/kloess@digital-worx.de/Archives")
-                    (mu4e-trash-folder  . "/kloess@digital-worx.de/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            ((:maildir "/kloess@digital-worx.de/INBOX" :key ?i)
-                                             (:maildir "/kloess@digital-worx.de/Archives" :key ?a)
-                                             (:maildir "/kloess@digital-worx.de/Trash" :key ?t)
-                                             (:maildir "/kloess@digital-worx.de/Drafts" :key ?d)
-                                             (:maildir "/kloess@digital-worx.de/Junk" :key ?j)
-                                             (:maildir "/kloess@digital-worx.de/digital worx" :key ?x)
-                                             (:maildir "/kloess@digital-worx.de/asvin" :key ?v)
-                                             (:maildir "/kloess@digital-worx.de/kohlhammer" :key ?k)
-                                             (:maildir "/kloess@digital-worx.de/Porsche" :key ?p)
-                                             (:maildir "/kloess@digital-worx.de/privileg" :key ?o)
-                                             (:maildir "/kloess@digital-worx.de/Sent" :key ?s)
-                                             (:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
-                    (mu4e-bookmarks .
-                                    ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Today's messages digital-worx" :query "m:/kloess@digital-worx.de/ AND date:today..now" :key ?t)
-                                     (:name "Last 7 days digital-worx" :query "m:/kloess@digital-worx.de/ AND date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
-                                     (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
-                                     (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
+  (setq mu4e-contexts
+        (list
+         ;; digital-worx
+         (make-mu4e-context
+          :name "dx"
+          :enter-func (lambda ()
+                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                          (revert-buffer)))
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/kloess@digital-worx.de" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address . "kloess@digital-worx.de")
+                  (user-full-name    . "Karsten Klöss")
+                  (mu4e-drafts-folder  . "/kloess@digital-worx.de/Drafts")
+                  (mu4e-sent-folder  . "/kloess@digital-worx.de/Sent")
+                  (mu4e-refile-folder  . "/kloess@digital-worx.de/Archives")
+                  (mu4e-trash-folder  . "/kloess@digital-worx.de/Trash")
+                  (mu4e-maildir-shortcuts .
+                                          ((:maildir "/kloess@digital-worx.de/INBOX" :key ?i)
+                                           (:maildir "/kloess@digital-worx.de/Archives" :key ?a)
+                                           (:maildir "/kloess@digital-worx.de/Trash" :key ?t)
+                                           (:maildir "/kloess@digital-worx.de/Drafts" :key ?d)
+                                           (:maildir "/kloess@digital-worx.de/Junk" :key ?j)
+                                           (:maildir "/kloess@digital-worx.de/digital worx" :key ?x)
+                                           (:maildir "/kloess@digital-worx.de/asvin" :key ?v)
+                                           (:maildir "/kloess@digital-worx.de/kohlhammer" :key ?k)
+                                           (:maildir "/kloess@digital-worx.de/Porsche" :key ?p)
+                                           (:maildir "/kloess@digital-worx.de/privileg" :key ?o)
+                                           (:maildir "/kloess@digital-worx.de/Sent" :key ?s)
+                                           (:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
+                  (mu4e-bookmarks .
+                                  ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                   (:name "Today's messages digital-worx" :query "m:/kloess@digital-worx.de/ AND date:today..now" :key ?t)
+                                   (:name "Last 7 days digital-worx" :query "m:/kloess@digital-worx.de/ AND date:7d..now" :hide-unread t :key ?w)
+                                   (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
+                                   (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
+                                   (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
 
-           (make-mu4e-context
-            :name "schule"
-            :enter-func (lambda ()
-                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                            (revert-buffer)))
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/karsten.kloess@its-stuttgart.de" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "karsten.kloess@its-stuttgart.de")
-                    (user-full-name    . "Karsten Klöss")
-                    (mu4e-drafts-folder  . "/karsten.kloess@its-stuttgart.de/Drafts")
-                    (mu4e-sent-folder  . "/karsten.kloess@its-stuttgart.de/Sent")
-                    (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archiv")
-                    (mu4e-trash-folder  . "/karsten.kloess@its-stuttgart.de/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            ((:maildir "/karsten.kloess@its-stuttgart.de/INBOX" :key ?i)
-                                             (:maildir "/karsten.kloess@its-stuttgart.de/Archiv" :key ?a)
-                                             (:maildir "/karsten.kloess@its-stuttgart.de/Trash" :key ?t)
-                                             (:maildir "/karsten.kloess@its-stuttgart.de/Drafts" :key ?d)
-                                             (:maildir "/karsten.kloess@its-stuttgart.de/Junk" :key ?j)
-                                             (:maildir "/karsten.kloess@its-stuttgart.de/Sent" :key ?s)))
-                    (mu4e-bookmarks .
-                                    ((:name "Unread Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Today's messages Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:today..now" :key ?t)
-                                     (:name "Last 7 days Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
-                                     (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p)))))
+         (make-mu4e-context
+          :name "schule"
+          :enter-func (lambda ()
+                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                          (revert-buffer)))
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/karsten.kloess@its-stuttgart.de" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address . "karsten.kloess@its-stuttgart.de")
+                  (user-full-name    . "Karsten Klöss")
+                  (mu4e-drafts-folder  . "/karsten.kloess@its-stuttgart.de/Drafts")
+                  (mu4e-sent-folder  . "/karsten.kloess@its-stuttgart.de/Sent")
+                  (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archiv")
+                  (mu4e-trash-folder  . "/karsten.kloess@its-stuttgart.de/Trash")
+                  (mu4e-maildir-shortcuts .
+                                          ((:maildir "/karsten.kloess@its-stuttgart.de/INBOX" :key ?i)
+                                           (:maildir "/karsten.kloess@its-stuttgart.de/Archiv" :key ?a)
+                                           (:maildir "/karsten.kloess@its-stuttgart.de/Trash" :key ?t)
+                                           (:maildir "/karsten.kloess@its-stuttgart.de/Drafts" :key ?d)
+                                           (:maildir "/karsten.kloess@its-stuttgart.de/Junk" :key ?j)
+                                           (:maildir "/karsten.kloess@its-stuttgart.de/Sent" :key ?s)))
+                  (mu4e-bookmarks .
+                                  ((:name "Unread Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                   (:name "Today's messages Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:today..now" :key ?t)
+                                   (:name "Last 7 days Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:7d..now" :hide-unread t :key ?w)
+                                   (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
+                                   (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p)))))
 
-           (make-mu4e-context
-            :name "info@kloess.xyz"
-            :enter-func (lambda ()
-                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                            (revert-buffer)))
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/info@kloess.xyz" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "info@kloess.xyz")
-                    (user-full-name    . "Karsten Klöss")
-                    (mu4e-drafts-folder  . "/info@kloess.xyz/Drafts")
-                    (mu4e-sent-folder  . "/info@kloess.xyz/Sent")
-                    (mu4e-refile-folder  . "/info@kloess.xyz/Archive")
-                    (mu4e-trash-folder  . "/info@kloess.xyz/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            ((:maildir "/info@kloess.xyz/INBOX" :key ?i)
-                                             (:maildir "/info@kloess.xyz/Archive" :key ?a)
-                                             (:maildir "/info@kloess.xyz/Trash" :key ?t)
-                                             (:maildir "/info@kloess.xyz/Drafts" :key ?d)
-                                             (:maildir "/info@kloess.xyz/Junk" :key ?j)
-                                             (:maildir "/info@kloess.xyz/Sent" :key ?s)))
-                    (mu4e-bookmarks .
-                                    ((:name "Unread info@kloess" :query "m:/info@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Today's messages info@kloess" :query "m:/info@kloess.xyz/ AND date:today..now" :key ?t)
-                                     (:name "Last 7 days info@kloess" :query "m:/info@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with attachments info@kloess" :query "m:/info@kloess.xyz/ flag:attach" :key ?a)
-                                     (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p)))))
+         (make-mu4e-context
+          :name "info@kloess.xyz"
+          :enter-func (lambda ()
+                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                          (revert-buffer)))
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/info@kloess.xyz" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address . "info@kloess.xyz")
+                  (user-full-name    . "Karsten Klöss")
+                  (mu4e-drafts-folder  . "/info@kloess.xyz/Drafts")
+                  (mu4e-sent-folder  . "/info@kloess.xyz/Sent")
+                  (mu4e-refile-folder  . "/info@kloess.xyz/Archive")
+                  (mu4e-trash-folder  . "/info@kloess.xyz/Trash")
+                  (mu4e-maildir-shortcuts .
+                                          ((:maildir "/info@kloess.xyz/INBOX" :key ?i)
+                                           (:maildir "/info@kloess.xyz/Archive" :key ?a)
+                                           (:maildir "/info@kloess.xyz/Trash" :key ?t)
+                                           (:maildir "/info@kloess.xyz/Drafts" :key ?d)
+                                           (:maildir "/info@kloess.xyz/Junk" :key ?j)
+                                           (:maildir "/info@kloess.xyz/Sent" :key ?s)))
+                  (mu4e-bookmarks .
+                                  ((:name "Unread info@kloess" :query "m:/info@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                   (:name "Today's messages info@kloess" :query "m:/info@kloess.xyz/ AND date:today..now" :key ?t)
+                                   (:name "Last 7 days info@kloess" :query "m:/info@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                   (:name "Messages with attachments info@kloess" :query "m:/info@kloess.xyz/ flag:attach" :key ?a)
+                                   (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p)))))
 
-           (make-mu4e-context
-            :name "jk@kloess.xyz"
-            :enter-func (lambda ()
-                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                            (revert-buffer)))
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/k@kloess.xyz" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "k@kloess.xyz")
-                    (user-full-name    . "Karsten Klöss")
-                    (mu4e-drafts-folder  . "/k@kloess.xyz/Drafts")
-                    (mu4e-sent-folder  . "/k@kloess.xyz/Sent")
-                    (mu4e-refile-folder  . "/k@kloess.xyz/Archive")
-                    (mu4e-trash-folder  . "/k@kloess.xyz/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            ((:maildir "/k@kloess.xyz/INBOX" :key ?i)
-                                             (:maildir "/k@kloess.xyz/Archive" :key ?a)
-                                             (:maildir "/k@kloess.xyz/Trash" :key ?t)
-                                             (:maildir "/k@kloess.xyz/Drafts" :key ?d)
-                                             (:maildir "/k@kloess.xyz/Junk" :key ?j)
-                                             (:maildir "/k@kloess.xyz/digital worx" :key ?x)
-                                             (:maildir "/k@kloess.xyz/asvin" :key ?v)
-                                             (:maildir "/k@kloess.xyz/kohlhammer" :key ?k)
-                                             (:maildir "/k@kloess.xyz/Porsche" :key ?p)
-                                             (:maildir "/k@kloess.xyz/privileg" :key ?o)
-                                             (:maildir "/k@kloess.xyz/Sent" :key ?s)
-                                             (:maildir "/k@kloess.xyz/Wafios" :key ?w)))
-                    (mu4e-bookmarks .
-                                    ((:name "Unread k@kloess.xyz" :query "m:/k@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Today's messages k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:today..now" :key ?t)
-                                     (:name "Last 7 days k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with calendar files k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:text/calendar" :key ?i)
-                                     (:name "Messages with attachments k@kloess.xyz" :query "m:/k@kloess.xyz/ flag:attach" :key ?a)
-                                     (:name "Messages with images k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:image/*" :key ?p)))))
+         (make-mu4e-context
+          :name "jk@kloess.xyz"
+          :enter-func (lambda ()
+                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                          (revert-buffer)))
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/k@kloess.xyz" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address . "k@kloess.xyz")
+                  (user-full-name    . "Karsten Klöss")
+                  (mu4e-drafts-folder  . "/k@kloess.xyz/Drafts")
+                  (mu4e-sent-folder  . "/k@kloess.xyz/Sent")
+                  (mu4e-refile-folder  . "/k@kloess.xyz/Archive")
+                  (mu4e-trash-folder  . "/k@kloess.xyz/Trash")
+                  (mu4e-maildir-shortcuts .
+                                          ((:maildir "/k@kloess.xyz/INBOX" :key ?i)
+                                           (:maildir "/k@kloess.xyz/Archive" :key ?a)
+                                           (:maildir "/k@kloess.xyz/Trash" :key ?t)
+                                           (:maildir "/k@kloess.xyz/Drafts" :key ?d)
+                                           (:maildir "/k@kloess.xyz/Junk" :key ?j)
+                                           (:maildir "/k@kloess.xyz/digital worx" :key ?x)
+                                           (:maildir "/k@kloess.xyz/asvin" :key ?v)
+                                           (:maildir "/k@kloess.xyz/kohlhammer" :key ?k)
+                                           (:maildir "/k@kloess.xyz/Porsche" :key ?p)
+                                           (:maildir "/k@kloess.xyz/privileg" :key ?o)
+                                           (:maildir "/k@kloess.xyz/Sent" :key ?s)
+                                           (:maildir "/k@kloess.xyz/Wafios" :key ?w)))
+                  (mu4e-bookmarks .
+                                  ((:name "Unread k@kloess.xyz" :query "m:/k@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                   (:name "Today's messages k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:today..now" :key ?t)
+                                   (:name "Last 7 days k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                   (:name "Messages with calendar files k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:text/calendar" :key ?i)
+                                   (:name "Messages with attachments k@kloess.xyz" :query "m:/k@kloess.xyz/ flag:attach" :key ?a)
+                                   (:name "Messages with images k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:image/*" :key ?p)))))
 
-           (make-mu4e-context
-            :name "karsten@kloess.xyz"
-            :enter-func (lambda ()
-                          (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                            (revert-buffer)))
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/karsten@kloess.xyz" (mu4e-message-field msg :maildir))))
-            :vars '((user-mail-address . "karsten@kloess.xyz")
-                    (user-full-name    . "Karsten Klöss")
-                    (mu4e-drafts-folder  . "/karsten@kloess.xyz/Drafts")
-                    (mu4e-sent-folder  . "/karsten@kloess.xyz/Sent")
-                    (mu4e-refile-folder  . "/karsten@kloess.xyz/Archive")
-                    (mu4e-trash-folder  . "/karsten@kloess.xyz/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            ((:maildir "/karsten@kloess.xyz/INBOX" :key ?i)
-                                             (:maildir "/karsten@kloess.xyz/Archive" :key ?a)
-                                             (:maildir "/karsten@kloess.xyz/Trash" :key ?t)
-                                             (:maildir "/karsten@kloess.xyz/Drafts" :key ?d)
-                                             (:maildir "/karsten@kloess.xyz/Junk" :key ?j)
-                                             (:maildir "/karsten@kloess.xyz/digital worx" :key ?x)
-                                             (:maildir "/karsten@kloess.xyz/asvin" :key ?v)
-                                             (:maildir "/karsten@kloess.xyz/kohlhammer" :key ?k)
-                                             (:maildir "/karsten@kloess.xyz/Porsche" :key ?p)
-                                             (:maildir "/karsten@kloess.xyz/privileg" :key ?o)
-                                             (:maildir "/karsten@kloess.xyz/Sent" :key ?s)
-                                             (:maildir "/karsten@kloess.xyz/Wafios" :key ?w)))
-                    (mu4e-bookmarks .
-                                    ((:name "Unread karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                     (:name "Today's messages karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:today..now" :key ?t)
-                                     (:name "Last 7 days karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
-                                     (:name "Messages with calendar files karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:text/calendar" :key ?i)
-                                     (:name "Messages with attachments karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ flag:attach" :key ?a)
-                                     (:name "Messages with images karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:image/*" :key ?p))))))))
+         (make-mu4e-context
+          :name "karsten@kloess.xyz"
+          :enter-func (lambda ()
+                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                          (revert-buffer)))
+          :match-func
+          (lambda (msg)
+            (when msg
+              (string-prefix-p "/karsten@kloess.xyz" (mu4e-message-field msg :maildir))))
+          :vars '((user-mail-address . "karsten@kloess.xyz")
+                  (user-full-name    . "Karsten Klöss")
+                  (mu4e-drafts-folder  . "/karsten@kloess.xyz/Drafts")
+                  (mu4e-sent-folder  . "/karsten@kloess.xyz/Sent")
+                  (mu4e-refile-folder  . "/karsten@kloess.xyz/Archive")
+                  (mu4e-trash-folder  . "/karsten@kloess.xyz/Trash")
+                  (mu4e-maildir-shortcuts .
+                                          ((:maildir "/karsten@kloess.xyz/INBOX" :key ?i)
+                                           (:maildir "/karsten@kloess.xyz/Archive" :key ?a)
+                                           (:maildir "/karsten@kloess.xyz/Trash" :key ?t)
+                                           (:maildir "/karsten@kloess.xyz/Drafts" :key ?d)
+                                           (:maildir "/karsten@kloess.xyz/Junk" :key ?j)
+                                           (:maildir "/karsten@kloess.xyz/digital worx" :key ?x)
+                                           (:maildir "/karsten@kloess.xyz/asvin" :key ?v)
+                                           (:maildir "/karsten@kloess.xyz/kohlhammer" :key ?k)
+                                           (:maildir "/karsten@kloess.xyz/Porsche" :key ?p)
+                                           (:maildir "/karsten@kloess.xyz/privileg" :key ?o)
+                                           (:maildir "/karsten@kloess.xyz/Sent" :key ?s)
+                                           (:maildir "/karsten@kloess.xyz/Wafios" :key ?w)))
+                  (mu4e-bookmarks .
+                                  ((:name "Unread karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                   (:name "Today's messages karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:today..now" :key ?t)
+                                   (:name "Last 7 days karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                   (:name "Messages with calendar files karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:text/calendar" :key ?i)
+                                   (:name "Messages with attachments karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ flag:attach" :key ?a)
+                                   (:name "Messages with images karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:image/*" :key ?p))))))))
 
 #+end_src
 
@@ -2214,19 +2214,19 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (use-package org-mime
-    :ensure t
-    :defer t
-    :config
-    (setq org-mime-export-options '(:section-numbers nil
-                                                     :with-author nil
-                                                     :with-toc nil))
-    (add-hook 'message-send-hook 'org-mime-confirm-when-no-multipart)
-    (add-hook 'org-mime-html-hook
-              (lambda nil
-                (org-mime-change-element-style
-                 "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
-                               "#f6f6f6" "#2f3337")))))
+(use-package org-mime
+  :ensure t
+  :defer t
+  :config
+  (setq org-mime-export-options '(:section-numbers nil
+                                                   :with-author nil
+                                                   :with-toc nil))
+  (add-hook 'message-send-hook 'org-mime-confirm-when-no-multipart)
+  (add-hook 'org-mime-html-hook
+            (lambda nil
+              (org-mime-change-element-style
+               "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
+                             "#f6f6f6" "#2f3337")))))
 
 #+end_src
 
@@ -2237,54 +2237,54 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (use-package elfeed
-    :commands elfeed
-    :config
-    (defun kk/elfeed-show-visit-with-o ()
-      "Use the usual `elfeed-show-visit' command, but previously set
-  `browse-url-browser-function' to `kk/open-with-o'"
-      (interactive)
-      (let ((browse-url-browser-function 'kk/open-with-o))
-        (elfeed-show-visit)))
-    (bind-key "C-<return>" #'kk/elfeed-show-visit-with-o elfeed-show-mode-map)
-    (setq elfeed-feeds
-          '(("http://www.tagesschau.de/export/podcast/hi/tagesschau-in-100-sekunden/" news)
-            ("https://www.heise.de/rss/heise-Rubrik-IT-atom.xml" news tech)
-            ("https://unixsheikh.com/feed.rss" tech linux privacy)
-            ("https://lukesmith.xyz/rss.xml" personal tech)
-            ("https://www.brandonsanderson.com/feed/" books fantasy)
-            ("https://serpentsec.com/feed/" security)
-            ("https://based.cooking/rss.xml" cooking)
-            ("https://videos.lukesmith.xyz/feeds/videos.xml?accountId=3" videos)
-            ("https://youtube.com/feeds/videos.xml?channel_id=UCKqoiG45T1OkQkUEq5dEMzA" knifes victorinox yt videos)
-            ("https://youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg" yt tech linux videos)
-            ("https://youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw" yt cooking videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCsVWpmoRsNAWZb59b6Pt9Kg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCTHij3Ac5GizLsn5yB4IX_Q" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCm9faLh4Rrmlp8FR9MPsJxg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCZNhwA1B5YqiY1nLzmM0ZRg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCfp-lNJy4QkIGnaEE6NtDSg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCts-8ZqS339n-9nxy3DN8Cg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCbTDXDBHApa_cvcOx86yJOA" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UC5QwYlOxcT1higtcJVGzCCg" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UClcE-kVhqyiHCcjYwcpfj9w" videos)
-            ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" videos)
-            ("https://lbryfeed.melroy.org/channel/tv/Lunduke" videos linux tech)
-            ("https://lbryfeed.melroy.org/channel/tv/christitustech" videos tech)
-            ("https://lbryfeed.melroy.org/channel/tv/brodierobertson" videos linux)
-            ("https://lbryfeed.melroy.org/channel/tv/techlore" videos privacy)
-            ("https://lbryfeed.melroy.org/channel/tv/distrotube" videos)
-            ("https://notrelated.xyz/rss" podcasts)
-            ("http://feeds.soundcloud.com/users/soundcloud:users:261098918/sounds.rss" privacy security tech podcasts)
-            ("https://old.reddit.com/r/linux.rss" linux reddit)
-            ("https://old.reddit.com/r/archlinux.rss" linux reddit)
-            ("https://old.reddit.com/r/suckless.rss" reddit)
-            ("https://www.archlinux.org/feeds/news/" linux linux tech arch)
-            "https://store.pine64.org/shop/feed/"
-            "http://suckless.org/atom.xml"
-            ("https://old.reddit.com/r/wallstreetbets.rss" investing reddit money)
-            ("https://old.reddit.com/r/emacs/.rss" reddit))))
+(use-package elfeed
+  :commands elfeed
+  :config
+  (defun kk/elfeed-show-visit-with-o ()
+    "Use the usual `elfeed-show-visit' command, but previously set
+`browse-url-browser-function' to `kk/open-with-o'"
+    (interactive)
+    (let ((browse-url-browser-function 'kk/open-with-o))
+      (elfeed-show-visit)))
+  (bind-key "C-<return>" #'kk/elfeed-show-visit-with-o elfeed-show-mode-map)
+  (setq elfeed-feeds
+        '(("http://www.tagesschau.de/export/podcast/hi/tagesschau-in-100-sekunden/" news)
+          ("https://www.heise.de/rss/heise-Rubrik-IT-atom.xml" news tech)
+          ("https://unixsheikh.com/feed.rss" tech linux privacy)
+          ("https://lukesmith.xyz/rss.xml" personal tech)
+          ("https://www.brandonsanderson.com/feed/" books fantasy)
+          ("https://serpentsec.com/feed/" security)
+          ("https://based.cooking/rss.xml" cooking)
+          ("https://videos.lukesmith.xyz/feeds/videos.xml?accountId=3" videos)
+          ("https://youtube.com/feeds/videos.xml?channel_id=UCKqoiG45T1OkQkUEq5dEMzA" knifes victorinox yt videos)
+          ("https://youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg" yt tech linux videos)
+          ("https://youtube.com/feeds/videos.xml?channel_id=UChBEbMKI1eCcejTtmI32UEw" yt cooking videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCsVWpmoRsNAWZb59b6Pt9Kg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCTHij3Ac5GizLsn5yB4IX_Q" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCm9faLh4Rrmlp8FR9MPsJxg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCZNhwA1B5YqiY1nLzmM0ZRg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCfp-lNJy4QkIGnaEE6NtDSg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCts-8ZqS339n-9nxy3DN8Cg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCbTDXDBHApa_cvcOx86yJOA" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UC5QwYlOxcT1higtcJVGzCCg" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UClcE-kVhqyiHCcjYwcpfj9w" videos)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" videos)
+          ("https://lbryfeed.melroy.org/channel/tv/Lunduke" videos linux tech)
+          ("https://lbryfeed.melroy.org/channel/tv/christitustech" videos tech)
+          ("https://lbryfeed.melroy.org/channel/tv/brodierobertson" videos linux)
+          ("https://lbryfeed.melroy.org/channel/tv/techlore" videos privacy)
+          ("https://lbryfeed.melroy.org/channel/tv/distrotube" videos)
+          ("https://notrelated.xyz/rss" podcasts)
+          ("http://feeds.soundcloud.com/users/soundcloud:users:261098918/sounds.rss" privacy security tech podcasts)
+          ("https://old.reddit.com/r/linux.rss" linux reddit)
+          ("https://old.reddit.com/r/archlinux.rss" linux reddit)
+          ("https://old.reddit.com/r/suckless.rss" reddit)
+          ("https://www.archlinux.org/feeds/news/" linux linux tech arch)
+          "https://store.pine64.org/shop/feed/"
+          "http://suckless.org/atom.xml"
+          ("https://old.reddit.com/r/wallstreetbets.rss" investing reddit money)
+          ("https://old.reddit.com/r/emacs/.rss" reddit))))
 
 #+end_src
 
@@ -2299,37 +2299,37 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 
 #+begin_src emacs-lisp
 
-  (use-package calfw
-    :defer 0
-    :config
-    (setq cfw:fchar-junction ?╋
-          cfw:fchar-vertical-line ?┃
-          cfw:fchar-horizontal-line ?━
-          cfw:fchar-left-junction ?┣
-          cfw:fchar-right-junction ?┫
-          cfw:fchar-top-junction ?┯
-          cfw:fchar-top-left-corner ?┏
+(use-package calfw
+  :defer 0
+  :config
+  (setq cfw:fchar-junction ?╋
+        cfw:fchar-vertical-line ?┃
+        cfw:fchar-horizontal-line ?━
+        cfw:fchar-left-junction ?┣
+        cfw:fchar-right-junction ?┫
+        cfw:fchar-top-junction ?┯
+        cfw:fchar-top-left-corner ?┏
         cfw:fchar-top-right-corner ?┓)
   (set-face-attribute
    'cfw:face-holiday nil :background "#610300" :foreground "#0BE0CE" :weight 'bold))
 
-  (use-package calfw-org
-    :after calfw
-    :config
-    (setq cfw:org-agenda-schedule-args '(:timestamp :deadline :scheduled)))
+(use-package calfw-org
+  :after calfw
+  :config
+  (setq cfw:org-agenda-schedule-args '(:timestamp :deadline :scheduled)))
 
-  (use-package calfw-cal
-    :after calfw)
+(use-package calfw-cal
+  :after calfw)
 
-  (defun kk/open-calendar ()
-    "Open calendar calfw with additional sources."
-    (interactive)
-    (kk/merge-diary-files)
-    (cfw:open-calendar-buffer
-     :contents-sources
-     (list
-      (cfw:org-create-source "Green")
-      (cfw:cal-create-source "Orange"))))
+(defun kk/open-calendar ()
+  "Open calendar calfw with additional sources."
+  (interactive)
+  (kk/merge-diary-files)
+  (cfw:open-calendar-buffer
+   :contents-sources
+   (list
+    (cfw:org-create-source "Green")
+    (cfw:cal-create-source "Orange"))))
 
 #+end_src
 
@@ -2387,13 +2387,13 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (use-package spray
-    :defer t
-    :config
-    (setq spray-wpm 400)
-    (add-hook 'spray-mode-hook '(lambda ()
-                                  (turn-off-evil-mode)))
-    (advice-add 'spray-quit :after 'turn-on-evil-mode))
+(use-package spray
+  :defer t
+  :config
+  (setq spray-wpm 400)
+  (add-hook 'spray-mode-hook '(lambda ()
+                                (turn-off-evil-mode)))
+  (advice-add 'spray-quit :after 'turn-on-evil-mode))
 
 #+end_src
 
@@ -2404,8 +2404,8 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (setq global-auto-revert-non-file-buffers t)
-  (global-auto-revert-mode)
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode)
 
 #+end_src
 
@@ -2416,11 +2416,11 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (use-package ereader
-    :hook
-    (ereader-mode . (lambda ()
-                      (display-line-numbers-mode 0)
-                      (visual-line-mode 0))))
+(use-package ereader
+  :hook
+  (ereader-mode . (lambda ()
+                    (display-line-numbers-mode 0)
+                    (visual-line-mode 0))))
 
 #+end_src
 
@@ -2432,7 +2432,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (use-package pdf-tools)
+(use-package pdf-tools)
 
 #+end_src
 
@@ -2443,17 +2443,17 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (use-package password-store)
+(use-package password-store)
 
-  (use-package password-store-otp)
+(use-package password-store-otp)
 
-  (use-package pass)
+(use-package pass)
 
-  (use-package auth-source-pass
-    :defer 0
-    :config
-    (setq auth-sources '(password-store))
-    (auth-source-pass-enable))
+(use-package auth-source-pass
+  :defer 0
+  :config
+  (setq auth-sources '(password-store))
+  (auth-source-pass-enable))
 
 #+end_src
 
@@ -2465,7 +2465,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (winner-mode)
+(winner-mode)
 
 #+end_src
 
@@ -2476,18 +2476,18 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-  (defun kk/switch-desktop ()
-    (interactive)
-    ;; If save-silently-p is non-nil, saves all the file-visiting buffers
-    ;;  without querying the user.
-    (let ((save-silently nil))
-      (save-some-buffers save-silently))
-    (desktop-change-dir (read-directory-name "Change to directory: ")))
+(defun kk/switch-desktop ()
+  (interactive)
+  ;; If save-silently-p is non-nil, saves all the file-visiting buffers
+  ;;  without querying the user.
+  (let ((save-silently nil))
+    (save-some-buffers save-silently))
+  (desktop-change-dir (read-directory-name "Change to directory: ")))
 
-  (setq desktop-files-not-to-save "^$" ; reload tramp buffers
-        desktop-auto-save-timeout 30)
+(setq desktop-files-not-to-save "^$" ; reload tramp buffers
+      desktop-auto-save-timeout 30)
 
-  (desktop-save-mode 1)
+(desktop-save-mode 1)
 
 #+end_src
 
@@ -2502,25 +2502,25 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (setq browse-url-generic-program
-        (executable-find "o"))
+(setq browse-url-generic-program
+      (executable-find "o"))
 
 #+end_src
 
 #+begin_src emacs-lisp
 
-  (defun kk/open-with-o (arg &rest _rest)
-    "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
-  Ignore `_REST'."
-    (interactive)
-    (start-process "" nil "o" arg))
+(defun kk/open-with-o (arg &rest _rest)
+  "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
+Ignore `_REST'."
+  (interactive)
+  (start-process "" nil "o" arg))
 
-  (defun kk/browse-url-at-point-with-o ()
-    "Browse the url at point, opening it via o.
-    Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
-    (interactive)
-    (let ((browse-url-browser-function 'kk/open-with-o))
-      (browse-url-at-point)))
+(defun kk/browse-url-at-point-with-o ()
+  "Browse the url at point, opening it via o.
+Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
+  (interactive)
+  (let ((browse-url-browser-function 'kk/open-with-o))
+    (browse-url-at-point)))
 
 #+end_src
 
@@ -2531,28 +2531,28 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/insert-todays-date ()
-    (interactive)
-    (kk/insert-date "today"))
+(defun kk/insert-todays-date ()
+  (interactive)
+  (kk/insert-date "today"))
 
-  (defun kk/insert-tomorrows-date ()
-    (interactive)
-    (kk/insert-date "tomorrow"))
+(defun kk/insert-tomorrows-date ()
+  (interactive)
+  (kk/insert-date "tomorrow"))
 
-  (defun kk/date (&optional date-arg format locale)
-    "Return a date specified by `DATE_ARG'.
-    Calls the date function internally.
-    For format see code and just try it out."
-    (shell-command-to-string
-     (format "echo -n \"$(LC_ALL=%s date --date='%s' '+%s')\""
-             (if locale locale "de_DE.utf8")
-             (if date-arg date-arg "today")
-             (if format format "%A %d. %B %Y"))))
+(defun kk/date (&optional date-arg format locale)
+  "Return a date specified by `DATE_ARG'.
+Calls the date function internally.
+For format see code and just try it out."
+  (shell-command-to-string
+   (format "echo -n \"$(LC_ALL=%s date --date='%s' '+%s')\""
+           (if locale locale "de_DE.utf8")
+           (if date-arg date-arg "today")
+           (if format format "%A %d. %B %Y"))))
 
-  (defun kk/insert-date (date-arg)
-    (interactive "sWhen? ")
-    (insert
-     (kk/date date-arg)))
+(defun kk/insert-date (date-arg)
+  (interactive "sWhen? ")
+  (insert
+   (kk/date date-arg)))
 
 #+end_src
 
@@ -2563,14 +2563,14 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/tidy-buffer ()
-    "Indent and tidy up the current buffer.
-  Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
-    (interactive)
-    (save-excursion
-      (indent-region (point-min) (point-max) nil)
-      (untabify (point-min) (point-max))
-      (delete-trailing-whitespace)))
+(defun kk/tidy-buffer ()
+  "Indent and tidy up the current buffer.
+Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace)))
 
 #+end_src
 
@@ -2581,19 +2581,19 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/search-region-via (url)
-    (interactive)
-    (eww (concat url (buffer-substring (region-beginning) (region-end)))))
+(defun kk/search-region-via (url)
+  (interactive)
+  (eww (concat url (buffer-substring (region-beginning) (region-end)))))
 
-  (defun kk/search-region-on-dict ()
-    "Use dict.cc to find a translation to the region."
-    (interactive)
-    (kk/search-region-via "https://www.dict.cc/?s="))
+(defun kk/search-region-on-dict ()
+  "Use dict.cc to find a translation to the region."
+  (interactive)
+  (kk/search-region-via "https://www.dict.cc/?s="))
 
-  (defun kk/search-region-on-duden ()
-    "Use duden.de to find a definition to the region."
-    (interactive)
-    (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
+(defun kk/search-region-on-duden ()
+  "Use duden.de to find a definition to the region."
+  (interactive)
+  (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
 
 #+end_src
 ** Multiple Diarys
@@ -2603,26 +2603,26 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/merge-diary-files ()
-    "Put the contents of `kk/diary-files' into `kk/default-diary-file'."
-    (interactive)
-    (message "Merging diary files...")
-    (eshell-command (format "echo \"\" > %s" kk/default-diary-file))
-    (kk/merge-files kk/default-diary-file kk/diary-files)
-    (message "Diary files merged."))
+(defun kk/merge-diary-files ()
+  "Put the contents of `kk/diary-files' into `kk/default-diary-file'."
+  (interactive)
+  (message "Merging diary files...")
+  (eshell-command (format "echo \"\" > %s" kk/default-diary-file))
+  (kk/merge-files kk/default-diary-file kk/diary-files)
+  (message "Diary files merged."))
 
-  (defun kk/merge-files (output-file input-file-list)
-    "Loop over `input-file-list' and append contents to `output-file'."
-    (when (bufferp output-file)
-      (kill-buffer output-file))
-    (dolist (file input-file-list)
-      (kk/append-file-to-other-file file output-file)))
+(defun kk/merge-files (output-file input-file-list)
+  "Loop over `input-file-list' and append contents to `output-file'."
+  (when (bufferp output-file)
+    (kill-buffer output-file))
+  (dolist (file input-file-list)
+    (kk/append-file-to-other-file file output-file)))
 
-  (defun kk/append-file-to-other-file (from to)
-    "Use eshell to append contents of `from'-file to `to'-file."
-    (when (file-exists-p from)
-      (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
-      (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
+(defun kk/append-file-to-other-file (from to)
+  "Use eshell to append contents of `from'-file to `to'-file."
+  (when (file-exists-p from)
+    (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
+    (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
 
 #+end_src
 ** Add New Mail Dir
@@ -2632,32 +2632,32 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/mu4e-create-new-mail-folder (dir-name)
-    "Create new mail folder for current context.
-  Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
-    (mu4e-context-switch)
-    (interactive "sName of folder to create: ")
-    (if (file-directory-p (format "%s/%s" mu4e-maildir user-mail-address))
-        (kk/mu4e-create-sub-folders-in (format "%s/%s/%s/"
-                                               mu4e-maildir user-mail-address dir-name))
-      (message
-       "Your email setup is not properly configured for this to work.")))
+(defun kk/mu4e-create-new-mail-folder (dir-name)
+  "Create new mail folder for current context.
+Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
+  (mu4e-context-switch)
+  (interactive "sName of folder to create: ")
+  (if (file-directory-p (format "%s/%s" mu4e-maildir user-mail-address))
+      (kk/mu4e-create-sub-folders-in (format "%s/%s/%s/"
+                                             mu4e-maildir user-mail-address dir-name))
+    (message
+     "Your email setup is not properly configured for this to work.")))
 
-  (defun kk/mu4e-create-sub-folders-in (dir)
-    "Create the folders cur, new and tmp inside of `DIR'.
-  Parent directories will be created, if they don't exist."
-    (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
-    (message "Subdirectory '%s' created." dir))
+(defun kk/mu4e-create-sub-folders-in (dir)
+  "Create the folders cur, new and tmp inside of `DIR'.
+Parent directories will be created, if they don't exist."
+  (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
+  (message "Subdirectory '%s' created." dir))
 
-  (defun kk/create-sub-directories (dir sub-dirs &optional parents)
-    "Create sub directories `SUB-DIRS' in the directory `DIR'.
-  `DIR' needs a trailing slash.
+(defun kk/create-sub-directories (dir sub-dirs &optional parents)
+  "Create sub directories `SUB-DIRS' in the directory `DIR'.
+`DIR' needs a trailing slash.
 
-  The second (optional) argument `PARENTS', if
-  non-nil, says whether to create parent directories that don't
-  exist."
-    (dolist (sub-dir sub-dirs)
-      (make-directory (concat dir sub-dir) parents)))
+The second (optional) argument `PARENTS', if
+non-nil, says whether to create parent directories that don't
+exist."
+  (dolist (sub-dir sub-dirs)
+    (make-directory (concat dir sub-dir) parents)))
 
 #+end_src
 ** Export Todays TODOs
@@ -2667,45 +2667,45 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
 
-  (defun kk/export-todays-todos ()
-    "Exports TODOs by using todays date as headline."
-    (interactive)
-    (kk/export-headline-as-html (kk/date nil
-                                         "%Y-%m-%d %A"
-                                         "en_US.utf8"))
-    nil)
+(defun kk/export-todays-todos ()
+  "Exports TODOs by using todays date as headline."
+  (interactive)
+  (kk/export-headline-as-html (kk/date nil
+                                       "%Y-%m-%d %A"
+                                       "en_US.utf8"))
+  nil)
 
-  (defun kk/export-headline-as-html (hl)
-    "Export headline `HL' as html."
-    (interactive)
-    (save-excursion
-      (org-link-search hl)
-      (org-html-export-to-html nil t nil '())))
+(defun kk/export-headline-as-html (hl)
+  "Export headline `HL' as html."
+  (interactive)
+  (save-excursion
+    (org-link-search hl)
+    (org-html-export-to-html nil t nil '())))
 
-  (defun kk/push-file-to-remote (file location &optional scp-args)
-    "Push a file to somewhere via eshell.
-  Push `FILE' to `LOCATION'.
-  `LOCATION' needs the complete scp path, including server and user name.
-  Add scp args via `SCP-ARGS' like a port if necessary."
-    (interactive)
-    (if (equal scp-args 'nil)
-        (setq scp-args ""))
-    (eshell-command
-     (format "scp %s %s %s" scp-args file location)))
+(defun kk/push-file-to-remote (file location &optional scp-args)
+  "Push a file to somewhere via eshell.
+Push `FILE' to `LOCATION'.
+`LOCATION' needs the complete scp path, including server and user name.
+Add scp args via `SCP-ARGS' like a port if necessary."
+  (interactive)
+  (if (equal scp-args 'nil)
+      (setq scp-args ""))
+  (eshell-command
+   (format "scp %s %s %s" scp-args file location)))
 
-  (defun kk/export-and-push-todays-todos ()
-    (interactive)
-    (when (string-equal (buffer-file-name)
-                        (expand-file-name kk/personal-daily-todo-file))
-      (kk/export-todays-todos)
-      (kk/push-file-to-remote
-       (concat (file-name-sans-extension (buffer-file-name)) ".html")
-       "karsten@kloess.xyz:/var/www/html/main/" "-P 69")
-      (message "Pushed TODOs to server.")))
+(defun kk/export-and-push-todays-todos ()
+  (interactive)
+  (when (string-equal (buffer-file-name)
+                      (expand-file-name kk/personal-daily-todo-file))
+    (kk/export-todays-todos)
+    (kk/push-file-to-remote
+     (concat (file-name-sans-extension (buffer-file-name)) ".html")
+     "karsten@kloess.xyz:/var/www/html/main/" "-P 69")
+    (message "Pushed TODOs to server.")))
 
 #+end_src
 
@@ -2716,10 +2716,10 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/find-org-file-at-headline (file hl)
-    (interactive)
-    (find-file file)
-    (org-link-search hl))
+(defun kk/find-org-file-at-headline (file hl)
+  (interactive)
+  (find-file file)
+  (org-link-search hl))
 
 #+end_src
 
@@ -2730,58 +2730,58 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/focus-nothing ()
-    (interactive)
-    (kk/focus-on-these nil nil))
+(defun kk/focus-nothing ()
+  (interactive)
+  (kk/focus-on-these nil nil))
 
-  (defun kk/focus-work ()
-    (interactive)
-    (kk/focus-on-these
-     (list kk/work-agenda-file)
-     (list kk/work-diary-file)))
+(defun kk/focus-work ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/work-agenda-file)
+   (list kk/work-diary-file)))
 
-  (defun kk/focus-personal ()
-    (interactive)
-    (kk/focus-on-these
-     (list kk/personal-agenda-file)
-     (list kk/personal-diary-file)))
+(defun kk/focus-personal ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/personal-agenda-file)
+   (list kk/personal-diary-file)))
 
-  (defun kk/focus-academical ()
-    (interactive)
-    (kk/focus-on-these
-     (list kk/academical-agenda-file)
-     (list kk/academical-diary-file)))
+(defun kk/focus-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/academical-agenda-file)
+   (list kk/academical-diary-file)))
 
-  (defun kk/focus-work-academical ()
-    (interactive)
-    (kk/focus-on-these
-     (list kk/work-agenda-file
-           kk/academical-agenda-file)
-     (list kk/work-diary-file
-           kk/academical-diary-file)))
+(defun kk/focus-work-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/work-agenda-file
+         kk/academical-agenda-file)
+   (list kk/work-diary-file
+         kk/academical-diary-file)))
 
-  (defun kk/focus-personal-academical ()
-    (interactive)
-    (kk/focus-on-these
-     (list kk/personal-agenda-file
-           kk/academical-agenda-file)
-     (list kk/personal-diary-file
-           kk/academical-diary-file)))
+(defun kk/focus-personal-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/personal-agenda-file
+         kk/academical-agenda-file)
+   (list kk/personal-diary-file
+         kk/academical-diary-file)))
 
-  (defun kk/focus-personal-work-academical ()
-    (interactive)
-    (kk/focus-on-these
-     (list kk/personal-agenda-file
-           kk/work-agenda-file
-           kk/academical-agenda-file)
-     (list kk/personal-diary-file
-           kk/work-diary-file
-           kk/academical-diary-file)))
+(defun kk/focus-personal-work-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/personal-agenda-file
+         kk/work-agenda-file
+         kk/academical-agenda-file)
+   (list kk/personal-diary-file
+         kk/work-diary-file
+         kk/academical-diary-file)))
 
-  (defun kk/focus-on-these (agenda-files diary-files)
-    (interactive)
-    (setq org-agenda-files agenda-files)
-    (setq kk/diary-files diary-files))
+(defun kk/focus-on-these (agenda-files diary-files)
+  (interactive)
+  (setq org-agenda-files agenda-files)
+  (setq kk/diary-files diary-files))
 
 #+end_src
 
@@ -2792,17 +2792,17 @@ Invoke by browse-url-generic
 
 #+begin_src emacs-lisp
 
-  (defun kk/todays-personal-todos ()
-    (interactive)
-    (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
-            (if (= (string-to-number (kk/date nil "%u")) 7)
-                "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
+(defun kk/todays-personal-todos ()
+  (interactive)
+  (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
+          (if (= (string-to-number (kk/date nil "%u")) 7)
+              "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
 
-  (defun kk/todays-work-todos ()
-    (interactive)
-    (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
-            (if (= (string-to-number (kk/date nil "%u")) 1)
-                "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
+(defun kk/todays-work-todos ()
+  (interactive)
+  (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
+          (if (= (string-to-number (kk/date nil "%u")) 1)
+              "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
 
 #+end_src
 
@@ -2817,7 +2817,7 @@ Enable some disabled commands. Otherwise theres an annoying popup.
 
 #+begin_src emacs-lisp
 
-  (put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 
 #+end_src
 
@@ -2828,8 +2828,8 @@ Enable some disabled commands. Otherwise theres an annoying popup.
 
 #+begin_src emacs-lisp
 
-  (custom-set-variables
-   '(calendar-date-style 'iso))
+(custom-set-variables
+ '(calendar-date-style 'iso))
 
 #+end_src
 
@@ -2842,7 +2842,7 @@ Dial the GC threshold back down so that garbage collection happens more frequent
 
 #+begin_src emacs-lisp
 
-  ;; Make gc pauses faster by decreasing the threshold.
-  (setq gc-cons-threshold (* 2 1000 1000))
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
 
 #+end_src
