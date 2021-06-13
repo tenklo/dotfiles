@@ -2466,10 +2466,23 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+end_src
 ** Presentations
+:PROPERTIES:
+:ID:       da4820e0-0c84-423a-a1e5-fac9d5b560dc
+:END:
 
 #+begin_src emacs-lisp
 
 (use-package org-tree-slide)
+
+#+end_src
+** Ledger
+:PROPERTIES:
+:ID:       5871c27a-aec5-4061-80f0-4db4944414d0
+:END:
+
+#+begin_src emacs-lisp
+
+(use-package ledger-mode)
 
 #+end_src
 
