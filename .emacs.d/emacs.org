@@ -491,6 +491,8 @@ Intended to be used in an `org-mode-hook'."
            "* SUBMISSION %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)))
 
+  (define-key org-mode-map (kbd "C-c i r")
+    (lambda () (interactive) (org-table-insert-row)))
   (define-key org-mode-map (kbd "C-c C-x h")
     (lambda () (interactive) (org-hide-entry)))
 
