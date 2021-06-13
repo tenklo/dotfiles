@@ -1668,7 +1668,7 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 	 (find-file kk/personal-agenda-file)) "personal agenda")
   ("P" (lambda ()
 	 (interactive)
-	 (find-file kk/personal-diary-file)) "diary agenda"))
+         (find-file kk/personal-diary-file)) "personal diary"))
 
 (defhydra hydra-focus-areas ()
   "Focus an area of life"
