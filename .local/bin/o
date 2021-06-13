@@ -6,7 +6,7 @@ test -z "$1" && notify-send --urgency low "o" "no arg" && exit
 test -d "$@" && echo "this is a directory, nothing to do" && exit
 
 
-webbrowser=w3m
+webbrowser=librewolf
 guiwebbrowser=librewolf
 gopherbrowser=lynx
 geminibrowser=amfora
