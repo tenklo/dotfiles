@@ -1648,7 +1648,7 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
   ("e" (lambda ()
 	 (interactive)
 	 (find-file "~/.emacs.d/emacs.org")) "emacs.org")
-  ("j" (lambda ()
+  ("J" (lambda ()
 	 (interactive)
 	 (find-file kk/personal-journal)) "journal")
   ("w" (lambda ()
