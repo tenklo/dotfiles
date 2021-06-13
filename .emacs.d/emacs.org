@@ -2674,7 +2674,24 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
     (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
     (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
 
+(defun kk/diary-make-entry
+    (original string &optional nonmarking file omit-trailing-space do-not-show)
+  (funcall original string nonmarking
+           (if file file (call-interactively 'kk/choose-diary-file))
+           omit-trailing-space do-not-show))
+
+(defun kk/choose-diary-file (choice)
+  (interactive
+   (let ((completion-ignore-case  t))
+     (list
+      (completing-read "Choose: "
+                       kk/diary-files nil t))))
+  choice)
+
+(advice-add 'diary-make-entry :around 'kk/diary-make-entry)
+
 #+end_src
+
 ** Add New Mail Dir
 :PROPERTIES:
 :ID:       3c37e693-77c7-4295-a454-fedadc4800cd
