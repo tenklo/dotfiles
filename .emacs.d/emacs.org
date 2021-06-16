@@ -1391,6 +1391,8 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   :hook (evil-mode . kk/evil-hook)
   :config
   (evil-mode 1)
+  (customize-set-variable 'evil-disable-insert-state-bindings t)
+
   (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
   (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
 
