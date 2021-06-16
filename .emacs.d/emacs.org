@@ -524,8 +524,19 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
+      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
         (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)" "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
+
+#+end_src
+
+** Tags
+:PROPERTIES:
+:ID:       701d2d71-4e74-43c3-a7e2-48943b3dbdc3
+:END:
+
+#+begin_src emacs-lisp
+
+(setq org-tag-alist '(("urgent" . ?u) ("important" . ?i)))
 
 #+end_src
 
