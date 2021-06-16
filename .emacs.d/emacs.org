@@ -2882,7 +2882,6 @@ Add scp args via `SCP-ARGS' like a port if necessary."
 #+end_src
 
 * Customization Through Emacs
-
 ** Disabled Commands
 :PROPERTIES:
 :ID:       019eee80-26e6-4eb1-95d2-ee805cc28578
