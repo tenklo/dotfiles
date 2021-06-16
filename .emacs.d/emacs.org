@@ -1522,6 +1522,7 @@ Defining leader keys using the general package.
 
   (kk/leader-keys
     "o" '(hydra-favorite-files/body :which-key "favorite files")
+    "a" '(org-agenda :which-key "org-agenda")
     "t" '(hydra-daily-todos/body :which-key "todays TODOs")
     "f" '(hydra-focus-areas/body :which-key "focus areas")
     "b" '(hydra-buffer-control/body :which-key "control buffers")
