@@ -2488,7 +2488,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-(use-package ledger-mode)
+(use-package ledger-mode
+  :custom
+  (ledger-reconcile-default-commodity "€"))
 
 #+end_src
 
