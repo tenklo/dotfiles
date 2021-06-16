@@ -817,6 +817,28 @@ Code taken from [[https://lists.gnu.org/archive/html/emacs-orgmode/2010-11/msg00
 
 #+end_src
 
+** Pomororo
+:PROPERTIES:
+:ID:       3d78b0bd-72a8-4f42-8dd5-21cf8a9c10c8
+:END:
+[[https://github.com/marcinkoziej/org-pomodoro][org-pomodoro on github]]
+
+#+begin_src emacs-lisp
+
+(use-package org-pomodoro)
+
+#+end_src
+
+*** Usage
+
+1. Move point to a task as you would do with org-clock-in. Call
+   org-pomodoro the task will be clocked-in.
+2. When there's time for break, the task will be org-clock-out'ed
+3. If you call org-pomodoro during a pomodoro, you'll be asked to
+   reset a pomodoro.
+4. If you call org-pomodoro outside org-mode, you'll be presented with
+   list of recent tasks, as C-u org-clock-in would.
+
 * Development
 ** Commenting
 :PROPERTIES:
