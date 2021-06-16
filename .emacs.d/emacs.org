@@ -583,17 +583,6 @@ Intended to be used in an `org-mode-hook'."
           (org-agenda-include-diary nil)
           (org-agenda-entry-types '(:deadline))))
 
-        ("e" "Tasks by Effort"
-         ((tags-todo "+Effort>0&-Effort>1:00"
-                     ((org-agenda-overriding-header "Low Effort Tasks")
-                      (org-agenda-max-todos 20)))
-          (tags-todo "+TODO=NEXT"
-                     ((org-agenda-overriding-header "Mid Effort Tasks")
-                      (org-agenda-max-todos 20)))
-          (tags-todo ">1"
-                     ((org-agenda-overriding-header "High Effort Tasks")
-                      (org-agenda-max-todos 20)))))
-
         ("w" . "Weekly Review Helper")
         ("wt" "TODO these"
          ((todo "SOMEDAY"
