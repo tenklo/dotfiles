@@ -170,8 +170,12 @@ This section configures basic UI settings that remove unneeded elements to make 
 (setq display-line-numbers-type 'relative)
 
 (dolist (mode '(treemacs-mode-hook
+                calendar-mode-hook
+                ledger-report-mode-hook
+                cfw:calendar-mode-hook
                 image-mode-hook
-                doc-view-minor-mode-hook))
+                org-agenda-mode-hook
+                doc-view-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 #+end_src

@@ -1,0 +1,9 @@
+#!/bin/sh
+# automatically push to configured repo in the folder given as the first argument.
+
+[ -z "$1" ] && printf "no path specified\n" && exit 1
+
+[ ! -d "$1" ] && printf "arg is no path\n" && exit 1
+
+cd "$1"
+git push
