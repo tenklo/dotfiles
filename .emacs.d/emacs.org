@@ -601,6 +601,16 @@ Intended to be used in an `org-mode-hook'."
          ((org-agenda-start-with-follow-mode t)
           (org-agenda-start-with-log-mode nil)))
 
+        ("we" "Estimate These"
+         ((todo "NEXT"
+                ((org-agenda-overriding-header
+                  "Scheduled NEXT (maybe filter via s e)")
+                 (org-agenda-span 'week)
+                 (org-agenda-skip-scheduled-if-done t)
+                 (org-agenda-entry-types '(:scheduled)))))
+         ((org-agenda-start-with-follow-mode t)
+          (org-agenda-start-with-log-mode nil)))
+
         ("ws" "Schedule These"
          ((todo "NEXT"
                 ((org-agenda-overriding-header "Unscheduled NEXT")
@@ -614,15 +624,6 @@ Intended to be used in an `org-mode-hook'."
          ((org-agenda-start-with-follow-mode t)
           (org-agenda-start-with-log-mode nil)))
 
-        ("we" "Estimate These"
-         ((todo "NEXT"
-                ((org-agenda-overriding-header
-                  "Scheduled NEXT (maybe filter via s e)")
-                 (org-agenda-span 'week)
-                 (org-agenda-skip-scheduled-if-done t)
-                 (org-agenda-entry-types '(:scheduled)))))
-         ((org-agenda-start-with-follow-mode t)
-          (org-agenda-start-with-log-mode nil)))
         ("r" . "Review Past")
         ("rd" "Review by Day"
          ((agenda ""
