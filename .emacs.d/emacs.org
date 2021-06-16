@@ -2904,7 +2904,16 @@ Enable some disabled commands. Otherwise theres an annoying popup.
 #+begin_src emacs-lisp
 
 (custom-set-variables
- '(calendar-date-style 'iso))
+ '(calendar-date-style 'iso)
+ '(ledger-reports
+   '(("Income vs Expenses" "ledger [[ledger-mode-flags]] -f /home/karsten/Nextcloud/Documents/fin/journal.ledger bal Income Expenses")
+     ("Glueckspiel this year" "ledger [[ledger-mode-flags]] -f /home/karsten/Nextcloud/Documents/fin/journal.ledger reg Expenses:Gluecksspiel:Lotto Income:Gluecksspiel:Lotto -p \"this year\"")
+     ("Assets vs Liabilities" "ledger [[ledger-mode-flags]] -f /home/karsten/Nextcloud/Documents/fin/journal.ledger bal Assets Liabilities")
+     ("Expenses this month" "ledger [[ledger-mode-flags]] -f /home/karsten/Nextcloud/Documents/fin/journal.ledger reg Expenses -p \"this month\"")
+     ("Balance" "%(binary) -f %(ledger-file) bal")
+     ("reg" "%(binary) -f %(ledger-file) reg")
+     ("payee" "%(binary) -f %(ledger-file) reg @%(payee)")
+     ("account" "%(binary) -f %(ledger-file) reg %(account)"))))
 
 #+end_src
 
