@@ -1692,43 +1692,61 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
                                            "en_US.utf8")))
    "work" :exit t))
 
-(defhydra hydra-favorite-files ()
+(defhydra hydra-favorite-files (:hint nil)
+  "
+^Personal^                 ^Work^                  ^Academical
+^^^^^^^^-----------------------------------------------------------------
+_p_: agenda                _w_: agenda             _a_: agenda
+_P_: diary                 _W_: diary              _A_: diary
+_J_: journal
+_e_: emacs.org
+_f_: ledger
+"
   ("e" (lambda ()
          (interactive)
-         (find-file "~/.emacs.d/emacs.org")) "emacs.org")
+         (find-file "~/.emacs.d/emacs.org")))
   ("f" (lambda ()
          (interactive)
-         (find-file "~/Nextcloud/Documents/fin/journal.ledger")) "emacs.org")
+         (find-file "~/Nextcloud/Documents/fin/journal.ledger")))
   ("J" (lambda ()
          (interactive)
-         (find-file kk/personal-journal)) "journal")
+         (find-file kk/personal-journal)))
   ("w" (lambda ()
          (interactive)
-         (find-file kk/work-agenda-file)) "work agenda")
+         (find-file kk/work-agenda-file)))
   ("W" (lambda ()
          (interactive)
-         (find-file kk/work-diary-file)) "work diary")
+         (find-file kk/work-diary-file)))
   ("a" (lambda ()
          (interactive)
-         (find-file kk/academical-agenda-file)) "school agenda")
+         (find-file kk/academical-agenda-file)))
   ("A" (lambda ()
          (interactive)
-         (find-file kk/academical-diary-file)) "school diary")
+         (find-file kk/academical-diary-file)))
   ("p" (lambda ()
          (interactive)
-         (find-file kk/personal-agenda-file)) "personal agenda")
+         (find-file kk/personal-agenda-file)))
   ("P" (lambda ()
          (interactive)
-         (find-file kk/personal-diary-file)) "personal diary"))
+         (find-file kk/personal-diary-file)))
+  ("c" nil "cancel"))
 
-(defhydra hydra-focus-areas ()
-  "Focus an area of life"
-  ("p" kk/focus-personal "personal" :exit t)
-  ("w" kk/focus-work "work" :exit t)
-  ("a" kk/focus-academical "academical" :exit t)
-  ("f" kk/focus-work-academical "work+academical" :exit t)
-  ("j" kk/focus-personal-academical "personal+academical" :exit t)
-  ("k" kk/focus-personal-work-academical "personal+work+academical" :exit t))
+(defhydra hydra-focus-areas (:hint nil)
+  "
+^Single^                   ^Combinations
+^^^^^^^^-----------------------------------------------------------------
+_p_: personal              _f_: work + academical
+_w_: work                  _j_: personal + academical
+_a_: academical            _k_: personal + work + academical
+"
+  ("p" kk/focus-personal :exit t)
+  ("w" kk/focus-work :exit t)
+  ("a" kk/focus-academical :exit t)
+  ("f" kk/focus-work-academical :exit t)
+  ("j" kk/focus-personal-academical :exit t)
+  ("k" kk/focus-personal-work-academical :exit t)
+  ("n" kk/focus-nothing "nothing" :exit t)
+  ("c" nil "cancel"))
 
 #+end_src
 
