@@ -1361,6 +1361,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 #+begin_src emacs-lisp
 
 (use-package typo
+  :hook (org-mode . typo-mode)
   :defer t
   :config
   (setq-default typo-language 'German))
