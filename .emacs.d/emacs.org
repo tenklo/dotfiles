@@ -2043,7 +2043,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
   :ensure nil
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
   :custom
-  (mu4e-confirm-quit)
+  (mu4e-confirm-quit nil)
   :config
   (setq mu4e-context-policy 'pick-first)
   (setq mu4e-compose-context-policy 'always-ask)
