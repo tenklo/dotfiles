@@ -1736,6 +1736,32 @@ _a_: academical            _k_: personal + work + academical
   ("n" kk/focus-nothing "nothing" :exit t)
   ("c" nil "cancel"))
 
+(defhydra hydra-development (:hint nil)
+  "
+^Development
+^^^^^^^^-----------------------------------------------------------------
+_c_: recompile
+_C_: compile
+"
+  ("c" recompile :exit t)
+  ("C" compile :exit t)
+  ("f" kk/tidy-buffer :exit t))
+(bind-key "C-c h" #'hydra-development/body prog-mode-map)
+
+(defhydra hydra-mail (:hint nil)
+  "
+^Blocking^              ^Misc
+^^^^^^^^-----------------------------------------------------------------
+_r_: by regex           _d_: new mail dir
+_f_: by sender
+_s_: by subject
+"
+  ("r" kk/mail-block-by-regex :exit t)
+  ("f" kk/mail-block-by-sender :exit t)
+  ("s" kk/mail-block-by-subject :exit t)
+  ("d" kk/mu4e-create-new-mail-folder :exit t)
+  ("c" nil "cancel"))
+
 #+end_src
 
 * Terminals
@@ -2098,6 +2124,10 @@ This is used to have standard bookmarks, to be added to context specific bookmar
   :config
   (setq mu4e-context-policy 'pick-first)
   (setq mu4e-compose-context-policy 'always-ask)
+  (dolist (map '(mu4e-main-mode-map
+                 mu4e-view-mode-map
+                 mu4e-headers-mode-map))
+    (bind-key "C-c h" #'hydra-mail/body map))
 
   ;; Display options
   (setq mu4e-view-show-images t)
