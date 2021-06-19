@@ -2631,6 +2631,62 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+end_src
 
 * Custom Solutions
+** Mail
+*** Add New Mail Dir
+:PROPERTIES:
+:ID:       3c37e693-77c7-4295-a454-fedadc4800cd
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/mu4e-create-new-mail-folder (dir-name)
+  "Create new mail folder for current context.
+Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
+  (mu4e-context-switch)
+  (interactive "sName of folder to create: ")
+  (if (file-directory-p (format "%s/%s" mu4e-maildir user-mail-address))
+      (kk/mu4e-create-sub-folders-in (format "%s/%s/%s/"
+                                             mu4e-maildir user-mail-address dir-name))
+    (message
+     "Your email setup is not properly configured for this to work.")))
+
+(defun kk/mu4e-create-sub-folders-in (dir)
+  "Create the folders cur, new and tmp inside of `DIR'.
+Parent directories will be created, if they don't exist."
+  (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
+  (message "Subdirectory '%s' created." dir))
+
+(defun kk/create-sub-directories (dir sub-dirs &optional parents)
+  "Create sub directories `SUB-DIRS' in the directory `DIR'.
+`DIR' needs a trailing slash.
+
+The second (optional) argument `PARENTS', if
+non-nil, says whether to create parent directories that don't
+exist."
+  (dolist (sub-dir sub-dirs)
+    (make-directory (concat dir sub-dir) parents)))
+
+#+end_src
+*** Block Mail
+:PROPERTIES:
+:ID:       1ddd7223-1457-4b2e-9729-663a021e60fe
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/mail-block-by-regex (regexp)
+  (interactive "sRegex: ")
+  (eshell-command (format "blockmailbyheaderregex \"%s\"" regexp)))
+
+(defun kk/mail-block-by-sender (sender)
+  (interactive "sSender: ")
+  (kk/mail-block-by-regex (format "^From:.*%s.*" sender)))
+
+(defun kk/mail-block-by-subject (subject)
+  (interactive "sSubject: ")
+  (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
 ** Link Handler
 :PROPERTIES:
 :ID:       c46c6da6-ea72-4479-bdb5-e88923aa9d8a
@@ -2781,41 +2837,6 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 
 #+end_src
 
-** Add New Mail Dir
-:PROPERTIES:
-:ID:       3c37e693-77c7-4295-a454-fedadc4800cd
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/mu4e-create-new-mail-folder (dir-name)
-  "Create new mail folder for current context.
-Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
-  (mu4e-context-switch)
-  (interactive "sName of folder to create: ")
-  (if (file-directory-p (format "%s/%s" mu4e-maildir user-mail-address))
-      (kk/mu4e-create-sub-folders-in (format "%s/%s/%s/"
-                                             mu4e-maildir user-mail-address dir-name))
-    (message
-     "Your email setup is not properly configured for this to work.")))
-
-(defun kk/mu4e-create-sub-folders-in (dir)
-  "Create the folders cur, new and tmp inside of `DIR'.
-Parent directories will be created, if they don't exist."
-  (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
-  (message "Subdirectory '%s' created." dir))
-
-(defun kk/create-sub-directories (dir sub-dirs &optional parents)
-  "Create sub directories `SUB-DIRS' in the directory `DIR'.
-`DIR' needs a trailing slash.
-
-The second (optional) argument `PARENTS', if
-non-nil, says whether to create parent directories that don't
-exist."
-  (dolist (sub-dir sub-dirs)
-    (make-directory (concat dir sub-dir) parents)))
-
-#+end_src
 ** Export Todays TODOs
 :PROPERTIES:
 :ID:       09aa9971-1197-4f52-9bd6-b9330074480e
