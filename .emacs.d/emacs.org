@@ -2571,6 +2571,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (use-package ledger-mode
   :custom
   (ledger-reconcile-default-commodity "€"))
+  (ledger-clear-whole-transactions t))
 
 #+end_src
 
