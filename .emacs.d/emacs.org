@@ -172,6 +172,7 @@ This section configures basic UI settings that remove unneeded elements to make 
 (dolist (mode '(treemacs-mode-hook
                 calendar-mode-hook
                 ledger-report-mode-hook
+                ledger-reconcile-mode-hook
                 cfw:calendar-mode-hook
                 image-mode-hook
                 org-agenda-mode-hook
