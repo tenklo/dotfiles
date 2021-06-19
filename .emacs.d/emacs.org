@@ -1473,11 +1473,7 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
 
 (evil-define-key 'normal kk/intercept-mode-map
   (kbd "g j") 'evil-next-visual-line
-  (kbd "g k") 'evil-previous-visual-line
-  (kbd "Y") 'org-store-link)
-
-(evil-define-key 'motion kk/intercept-mode-map
-  (kbd "Y") 'org-store-link)
+  (kbd "g k") 'evil-previous-visual-line)
 
 #+end_src
 
