@@ -2321,7 +2321,6 @@ This is used to have standard bookmarks, to be added to context specific bookmar
                                    (:name "Messages with calendar files karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:text/calendar" :key ?i)
                                    (:name "Messages with attachments karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ flag:attach" :key ?a)
                                    (:name "Messages with images karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:image/*" :key ?p))))))))
-
 #+end_src
 
 *** Org-Mime
