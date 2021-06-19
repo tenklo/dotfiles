@@ -19,6 +19,8 @@ super + Return
     $TERMINAL
 super + p
     dmenu_run_i -l 20
+super + e
+    emacsclient -cn -a ""
 
 super + b
     o "$(bookmarks)"
