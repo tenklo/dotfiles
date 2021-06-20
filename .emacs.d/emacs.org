@@ -2687,6 +2687,90 @@ exist."
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
 #+end_src
 
+** kloess.xyz
+*** Push File To kloess.xyz
+:PROPERTIES:
+:ID:       d366f213-043c-4cb2-8f38-c5578032549d
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/connection-up-p (&optional host)
+  "Check if host `host' is reachable via ping.
+Alternatively use 'kloess.xyz' if host is not specified."
+  (= 0
+     (call-process
+      "ping" nil nil nil "-c" "1" "-W" "1" (if host host "kloess.xyz"))))
+
+(defun kk/push-file-to-remote (file host
+                                    &optional destination-path username
+                                    scp-args)
+  "Push a file to somewhere via eshell.
+Push `FILE' to `HOST', optionally as `USERNAME' to `DESTINATION-PATH'.
+Add scp args via `SCP-ARGS' like a port if necessary."
+  (interactive)
+  (unless (not (kk/connection-up-p host))
+    (eshell-command
+     (format "scp %s \"%s\" %s@%s:%s"
+             (if scp-args scp-args "")
+             file
+             (if username username "")
+             host
+             (if destination-path destination-path "")))))
+
+(defun kk/push-file-to-kloess (file destination-path)
+  "Push file `FILE' to 'kloess.xyz' remote server."
+  (interactive "fFile: \nsDestination Path: ")
+  (kk/push-file-to-remote
+   file
+   "kloess.xyz"
+   destination-path
+   "karsten"
+   "-P 69"))
+
+#+end_src
+
+*** Export Todays TODOs
+:PROPERTIES:
+:ID:       09aa9971-1197-4f52-9bd6-b9330074480e
+:END:
+
+#+begin_src emacs-lisp
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
+
+(defun kk/export-todays-todos ()
+  "Exports TODOs by using todays date as headline."
+  (interactive)
+  (kk/export-headline-as-html (kk/date nil
+                                       "%Y-%m-%d %A"
+                                       "en_US.utf8"))
+  nil)
+
+(defun kk/export-headline-as-html (hl)
+  "Export headline `HL' as html."
+  (interactive)
+  (save-excursion
+    (org-link-search hl)
+    (org-html-export-to-html nil t nil '())))
+
+(defun kk/export-and-push-todays-todos ()
+  "Export and push todays todos."
+  (interactive)
+  (when (string-equal (buffer-file-name)
+                      (expand-file-name kk/personal-daily-todo-file))
+    (kk/export-todays-todos)
+    (if
+        (kk/push-file-to-kloess
+         (concat (file-name-sans-extension (buffer-file-name)) ".html")
+         "/var/www/html/main/")
+        (message "Pushed TODOs to server.")
+      (message "Couldn't push to server."))))
+
+#+end_src
+
 ** Link Handler
 :PROPERTIES:
 :ID:       c46c6da6-ea72-4479-bdb5-e88923aa9d8a
@@ -2834,55 +2918,6 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
   choice)
 
 (advice-add 'diary-make-entry :around 'kk/diary-make-entry)
-
-#+end_src
-
-** Export Todays TODOs
-:PROPERTIES:
-:ID:       09aa9971-1197-4f52-9bd6-b9330074480e
-:END:
-
-#+begin_src emacs-lisp
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
-
-(defun kk/export-todays-todos ()
-  "Exports TODOs by using todays date as headline."
-  (interactive)
-  (kk/export-headline-as-html (kk/date nil
-                                       "%Y-%m-%d %A"
-                                       "en_US.utf8"))
-  nil)
-
-(defun kk/export-headline-as-html (hl)
-  "Export headline `HL' as html."
-  (interactive)
-  (save-excursion
-    (org-link-search hl)
-    (org-html-export-to-html nil t nil '())))
-
-(defun kk/push-file-to-remote (file location &optional scp-args)
-  "Push a file to somewhere via eshell.
-Push `FILE' to `LOCATION'.
-`LOCATION' needs the complete scp path, including server and user name.
-Add scp args via `SCP-ARGS' like a port if necessary."
-  (interactive)
-  (if (equal scp-args 'nil)
-      (setq scp-args ""))
-  (eshell-command
-   (format "scp %s %s %s" scp-args file location)))
-
-(defun kk/export-and-push-todays-todos ()
-  (interactive)
-  (when (string-equal (buffer-file-name)
-                      (expand-file-name kk/personal-daily-todo-file))
-    (kk/export-todays-todos)
-    (kk/push-file-to-remote
-     (concat (file-name-sans-extension (buffer-file-name)) ".html")
-     "karsten@kloess.xyz:/var/www/html/main/" "-P 69")
-    (message "Pushed TODOs to server.")))
 
 #+end_src
 
