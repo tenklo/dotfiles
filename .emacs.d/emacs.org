@@ -1436,8 +1436,6 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   (evil-mode 1)
   (customize-set-variable 'evil-disable-insert-state-bindings t)
 
-  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
-
   (setq evil-undo-function 'undo-fu-only-undo)
   (setq evil-redo-function 'undo-fu-only-redo)
 
