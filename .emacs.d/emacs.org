@@ -449,19 +449,23 @@ Intended to be used in an `org-mode-hook'."
   (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
   (setq org-capture-templates
         `(("w" "Work")
+          ("p" "Personal")
+          ("a" "Academical")
           ("wt" "Task" entry (file+olp kk/work-agenda-file "Inbox")
            "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
           ("wp" "Project" entry (file+olp kk/work-agenda-file "Inbox")
-           "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           "* SOMEDAY %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
 
-          ("p" "Personal")
-          ("pt" "Task" entry (file+olp kk/personal-agenda-file "Inbox")
+          ("pt" "Task" entry (id "72b9056c-3b6e-4ec7-ad7c-5870e71037f0")
            "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
-          ("pp" "Project" entry (file+olp kk/personal-agenda-file "Inbox")
+          ("pp" "Project" entry (id "72b9056c-3b6e-4ec7-ad7c-5870e71037f0")
            "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("pf" "Expense" entry (id "10f165b8-44cd-4cc9-adff-d50df84dfc4e")
+           "* TODO Expense: %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
 
           ("j" "Journal" entry
@@ -469,9 +473,15 @@ Intended to be used in an `org-mode-hook'."
            "\n* %<%H:%M> Uhr\n\n%?\n\n"
            :clock-in :clock-resume :empty-lines 1)
 
-          ("b" "Books" entry
-           (file+olp kk/personal-agenda-file "Bücher")
+          ("pmb" "Books" entry
+           (id "a6d743e1-6897-40aa-b0c2-0f47790a8bbf")
            "* %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+          ("pmm" "Movies" entry
+           (id "0b324913-f341-496d-b48d-7f05b5379d67")
+           "* %^{Description}\n:PROPERTIES:\n- Length: %^{Length}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+          ("pms" "TV Shows" entry
+           (id "f9836052-a820-4c83-923d-9afa9a36436d")
+           "* %^{Description}\n:PROPERTIES:\n- Seasons: %^{Seasons}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
 
           ("wT" "Todays Work TODOs" plain
            (file+olp+datetree kk/work-daily-todo-file)
@@ -481,8 +491,8 @@ Intended to be used in an `org-mode-hook'."
            (file+olp+datetree kk/personal-daily-todo-file)
            (function kk/todays-personal-todos)
            :immediate-finish t :empty-lines 0 :jump-to-captured t)
+          ("pm" "Media")
 
-          ("a" "Academical")
           ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
            "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
