@@ -525,8 +525,8 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "PROG(r@/!)" "|" "DONE(d@/!)")
-        (sequence "BACKLOG(b@/!)" "PLAN(p@/!)" "READY(r@/!)" "ACTIVE(a@/!)" "REVIEW(v@/!)" "WAIT(w@/!)" "HOLD(h@/!)" "SOMEDAY(o@/!)" "|" "COMPLETED(c@)" "CANC(k@)")))
+      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "SUBDONE(D@/!)" "SUBCANC(K@/!)")
+        (sequence "ACTIVE(a@/!)" "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "COMPLETED(c@/!)" "CANC(k@/!)")))
 
 #+end_src
 
