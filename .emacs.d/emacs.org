@@ -1441,8 +1441,11 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   (setq evil-undo-function 'undo-fu-only-undo)
   (setq evil-redo-function 'undo-fu-only-redo)
 
-  (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
+  (dolist (mode '(dashboard-mode
+                  eshell-mode
+                  lisp-interaction-mode
+                  messages-buffer-mode)
+                (evil-set-initial-state mode 'normal))))
 
 (use-package evil-collection
   :after evil
