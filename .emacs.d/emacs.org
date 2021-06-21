@@ -1411,6 +1411,17 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 
 #+end_src
 
+** Abbrev-Mode
+:PROPERTIES:
+:ID:       a99b5d75-40ff-4495-af8a-d1f14d8d7967
+:END:
+
+#+begin_src emacs-lisp
+
+(setq-default abbrev-mode t)
+
+#+end_src
+
 * Keybindings
 ** Evil Mode
 :PROPERTIES:
