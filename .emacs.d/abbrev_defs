@@ -1,6 +1,7 @@
 ;;-*-coding: utf-8;-*-
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("becuase" "because" nil :count 1)
     ("dein" "Dein" nil :count 2)
     ("deine" "Deine" nil :count 2)
     ("dir" "Dir" nil :count 1)
@@ -8,6 +9,7 @@
     ("kk" "Karsten Klöss" nil :count 1)
     ("lg" "Liebe Grüße" nil :count 1)
     ("mfg" "Mit freundlichen Grüßen" nil :count 1)
+    ("tehmen" "Themen" nil :count 1)
     ("vg" "Viele Grüße" nil :count 1)
    ))
 
