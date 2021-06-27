@@ -680,15 +680,9 @@ Intended to be used in an `org-mode-hook'."
         ("p" "Projects Status"
          (,kk/org-agenda-active-block
           (todo "WAIT"
-                ((org-agenda-overriding-header "Waiting on External")))
-          (todo "REVIEW"
-                ((org-agenda-overriding-header "In Review")))
-          (todo "PLAN"
-                ((org-agenda-overriding-header "In Planning")))
-          (todo "BACKLOG"
-                ((org-agenda-overriding-header "Project Backlog")))
-          (todo "READY"
-                ((org-agenda-overriding-header "Ready for Work")))
+                ((org-agenda-overriding-header "Waiting")))
+          (todo "HOLD"
+                ((org-agenda-overriding-header "Stopped working on these")))
           (todo "COMPLETED"
                 ((org-agenda-overriding-header "Completed Projects")))
           (todo "CANC"
