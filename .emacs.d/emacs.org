@@ -1777,6 +1777,19 @@ _s_: by subject
   ("d" kk/mu4e-create-new-mail-folder :exit t)
   ("c" nil "cancel"))
 
+(defhydra hydra-mail-compose (:hint nil)
+  "
+^Add^                   ^Org
+^^^^^^^^-----------------------------------------------------------------
+_s_: signature          _e_: edit
+_a_: attachment         _h_: htmlize
+"
+  ("s" kk/mu4e-choose-signature :exit t)
+  ("a" mail-add-attachment :exit t)
+  ("h" org-mime-htmlize :exit t)
+  ("e" org-mime-edit-mail-in-org-mode :exit t))
+(bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
+
 #+end_src
 
 * Terminals
