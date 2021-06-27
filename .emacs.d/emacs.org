@@ -672,8 +672,10 @@ Intended to be used in an `org-mode-hook'."
           (org-agenda-log-mode-items '(closed clock state))))
 
         ("h" "Today"
-         ((todo "TODAY"
-                ((org-agenda-overriding-header "Work on these today")))
+         ((agenda "TODAY"
+                  ((org-agenda-overriding-header "Work on these today")
+                   (org-agenda-span 1)
+                   (org-agenda-skip-scheduled-if-done t)))
           (todo "NEXT"
                 ((org-agenda-overriding-header "Next Tasks")))))
 
