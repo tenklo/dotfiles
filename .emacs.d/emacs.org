@@ -1792,7 +1792,6 @@ _a_: attachment         _h_: htmlize
   ("a" mail-add-attachment :exit t)
   ("h" org-mime-htmlize :exit t)
   ("e" org-mime-edit-mail-in-org-mode :exit t))
-(bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
 
 #+end_src
 
@@ -2184,6 +2183,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
         message-send-mail-function 'message-send-mail-with-sendmail)
 
   (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
+  (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
 
   (setq mu4e-contexts
         (list
