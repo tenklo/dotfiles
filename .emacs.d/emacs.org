@@ -1705,7 +1705,7 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 ^^^^^^^^-----------------------------------------------------------------
 _p_: agenda                _w_: agenda             _a_: agenda
 _P_: diary                 _W_: diary              _A_: diary
-_J_: journal
+_J_: journal               _s_: standup
 _e_: emacs.org
 _f_: ledger
 "
@@ -1715,6 +1715,9 @@ _f_: ledger
   ("f" (lambda ()
          (interactive)
          (find-file "~/Nextcloud/Documents/fin/journal.ledger")))
+  ("s" (lambda ()
+	 (interactive)
+	 (find-file "~/nextcloud_work/Documents/org/standups.org")))
   ("J" (lambda ()
          (interactive)
          (find-file kk/personal-journal)))
