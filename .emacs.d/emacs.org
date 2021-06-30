@@ -464,7 +464,7 @@ Intended to be used in an `org-mode-hook'."
            "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
           ("pp" "Project" entry (id "72b9056c-3b6e-4ec7-ad7c-5870e71037f0")
-           "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           "* SOMEDAY %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
           ("pf" "Expense" entry (id "10f165b8-44cd-4cc9-adff-d50df84dfc4e")
            "* TODO Expense: %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
