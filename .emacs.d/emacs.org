@@ -277,14 +277,10 @@ in case Emacs daemon is used."
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
          ("C-l" . ivy-alt-done)
-         ("C-j" . ivy-next-line)
-         ("C-k" . ivy-previous-line)
          :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
          ("C-l" . ivy-done)
          ("C-d" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
          ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
@@ -438,6 +434,11 @@ Intended to be used in an `org-mode-hook'."
   (setq org-enforce-todo-dependencies t)
   (setq org-track-ordered-property-with-tag t)
   (setq org-agenda-dim-blocked-tasks 't)
+  (setq org-agenda-sorting-strategy
+        '((agenda habit-down time-up category-up todo-state-up)
+          (todo priority-down time-up todo-state-up category-up)
+          (tags priority-down time-up todo-state-up category-up)
+          (search category-keep)))
   (setq org-sort-agenda-noeffort-is-high nil)
   (setq org-global-properties
         `(("Effort_ALL" .
@@ -463,7 +464,7 @@ Intended to be used in an `org-mode-hook'."
            "* TODO %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
           ("pp" "Project" entry (id "72b9056c-3b6e-4ec7-ad7c-5870e71037f0")
-           "* PLAN %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           "* SOMEDAY %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
           ("pf" "Expense" entry (id "10f165b8-44cd-4cc9-adff-d50df84dfc4e")
            "* TODO Expense: %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
@@ -476,13 +477,13 @@ Intended to be used in an `org-mode-hook'."
 
           ("pmb" "Books" entry
            (id "a6d743e1-6897-40aa-b0c2-0f47790a8bbf")
-           "* %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+           "* SOMEDAY %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
           ("pmm" "Movies" entry
            (id "0b324913-f341-496d-b48d-7f05b5379d67")
-           "* %^{Description}\n:PROPERTIES:\n- Length: %^{Length}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+           "* SOMEDAY %^{Description}\n:PROPERTIES:\n- Length: %^{Length}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
           ("pms" "TV Shows" entry
            (id "f9836052-a820-4c83-923d-9afa9a36436d")
-           "* %^{Description}\n:PROPERTIES:\n- Seasons: %^{Seasons}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+           "* SOMEDAY %^{Description}\n:PROPERTIES:\n- Seasons: %^{Seasons}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
 
           ("wT" "Todays Work TODOs" plain
            (file+olp+datetree kk/work-daily-todo-file)
@@ -601,7 +602,7 @@ Intended to be used in an `org-mode-hook'."
                 ((org-agenda-overriding-header "SOMEDAYs"))))
          ((org-agenda-start-with-follow-mode t)))
         ("wa" "Archive These"
-         ((todo "DONE"
+         ((todo "DONE|CANC|COMPLETED"
                 ((org-agenda-overriding-header "Done Tasks"))))
          ((org-agenda-start-with-follow-mode t)
           (org-agenda-start-with-log-mode nil)))
@@ -672,14 +673,32 @@ Intended to be used in an `org-mode-hook'."
           (org-agenda-log-mode-items '(closed clock state))))
 
         ("h" "Today"
-         ((todo "TODAY"
+         ((agenda "TODAY"
                   ((org-agenda-overriding-header "Work on these today")
                    (org-agenda-span 1)
                    (org-agenda-skip-timestamp-if-done t)
+                   (org-deadline-warning-days 0)
                    (org-agenda-skip-deadline-if-done t)
                    (org-agenda-skip-scheduled-if-done t)))
+          (todo "TODAY"
+                ((org-agenda-overriding-header "Today Tasks")
+                 (org-agenda-entry-types nil)))
           (todo "NEXT"
-                ((org-agenda-overriding-header "Next Tasks")))))
+                ((org-agenda-overriding-header "Next Tasks"))))
+         ((org-agenda-regexp-filter '("+TODAY\\|NEXT"))))
+
+        ("P" "Printed"
+         ((agenda ""
+                  ((org-agenda-span 1)                      ; daily agenda
+                   (org-deadline-warning-days 7)            ; 7 day advanced warning for deadlines
+                   (org-agenda-todo-keyword-format "[ ]")
+                   (org-agenda-scheduled-leaders '("" ""))
+                   (org-agenda-deadline-leaders '("" "" ""))
+                   (org-agenda-skip-timestamp-if-done t)
+                   (org-agenda-skip-deadline-if-done t)
+                   (org-agenda-skip-scheduled-if-done t)
+                   (org-habit-show-habits)
+                   (org-agenda-prefix-format "%t%b%s")))))
 
         ("p" "Projects Status"
          (,kk/org-agenda-active-block
