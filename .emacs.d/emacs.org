@@ -352,19 +352,7 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   :commands command-log-mode)
 
 #+end_src
-** Recent Files
-:PROPERTIES:
-:ID:       9ac43bf7-a269-4fac-8ca4-aa648656a180
-:END:
 
-#+begin_src emacs-lisp
-
-(recentf-mode 1)
-(setq recentf-max-menu-items 25)
-(setq recentf-max-saved-items 25)
-(global-set-key "\C-c\ \C-r" 'recentf-open-files)
-
-#+end_src
 ** Calendar
 :PROPERTIES:
 :ID:       1e8bd390-7d28-40b8-ae80-78a38454a0b5
