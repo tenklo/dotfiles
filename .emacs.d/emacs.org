@@ -1439,7 +1439,8 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
 #+begin_src emacs-lisp
 
 (defun kk/evil-hook ()
-  (dolist (mode '(cfw:details-mode))
+  (dolist (mode '(cfw:details-mode
+                  ledger-reconcile-mode))
     (add-to-list 'evil-emacs-state-modes mode)))
 
 (use-package evil
