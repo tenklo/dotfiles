@@ -1656,6 +1656,22 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 (global-set-key (kbd "C-c i D") 'kk/insert-tomorrows-date)
 (global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
 (global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
+(global-set-key (kbd "C-c i b") '(lambda nil
+                                     (interactive)
+                                     (save-excursion
+                                       (end-of-line)
+                                       (insert (if use-hard-newlines
+                                                   hard-newline "\n"))
+                                       (forward-line 1)
+                                       (back-to-indentation))))
+(global-set-key (kbd "C-c i a") '(lambda nil
+                                     (interactive)
+                                     (save-excursion
+                                       (beginning-of-line)
+                                       (insert (if use-hard-newlines
+                                                   hard-newline "\n"))
+                                       (forward-line -1)
+                                       (back-to-indentation))))
 
 #+end_src
 
