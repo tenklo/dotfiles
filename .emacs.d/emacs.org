@@ -226,6 +226,20 @@ in case Emacs daemon is used."
 
 #+end_src
 
+*** Unicode
+:PROPERTIES:
+:ID:       cf667087-e75f-48f6-856d-41b289adba8d
+:END:
+
+#+begin_src emacs-lisp
+
+(use-package unicode-fonts
+   :ensure t
+   :config
+    (unicode-fonts-setup))
+
+#+end_src
+
 ** Better Modeline
 :PROPERTIES:
 :ID:       cf72fef8-5624-4d3e-951b-d5e3c7e3a171
