@@ -868,13 +868,13 @@ Intended to be used in an `org-mode-hook'."
 
           ("pmb" "Books" entry
            (id "a6d743e1-6897-40aa-b0c2-0f47790a8bbf")
-           "* SOMEDAY %^{Description}\n:PROPERTIES:\n- Pages: %^{Pages}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+           "* SOMEDAY %^{Description}\n:PROPERTIES:\n:PAGES: %^{Pages}\n:GENRE: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
           ("pmm" "Movies" entry
            (id "0b324913-f341-496d-b48d-7f05b5379d67")
-           "* SOMEDAY %^{Description}\n:PROPERTIES:\n- Length: %^{Length}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+           "* SOMEDAY %^{Description}\n:PROPERTIES:\n:LENGTH: %^{Length}\n:GENRE: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
           ("pms" "TV Shows" entry
            (id "f9836052-a820-4c83-923d-9afa9a36436d")
-           "* SOMEDAY %^{Description}\n:PROPERTIES:\n- Seasons: %^{Seasons}\n- Genre: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
+           "* SOMEDAY %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
 
           ("wT" "Todays Work TODOs" plain
            (file+olp+datetree kk/work-daily-todo-file)
