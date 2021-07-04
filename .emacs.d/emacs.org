@@ -691,6 +691,11 @@ Intended to be used in an `org-mode-hook'."
                 ((org-agenda-overriding-header "Next Tasks"))))
          ((org-agenda-regexp-filter '("+TODAY\\|NEXT"))))
 
+        ("H" "Sched. for today but no TODAY"
+         ((tags-todo ,(concat "-TODO=\"TODAY\"+SCHEDULED<=\"<"
+                              (kk/date "today" "%Y-%m-%d") ">\"")
+                     ((org-agenda-overriding-header "Scheduled for today, but no TODAY Keyword")))))
+
         ("P" "Printed"
          ((agenda ""
                   ((org-agenda-span 1)                      ; daily agenda
