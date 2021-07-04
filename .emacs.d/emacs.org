@@ -857,8 +857,16 @@ Intended to be used in an `org-mode-hook'."
           ("pp" "Project" entry (id "72b9056c-3b6e-4ec7-ad7c-5870e71037f0")
            "* SOMEDAY %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
-          ("pf" "Expense" entry (id "10f165b8-44cd-4cc9-adff-d50df84dfc4e")
+
+          ("pf" "Finances")
+          ("pft" "to track" entry (id "10f165b8-44cd-4cc9-adff-d50df84dfc4e")
            "* TODO Expense: %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("pfp" "to pay" entry (id "f5085fbd-c9a0-4fbd-90a8-45b8200338dc")
+           "* TODO %?\n :PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
+           :empty-lines 0)
+          ("pfw" "awaiting payment" entry (id "59ef2e56-768a-422d-b6f1-89093d82fa77")
+           "* WAIT %?\n :PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
            :empty-lines 0)
 
           ("j" "Journal" entry
@@ -1084,6 +1092,14 @@ Intended to be used in an `org-mode-hook'."
          ((tags-todo ,(concat "-TODO=\"TODAY\"+SCHEDULED<=\"<"
                               (kk/date "today" "%Y-%m-%d") ">\"")
                      ((org-agenda-overriding-header "Scheduled for today, but no TODAY Keyword")))))
+
+        ("f" . "Finances")
+	("ft" "to track"
+	 ((tags-todo "financetotrack")))
+	("fp" "to pay"
+	 ((tags-todo "financetopay")))
+	("fw" "wait for payment"
+	 ((tags-todo "financeawaiting")))
 
         ("P" "Printed"
          ((agenda ""
