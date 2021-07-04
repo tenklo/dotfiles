@@ -91,6 +91,394 @@ Also displays the number of garbage collections which occured."
 
 #+end_src
 
+* Custom Solutions
+** Mail
+*** Add New Mail Dir
+:PROPERTIES:
+:ID:       3c37e693-77c7-4295-a454-fedadc4800cd
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/mu4e-create-new-mail-folder (dir-name)
+  "Create new mail folder for current context.
+Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
+  (mu4e-context-switch)
+  (interactive "sName of folder to create: ")
+  (if (file-directory-p (format "%s/%s" mu4e-maildir user-mail-address))
+      (kk/mu4e-create-sub-folders-in (format "%s/%s/%s/"
+                                             mu4e-maildir user-mail-address dir-name))
+    (message
+     "Your email setup is not properly configured for this to work.")))
+
+(defun kk/mu4e-create-sub-folders-in (dir)
+  "Create the folders cur, new and tmp inside of `DIR'.
+Parent directories will be created, if they don't exist."
+  (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
+  (message "Subdirectory '%s' created." dir))
+
+(defun kk/create-sub-directories (dir sub-dirs &optional parents)
+  "Create sub directories `SUB-DIRS' in the directory `DIR'.
+`DIR' needs a trailing slash.
+
+The second (optional) argument `PARENTS', if
+non-nil, says whether to create parent directories that don't
+exist."
+  (dolist (sub-dir sub-dirs)
+    (make-directory (concat dir sub-dir) parents)))
+
+#+end_src
+*** Block Mail
+:PROPERTIES:
+:ID:       1ddd7223-1457-4b2e-9729-663a021e60fe
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/mail-block-by-regex (regexp)
+  (interactive "sRegex: ")
+  (eshell-command (format "blockmailbyheaderregex \"%s\"" regexp)))
+
+(defun kk/mail-block-by-sender (sender)
+  (interactive "sSender: ")
+  (kk/mail-block-by-regex (format "^From:.*%s.*" sender)))
+
+(defun kk/mail-block-by-subject (subject)
+  (interactive "sSubject: ")
+  (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
+** kloess.xyz
+*** Push File To kloess.xyz
+:PROPERTIES:
+:ID:       d366f213-043c-4cb2-8f38-c5578032549d
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/connection-up-p (&optional host)
+  "Check if host `host' is reachable via ping.
+Alternatively use 'kloess.xyz' if host is not specified."
+  (= 0
+     (call-process
+      "ping" nil nil nil "-c" "1" "-W" "1" (if host host "kloess.xyz"))))
+
+(defun kk/push-file-to-remote (file host
+                                    &optional destination-path username
+                                    scp-args)
+  "Push a file to somewhere via eshell.
+Push `FILE' to `HOST', optionally as `USERNAME' to `DESTINATION-PATH'.
+Add scp args via `SCP-ARGS' like a port if necessary."
+  (interactive)
+  (unless (not (kk/connection-up-p host))
+    (eshell-command
+     (format "scp %s \"%s\" %s@%s:%s"
+             (if scp-args scp-args "")
+             file
+             (if username username "")
+             host
+             (if destination-path destination-path "")))))
+
+(defun kk/push-file-to-kloess (file destination-path)
+  "Push file `FILE' to 'kloess.xyz' remote server."
+  (interactive "fFile: \nsDestination Path: ")
+  (kk/push-file-to-remote
+   file
+   "kloess.xyz"
+   destination-path
+   "karsten"
+   "-P 69"))
+
+#+end_src
+
+*** Export Todays TODOs
+:PROPERTIES:
+:ID:       09aa9971-1197-4f52-9bd6-b9330074480e
+:END:
+
+#+begin_src emacs-lisp
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
+
+(defun kk/export-todays-todos ()
+  "Exports TODOs by using todays date as headline."
+  (interactive)
+  (kk/export-headline-as-html (kk/date nil
+                                       "%Y-%m-%d %A"
+                                       "en_US.utf8"))
+  nil)
+
+(defun kk/export-headline-as-html (hl)
+  "Export headline `HL' as html."
+  (interactive)
+  (save-excursion
+    (org-link-search hl)
+    (org-html-export-to-html nil t nil '())))
+
+(defun kk/export-and-push-todays-todos ()
+  "Export and push todays todos."
+  (interactive)
+  (when (string-equal (buffer-file-name)
+                      (expand-file-name kk/personal-daily-todo-file))
+    (kk/export-todays-todos)
+    (if
+        (kk/push-file-to-kloess
+         (concat (file-name-sans-extension (buffer-file-name)) ".html")
+         "/var/www/html/main/")
+        (message "Pushed TODOs to server.")
+      (message "Couldn't push to server."))))
+
+#+end_src
+
+** Link Handler
+:PROPERTIES:
+:ID:       c46c6da6-ea72-4479-bdb5-e88923aa9d8a
+:END:
+
+Using my standard opener script [[https://github.com/tenklo/dotfiles/blob/master/.local/bin/o][o]], e.g. to open video links in mpv.
+Invoke by browse-url-generic
+
+#+begin_src emacs-lisp
+
+(setq browse-url-generic-program
+      (executable-find "o"))
+
+#+end_src
+
+#+begin_src emacs-lisp
+
+(defun kk/open-with-o (arg &rest _rest)
+  "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
+Ignore `_REST'."
+  (interactive)
+  (start-process "" nil "o" arg))
+
+(defun kk/browse-url-at-point-with-o ()
+  "Browse the url at point, opening it via o.
+Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
+  (interactive)
+  (let ((browse-url-browser-function 'kk/open-with-o))
+    (browse-url-at-point)))
+
+#+end_src
+
+** Date Headlines
+:PROPERTIES:
+:ID:       3a3d308f-c015-49f3-87a8-2db87e5881b8
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/insert-todays-date ()
+  (interactive)
+  (kk/insert-date "today"))
+
+(defun kk/insert-tomorrows-date ()
+  (interactive)
+  (kk/insert-date "tomorrow"))
+
+(defun kk/date (&optional date-arg format locale)
+  "Return a date specified by `DATE_ARG'.
+Calls the date function internally.
+For format see code and just try it out."
+  (shell-command-to-string
+   (format "echo -n \"$(LC_ALL=%s date --date='%s' '+%s')\""
+           (if locale locale "de_DE.utf8")
+           (if date-arg date-arg "today")
+           (if format format "%A %d. %B %Y"))))
+
+(defun kk/insert-date (date-arg)
+  (interactive "sWhen? ")
+  (insert
+   (kk/date date-arg)))
+
+#+end_src
+
+** Indent The Whole Buffer
+:PROPERTIES:
+:ID:       f9c30b65-2d1d-4f7f-aa52-b630a92483ab
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/tidy-buffer ()
+  "Indent and tidy up the current buffer.
+Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace)))
+
+#+end_src
+
+** Search Region Via Something
+:PROPERTIES:
+:ID:       054335ca-bb86-4a6f-8b5f-59cab6a750b9
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/search-region-via (url)
+  (interactive)
+  (eww (concat url (buffer-substring (region-beginning) (region-end)))))
+
+(defun kk/search-region-on-dict ()
+  "Use dict.cc to find a translation to the region."
+  (interactive)
+  (kk/search-region-via "https://www.dict.cc/?s="))
+
+(defun kk/search-region-on-duden ()
+  "Use duden.de to find a definition to the region."
+  (interactive)
+  (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
+
+#+end_src
+** Multiple Diarys
+:PROPERTIES:
+:ID:       b894e8f5-6637-4d28-b891-21e07709ccd4
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/merge-diary-files ()
+  "Put the contents of `kk/diary-files' into `kk/default-diary-file'."
+  (interactive)
+  (message "Merging diary files...")
+  (eshell-command (format "echo \"\" > %s" kk/default-diary-file))
+  (kk/merge-files kk/default-diary-file kk/diary-files)
+  (message "Diary files merged."))
+
+(defun kk/merge-files (output-file input-file-list)
+  "Loop over `input-file-list' and append contents to `output-file'."
+  (when (bufferp output-file)
+    (kill-buffer output-file))
+  (dolist (file input-file-list)
+    (kk/append-file-to-other-file file output-file)))
+
+(defun kk/append-file-to-other-file (from to)
+  "Use eshell to append contents of `from'-file to `to'-file."
+  (when (file-exists-p from)
+    (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
+    (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
+
+(defun kk/diary-make-entry
+    (original string &optional nonmarking file omit-trailing-space do-not-show)
+  (funcall original string nonmarking
+           (if file file (call-interactively 'kk/choose-diary-file))
+           omit-trailing-space do-not-show))
+
+(defun kk/choose-diary-file (choice)
+  (interactive
+   (let ((completion-ignore-case  t))
+     (list
+      (completing-read "Choose: "
+                       kk/diary-files nil t))))
+  choice)
+
+(advice-add 'diary-make-entry :around 'kk/diary-make-entry)
+
+#+end_src
+
+** Open Todays TODOs
+:PROPERTIES:
+:ID:       4fd4b149-f934-475a-b00a-18c82cd869ef
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/find-org-file-at-headline (file hl)
+  (interactive)
+  (find-file file)
+  (org-link-search hl))
+
+#+end_src
+
+** Org Focus Areas
+:PROPERTIES:
+:ID:       c7ad8558-658e-4394-a97c-82848a45d477
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/focus-nothing ()
+  (interactive)
+  (kk/focus-on-these nil nil))
+
+(defun kk/focus-work ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/work-agenda-file)
+   (list kk/work-diary-file)))
+
+(defun kk/focus-personal ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/personal-agenda-file)
+   (list kk/personal-diary-file)))
+
+(defun kk/focus-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/academical-agenda-file)
+   (list kk/academical-diary-file)))
+
+(defun kk/focus-work-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/work-agenda-file
+         kk/academical-agenda-file)
+   (list kk/work-diary-file
+         kk/academical-diary-file)))
+
+(defun kk/focus-personal-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/personal-agenda-file
+         kk/academical-agenda-file)
+   (list kk/personal-diary-file
+         kk/academical-diary-file)))
+
+(defun kk/focus-personal-work-academical ()
+  (interactive)
+  (kk/focus-on-these
+   (list kk/personal-agenda-file
+         kk/work-agenda-file
+         kk/academical-agenda-file)
+   (list kk/personal-diary-file
+         kk/work-diary-file
+         kk/academical-diary-file)))
+
+(defun kk/focus-on-these (agenda-files diary-files)
+  (interactive)
+  (setq org-agenda-files agenda-files)
+  (setq kk/diary-files diary-files))
+
+#+end_src
+
+** Capture Templates
+:PROPERTIES:
+:ID:       1aa551a5-7766-411c-b7f0-bdcfc0a338c7
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/todays-personal-todos ()
+  (interactive)
+  (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
+          (if (= (string-to-number (kk/date nil "%u")) 7)
+              "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
+
+(defun kk/todays-work-todos ()
+  (interactive)
+  (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
+          (if (= (string-to-number (kk/date nil "%u")) 1)
+              "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
+
+#+end_src
+
 * Package System Setup
 :PROPERTIES:
 :ID:       9098e83f-8fe9-41cd-be54-815d2b2f8635
@@ -234,9 +622,9 @@ in case Emacs daemon is used."
 #+begin_src emacs-lisp
 
 (use-package unicode-fonts
-   :ensure t
-   :config
-    (unicode-fonts-setup))
+  :ensure t
+  :config
+  (unicode-fonts-setup))
 
 #+end_src
 
@@ -1653,21 +2041,21 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 (global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
 (global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
 (global-set-key (kbd "C-c i b") '(lambda nil
-                                     (interactive)
-                                     (save-excursion
-                                       (end-of-line)
-                                       (insert (if use-hard-newlines
-                                                   hard-newline "\n"))
-                                       (forward-line 1)
-                                       (back-to-indentation))))
+                                   (interactive)
+                                   (save-excursion
+                                     (end-of-line)
+                                     (insert (if use-hard-newlines
+                                                 hard-newline "\n"))
+                                     (forward-line 1)
+                                     (back-to-indentation))))
 (global-set-key (kbd "C-c i a") '(lambda nil
-                                     (interactive)
-                                     (save-excursion
-                                       (beginning-of-line)
-                                       (insert (if use-hard-newlines
-                                                   hard-newline "\n"))
-                                       (forward-line -1)
-                                       (back-to-indentation))))
+                                   (interactive)
+                                   (save-excursion
+                                     (beginning-of-line)
+                                     (insert (if use-hard-newlines
+                                                 hard-newline "\n"))
+                                     (forward-line -1)
+                                     (back-to-indentation))))
 
 #+end_src
 
@@ -1761,8 +2149,8 @@ _f_: ledger
          (interactive)
          (find-file "~/Nextcloud/Documents/fin/journal.ledger")))
   ("s" (lambda ()
-	 (interactive)
-	 (find-file "~/nextcloud_work/Documents/org/standups.org")))
+         (interactive)
+         (find-file "~/nextcloud_work/Documents/org/standups.org")))
   ("J" (lambda ()
          (interactive)
          (find-file kk/personal-journal)))
@@ -2656,6 +3044,16 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (ledger-clear-whole-transactions t))
 
 #+end_src
+** Anki
+:PROPERTIES:
+:ID:       50d2b77f-b8f1-4745-9562-de9dbb68a997
+:END:
+
+#+begin_src emacs-lisp
+
+(use-package anki-editor)
+
+#+end_src
 
 * Passwords
 :PROPERTIES:
@@ -2709,394 +3107,6 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
       desktop-auto-save-timeout 30)
 
 (desktop-save-mode 1)
-
-#+end_src
-
-* Custom Solutions
-** Mail
-*** Add New Mail Dir
-:PROPERTIES:
-:ID:       3c37e693-77c7-4295-a454-fedadc4800cd
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/mu4e-create-new-mail-folder (dir-name)
-  "Create new mail folder for current context.
-Only works, when `user-mail-address' equals the folder name in `mu4e-maildir'."
-  (mu4e-context-switch)
-  (interactive "sName of folder to create: ")
-  (if (file-directory-p (format "%s/%s" mu4e-maildir user-mail-address))
-      (kk/mu4e-create-sub-folders-in (format "%s/%s/%s/"
-                                             mu4e-maildir user-mail-address dir-name))
-    (message
-     "Your email setup is not properly configured for this to work.")))
-
-(defun kk/mu4e-create-sub-folders-in (dir)
-  "Create the folders cur, new and tmp inside of `DIR'.
-Parent directories will be created, if they don't exist."
-  (kk/create-sub-directories dir '( "cur" "new" "tmp") t)
-  (message "Subdirectory '%s' created." dir))
-
-(defun kk/create-sub-directories (dir sub-dirs &optional parents)
-  "Create sub directories `SUB-DIRS' in the directory `DIR'.
-`DIR' needs a trailing slash.
-
-The second (optional) argument `PARENTS', if
-non-nil, says whether to create parent directories that don't
-exist."
-  (dolist (sub-dir sub-dirs)
-    (make-directory (concat dir sub-dir) parents)))
-
-#+end_src
-*** Block Mail
-:PROPERTIES:
-:ID:       1ddd7223-1457-4b2e-9729-663a021e60fe
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/mail-block-by-regex (regexp)
-  (interactive "sRegex: ")
-  (eshell-command (format "blockmailbyheaderregex \"%s\"" regexp)))
-
-(defun kk/mail-block-by-sender (sender)
-  (interactive "sSender: ")
-  (kk/mail-block-by-regex (format "^From:.*%s.*" sender)))
-
-(defun kk/mail-block-by-subject (subject)
-  (interactive "sSubject: ")
-  (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
-#+end_src
-
-** kloess.xyz
-*** Push File To kloess.xyz
-:PROPERTIES:
-:ID:       d366f213-043c-4cb2-8f38-c5578032549d
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/connection-up-p (&optional host)
-  "Check if host `host' is reachable via ping.
-Alternatively use 'kloess.xyz' if host is not specified."
-  (= 0
-     (call-process
-      "ping" nil nil nil "-c" "1" "-W" "1" (if host host "kloess.xyz"))))
-
-(defun kk/push-file-to-remote (file host
-                                    &optional destination-path username
-                                    scp-args)
-  "Push a file to somewhere via eshell.
-Push `FILE' to `HOST', optionally as `USERNAME' to `DESTINATION-PATH'.
-Add scp args via `SCP-ARGS' like a port if necessary."
-  (interactive)
-  (unless (not (kk/connection-up-p host))
-    (eshell-command
-     (format "scp %s \"%s\" %s@%s:%s"
-             (if scp-args scp-args "")
-             file
-             (if username username "")
-             host
-             (if destination-path destination-path "")))))
-
-(defun kk/push-file-to-kloess (file destination-path)
-  "Push file `FILE' to 'kloess.xyz' remote server."
-  (interactive "fFile: \nsDestination Path: ")
-  (kk/push-file-to-remote
-   file
-   "kloess.xyz"
-   destination-path
-   "karsten"
-   "-P 69"))
-
-#+end_src
-
-*** Export Todays TODOs
-:PROPERTIES:
-:ID:       09aa9971-1197-4f52-9bd6-b9330074480e
-:END:
-
-#+begin_src emacs-lisp
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook #'kk/export-and-push-todays-todos)))
-
-(defun kk/export-todays-todos ()
-  "Exports TODOs by using todays date as headline."
-  (interactive)
-  (kk/export-headline-as-html (kk/date nil
-                                       "%Y-%m-%d %A"
-                                       "en_US.utf8"))
-  nil)
-
-(defun kk/export-headline-as-html (hl)
-  "Export headline `HL' as html."
-  (interactive)
-  (save-excursion
-    (org-link-search hl)
-    (org-html-export-to-html nil t nil '())))
-
-(defun kk/export-and-push-todays-todos ()
-  "Export and push todays todos."
-  (interactive)
-  (when (string-equal (buffer-file-name)
-                      (expand-file-name kk/personal-daily-todo-file))
-    (kk/export-todays-todos)
-    (if
-        (kk/push-file-to-kloess
-         (concat (file-name-sans-extension (buffer-file-name)) ".html")
-         "/var/www/html/main/")
-        (message "Pushed TODOs to server.")
-      (message "Couldn't push to server."))))
-
-#+end_src
-
-** Link Handler
-:PROPERTIES:
-:ID:       c46c6da6-ea72-4479-bdb5-e88923aa9d8a
-:END:
-
-Using my standard opener script [[https://github.com/tenklo/dotfiles/blob/master/.local/bin/o][o]], e.g. to open video links in mpv.
-Invoke by browse-url-generic
-
-#+begin_src emacs-lisp
-
-(setq browse-url-generic-program
-      (executable-find "o"))
-
-#+end_src
-
-#+begin_src emacs-lisp
-
-(defun kk/open-with-o (arg &rest _rest)
-  "Open anything via o (URL `https://raw.githubusercontent.com/tenklo/dotfiles/master/.local/bin/o' ), a custom opener script.
-Ignore `_REST'."
-  (interactive)
-  (start-process "" nil "o" arg))
-
-(defun kk/browse-url-at-point-with-o ()
-  "Browse the url at point, opening it via o.
-Run `browse-url-at-point', using `kk/open-with-o' as `browse-url-browser-function'."
-  (interactive)
-  (let ((browse-url-browser-function 'kk/open-with-o))
-    (browse-url-at-point)))
-
-#+end_src
-
-** Date Headlines
-:PROPERTIES:
-:ID:       3a3d308f-c015-49f3-87a8-2db87e5881b8
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/insert-todays-date ()
-  (interactive)
-  (kk/insert-date "today"))
-
-(defun kk/insert-tomorrows-date ()
-  (interactive)
-  (kk/insert-date "tomorrow"))
-
-(defun kk/date (&optional date-arg format locale)
-  "Return a date specified by `DATE_ARG'.
-Calls the date function internally.
-For format see code and just try it out."
-  (shell-command-to-string
-   (format "echo -n \"$(LC_ALL=%s date --date='%s' '+%s')\""
-           (if locale locale "de_DE.utf8")
-           (if date-arg date-arg "today")
-           (if format format "%A %d. %B %Y"))))
-
-(defun kk/insert-date (date-arg)
-  (interactive "sWhen? ")
-  (insert
-   (kk/date date-arg)))
-
-#+end_src
-
-** Indent The Whole Buffer
-:PROPERTIES:
-:ID:       f9c30b65-2d1d-4f7f-aa52-b630a92483ab
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/tidy-buffer ()
-  "Indent and tidy up the current buffer.
-Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
-  (interactive)
-  (save-excursion
-    (indent-region (point-min) (point-max) nil)
-    (untabify (point-min) (point-max))
-    (delete-trailing-whitespace)))
-
-#+end_src
-
-** Search Region Via Something
-:PROPERTIES:
-:ID:       054335ca-bb86-4a6f-8b5f-59cab6a750b9
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/search-region-via (url)
-  (interactive)
-  (eww (concat url (buffer-substring (region-beginning) (region-end)))))
-
-(defun kk/search-region-on-dict ()
-  "Use dict.cc to find a translation to the region."
-  (interactive)
-  (kk/search-region-via "https://www.dict.cc/?s="))
-
-(defun kk/search-region-on-duden ()
-  "Use duden.de to find a definition to the region."
-  (interactive)
-  (kk/search-region-via "https://www.duden.de/suchen/dudenonline/"))
-
-#+end_src
-** Multiple Diarys
-:PROPERTIES:
-:ID:       b894e8f5-6637-4d28-b891-21e07709ccd4
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/merge-diary-files ()
-  "Put the contents of `kk/diary-files' into `kk/default-diary-file'."
-  (interactive)
-  (message "Merging diary files...")
-  (eshell-command (format "echo \"\" > %s" kk/default-diary-file))
-  (kk/merge-files kk/default-diary-file kk/diary-files)
-  (message "Diary files merged."))
-
-(defun kk/merge-files (output-file input-file-list)
-  "Loop over `input-file-list' and append contents to `output-file'."
-  (when (bufferp output-file)
-    (kill-buffer output-file))
-  (dolist (file input-file-list)
-    (kk/append-file-to-other-file file output-file)))
-
-(defun kk/append-file-to-other-file (from to)
-  "Use eshell to append contents of `from'-file to `to'-file."
-  (when (file-exists-p from)
-    (eshell-command (format "cat \"%s\" >> \"%s\"" from to))
-    (eshell-command (format "printf \"\n\" >> \"%s\"" to))))
-
-(defun kk/diary-make-entry
-    (original string &optional nonmarking file omit-trailing-space do-not-show)
-  (funcall original string nonmarking
-           (if file file (call-interactively 'kk/choose-diary-file))
-           omit-trailing-space do-not-show))
-
-(defun kk/choose-diary-file (choice)
-  (interactive
-   (let ((completion-ignore-case  t))
-     (list
-      (completing-read "Choose: "
-                       kk/diary-files nil t))))
-  choice)
-
-(advice-add 'diary-make-entry :around 'kk/diary-make-entry)
-
-#+end_src
-
-** Open Todays TODOs
-:PROPERTIES:
-:ID:       4fd4b149-f934-475a-b00a-18c82cd869ef
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/find-org-file-at-headline (file hl)
-  (interactive)
-  (find-file file)
-  (org-link-search hl))
-
-#+end_src
-
-** Org Focus Areas
-:PROPERTIES:
-:ID:       c7ad8558-658e-4394-a97c-82848a45d477
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/focus-nothing ()
-  (interactive)
-  (kk/focus-on-these nil nil))
-
-(defun kk/focus-work ()
-  (interactive)
-  (kk/focus-on-these
-   (list kk/work-agenda-file)
-   (list kk/work-diary-file)))
-
-(defun kk/focus-personal ()
-  (interactive)
-  (kk/focus-on-these
-   (list kk/personal-agenda-file)
-   (list kk/personal-diary-file)))
-
-(defun kk/focus-academical ()
-  (interactive)
-  (kk/focus-on-these
-   (list kk/academical-agenda-file)
-   (list kk/academical-diary-file)))
-
-(defun kk/focus-work-academical ()
-  (interactive)
-  (kk/focus-on-these
-   (list kk/work-agenda-file
-         kk/academical-agenda-file)
-   (list kk/work-diary-file
-         kk/academical-diary-file)))
-
-(defun kk/focus-personal-academical ()
-  (interactive)
-  (kk/focus-on-these
-   (list kk/personal-agenda-file
-         kk/academical-agenda-file)
-   (list kk/personal-diary-file
-         kk/academical-diary-file)))
-
-(defun kk/focus-personal-work-academical ()
-  (interactive)
-  (kk/focus-on-these
-   (list kk/personal-agenda-file
-         kk/work-agenda-file
-         kk/academical-agenda-file)
-   (list kk/personal-diary-file
-         kk/work-diary-file
-         kk/academical-diary-file)))
-
-(defun kk/focus-on-these (agenda-files diary-files)
-  (interactive)
-  (setq org-agenda-files agenda-files)
-  (setq kk/diary-files diary-files))
-
-#+end_src
-
-** Capture Templates
-:PROPERTIES:
-:ID:       1aa551a5-7766-411c-b7f0-bdcfc0a338c7
-:END:
-
-#+begin_src emacs-lisp
-
-(defun kk/todays-personal-todos ()
-  (interactive)
-  (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ] \n- [ ] Journal Eintrag\n- [ ] Meditieren"
-          (if (= (string-to-number (kk/date nil "%u")) 7)
-              "\n- [ ] [[id:589e0d4e-f608-406e-aa60-0acb0250729d][Weekly Review]]" "")))
-
-(defun kk/todays-work-todos ()
-  (interactive)
-  (format "[/]\nWichtigste drei:\n- [ ]%s \nSonstiges:\n- [ ]"
-          (if (= (string-to-number (kk/date nil "%u")) 1)
-              "\n- [ ] [[id:d49951a7-af8e-4697-bbe2-08cc3d3318e1][Weekly Review]]" "")))
 
 #+end_src
 
