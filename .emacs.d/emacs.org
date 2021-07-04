@@ -983,7 +983,8 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 
 (setq org-agenda-custom-commands
-      `(("d" "Deadlines"
+      `(("A" agenda*)
+        ("d" "Deadlines"
          ((agenda ""
                   ((org-deadline-warning-days 365)
                    (org-agenda-span 1)
@@ -995,7 +996,6 @@ Intended to be used in an `org-mode-hook'."
           (org-agenda-include-diary nil)
           (org-agenda-entry-types '(:deadline))))
 
-        ("A" agenda*)
 
         ("w" . "Weekly Review Helper")
         ("wt" "TODO these"
