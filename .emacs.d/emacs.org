@@ -598,6 +598,8 @@ Intended to be used in an `org-mode-hook'."
           (org-agenda-include-diary nil)
           (org-agenda-entry-types '(:deadline))))
 
+        ("A" agenda*)
+
         ("w" . "Weekly Review Helper")
         ("wt" "TODO these"
          ((todo "SOMEDAY"
