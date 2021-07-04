@@ -226,6 +226,20 @@ in case Emacs daemon is used."
 
 #+end_src
 
+*** Unicode
+:PROPERTIES:
+:ID:       cf667087-e75f-48f6-856d-41b289adba8d
+:END:
+
+#+begin_src emacs-lisp
+
+(use-package unicode-fonts
+   :ensure t
+   :config
+    (unicode-fonts-setup))
+
+#+end_src
+
 ** Better Modeline
 :PROPERTIES:
 :ID:       cf72fef8-5624-4d3e-951b-d5e3c7e3a171
@@ -1631,6 +1645,22 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 (global-set-key (kbd "C-c i D") 'kk/insert-tomorrows-date)
 (global-set-key (kbd "C-c i t") 'kk/daily-todos-today)
 (global-set-key (kbd "C-c i T") 'kk/daily-todos-tomorrow)
+(global-set-key (kbd "C-c i b") '(lambda nil
+                                     (interactive)
+                                     (save-excursion
+                                       (end-of-line)
+                                       (insert (if use-hard-newlines
+                                                   hard-newline "\n"))
+                                       (forward-line 1)
+                                       (back-to-indentation))))
+(global-set-key (kbd "C-c i a") '(lambda nil
+                                     (interactive)
+                                     (save-excursion
+                                       (beginning-of-line)
+                                       (insert (if use-hard-newlines
+                                                   hard-newline "\n"))
+                                       (forward-line -1)
+                                       (back-to-indentation))))
 
 #+end_src
 
@@ -2192,6 +2222,8 @@ This is used to have standard bookmarks, to be added to context specific bookmar
         message-sendmail-extra-arguments '("--read-envelope-from")
         send-mail-function 'smtpmail-send-it
         message-send-mail-function 'message-send-mail-with-sendmail)
+
+  (setq mu4e-compose-format-flowed t)
 
   (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
   (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
