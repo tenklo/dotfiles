@@ -1094,12 +1094,12 @@ Intended to be used in an `org-mode-hook'."
                      ((org-agenda-overriding-header "Scheduled for today, but no TODAY Keyword")))))
 
         ("f" . "Finances")
-	("ft" "to track"
-	 ((tags-todo "financetotrack")))
-	("fp" "to pay"
-	 ((tags-todo "financetopay")))
-	("fw" "wait for payment"
-	 ((tags-todo "financeawaiting")))
+        ("ft" "to track"
+         ((tags-todo "financetotrack")))
+        ("fp" "to pay"
+         ((tags-todo "financetopay")))
+        ("fw" "wait for payment"
+         ((tags-todo "financeawaiting")))
 
         ("P" "Printed"
          ((agenda ""
