@@ -3136,7 +3136,8 @@ Enable some disabled commands. Otherwise theres an annoying popup.
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
  '(grep-template "grep <X> <C> -n -I --null -e <R> <F>")
  '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m)))
+   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+ '(org-stuck-projects '("+LEVEL=2/-DONE-COMPLETED-CANC" ("NEXT" "WAIT") nil "")))
 
 #+end_src
 
