@@ -1095,11 +1095,16 @@ Intended to be used in an `org-mode-hook'."
 
         ("f" . "Finances")
         ("ft" "to track"
-         ((tags-todo "financetotrack")))
+         ((tags-todo "financetotrack"
+                     ((org-agenda-overriding-header "Track these payments")))))
         ("fp" "to pay"
-         ((tags-todo "financetopay")))
+         ((tags-todo "financetopay"
+                     ((org-agenda-overriding-header "Pay these"))))
+         ((org-agenda-view-columns-initially t)))
         ("fw" "wait for payment"
-         ((tags-todo "financeawaiting")))
+         ((tags-todo "financeawaiting"
+                     ((org-agenda-overriding-header "Waiting for these payments"))))
+         ((org-agenda-view-columns-initially t)))
 
         ("P" "Printed"
          ((agenda ""
