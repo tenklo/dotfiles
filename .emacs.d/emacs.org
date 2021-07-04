@@ -3161,6 +3161,8 @@ Enable some disabled commands. Otherwise theres an annoying popup.
      ("account" "%(binary) -f %(ledger-file) reg %(account)")))
  '(grep-find-template
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
+ '(initial-scratch-message "* Scratch
+")
  '(grep-template "grep <X> <C> -n -I --null -e <R> <F>")
  '(org-modules
    '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
