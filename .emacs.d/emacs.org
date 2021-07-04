@@ -1088,10 +1088,10 @@ Intended to be used in an `org-mode-hook'."
                 ((org-agenda-overriding-header "Next Tasks"))))
          ((org-agenda-regexp-filter '("+TODAY\\|NEXT"))))
 
-        ("H" "Sched. for today but no TODAY"
+        ("H" "Sched. for today but no TODAY keyword"
          ((tags-todo ,(concat "-TODO=\"TODAY\"+SCHEDULED<=\"<"
                               (kk/date "today" "%Y-%m-%d") ">\"")
-                     ((org-agenda-overriding-header "Scheduled for today, but no TODAY Keyword")))))
+                     ((org-agenda-overriding-header "Scheduled for today, but no TODAY keyword")))))
 
         ("f" . "Finances")
         ("ft" "to track"
