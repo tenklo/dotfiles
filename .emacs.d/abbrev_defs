@@ -9,7 +9,13 @@
     ("du" "Du" nil :count 7)
     ("lg" "Liebe Grüße" nil :count 2)
     ("mfg" "Mit freundlichen Grüßen" nil :count 2)
+    ("schriebtisch" "Schreibtisch" nil :count 1)
     ("tehmen" "Themen" nil :count 1)
     ("vg" "Viele Grüße" nil :count 3)
+   ))
+
+(define-abbrev-table 'org-mode-abbrev-table
+  '(
+    ("gettign" "getting" nil :count 1)
    ))
 
