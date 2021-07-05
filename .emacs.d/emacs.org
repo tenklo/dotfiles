@@ -1908,6 +1908,7 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
 #+end_src
 
 *** Special Evil Modemap
@@ -2024,6 +2025,8 @@ Defining leader keys using the general package.
 (global-set-key (kbd "C-c l") 'org-store-link)
 
 (global-set-key [f5] 'universal-argument)
+
+(global-set-key (kbd "C-c d") 'hydra-ediff/body)
 
 #+end_src
 
@@ -2218,14 +2221,18 @@ _a_: academical            _k_: personal + work + academical
 
 (defhydra hydra-development (:hint nil)
   "
-^Development
+^Development^          ^LSP
 ^^^^^^^^-----------------------------------------------------------------
-_c_: recompile
-_C_: compile
+_c_: recompile         _L_: lsp-mode
+_C_: compile           _t_: tree
+^ ^                    _d_: dap
 "
   ("c" recompile :exit t)
   ("C" compile :exit t)
-  ("f" kk/tidy-buffer :exit t))
+  ("f" kk/tidy-buffer :exit t)
+  ("L" lsp-mode :exit t)
+  ("t" treemacs :exit t)
+  ("d" dap-hydra :exit t))
 (bind-key "C-c h" #'hydra-development/body prog-mode-map)
 
 (defhydra hydra-mail (:hint nil)
@@ -2253,6 +2260,24 @@ _a_: attachment         _h_: htmlize
   ("a" mail-add-attachment :exit t)
   ("h" org-mime-htmlize :exit t)
   ("e" org-mime-edit-mail-in-org-mode :exit t))
+
+(defhydra hydra-ediff (:color blue :hint nil)
+  "
+^Buffers^              ^Files^                ^VC^               ^Ediff regions
+^^^^^^^^-----------------------------------------------------------------
+_b_: buffers           _f_: files             _r_: revisions     _l_: linewise
+_B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
+^ ^                    _c_: current file
+"
+  ("b" ediff-buffers)
+  ("B" ediff-buffers3)
+  ("=" ediff-files)
+  ("f" ediff-files)
+  ("F" ediff-files3)
+  ("c" ediff-current-file)
+  ("r" ediff-revision)
+  ("l" ediff-regions-linewise)
+  ("w" ediff-regions-wordwise))
 
 #+end_src
 
