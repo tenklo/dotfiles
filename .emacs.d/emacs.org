@@ -2324,11 +2324,20 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 
   (defhydra hydra-org-mode (:hint nil)
     "
-^Org-Mode
+^Time             ^Agenda
 ^^^^^^^^-----------------------------------------------------------------
-_p_: pomodoro
+_p_: pomodoro     _s_: search
+_i_: clock in     _S_: search todo only
+_o_: clock out    _m_: match
+^ ^               _M_: match todo only
 "
-    ("p" org-pomodoro :exit t))
+    ("p" org-pomodoro :exit t)
+    ("i" org-clock-in :exit t)
+    ("o" org-clock-out :exit t)
+    ("s" org-search-view :exit t)
+    ("S" (org-search-view t) :exit t)
+    ("m" org-tags-view :exit t)
+    ("M" (org-tags-view t) :exit t))
   (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
   (defhydra hydra-straight-helper (:hint nil)
