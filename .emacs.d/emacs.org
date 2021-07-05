@@ -906,6 +906,16 @@ Intended to be used in an `org-mode-hook'."
 
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil)))
+
+  (defhydra hydra-org-mode (:hint nil)
+    "
+^Org-Mode
+^^^^^^^^-----------------------------------------------------------------
+_p_: pomodoro
+"
+    ("p" org-pomodoro :exit t))
+  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+
   (kk/org-font-setup))
 
 (use-package org-bullets
