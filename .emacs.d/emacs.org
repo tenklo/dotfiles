@@ -486,32 +486,32 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 
 #+begin_src emacs-lisp
 
-  (defun occur-dwim ()
-    "Call `occur' with a sane default, chosen as the thing under point or selected region"
-    (interactive)
-    (push (if (region-active-p)
-	      (buffer-substring-no-properties
-	       (region-beginning)
-	       (region-end))
-	    (let ((sym (thing-at-point 'symbol)))
-	      (when (stringp sym)
-		(regexp-quote sym))))
-	  regexp-history)
-    (call-interactively 'occur))
+(defun occur-dwim ()
+  "Call `occur' with a sane default, chosen as the thing under point or selected region"
+  (interactive)
+  (push (if (region-active-p)
+            (buffer-substring-no-properties
+             (region-beginning)
+             (region-end))
+          (let ((sym (thing-at-point 'symbol)))
+            (when (stringp sym)
+              (regexp-quote sym))))
+        regexp-history)
+  (call-interactively 'occur))
 
-  ;; Keeps focus on *Occur* window, even when when target is visited via RETURN key.
-  ;; See hydra-occur-dwim for more options.
-  (defadvice occur-mode-goto-occurrence (after occur-mode-goto-occurrence-advice activate)
-    (other-window 1)
-    (hydra-occur-dwim/body))
+;; Keeps focus on *Occur* window, even when when target is visited via RETURN key.
+;; See hydra-occur-dwim for more options.
+(defadvice occur-mode-goto-occurrence (after occur-mode-goto-occurrence-advice activate)
+  (other-window 1)
+  (hydra-occur-dwim/body))
 
-  ;; Focus on *Occur* window right away.
-  (add-hook 'occur-hook (lambda () (other-window 1)))
+;; Focus on *Occur* window right away.
+(add-hook 'occur-hook (lambda () (other-window 1)))
 
-  (defun reattach-occur ()
-    (if (get-buffer "*Occur*")
-	(switch-to-buffer-other-window "*Occur*")
-      (hydra-occur-dwim/body) ))
+(defun reattach-occur ()
+  (if (get-buffer "*Occur*")
+      (switch-to-buffer-other-window "*Occur*")
+    (hydra-occur-dwim/body) ))
 
 #+end_src
 
@@ -528,13 +528,13 @@ Installation problems seem to often get fixed by executing =package-refresh-cont
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
-      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-        'silent 'inhibit-cookies)
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -543,28 +543,6 @@ Installation problems seem to often get fixed by executing =package-refresh-cont
 
 (setq straight-use-package-by-default t)
 (setq use-package-verbose t)
-
-#+end_src
-
-** Automatic Package Updates
-:PROPERTIES:
-:ID:       f1f58cde-959f-4825-91fa-77e60c7ef26a
-:END:
-
-The auto-package-update package helps us keep our Emacs packages up to date!  It will prompt you after a certain number of days either at startup or at a specific time of day to remind you to update your packages.
-
-You can also use =M-x auto-package-update-now= to update right now!
-
-#+begin_src emacs-lisp
-
-(use-package auto-package-update
-  :custom
-  (auto-package-update-interval 7)
-  (auto-package-update-prompt-before-update t)
-  (auto-package-update-hide-results t)
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "09:00"))
 
 #+end_src
 
@@ -2304,31 +2282,60 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
   ("l" ediff-regions-linewise)
   ("w" ediff-regions-wordwise))
 
-  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
-  ;; focus on the *Occur* window and hides upon request in case needed later.
-  (defhydra hydra-occur-dwim (:hint nil)
-    "
+;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+;; focus on the *Occur* window and hides upon request in case needed later.
+(defhydra hydra-occur-dwim (:hint nil)
+  "
   ^Occur^             ^Navigation^     ^Visibility
   ^^^^^^^^-----------------------------------------------------------------
   _o_: occur-dwim     _j_: next        _h_: hide
   ^ ^                 _k_: prev        _r_: re-attach
   "
-    ("o" occur-dwim "occur-dwim" :color red)
-    ("j" occur-next "Next" :color red)
-    ("k" occur-prev "Prev":color red)
-    ("h" delete-window "Hide" :color blue)
-    ("r" (reattach-occur) "Re-attach" :color red))
+  ("o" occur-dwim "occur-dwim" :color red)
+  ("j" occur-next "Next" :color red)
+  ("k" occur-prev "Prev":color red)
+  ("h" delete-window "Hide" :color blue)
+  ("r" (reattach-occur) "Re-attach" :color red))
 
-  (global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
+(global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
 
-  (defhydra hydra-org-mode (:hint nil)
-    "
+(defhydra hydra-org-mode (:hint nil)
+  "
 ^Org-Mode
 ^^^^^^^^-----------------------------------------------------------------
 _p_: pomodoro
 "
-    ("p" org-pomodoro :exit t))
-  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+  ("p" org-pomodoro :exit t))
+(bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+
+(defhydra hydra-straight-helper (:hint nil)
+  "
+_c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
+_C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
+----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
+_r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
+_R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
+  ("c" straight-check-all)
+  ("C" straight-check-package)
+  ("r" straight-rebuild-all)
+  ("R" straight-rebuild-package)
+  ("f" straight-fetch-all)
+  ("F" straight-fetch-package)
+  ("p" straight-pull-all)
+  ("P" straight-pull-package)
+  ("m" straight-merge-all)
+  ("M" straight-merge-package)
+  ("n" straight-normalize-all)
+  ("N" straight-normalize-package)
+  ("u" straight-push-all)
+  ("U" straight-push-package)
+  ("v" straight-freeze-versions)
+  ("V" straight-thaw-versions)
+  ("w" straight-watcher-start)
+  ("W" straight-watcher-quit)
+  ("g" straight-get-recipe)
+  ("e" straight-prune-build)
+  ("q" nil))
 
 #+end_src
 
