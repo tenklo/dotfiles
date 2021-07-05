@@ -593,6 +593,18 @@ This section configures basic UI settings that remove unneeded elements to make 
 
 #+end_src
 
+** Unicode Support
+:PROPERTIES:
+:ID:       cf667087-e75f-48f6-856d-41b289adba8d
+:END:
+
+#+begin_src emacs-lisp
+
+(use-package unicode-fonts
+  :straight t)
+
+#+end_src
+
 ** Font Configuration
 :PROPERTIES:
 :ID:       7a99b405-cbd6-477c-bdec-f594e3883d89
@@ -626,16 +638,6 @@ in case Emacs daemon is used."
 
 #+end_src
 
-*** Unicode
-:PROPERTIES:
-:ID:       cf667087-e75f-48f6-856d-41b289adba8d
-:END:
-
-#+begin_src emacs-lisp
-
-(use-package unicode-fonts
-  :straight t
-  :config
   (unicode-fonts-setup))
 
 #+end_src
