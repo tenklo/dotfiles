@@ -2109,81 +2109,82 @@ I guess the =C-c i= area makes sense, standing for *I* nsertions.
 #+begin_src emacs-lisp
 
 (use-package hydra
-  :defer t)
+  :defer t
+  :config
 
-(defhydra hydra-text-scale (:timeout 4)
-  "scale text"
-  ("j" text-scale-increase "in")
-  ("k" text-scale-decrease "out")
-  ("f" nil "finished" :exit t))
+  (defhydra hydra-text-scale (:timeout 4)
+    "scale text"
+    ("j" text-scale-increase "in")
+    ("k" text-scale-decrease "out")
+    ("f" nil "finished" :exit t))
 
-(defhydra hydra-buffer-control (:timeout 4)
-  "change buffers"
-  ("l" counsel-switch-buffer "list" :exit t)
-  ("c" kill-current-buffer "kill current" :exit t)
-  ("k" previous-buffer "previous")
-  ("j" switch-to-next-buffer "next")
-  ("f" nil "finished" :exit t))
+  (defhydra hydra-buffer-control (:timeout 4)
+    "change buffers"
+    ("l" counsel-switch-buffer "list" :exit t)
+    ("c" kill-current-buffer "kill current" :exit t)
+    ("k" previous-buffer "previous")
+    ("j" switch-to-next-buffer "next")
+    ("f" nil "finished" :exit t))
 
 
-(defhydra hydra-bookmark-control (:timeout 5)
-  "set and load bookmarks"
-  ("s" bookmark-set "set")
-  ("l" bookmark-bmenu-list "list")
-  ("f" nil "finished" :exit t))
+  (defhydra hydra-bookmark-control (:timeout 5)
+    "set and load bookmarks"
+    ("s" bookmark-set "set")
+    ("l" bookmark-bmenu-list "list")
+    ("f" nil "finished" :exit t))
 
-(defhydra hydra-window-size (:timeout 5)
-  "change window sizes"
-  ("u" balance-windows "balance")
-  ("j" evil-window-decrease-height "decrease height")
-  ("k" evil-window-increase-height "increase height")
-  ("h" evil-window-decrease-width "decrease width")
-  ("l" evil-window-increase-width "increase width")
-  ("f" make-frame "make frame"))
+  (defhydra hydra-window-size (:timeout 5)
+    "change window sizes"
+    ("u" balance-windows "balance")
+    ("j" evil-window-decrease-height "decrease height")
+    ("k" evil-window-increase-height "increase height")
+    ("h" evil-window-decrease-width "decrease width")
+    ("l" evil-window-increase-width "increase width")
+    ("f" make-frame "make frame"))
 
-(defhydra hydra-daily-todos (:timeout 5)
-  "go to the current days TODOs"
-  ("p" (lambda ()
-         (interactive)
-         (kk/find-org-file-at-headline
-          kk/personal-daily-todo-file (kk/date nil
-                                               "%Y-%m-%d %A"
-                                               "en_US.utf8")))
-   "personal" :exit t)
-  ("w" (lambda ()
-         (interactive)
-         (kk/find-org-file-at-headline
-          kk/work-daily-todo-file (kk/date nil
-                                           "%Y-%m-%d %A"
-                                           "en_US.utf8")))
-   "work" :exit t))
+  (defhydra hydra-daily-todos (:timeout 5)
+    "go to the current days TODOs"
+    ("p" (lambda ()
+           (interactive)
+           (kk/find-org-file-at-headline
+            kk/personal-daily-todo-file (kk/date nil
+                                                 "%Y-%m-%d %A"
+                                                 "en_US.utf8")))
+     "personal" :exit t)
+    ("w" (lambda ()
+           (interactive)
+           (kk/find-org-file-at-headline
+            kk/work-daily-todo-file (kk/date nil
+                                             "%Y-%m-%d %A"
+                                             "en_US.utf8")))
+     "work" :exit t))
 
-(defhydra hydra-lsp (:exit t :hint nil)
-  "
+  (defhydra hydra-lsp (:exit t :hint nil)
+    "
  Buffer^^               Server^^                   Symbol
 -------------------------------------------------------------------------------------
  [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
  [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
  [_x_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
-  ("d" lsp-find-declaration)
-  ("D" lsp-ui-peek-find-definitions)
-  ("R" lsp-ui-peek-find-references)
-  ("i" lsp-ui-peek-find-implementation)
-  ("t" lsp-find-type-definition)
-  ("s" lsp-signature-help)
-  ("o" lsp-describe-thing-at-point)
-  ("r" lsp-rename)
+    ("d" lsp-find-declaration)
+    ("D" lsp-ui-peek-find-definitions)
+    ("R" lsp-ui-peek-find-references)
+    ("i" lsp-ui-peek-find-implementation)
+    ("t" lsp-find-type-definition)
+    ("s" lsp-signature-help)
+    ("o" lsp-describe-thing-at-point)
+    ("r" lsp-rename)
 
-  ("f" lsp-format-buffer)
-  ("m" lsp-ui-imenu)
-  ("x" lsp-execute-code-action)
+    ("f" lsp-format-buffer)
+    ("m" lsp-ui-imenu)
+    ("x" lsp-execute-code-action)
 
-  ("M-s" lsp-describe-session)
-  ("M-r" lsp-restart-workspace)
-  ("S" lsp-shutdown-workspace))
+    ("M-s" lsp-describe-session)
+    ("M-r" lsp-restart-workspace)
+    ("S" lsp-shutdown-workspace))
 
-(defhydra hydra-favorite-files (:hint nil)
-  "
+  (defhydra hydra-favorite-files (:hint nil)
+    "
 ^Personal^                 ^Work^                  ^Academical
 ^^^^^^^^-----------------------------------------------------------------
 _p_: agenda                _w_: agenda             _a_: agenda
@@ -2192,57 +2193,57 @@ _J_: journal               _s_: standup
 _e_: emacs.org
 _f_: ledger
 "
-  ("e" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/emacs.org")))
-  ("f" (lambda ()
-         (interactive)
-         (find-file "~/Nextcloud/Documents/fin/journal.ledger")))
-  ("s" (lambda ()
-         (interactive)
-         (find-file "~/nextcloud_work/Documents/org/standups.org")))
-  ("J" (lambda ()
-         (interactive)
-         (find-file kk/personal-journal)))
-  ("w" (lambda ()
-         (interactive)
-         (find-file kk/work-agenda-file)))
-  ("W" (lambda ()
-         (interactive)
-         (find-file kk/work-diary-file)))
-  ("a" (lambda ()
-         (interactive)
-         (find-file kk/academical-agenda-file)))
-  ("A" (lambda ()
-         (interactive)
-         (find-file kk/academical-diary-file)))
-  ("p" (lambda ()
-         (interactive)
-         (find-file kk/personal-agenda-file)))
-  ("P" (lambda ()
-         (interactive)
-         (find-file kk/personal-diary-file)))
-  ("c" nil "cancel"))
+    ("e" (lambda ()
+           (interactive)
+           (find-file "~/.emacs.d/emacs.org")))
+    ("f" (lambda ()
+           (interactive)
+           (find-file "~/Nextcloud/Documents/fin/journal.ledger")))
+    ("s" (lambda ()
+           (interactive)
+           (find-file "~/nextcloud_work/Documents/org/standups.org")))
+    ("J" (lambda ()
+           (interactive)
+           (find-file kk/personal-journal)))
+    ("w" (lambda ()
+           (interactive)
+           (find-file kk/work-agenda-file)))
+    ("W" (lambda ()
+           (interactive)
+           (find-file kk/work-diary-file)))
+    ("a" (lambda ()
+           (interactive)
+           (find-file kk/academical-agenda-file)))
+    ("A" (lambda ()
+           (interactive)
+           (find-file kk/academical-diary-file)))
+    ("p" (lambda ()
+           (interactive)
+           (find-file kk/personal-agenda-file)))
+    ("P" (lambda ()
+           (interactive)
+           (find-file kk/personal-diary-file)))
+    ("c" nil "cancel"))
 
-(defhydra hydra-focus-areas (:hint nil)
-  "
+  (defhydra hydra-focus-areas (:hint nil)
+    "
 ^Single^                   ^Combinations
 ^^^^^^^^-----------------------------------------------------------------
 _p_: personal              _f_: work + academical
 _w_: work                  _j_: personal + academical
 _a_: academical            _k_: personal + work + academical
 "
-  ("p" kk/focus-personal :exit t)
-  ("w" kk/focus-work :exit t)
-  ("a" kk/focus-academical :exit t)
-  ("f" kk/focus-work-academical :exit t)
-  ("j" kk/focus-personal-academical :exit t)
-  ("k" kk/focus-personal-work-academical :exit t)
-  ("n" kk/focus-nothing "nothing" :exit t)
-  ("c" nil "cancel"))
+    ("p" kk/focus-personal :exit t)
+    ("w" kk/focus-work :exit t)
+    ("a" kk/focus-academical :exit t)
+    ("f" kk/focus-work-academical :exit t)
+    ("j" kk/focus-personal-academical :exit t)
+    ("k" kk/focus-personal-work-academical :exit t)
+    ("n" kk/focus-nothing "nothing" :exit t)
+    ("c" nil "cancel"))
 
-(defhydra hydra-development (:hint nil)
-  "
+  (defhydra hydra-development (:hint nil)
+    "
 ^Development^          ^LSP
 ^^^^^^^^-----------------------------------------------------------------
 ^ ^                    _l_: lsp
@@ -2250,166 +2251,166 @@ _c_: recompile         _L_: lsp-server
 _C_: compile           _t_: tree
 _s_: smartparens       _d_: dap
 "
-  ("c" recompile :exit t)
-  ("C" compile :exit t)
-  ("f" kk/tidy-buffer :exit t)
-  ("l" hydra-lsp/body :exit t)
-  ("L" lsp :exit t)
-  ("t" treemacs :exit t)
-  ("d" dap-hydra :exit t)
-  ("s" hydra-smartparens/body :exit t))
-(bind-key "C-c h" #'hydra-development/body prog-mode-map)
+    ("c" recompile :exit t)
+    ("C" compile :exit t)
+    ("f" kk/tidy-buffer :exit t)
+    ("l" hydra-lsp/body :exit t)
+    ("L" lsp :exit t)
+    ("t" treemacs :exit t)
+    ("d" dap-hydra :exit t)
+    ("s" hydra-smartparens/body :exit t))
+  (bind-key "C-c h" #'hydra-development/body prog-mode-map)
 
-(defhydra hydra-mail (:hint nil)
-  "
+  (defhydra hydra-mail (:hint nil)
+    "
 ^Blocking^              ^Misc
 ^^^^^^^^-----------------------------------------------------------------
 _r_: by regex           _d_: new mail dir
 _f_: by sender
 _s_: by subject
 "
-  ("r" kk/mail-block-by-regex :exit t)
-  ("f" kk/mail-block-by-sender :exit t)
-  ("s" kk/mail-block-by-subject :exit t)
-  ("d" kk/mu4e-create-new-mail-folder :exit t)
-  ("c" nil "cancel"))
+    ("r" kk/mail-block-by-regex :exit t)
+    ("f" kk/mail-block-by-sender :exit t)
+    ("s" kk/mail-block-by-subject :exit t)
+    ("d" kk/mu4e-create-new-mail-folder :exit t)
+    ("c" nil "cancel"))
 
-(defhydra hydra-mail-compose (:hint nil)
-  "
+  (defhydra hydra-mail-compose (:hint nil)
+    "
 ^Add^                   ^Org
 ^^^^^^^^-----------------------------------------------------------------
 _s_: signature          _e_: edit
 _a_: attachment         _h_: htmlize
 "
-  ("s" kk/mu4e-choose-signature :exit t)
-  ("a" mail-add-attachment :exit t)
-  ("h" org-mime-htmlize :exit t)
-  ("e" org-mime-edit-mail-in-org-mode :exit t))
+    ("s" kk/mu4e-choose-signature :exit t)
+    ("a" mail-add-attachment :exit t)
+    ("h" org-mime-htmlize :exit t)
+    ("e" org-mime-edit-mail-in-org-mode :exit t))
 
-(defhydra hydra-ediff (:color blue :hint nil)
-  "
+  (defhydra hydra-ediff (:color blue :hint nil)
+    "
 ^Buffers^              ^Files^                ^VC^               ^Ediff regions
 ^^^^^^^^-----------------------------------------------------------------
 _b_: buffers           _f_: files             _r_: revisions     _l_: linewise
 _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 ^ ^                    _c_: current file
 "
-  ("b" ediff-buffers)
-  ("B" ediff-buffers3)
-  ("=" ediff-files)
-  ("f" ediff-files)
-  ("F" ediff-files3)
-  ("c" ediff-current-file)
-  ("r" ediff-revision)
-  ("l" ediff-regions-linewise)
-  ("w" ediff-regions-wordwise))
+    ("b" ediff-buffers)
+    ("B" ediff-buffers3)
+    ("=" ediff-files)
+    ("f" ediff-files)
+    ("F" ediff-files3)
+    ("c" ediff-current-file)
+    ("r" ediff-revision)
+    ("l" ediff-regions-linewise)
+    ("w" ediff-regions-wordwise))
 
-;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
-;; focus on the *Occur* window and hides upon request in case needed later.
-(defhydra hydra-occur-dwim (:hint nil)
-  "
+  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+  ;; focus on the *Occur* window and hides upon request in case needed later.
+  (defhydra hydra-occur-dwim (:hint nil)
+    "
   ^Occur^             ^Navigation^     ^Visibility
   ^^^^^^^^-----------------------------------------------------------------
   _o_: occur-dwim     _j_: next        _h_: hide
   ^ ^                 _k_: prev        _r_: re-attach
   "
-  ("o" occur-dwim "occur-dwim" :color red)
-  ("j" occur-next "Next" :color red)
-  ("k" occur-prev "Prev":color red)
-  ("h" delete-window "Hide" :color blue)
-  ("r" (reattach-occur) "Re-attach" :color red))
+    ("o" occur-dwim "occur-dwim" :color red)
+    ("j" occur-next "Next" :color red)
+    ("k" occur-prev "Prev":color red)
+    ("h" delete-window "Hide" :color blue)
+    ("r" (reattach-occur) "Re-attach" :color red))
 
-(global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
+  (global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
 
-(defhydra hydra-org-mode (:hint nil)
-  "
+  (defhydra hydra-org-mode (:hint nil)
+    "
 ^Org-Mode
 ^^^^^^^^-----------------------------------------------------------------
 _p_: pomodoro
 "
-  ("p" org-pomodoro :exit t))
-(bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+    ("p" org-pomodoro :exit t))
+  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
-(defhydra hydra-straight-helper (:hint nil)
-  "
+  (defhydra hydra-straight-helper (:hint nil)
+    "
 _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
 _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
 ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
 _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
 _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
-  ("c" straight-check-all)
-  ("C" straight-check-package)
-  ("r" straight-rebuild-all)
-  ("R" straight-rebuild-package)
-  ("f" straight-fetch-all)
-  ("F" straight-fetch-package)
-  ("p" straight-pull-all)
-  ("P" straight-pull-package)
-  ("m" straight-merge-all)
-  ("M" straight-merge-package)
-  ("n" straight-normalize-all)
-  ("N" straight-normalize-package)
-  ("u" straight-push-all)
-  ("U" straight-push-package)
-  ("v" straight-freeze-versions)
-  ("V" straight-thaw-versions)
-  ("w" straight-watcher-start)
-  ("W" straight-watcher-quit)
-  ("g" straight-get-recipe)
-  ("e" straight-prune-build)
-  ("q" nil))
+    ("c" straight-check-all)
+    ("C" straight-check-package)
+    ("r" straight-rebuild-all)
+    ("R" straight-rebuild-package)
+    ("f" straight-fetch-all)
+    ("F" straight-fetch-package)
+    ("p" straight-pull-all)
+    ("P" straight-pull-package)
+    ("m" straight-merge-all)
+    ("M" straight-merge-package)
+    ("n" straight-normalize-all)
+    ("N" straight-normalize-package)
+    ("u" straight-push-all)
+    ("U" straight-push-package)
+    ("v" straight-freeze-versions)
+    ("V" straight-thaw-versions)
+    ("w" straight-watcher-start)
+    ("W" straight-watcher-quit)
+    ("g" straight-get-recipe)
+    ("e" straight-prune-build)
+    ("q" nil))
 
-defhydra hydra-smartparens (:hint nil)
-"
+  (defhydra hydra-smartparens (:hint nil)
+    "
  Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
 ------------------------------------------------------------------------------------------------------------------------
  [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
  [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
  [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
  [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
-;; Moving
-("a" sp-beginning-of-sexp)
-("e" sp-end-of-sexp)
-("f" sp-forward-sexp)
-("b" sp-backward-sexp)
-("n" sp-down-sexp)
-("N" sp-backward-down-sexp)
-("p" sp-up-sexp)
-("P" sp-backward-up-sexp)
+    ;; Moving
+    ("a" sp-beginning-of-sexp)
+    ("e" sp-end-of-sexp)
+    ("f" sp-forward-sexp)
+    ("b" sp-backward-sexp)
+    ("n" sp-down-sexp)
+    ("N" sp-backward-down-sexp)
+    ("p" sp-up-sexp)
+    ("P" sp-backward-up-sexp)
 
-;; Slurping & barfing
-("h" sp-backward-slurp-sexp)
-("H" sp-backward-barf-sexp)
-("l" sp-forward-slurp-sexp)
-("L" sp-forward-barf-sexp)
+    ;; Slurping & barfing
+    ("h" sp-backward-slurp-sexp)
+    ("H" sp-backward-barf-sexp)
+    ("l" sp-forward-slurp-sexp)
+    ("L" sp-forward-barf-sexp)
 
-;; Wrapping
-("R" sp-rewrap-sexp)
-("u" sp-unwrap-sexp)
-("U" sp-backward-unwrap-sexp)
-("(" sp-wrap-round)
-("{" sp-wrap-curly)
-("[" sp-wrap-square)
+    ;; Wrapping
+    ("R" sp-rewrap-sexp)
+    ("u" sp-unwrap-sexp)
+    ("U" sp-backward-unwrap-sexp)
+    ("(" sp-wrap-round)
+    ("{" sp-wrap-curly)
+    ("[" sp-wrap-square)
 
-;; Sexp juggling
-("S" sp-split-sexp)
-("s" sp-splice-sexp)
-("r" sp-raise-sexp)
-("j" sp-join-sexp)
-("t" sp-transpose-sexp)
-("A" sp-absorb-sexp)
-("E" sp-emit-sexp)
-("o" sp-convolute-sexp)
+    ;; Sexp juggling
+    ("S" sp-split-sexp)
+    ("s" sp-splice-sexp)
+    ("r" sp-raise-sexp)
+    ("j" sp-join-sexp)
+    ("t" sp-transpose-sexp)
+    ("A" sp-absorb-sexp)
+    ("E" sp-emit-sexp)
+    ("o" sp-convolute-sexp)
 
-;; Destructive editing
-("c" sp-change-inner :exit t)
-("C" sp-change-enclosing :exit t)
-("k" sp-kill-sexp)
-("K" sp-backward-kill-sexp)
-("w" sp-copy-sexp)
+    ;; Destructive editing
+    ("c" sp-change-inner :exit t)
+    ("C" sp-change-enclosing :exit t)
+    ("k" sp-kill-sexp)
+    ("K" sp-backward-kill-sexp)
+    ("w" sp-copy-sexp)
 
-("q" nil)
-("g" nil))
+    ("q" nil)
+    ("g" nil)))
 
 #+end_src
 
