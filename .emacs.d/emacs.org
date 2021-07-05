@@ -479,6 +479,42 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 
 #+end_src
 
+** Occur Mode
+:PROPERTIES:
+:ID:       c452f60f-d7e5-4434-8613-85e32523abbf
+:END:
+
+#+begin_src emacs-lisp
+
+  (defun occur-dwim ()
+    "Call `occur' with a sane default, chosen as the thing under point or selected region"
+    (interactive)
+    (push (if (region-active-p)
+	      (buffer-substring-no-properties
+	       (region-beginning)
+	       (region-end))
+	    (let ((sym (thing-at-point 'symbol)))
+	      (when (stringp sym)
+		(regexp-quote sym))))
+	  regexp-history)
+    (call-interactively 'occur))
+
+  ;; Keeps focus on *Occur* window, even when when target is visited via RETURN key.
+  ;; See hydra-occur-dwim for more options.
+  (defadvice occur-mode-goto-occurrence (after occur-mode-goto-occurrence-advice activate)
+    (other-window 1)
+    (hydra-occur-dwim/body))
+
+  ;; Focus on *Occur* window right away.
+  (add-hook 'occur-hook (lambda () (other-window 1)))
+
+  (defun reattach-occur ()
+    (if (get-buffer "*Occur*")
+	(switch-to-buffer-other-window "*Occur*")
+      (hydra-occur-dwim/body) ))
+
+#+end_src
+
 * Package System Setup
 :PROPERTIES:
 :ID:       9098e83f-8fe9-41cd-be54-815d2b2f8635
@@ -490,24 +526,22 @@ Installation problems seem to often get fixed by executing =package-refresh-cont
 
 #+begin_src emacs-lisp
 
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-(require 'package)
+(defvar bootstrap-version)
+(let ((bootstrap-file
+      (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+        "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+        'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")
-                         ))
+(straight-use-package 'use-package)
 
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-;;initialize use-package on non-Linux platforms
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
+(setq straight-use-package-by-default t)
 (setq use-package-verbose t)
 
 #+end_src
@@ -622,7 +656,7 @@ in case Emacs daemon is used."
 #+begin_src emacs-lisp
 
 (use-package unicode-fonts
-  :ensure t
+  :straight t
   :config
   (unicode-fonts-setup))
 
@@ -646,7 +680,7 @@ in case Emacs daemon is used."
 (use-package all-the-icons)
 
 (use-package doom-modeline
-  :ensure t
+  :straight t
   :init (doom-modeline-mode 1)
   :custom (doom-modeline-hight 10))
 
@@ -906,15 +940,6 @@ Intended to be used in an `org-mode-hook'."
 
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil)))
-
-  (defhydra hydra-org-mode (:hint nil)
-    "
-^Org-Mode
-^^^^^^^^-----------------------------------------------------------------
-_p_: pomodoro
-"
-    ("p" org-pomodoro :exit t))
-  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
   (kk/org-font-setup))
 
@@ -1821,7 +1846,7 @@ This package helps to remember the [[https://www.emacswiki.org/emacs/EightyColum
 #+begin_src emacs-lisp
 
 (use-package guess-language         ; Automatically detect language for Flyspell
-  :ensure t
+  :straight t
   :defer t
   :init (add-hook 'ispell-minor-mode-hook #'guess-language-mode)
   :config
@@ -2279,6 +2304,32 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
   ("l" ediff-regions-linewise)
   ("w" ediff-regions-wordwise))
 
+  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+  ;; focus on the *Occur* window and hides upon request in case needed later.
+  (defhydra hydra-occur-dwim (:hint nil)
+    "
+  ^Occur^             ^Navigation^     ^Visibility
+  ^^^^^^^^-----------------------------------------------------------------
+  _o_: occur-dwim     _j_: next        _h_: hide
+  ^ ^                 _k_: prev        _r_: re-attach
+  "
+    ("o" occur-dwim "occur-dwim" :color red)
+    ("j" occur-next "Next" :color red)
+    ("k" occur-prev "Prev":color red)
+    ("h" delete-window "Hide" :color blue)
+    ("r" (reattach-occur) "Re-attach" :color red))
+
+  (global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
+
+  (defhydra hydra-org-mode (:hint nil)
+    "
+^Org-Mode
+^^^^^^^^-----------------------------------------------------------------
+_p_: pomodoro
+"
+    ("p" org-pomodoro :exit t))
+  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+
 #+end_src
 
 * Terminals
@@ -2544,7 +2595,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 #+begin_src emacs-lisp
 
 (use-package dired
-  :ensure nil
+  :straight nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-Alh --group-directories-first"))
@@ -2634,7 +2685,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
 
 (use-package mu4e
   :defer 0
-  :ensure nil
+  :straight nil
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
   :custom
   (mu4e-confirm-quit nil)
@@ -2851,7 +2902,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
 #+begin_src emacs-lisp
 
 (use-package org-mime
-  :ensure t
+  :straight t
   :defer t
   :config
   (setq org-mime-export-options '(:section-numbers nil
