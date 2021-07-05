@@ -1338,7 +1338,7 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init
-  (setq lsp-keymap-prefix "C-c l")
+  (setq lsp-keymap-prefix "C-c L")
   :config
   (lsp-enable-which-key-integration t))
 
