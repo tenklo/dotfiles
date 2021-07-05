@@ -479,6 +479,42 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 
 #+end_src
 
+** Occur Mode
+:PROPERTIES:
+:ID:       c452f60f-d7e5-4434-8613-85e32523abbf
+:END:
+
+#+begin_src emacs-lisp
+
+  (defun occur-dwim ()
+    "Call `occur' with a sane default, chosen as the thing under point or selected region"
+    (interactive)
+    (push (if (region-active-p)
+	      (buffer-substring-no-properties
+	       (region-beginning)
+	       (region-end))
+	    (let ((sym (thing-at-point 'symbol)))
+	      (when (stringp sym)
+		(regexp-quote sym))))
+	  regexp-history)
+    (call-interactively 'occur))
+
+  ;; Keeps focus on *Occur* window, even when when target is visited via RETURN key.
+  ;; See hydra-occur-dwim for more options.
+  (defadvice occur-mode-goto-occurrence (after occur-mode-goto-occurrence-advice activate)
+    (other-window 1)
+    (hydra-occur-dwim/body))
+
+  ;; Focus on *Occur* window right away.
+  (add-hook 'occur-hook (lambda () (other-window 1)))
+
+  (defun reattach-occur ()
+    (if (get-buffer "*Occur*")
+	(switch-to-buffer-other-window "*Occur*")
+      (hydra-occur-dwim/body) ))
+
+#+end_src
+
 * Package System Setup
 :PROPERTIES:
 :ID:       9098e83f-8fe9-41cd-be54-815d2b2f8635
@@ -2277,6 +2313,23 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
   ("r" ediff-revision)
   ("l" ediff-regions-linewise)
   ("w" ediff-regions-wordwise))
+
+  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+  ;; focus on the *Occur* window and hides upon request in case needed later.
+  (defhydra hydra-occur-dwim (:hint nil)
+    "
+  ^Occur^             ^Navigation^     ^Visibility
+  ^^^^^^^^-----------------------------------------------------------------
+  _o_: occur-dwim     _j_: next        _h_: hide
+  ^ ^                 _k_: prev        _r_: re-attach
+  "
+    ("o" occur-dwim "occur-dwim" :color red)
+    ("j" occur-next "Next" :color red)
+    ("k" occur-prev "Prev":color red)
+    ("h" delete-window "Hide" :color blue)
+    ("r" (reattach-occur) "Re-attach" :color red))
+
+  (global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
 
 #+end_src
 
