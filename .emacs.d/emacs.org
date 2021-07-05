@@ -2221,16 +2221,19 @@ _a_: academical            _k_: personal + work + academical
   "
 ^Development^          ^LSP
 ^^^^^^^^-----------------------------------------------------------------
-_c_: recompile         _L_: lsp-mode
+^ ^                    _l_: lsp
+_c_: recompile         _L_: lsp-server
 _C_: compile           _t_: tree
-^ ^                    _d_: dap
+_s_: smartparens       _d_: dap
 "
   ("c" recompile :exit t)
   ("C" compile :exit t)
   ("f" kk/tidy-buffer :exit t)
-  ("L" lsp-mode :exit t)
+  ("l" hydra-lsp/body :exit t)
+  ("L" lsp :exit t)
   ("t" treemacs :exit t)
-  ("d" dap-hydra :exit t))
+  ("d" dap-hydra :exit t)
+  ("s" hydra-smartparens/body :exit t))
 (bind-key "C-c h" #'hydra-development/body prog-mode-map)
 
 (defhydra hydra-mail (:hint nil)
