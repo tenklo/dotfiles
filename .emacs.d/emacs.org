@@ -3185,6 +3185,8 @@ Enable some disabled commands. Otherwise theres an annoying popup.
  '(grep-find-template
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
  '(initial-scratch-message "* Scratch
+
+,* Pomodoros
 ")
  '(grep-template "grep <X> <C> -n -I --null -e <R> <F>")
  '(org-modules
