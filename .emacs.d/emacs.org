@@ -2014,6 +2014,8 @@ Defining leader keys using the general package.
 
 (global-set-key [f5] 'universal-argument)
 
+(global-set-key (kbd "C-c d") 'hydra-ediff/body)
+
 #+end_src
 
 ** Movement
@@ -2242,6 +2244,24 @@ _a_: attachment         _h_: htmlize
   ("a" mail-add-attachment :exit t)
   ("h" org-mime-htmlize :exit t)
   ("e" org-mime-edit-mail-in-org-mode :exit t))
+
+(defhydra hydra-ediff (:color blue :hint nil)
+  "
+^Buffers^              ^Files^                ^VC^               ^Ediff regions
+^^^^^^^^-----------------------------------------------------------------
+_b_: buffers           _f_: files             _r_: revisions     _l_: linewise
+_B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
+^ ^                    _c_: current file
+"
+  ("b" ediff-buffers)
+  ("B" ediff-buffers3)
+  ("=" ediff-files)
+  ("f" ediff-files)
+  ("F" ediff-files3)
+  ("c" ediff-current-file)
+  ("r" ediff-revision)
+  ("l" ediff-regions-linewise)
+  ("w" ediff-regions-wordwise))
 
 #+end_src
 
