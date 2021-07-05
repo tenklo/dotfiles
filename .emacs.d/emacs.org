@@ -1897,6 +1897,7 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
 #+end_src
 
 *** Special Evil Modemap
