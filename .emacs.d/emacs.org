@@ -943,15 +943,6 @@ Intended to be used in an `org-mode-hook'."
   (define-key global-map (kbd "C-c j")
     (lambda () (interactive) (org-capture nil)))
 
-  (defhydra hydra-org-mode (:hint nil)
-    "
-^Org-Mode
-^^^^^^^^-----------------------------------------------------------------
-_p_: pomodoro
-"
-    ("p" org-pomodoro :exit t))
-  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
-
   (kk/org-font-setup))
 
 (use-package org-bullets
@@ -2330,6 +2321,15 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
     ("r" (reattach-occur) "Re-attach" :color red))
 
   (global-set-key (kbd "M-s o") 'hydra-occur-dwim/body)
+
+  (defhydra hydra-org-mode (:hint nil)
+    "
+^Org-Mode
+^^^^^^^^-----------------------------------------------------------------
+_p_: pomodoro
+"
+    ("p" org-pomodoro :exit t))
+  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
 #+end_src
 
