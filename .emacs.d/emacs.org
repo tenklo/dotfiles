@@ -1397,7 +1397,6 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 (use-package typescript-mode
   :mode "\\.ts\\'"
-  :hook (typescript-mode . lsp-deferred)
   :config
   (setq typescript-indent-level 2))
 
@@ -1425,8 +1424,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 #+begin_src emacs-lisp
 
 (use-package php-mode
-  :mode "\\.php\\'"
-  :hook (php-mode . lsp-deferred))
+  :mode "\\.php\\'")
 
 #+end_src
 
@@ -1438,7 +1436,6 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 #+begin_src emacs-lisp
 
 (use-package python-mode
-  :hook (python-mode . lsp-deferred)
   :custom
   (dap-python-debugger 'debugpy)
   :config
