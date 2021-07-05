@@ -883,15 +883,6 @@ Intended to be used in an `org-mode-hook'."
           ("pms" "TV Shows" entry
            (id "f9836052-a820-4c83-923d-9afa9a36436d")
            "* SOMEDAY %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n- Recommended by %^{Recommended By}")
-
-          ("wT" "Todays Work TODOs" plain
-           (file+olp+datetree kk/work-daily-todo-file)
-           (function kk/todays-work-todos)
-           :immediate-finish t :empty-lines 0 :jump-to-captured t)
-          ("pT" "Todays Personal TODOs" plain
-           (file+olp+datetree kk/personal-daily-todo-file)
-           (function kk/todays-personal-todos)
-           :immediate-finish t :empty-lines 0 :jump-to-captured t)
           ("pm" "Media")
 
           ("at" "Task" entry (file+olp kk/academical-agenda-file "Inbox")
