@@ -1439,9 +1439,7 @@ Execute ~npm i -g typescript-language-server; npm i -g typescript~ first to inst
 
 (use-package python-mode
   :custom
-  (dap-python-debugger 'debugpy)
-  :config
-  (require 'dap-python))
+  (dap-python-debugger 'debugpy))
 
 #+end_src
 
