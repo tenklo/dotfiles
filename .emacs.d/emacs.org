@@ -2303,86 +2303,86 @@ _p_: pomodoro
   ("p" org-pomodoro :exit t))
 (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
- (defhydra hydra-straight-helper (:hint nil)
-   "
+(defhydra hydra-straight-helper (:hint nil)
+  "
 _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
 _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
 ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
 _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
 _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
-   ("c" straight-check-all)
-   ("C" straight-check-package)
-   ("r" straight-rebuild-all)
-   ("R" straight-rebuild-package)
-   ("f" straight-fetch-all)
-   ("F" straight-fetch-package)
-   ("p" straight-pull-all)
-   ("P" straight-pull-package)
-   ("m" straight-merge-all)
-   ("M" straight-merge-package)
-   ("n" straight-normalize-all)
-   ("N" straight-normalize-package)
-   ("u" straight-push-all)
-   ("U" straight-push-package)
-   ("v" straight-freeze-versions)
-   ("V" straight-thaw-versions)
-   ("w" straight-watcher-start)
-   ("W" straight-watcher-quit)
-   ("g" straight-get-recipe)
-   ("e" straight-prune-build)
-   ("q" nil))
+  ("c" straight-check-all)
+  ("C" straight-check-package)
+  ("r" straight-rebuild-all)
+  ("R" straight-rebuild-package)
+  ("f" straight-fetch-all)
+  ("F" straight-fetch-package)
+  ("p" straight-pull-all)
+  ("P" straight-pull-package)
+  ("m" straight-merge-all)
+  ("M" straight-merge-package)
+  ("n" straight-normalize-all)
+  ("N" straight-normalize-package)
+  ("u" straight-push-all)
+  ("U" straight-push-package)
+  ("v" straight-freeze-versions)
+  ("V" straight-thaw-versions)
+  ("w" straight-watcher-start)
+  ("W" straight-watcher-quit)
+  ("g" straight-get-recipe)
+  ("e" straight-prune-build)
+  ("q" nil))
 
- defhydra hydra-smartparens (:hint nil)
- "
+defhydra hydra-smartparens (:hint nil)
+"
  Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
 ------------------------------------------------------------------------------------------------------------------------
  [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
  [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
  [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
  [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
- ;; Moving
- ("a" sp-beginning-of-sexp)
- ("e" sp-end-of-sexp)
- ("f" sp-forward-sexp)
- ("b" sp-backward-sexp)
- ("n" sp-down-sexp)
- ("N" sp-backward-down-sexp)
- ("p" sp-up-sexp)
- ("P" sp-backward-up-sexp)
+;; Moving
+("a" sp-beginning-of-sexp)
+("e" sp-end-of-sexp)
+("f" sp-forward-sexp)
+("b" sp-backward-sexp)
+("n" sp-down-sexp)
+("N" sp-backward-down-sexp)
+("p" sp-up-sexp)
+("P" sp-backward-up-sexp)
 
- ;; Slurping & barfing
- ("h" sp-backward-slurp-sexp)
- ("H" sp-backward-barf-sexp)
- ("l" sp-forward-slurp-sexp)
- ("L" sp-forward-barf-sexp)
+;; Slurping & barfing
+("h" sp-backward-slurp-sexp)
+("H" sp-backward-barf-sexp)
+("l" sp-forward-slurp-sexp)
+("L" sp-forward-barf-sexp)
 
- ;; Wrapping
- ("R" sp-rewrap-sexp)
- ("u" sp-unwrap-sexp)
- ("U" sp-backward-unwrap-sexp)
- ("(" sp-wrap-round)
- ("{" sp-wrap-curly)
- ("[" sp-wrap-square)
+;; Wrapping
+("R" sp-rewrap-sexp)
+("u" sp-unwrap-sexp)
+("U" sp-backward-unwrap-sexp)
+("(" sp-wrap-round)
+("{" sp-wrap-curly)
+("[" sp-wrap-square)
 
- ;; Sexp juggling
- ("S" sp-split-sexp)
- ("s" sp-splice-sexp)
- ("r" sp-raise-sexp)
- ("j" sp-join-sexp)
- ("t" sp-transpose-sexp)
- ("A" sp-absorb-sexp)
- ("E" sp-emit-sexp)
- ("o" sp-convolute-sexp)
+;; Sexp juggling
+("S" sp-split-sexp)
+("s" sp-splice-sexp)
+("r" sp-raise-sexp)
+("j" sp-join-sexp)
+("t" sp-transpose-sexp)
+("A" sp-absorb-sexp)
+("E" sp-emit-sexp)
+("o" sp-convolute-sexp)
 
- ;; Destructive editing
- ("c" sp-change-inner :exit t)
- ("C" sp-change-enclosing :exit t)
- ("k" sp-kill-sexp)
- ("K" sp-backward-kill-sexp)
- ("w" sp-copy-sexp)
+;; Destructive editing
+("c" sp-change-inner :exit t)
+("C" sp-change-enclosing :exit t)
+("k" sp-kill-sexp)
+("K" sp-backward-kill-sexp)
+("w" sp-copy-sexp)
 
- ("q" nil)
- ("g" nil))
+("q" nil)
+("g" nil))
 
 #+end_src
 
