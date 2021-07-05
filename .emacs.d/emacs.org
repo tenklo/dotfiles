@@ -2360,6 +2360,22 @@ _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_
     ("e" straight-prune-build)
     ("q" nil))
 
+  (defhydra hydra-anki-mode (:hint nil)
+    "
+^Anki
+^^^^^^^^-----------------------------------------------------------------
+_i_: insert note         _s_: export subtree to html
+_c_: cloze region        _C_: convert region to html
+_p_: push notes
+"
+    ("p" anki-editor-push-notes :exit t)
+    ("i" anki-editor-insert-note :exit t)
+    ("c" anki-editor-cloze-region :exit t)
+    ("s" anki-editor-export-subtree-to-html :exit t)
+    ("C" anki-editor-convert-region-to-html :exit t))
+  (add-hook 'anki-editor-mode-hook
+            (lambda () (local-set-key (kbd "C-c h") #'hydra-anki-mode/body)))
+
   (defhydra hydra-smartparens (:hint nil)
     "
  Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
@@ -3234,23 +3250,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 
-(use-package anki-editor
-  :config
-  (defhydra hydra-anki-mode (:hint nil)
-    "
-^Anki
-^^^^^^^^-----------------------------------------------------------------
-_i_: insert note         _s_: export subtree to html
-_c_: cloze region        _C_: convert region to html
-_p_: push notes
-"
-    ("p" anki-editor-push-notes :exit t)
-    ("i" anki-editor-insert-note :exit t)
-    ("c" anki-editor-cloze-region :exit t)
-    ("s" anki-editor-export-subtree-to-html :exit t)
-    ("C" anki-editor-convert-region-to-html :exit t))
-  (add-hook 'anki-editor-mode-hook
-            (lambda () (local-set-key (kbd "C-c h") #'hydra-anki-mode/body))))
+(use-package anki-editor)
 
 #+end_src
 
