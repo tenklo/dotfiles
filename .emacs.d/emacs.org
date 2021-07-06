@@ -816,6 +816,12 @@ prescient.el provides some helpful behavior for sorting Ivy completion candidate
   "Set org-specific settings.
 Intended to be used in an `org-mode-hook'."
   (visual-line-mode 1)
+  (setq prettify-symbols-alist '(("[ ]" . "")
+                                 ("[X]" . "")
+                                 ("[-]" . "")
+                                 ("#+begin_src" . "")
+                                 ("#+end_src" . "―")))
+  (prettify-symbols-mode)
   (setq-local display-line-numbers-type t))
 
 (use-package org
