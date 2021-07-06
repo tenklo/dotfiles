@@ -994,11 +994,15 @@ Intended to be used in an `org-mode-hook'."
          ((agenda ""
                   ((org-deadline-warning-days 365)
                    (org-agenda-span 1)
+
+                   (org-agenda-sorting-strategy
+                    '((agenda habit-down deadline-up time-up
+                              category-up todo-state-up)))
                    (org-agenda-show-all-dates nil)))
           (agenda ""
-                  ((org-agenda-span 'year))))
+                  ((org-agenda-span 'year)
+                   (org-deadline-warning-days 0))))
          ((org-agenda-start-with-log-mode nil)
-          (org-deadline-warning-days 0)
           (org-agenda-include-diary nil)
           (org-agenda-entry-types '(:deadline))))
 
