@@ -2037,6 +2037,9 @@ Defining leader keys using the general package.
 
 (global-set-key (kbd "C-c d") 'hydra-ediff/body)
 
+(global-set-key (kbd "C-c o") 'hydra-favorite-files/body)
+(global-set-key (kbd "C-c f") 'hydra-focus-areas/body)
+
 #+end_src
 
 ** Movement
