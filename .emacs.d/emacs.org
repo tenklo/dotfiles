@@ -1886,6 +1886,7 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
     (add-to-list 'evil-emacs-state-modes mode)))
 
 (use-package evil
+  :disabled t
   :init
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
