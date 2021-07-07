@@ -55,6 +55,9 @@ Here variables shall be set, which will be used throughout the config to set sys
 (defvar kk/academical-agenda-file "")
 (defvar kk/diary-files ())
 (defvar kk/org-agenda-files '())
+(defvar kk/mu4e-contexts)
+
+#+end_src
 
 ** Allocations
 :PROPERTIES:
@@ -76,7 +79,9 @@ Here variables shall be set, which will be used throughout the config to set sys
    (setq kk/org-agenda-files (list
                               kk/academical-agenda-file
                               "~/nextcloud_work/Documents/org/standups.org"
-                              kk/work-agenda-file)))
+                              kk/work-agenda-file))
+   (setq kk/mu4e-contexts '(kk/mu4e-dx-context
+                            kk/mu4e-its-context)))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq kk/default-diary-file "/tmp/diary")
@@ -97,10 +102,12 @@ Here variables shall be set, which will be used throughout the config to set sys
                               kk/academical-agenda-file
                               "~/nextcloud_work/Documents/org/standups.org"
                               kk/work-agenda-file
-                              "~/tasks.org"))))
-
-#+end_src
-
+                              "~/tasks.org")))
+  (setq kk/mu4e-contexts '(kk/mu4e-dx-context
+                           kk/mu4e-info-context
+                           kk/mu4e-karsten-context
+                           kk/mu4e-k-context
+                           kk/mu4e-its-context)))
 
 #+end_src
 
