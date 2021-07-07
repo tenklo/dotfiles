@@ -2894,7 +2894,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
     (when (member 'kk/mu4e-dx-context kk/mu4e-contexts)
       (defvar kk/mu4e-dx-context
         (make-mu4e-context
-         :name "dx"
+         :name "1-dx"
          :enter-func (lambda ()
                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
                          (revert-buffer)))
@@ -2944,7 +2944,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
     (when (member 'kk/mu4e-its-context kk/mu4e-contexts)
       (defvar kk/mu4e-its-context
         (make-mu4e-context
-         :name "schule"
+         :name "2-its"
          :enter-func (lambda ()
                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
                          (revert-buffer)))
@@ -2987,7 +2987,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
     (when (member 'kk/mu4e-info-context kk/mu4e-contexts)
       (defvar kk/mu4e-info-context
         (make-mu4e-context
-         :name "info@kloess.xyz"
+         :name "3-info@kloess.xyz"
          :enter-func (lambda ()
                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
                          (revert-buffer)))
@@ -3030,7 +3030,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
     (when (member 'kk/mu4e-karsten-context kk/mu4e-contexts)
       '(defvar kk/mu4e-karsten-context
          (make-mu4e-context
-          :name "jk@kloess.xyz"
+          :name "5-k@kloess.xyz"
           :enter-func (lambda ()
                         (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
                           (revert-buffer)))
@@ -3080,7 +3080,7 @@ This is used to have standard bookmarks, to be added to context specific bookmar
     (when (member 'kk/mu4e-karsten-context kk/mu4e-contexts)
       '(defvar kk/mu4e-k-context
          (make-mu4e-context
-          :name "karsten@kloess.xyz"
+          :name "4-karsten@kloess.xyz"
           :enter-func (lambda ()
                         (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
                           (revert-buffer)))
