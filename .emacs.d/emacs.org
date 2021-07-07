@@ -168,6 +168,18 @@ exist."
   (interactive "sSubject: ")
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
 #+end_src
+*** After Mu4e
+:PROPERTIES:
+:ID:       bd3529d3-b33d-44ea-bb24-77eb693be484
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/after-mu4e (body)
+  (eval-after-load 'mu4e
+    body))
+
+#+end_src
 
 ** kloess.xyz
 *** Push File To kloess.xyz
