@@ -36,6 +36,10 @@ Also displays the number of garbage collections which occured."
 
 Here variables shall be set, which will be used throughout the config to set system specific values.
 
+** Variable Declarations
+:PROPERTIES:
+:ID:       2845786b-6df1-41f5-93b4-39c0ed099511
+:END:
 #+begin_src emacs-lisp
 
 (defvar kk/default-font-size 150)
@@ -52,6 +56,12 @@ Here variables shall be set, which will be used throughout the config to set sys
 (defvar kk/diary-files ())
 (defvar kk/org-agenda-files '())
 
+** Allocations
+:PROPERTIES:
+:ID:       98903098-1451-44a3-915e-1e34ff98d114
+:END:
+
+#+begin_src emacs-lisp
 (pcase system-name
   ("dwhpd"
    (setq kk/default-font-size 140)
