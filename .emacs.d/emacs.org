@@ -3120,23 +3120,6 @@ This is used to have standard bookmarks, to be added to context specific bookmar
 
 #+end_src
 
-**** Allocations
-:PROPERTIES:
-:ID:       97ed00ef-5f29-4954-9215-22320448a3d8
-:END:
-
-#+begin_src emacs-lisp
-
-;; (kk/after-mu4e
-;;  (setq mu4e-contexts
-;;        `(,mu4e-dx-context
-;;          ,mu4e-its-context
-;;          ,mu4e-info-context
-;;          ,mu4e-karsten-context
-;;          ,mu4e-k-context)))
-
-#+end_src
-
 *** Org-Mime
 :PROPERTIES:
 :ID:       5568dec1-9d80-436b-9e6f-227ba4a6c5aa
