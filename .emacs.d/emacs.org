@@ -6,68 +6,6 @@
 This file generates init.el, which can be loaded by Emacs at startup.
 *Work In Progress.*
 
-* System Specific Settings
-:PROPERTIES:
-:ID:       e8b5f6db-329a-43e9-b7a1-911ca1d089ab
-:END:
-
-Here variables shall be set, which will be used throughout the config to set system specific values.
-
-#+begin_src emacs-lisp
-
-(defvar kk/default-font-size 150)
-(defvar kk/default-diary-file "")
-(defvar kk/personal-journal "")
-(defvar kk/personal-diary-file "")
-(defvar kk/personal-agenda-file "")
-(defvar kk/personal-daily-todo-file "")
-(defvar kk/work-diary-file "")
-(defvar kk/work-agenda-file "")
-(defvar kk/work-daily-todo-file "")
-(defvar kk/academical-diary-file "")
-(defvar kk/academical-agenda-file "")
-(defvar kk/diary-files ())
-(defvar kk/org-agenda-files '())
-
-(pcase system-name
-  ("dwhpd"
-   (setq kk/default-font-size 140)
-   (setq kk/default-diary-file "/tmp/diary")
-   (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
-   (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
-   (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
-   (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
-   (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
-   (setq kk/diary-files (list kk/work-diary-file
-                              kk/academical-diary-file))
-   (setq kk/org-agenda-files (list
-                              kk/academical-agenda-file
-                              "~/nextcloud_work/Documents/org/standups.org"
-                              kk/work-agenda-file)))
-  ("T490s"
-   (setq kk/default-font-size 180)
-   (setq kk/default-diary-file "/tmp/diary")
-   (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
-   (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
-   (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org")
-   (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
-   (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
-   (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
-   (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
-   (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
-   (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
-   (setq kk/diary-files (list kk/personal-diary-file
-                              kk/work-diary-file
-                              kk/academical-diary-file))
-   (setq kk/org-agenda-files (list
-                              kk/personal-agenda-file
-                              kk/academical-agenda-file
-                              "~/nextcloud_work/Documents/org/standups.org"
-                              kk/work-agenda-file
-                              "~/tasks.org"))))
-
-#+end_src
-
 * Startup Performance
 :PROPERTIES:
 :ID:       f9c539f0-90e3-4b9a-adbc-1098beba2d08
@@ -88,6 +26,88 @@ Also displays the number of garbage collections which occured."
            gcs-done))
 
 (add-hook 'emacs-startup-hook #'kk/display-startup-time)
+
+#+end_src
+
+* System Specific Settings
+:PROPERTIES:
+:ID:       e8b5f6db-329a-43e9-b7a1-911ca1d089ab
+:END:
+
+Here variables shall be set, which will be used throughout the config to set system specific values.
+
+** Variable Declarations
+:PROPERTIES:
+:ID:       2845786b-6df1-41f5-93b4-39c0ed099511
+:END:
+#+begin_src emacs-lisp
+
+(defvar kk/default-font-size 150)
+(defvar kk/default-diary-file "")
+(defvar kk/personal-journal "")
+(defvar kk/personal-diary-file "")
+(defvar kk/personal-agenda-file "")
+(defvar kk/personal-daily-todo-file "")
+(defvar kk/work-diary-file "")
+(defvar kk/work-agenda-file "")
+(defvar kk/work-daily-todo-file "")
+(defvar kk/academical-diary-file "")
+(defvar kk/academical-agenda-file "")
+(defvar kk/diary-files ())
+(defvar kk/org-agenda-files '())
+(defvar kk/mu4e-contexts)
+
+#+end_src
+
+** Allocations
+:PROPERTIES:
+:ID:       98903098-1451-44a3-915e-1e34ff98d114
+:END:
+
+#+begin_src emacs-lisp
+(pcase system-name
+  ("dwhpd"
+   (setq kk/default-font-size 140)
+   (setq kk/default-diary-file "/tmp/diary")
+   (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+   (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+   (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+   (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
+   (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
+   (setq kk/diary-files (list kk/work-diary-file
+                              kk/academical-diary-file))
+   (setq kk/org-agenda-files (list
+                              kk/academical-agenda-file
+                              "~/nextcloud_work/Documents/org/standups.org"
+                              kk/work-agenda-file))
+   (setq kk/mu4e-contexts '(kk/mu4e-dx-context
+                            kk/mu4e-its-context)))
+  ("T490s"
+   (setq kk/default-font-size 180)
+   (setq kk/default-diary-file "/tmp/diary")
+   (setq kk/personal-journal "~/Nextcloud/Documents/org/journal.org.gpg")
+   (setq kk/personal-diary-file "~/Nextcloud/Documents/org/diary")
+   (setq kk/personal-agenda-file "~/Nextcloud/Documents/org/personal.org")
+   (setq kk/personal-daily-todo-file "~/Nextcloud/Documents/org/2021.org")
+   (setq kk/work-diary-file "~/nextcloud_work/Documents/org/workdiary")
+   (setq kk/work-agenda-file "~/nextcloud_work/Documents/org/workAgenda.org")
+   (setq kk/work-daily-todo-file "~/nextcloud_work/Documents/org/2021.org")
+   (setq kk/academical-diary-file "~/nextcloud_work/Documents/org/schuldiary")
+   (setq kk/academical-agenda-file "~/nextcloud_work/schule/schule.org")
+   (setq kk/diary-files (list kk/personal-diary-file
+                              kk/work-diary-file
+                              kk/academical-diary-file))
+   (setq kk/org-agenda-files (list
+                              kk/personal-agenda-file
+                              kk/academical-agenda-file
+                              "~/nextcloud_work/Documents/org/standups.org"
+                              kk/work-agenda-file
+                              "~/tasks.org")))
+  (setq kk/mu4e-contexts '(kk/mu4e-dx-context
+                           kk/mu4e-info-context
+                           kk/mu4e-karsten-context
+                           kk/mu4e-k-context
+                           kk/mu4e-its-context)))
 
 #+end_src
 
@@ -128,6 +148,7 @@ exist."
     (make-directory (concat dir sub-dir) parents)))
 
 #+end_src
+
 *** Block Mail
 :PROPERTIES:
 :ID:       1ddd7223-1457-4b2e-9729-663a021e60fe
@@ -146,6 +167,18 @@ exist."
 (defun kk/mail-block-by-subject (subject)
   (interactive "sSubject: ")
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+*** After Mu4e
+:PROPERTIES:
+:ID:       bd3529d3-b33d-44ea-bb24-77eb693be484
+:END:
+
+#+begin_src emacs-lisp
+
+(defun kk/after-mu4e (body)
+  (eval-after-load 'mu4e
+    body))
+
 #+end_src
 
 ** kloess.xyz
@@ -2339,14 +2372,15 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 
   (defhydra hydra-org-mode (:hint nil)
     "
-^Time             ^Agenda
-^^^^^^^^-----------------------------------------------------------------
-_p_: pomodoro     _s_: search
-_i_: clock in     _S_: search todo only
-_o_: clock out    _m_: match
-^ ^               _M_: match todo only
-"
+      ^Time                           ^Agenda
+      ^^^^^^^^-----------------------------------------------------------------
+      _p_: pomodoro                   _s_: search
+      _e_: extend clock to now        _S_: search todo only
+      _i_: clock in                   _m_: match
+      _o_: clock out                  _M_: match todo only
+      "
     ("p" org-pomodoro :exit t)
+    ("e" org-pomodoro-extend-last-clock :exit t)
     ("i" org-clock-in :exit t)
     ("o" org-clock-out :exit t)
     ("s" org-search-view :exit t)
@@ -2357,11 +2391,11 @@ _o_: clock out    _m_: match
 
   (defhydra hydra-straight-helper (:hint nil)
     "
-_c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
-_C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
-----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
-_r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
-_R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
+      _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
+      _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
+      ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
+      _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
+      _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
     ("c" straight-check-all)
     ("C" straight-check-package)
     ("r" straight-rebuild-all)
@@ -2386,12 +2420,12 @@ _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_
 
   (defhydra hydra-anki-mode (:hint nil)
     "
-^Anki
-^^^^^^^^-----------------------------------------------------------------
-_i_: insert note         _s_: export subtree to html
-_c_: cloze region        _C_: convert region to html
-_p_: push notes
-"
+      ^Anki
+      ^^^^^^^^-----------------------------------------------------------------
+      _i_: insert note         _s_: export subtree to html
+      _c_: cloze region        _C_: convert region to html
+      _p_: push notes
+      "
     ("p" anki-editor-push-notes :exit t)
     ("i" anki-editor-insert-note :exit t)
     ("c" anki-editor-cloze-region :exit t)
@@ -2402,12 +2436,12 @@ _p_: push notes
 
   (defhydra hydra-smartparens (:hint nil)
     "
- Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
-------------------------------------------------------------------------------------------------------------------------
- [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
- [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
- [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
- [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
+      Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
+      ------------------------------------------------------------------------------------------------------------------------
+      [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
+      [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
+      [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
+      [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
     ;; Moving
     ("a" sp-beginning-of-sexp)
     ("e" sp-end-of-sexp)
@@ -2788,7 +2822,6 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     (message-insert-signature)))
 
 #+end_src
-
 *** General
 :PROPERTIES:
 :ID:       fc11d01f-223a-4844-ae9c-35f9da1d7f6d
@@ -2844,105 +2877,158 @@ This is used to have standard bookmarks, to be added to context specific bookmar
   (setq mu4e-compose-format-flowed t)
 
   (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
-  (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
+  (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map))
 
-  (setq mu4e-contexts
-        (list
-         ;; digital-worx
-         (make-mu4e-context
-          :name "dx"
-          :enter-func (lambda ()
-                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                          (revert-buffer)))
-          :match-func
-          (lambda (msg)
-            (when msg
-              (string-prefix-p "/kloess@digital-worx.de" (mu4e-message-field msg :maildir))))
-          :vars '((user-mail-address . "kloess@digital-worx.de")
-                  (user-full-name    . "Karsten Klöss")
-                  (mu4e-drafts-folder  . "/kloess@digital-worx.de/Drafts")
-                  (mu4e-sent-folder  . "/kloess@digital-worx.de/Sent")
-                  (mu4e-refile-folder  . "/kloess@digital-worx.de/Archives")
-                  (mu4e-trash-folder  . "/kloess@digital-worx.de/Trash")
-                  (mu4e-maildir-shortcuts .
-                                          ((:maildir "/kloess@digital-worx.de/INBOX" :key ?i)
-                                           (:maildir "/kloess@digital-worx.de/Archives" :key ?a)
-                                           (:maildir "/kloess@digital-worx.de/Trash" :key ?t)
-                                           (:maildir "/kloess@digital-worx.de/Drafts" :key ?d)
-                                           (:maildir "/kloess@digital-worx.de/Junk" :key ?j)
-                                           (:maildir "/kloess@digital-worx.de/digital worx" :key ?x)
-                                           (:maildir "/kloess@digital-worx.de/asvin" :key ?v)
-                                           (:maildir "/kloess@digital-worx.de/kohlhammer" :key ?k)
-                                           (:maildir "/kloess@digital-worx.de/Porsche" :key ?p)
-                                           (:maildir "/kloess@digital-worx.de/privileg" :key ?o)
-                                           (:maildir "/kloess@digital-worx.de/Sent" :key ?s)
-                                           (:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
-                  (mu4e-bookmarks .
-                                  ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                   (:name "Today's messages digital-worx" :query "m:/kloess@digital-worx.de/ AND date:today..now" :key ?t)
-                                   (:name "Last 7 days digital-worx" :query "m:/kloess@digital-worx.de/ AND date:7d..now" :hide-unread t :key ?w)
-                                   (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
-                                   (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
-                                   (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p)))))
+#+end_src
 
-         (make-mu4e-context
-          :name "schule"
-          :enter-func (lambda ()
-                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                          (revert-buffer)))
-          :match-func
-          (lambda (msg)
-            (when msg
-              (string-prefix-p "/karsten.kloess@its-stuttgart.de" (mu4e-message-field msg :maildir))))
-          :vars '((user-mail-address . "karsten.kloess@its-stuttgart.de")
-                  (user-full-name    . "Karsten Klöss")
-                  (mu4e-drafts-folder  . "/karsten.kloess@its-stuttgart.de/Drafts")
-                  (mu4e-sent-folder  . "/karsten.kloess@its-stuttgart.de/Sent")
-                  (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archiv")
-                  (mu4e-trash-folder  . "/karsten.kloess@its-stuttgart.de/Trash")
-                  (mu4e-maildir-shortcuts .
-                                          ((:maildir "/karsten.kloess@its-stuttgart.de/INBOX" :key ?i)
-                                           (:maildir "/karsten.kloess@its-stuttgart.de/Archiv" :key ?a)
-                                           (:maildir "/karsten.kloess@its-stuttgart.de/Trash" :key ?t)
-                                           (:maildir "/karsten.kloess@its-stuttgart.de/Drafts" :key ?d)
-                                           (:maildir "/karsten.kloess@its-stuttgart.de/Junk" :key ?j)
-                                           (:maildir "/karsten.kloess@its-stuttgart.de/Sent" :key ?s)))
-                  (mu4e-bookmarks .
-                                  ((:name "Unread Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                   (:name "Today's messages Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:today..now" :key ?t)
-                                   (:name "Last 7 days Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:7d..now" :hide-unread t :key ?w)
-                                   (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
-                                   (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p)))))
+*** Mu4e Contexts
+**** digital-worx
+:PROPERTIES:
+:ID:       1efcb27e-2aca-444c-b85a-69ea16371ec9
+:END:
 
-         (make-mu4e-context
-          :name "info@kloess.xyz"
-          :enter-func (lambda ()
-                        (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-                          (revert-buffer)))
-          :match-func
-          (lambda (msg)
-            (when msg
-              (string-prefix-p "/info@kloess.xyz" (mu4e-message-field msg :maildir))))
-          :vars '((user-mail-address . "info@kloess.xyz")
-                  (user-full-name    . "Karsten Klöss")
-                  (mu4e-drafts-folder  . "/info@kloess.xyz/Drafts")
-                  (mu4e-sent-folder  . "/info@kloess.xyz/Sent")
-                  (mu4e-refile-folder  . "/info@kloess.xyz/Archive")
-                  (mu4e-trash-folder  . "/info@kloess.xyz/Trash")
-                  (mu4e-maildir-shortcuts .
-                                          ((:maildir "/info@kloess.xyz/INBOX" :key ?i)
-                                           (:maildir "/info@kloess.xyz/Archive" :key ?a)
-                                           (:maildir "/info@kloess.xyz/Trash" :key ?t)
-                                           (:maildir "/info@kloess.xyz/Drafts" :key ?d)
-                                           (:maildir "/info@kloess.xyz/Junk" :key ?j)
-                                           (:maildir "/info@kloess.xyz/Sent" :key ?s)))
-                  (mu4e-bookmarks .
-                                  ((:name "Unread info@kloess" :query "m:/info@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
-                                   (:name "Today's messages info@kloess" :query "m:/info@kloess.xyz/ AND date:today..now" :key ?t)
-                                   (:name "Last 7 days info@kloess" :query "m:/info@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
-                                   (:name "Messages with attachments info@kloess" :query "m:/info@kloess.xyz/ flag:attach" :key ?a)
-                                   (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p)))))
+#+begin_src emacs-lisp
 
+(kk/after-mu4e
+ '(lambda ()
+    (when (member 'kk/mu4e-dx-context kk/mu4e-contexts)
+      (defvar kk/mu4e-dx-context
+        (make-mu4e-context
+         :name "dx"
+         :enter-func (lambda ()
+                       (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                         (revert-buffer)))
+         :match-func
+         (lambda (msg)
+           (when msg
+             (string-prefix-p "/kloess@digital-worx.de" (mu4e-message-field msg :maildir))))
+         :vars '((user-mail-address . "kloess@digital-worx.de")
+                 (user-full-name    . "Karsten Klöss")
+                 (mu4e-drafts-folder  . "/kloess@digital-worx.de/Drafts")
+                 (mu4e-sent-folder  . "/kloess@digital-worx.de/Sent")
+                 (mu4e-refile-folder  . "/kloess@digital-worx.de/Archives")
+                 (mu4e-trash-folder  . "/kloess@digital-worx.de/Trash")
+                 (mu4e-maildir-shortcuts .
+                                         ((:maildir "/kloess@digital-worx.de/INBOX" :key ?i)
+                                          (:maildir "/kloess@digital-worx.de/Archives" :key ?a)
+                                          (:maildir "/kloess@digital-worx.de/Trash" :key ?t)
+                                          (:maildir "/kloess@digital-worx.de/Drafts" :key ?d)
+                                          (:maildir "/kloess@digital-worx.de/Junk" :key ?j)
+                                          (:maildir "/kloess@digital-worx.de/digital worx" :key ?x)
+                                          (:maildir "/kloess@digital-worx.de/asvin" :key ?v)
+                                          (:maildir "/kloess@digital-worx.de/kohlhammer" :key ?k)
+                                          (:maildir "/kloess@digital-worx.de/Porsche" :key ?p)
+                                          (:maildir "/kloess@digital-worx.de/privileg" :key ?o)
+                                          (:maildir "/kloess@digital-worx.de/Sent" :key ?s)
+                                          (:maildir "/kloess@digital-worx.de/Wafios" :key ?w)))
+                 (mu4e-bookmarks .
+                                 ((:name "Unread digital-worx" :query "m:/kloess@digital-worx.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                  (:name "Today's messages digital-worx" :query "m:/kloess@digital-worx.de/ AND date:today..now" :key ?t)
+                                  (:name "Last 7 days digital-worx" :query "m:/kloess@digital-worx.de/ AND date:7d..now" :hide-unread t :key ?w)
+                                  (:name "Messages with calendar files digital-worx" :query "m:/kloess@digital-worx.de/ mime:text/calendar" :key ?i)
+                                  (:name "Messages with attachments digital-worx" :query "m:/kloess@digital-worx.de/ flag:attach" :key ?a)
+                                  (:name "Messages with images digital-worx" :query "m:/kloess@digital-worx.de/ mime:image/*" :key ?p))))))
+      (add-to-list 'mu4e-contexts kk/mu4e-dx-context))))
+
+#+end_src
+
+**** its-stuttgart
+:PROPERTIES:
+:ID:       8547997d-71e4-4884-8c0c-940cb7b2069b
+:END:
+
+#+begin_src emacs-lisp
+
+(kk/after-mu4e
+ '(lambda ()
+    (when (member 'kk/mu4e-its-context kk/mu4e-contexts)
+      (defvar kk/mu4e-its-context
+        (make-mu4e-context
+         :name "schule"
+         :enter-func (lambda ()
+                       (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                         (revert-buffer)))
+         :match-func
+         (lambda (msg)
+           (when msg
+             (string-prefix-p "/karsten.kloess@its-stuttgart.de" (mu4e-message-field msg :maildir))))
+         :vars '((user-mail-address . "karsten.kloess@its-stuttgart.de")
+                 (user-full-name    . "Karsten Klöss")
+                 (mu4e-drafts-folder  . "/karsten.kloess@its-stuttgart.de/Drafts")
+                 (mu4e-sent-folder  . "/karsten.kloess@its-stuttgart.de/Sent")
+                 (mu4e-refile-folder  . "/karsten.kloess@its-stuttgart.de/Archiv")
+                 (mu4e-trash-folder  . "/karsten.kloess@its-stuttgart.de/Trash")
+                 (mu4e-maildir-shortcuts .
+                                         ((:maildir "/karsten.kloess@its-stuttgart.de/INBOX" :key ?i)
+                                          (:maildir "/karsten.kloess@its-stuttgart.de/Archiv" :key ?a)
+                                          (:maildir "/karsten.kloess@its-stuttgart.de/Trash" :key ?t)
+                                          (:maildir "/karsten.kloess@its-stuttgart.de/Drafts" :key ?d)
+                                          (:maildir "/karsten.kloess@its-stuttgart.de/Junk" :key ?j)
+                                          (:maildir "/karsten.kloess@its-stuttgart.de/Sent" :key ?s)))
+                 (mu4e-bookmarks .
+                                 ((:name "Unread Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                  (:name "Today's messages Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:today..now" :key ?t)
+                                  (:name "Last 7 days Schule" :query "m:/karsten.kloess@its-stuttgart.de/ AND date:7d..now" :hide-unread t :key ?w)
+                                  (:name "Messages with attachments Schule" :query "m:/karsten.kloess@its-stuttgart.de/ flag:attach" :key ?a)
+                                  (:name "Messages with images Schule" :query "m:/karsten.kloess@its-stuttgart.de/ mime:image/*" :key ?p))))))
+      (add-to-list 'mu4e-contexts kk/mu4e-its-context t))))
+
+#+end_src
+**** kloess.xyz
+***** info
+:PROPERTIES:
+:ID:       155e962e-8603-41c4-8882-aa8321bd3ebe
+:END:
+
+#+begin_src emacs-lisp
+
+(kk/after-mu4e
+ '(lambda ()
+    (when (member 'kk/mu4e-info-context kk/mu4e-contexts)
+      (defvar kk/mu4e-info-context
+        (make-mu4e-context
+         :name "info@kloess.xyz"
+         :enter-func (lambda ()
+                       (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                         (revert-buffer)))
+         :match-func
+         (lambda (msg)
+           (when msg
+             (string-prefix-p "/info@kloess.xyz" (mu4e-message-field msg :maildir))))
+         :vars '((user-mail-address . "info@kloess.xyz")
+                 (user-full-name    . "Karsten Klöss")
+                 (mu4e-drafts-folder  . "/info@kloess.xyz/Drafts")
+                 (mu4e-sent-folder  . "/info@kloess.xyz/Sent")
+                 (mu4e-refile-folder  . "/info@kloess.xyz/Archive")
+                 (mu4e-trash-folder  . "/info@kloess.xyz/Trash")
+                 (mu4e-maildir-shortcuts .
+                                         ((:maildir "/info@kloess.xyz/INBOX" :key ?i)
+                                          (:maildir "/info@kloess.xyz/Archive" :key ?a)
+                                          (:maildir "/info@kloess.xyz/Trash" :key ?t)
+                                          (:maildir "/info@kloess.xyz/Drafts" :key ?d)
+                                          (:maildir "/info@kloess.xyz/Junk" :key ?j)
+                                          (:maildir "/info@kloess.xyz/Sent" :key ?s)))
+                 (mu4e-bookmarks .
+                                 ((:name "Unread info@kloess" :query "m:/info@kloess.xyz/ AND flag:unread AND NOT flag:trashed" :key ?u)
+                                  (:name "Today's messages info@kloess" :query "m:/info@kloess.xyz/ AND date:today..now" :key ?t)
+                                  (:name "Last 7 days info@kloess" :query "m:/info@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
+                                  (:name "Messages with attachments info@kloess" :query "m:/info@kloess.xyz/ flag:attach" :key ?a)
+                                  (:name "Messages with images info@kloess" :query "m:/info@kloess.xyz/ mime:image/*" :key ?p))))))
+      (add-to-list 'mu4e-contexts kk/mu4e-info-context t))))
+
+#+end_src
+
+***** karsten
+:PROPERTIES:
+:ID:       878cd5f6-3785-42f9-8281-626949af1d6d
+:END:
+
+#+begin_src emacs-lisp
+
+(kk/after-mu4e
+ '(lambda ()
+    (when (member 'kk/mu4e-karsten-context kk/mu4e-contexts)
+      '(defvar kk/mu4e-karsten-context
          (make-mu4e-context
           :name "jk@kloess.xyz"
           :enter-func (lambda ()
@@ -2977,8 +3063,22 @@ This is used to have standard bookmarks, to be added to context specific bookmar
                                    (:name "Last 7 days k@kloess.xyz" :query "m:/k@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
                                    (:name "Messages with calendar files k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:text/calendar" :key ?i)
                                    (:name "Messages with attachments k@kloess.xyz" :query "m:/k@kloess.xyz/ flag:attach" :key ?a)
-                                   (:name "Messages with images k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:image/*" :key ?p)))))
+                                   (:name "Messages with images k@kloess.xyz" :query "m:/k@kloess.xyz/ mime:image/*" :key ?p))))))
+      (add-to-list 'mu4e-contexts kk/mu4e-karsten-context t))))
 
+#+end_src
+
+***** k
+:PROPERTIES:
+:ID:       94ffeb49-7d9c-4de6-81c4-9aaabb82f609
+:END:
+
+#+begin_src emacs-lisp
+
+(kk/after-mu4e
+ '(lambda ()
+    (when (member 'kk/mu4e-karsten-context kk/mu4e-contexts)
+      '(defvar kk/mu4e-k-context
          (make-mu4e-context
           :name "karsten@kloess.xyz"
           :enter-func (lambda ()
@@ -3013,7 +3113,26 @@ This is used to have standard bookmarks, to be added to context specific bookmar
                                    (:name "Last 7 days karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ AND date:7d..now" :hide-unread t :key ?w)
                                    (:name "Messages with calendar files karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:text/calendar" :key ?i)
                                    (:name "Messages with attachments karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ flag:attach" :key ?a)
-                                   (:name "Messages with images karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:image/*" :key ?p))))))))
+                                   (:name "Messages with images karsten@kloess.xyz" :query "m:/karsten@kloess.xyz/ mime:image/*" :key ?p))))))
+      (add-to-list 'mu4e-contexts kk/mu4e-karsten-context t))))
+
+#+end_src
+
+**** Allocations
+:PROPERTIES:
+:ID:       97ed00ef-5f29-4954-9215-22320448a3d8
+:END:
+
+#+begin_src emacs-lisp
+
+;; (kk/after-mu4e
+;;  (setq mu4e-contexts
+;;        `(,mu4e-dx-context
+;;          ,mu4e-its-context
+;;          ,mu4e-info-context
+;;          ,mu4e-karsten-context
+;;          ,mu4e-k-context)))
+
 #+end_src
 
 *** Org-Mime
