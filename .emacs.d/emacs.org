@@ -6,6 +6,29 @@
 This file generates init.el, which can be loaded by Emacs at startup.
 *Work In Progress.*
 
+* Startup Performance
+:PROPERTIES:
+:ID:       f9c539f0-90e3-4b9a-adbc-1098beba2d08
+:END:
+
+#+begin_src emacs-lisp
+
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+(defun kk/display-startup-time ()
+  "Display the time it took to load Emacs to the Messages buffer.
+Also displays the number of garbage collections which occured."
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                    (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'kk/display-startup-time)
+
+#+end_src
+
 * System Specific Settings
 :PROPERTIES:
 :ID:       e8b5f6db-329a-43e9-b7a1-911ca1d089ab
@@ -68,26 +91,6 @@ Here variables shall be set, which will be used throughout the config to set sys
 
 #+end_src
 
-* Startup Performance
-:PROPERTIES:
-:ID:       f9c539f0-90e3-4b9a-adbc-1098beba2d08
-:END:
-
-#+begin_src emacs-lisp
-
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-(defun kk/display-startup-time ()
-  "Display the time it took to load Emacs to the Messages buffer.
-Also displays the number of garbage collections which occured."
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
-
-(add-hook 'emacs-startup-hook #'kk/display-startup-time)
 
 #+end_src
 
