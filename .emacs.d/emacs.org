@@ -1941,11 +1941,13 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
                 (evil-set-initial-state mode 'normal))))
 
 (use-package evil-collection
+  :disabled t
   :after evil
   :config
   (evil-collection-init))
 
 (use-package evil-org
+  :disabled t
   :after org
   :hook (org-mode . (lambda () evil-org-mode))
   :config
@@ -1961,24 +1963,24 @@ I had issues with the undo-system. Setting =evil-undo-system= manually, outside 
 
 #+begin_src emacs-lisp
 
-(defvar kk/intercept-mode-map (make-sparse-keymap)
-  "High precedence keymap.")
+;; (defvar kk/intercept-mode-map (make-sparse-keymap)
+;;   "High precedence keymap.")
 
-(define-minor-mode kk/intercept-mode
-  "Global minor mode for higher precedence evil keybindings."
-  :global t)
+;; (define-minor-mode kk/intercept-mode
+;;   "Global minor mode for higher precedence evil keybindings."
+;;   :global t)
 
-(kk/intercept-mode)
+;; (kk/intercept-mode)
 
-(dolist (state '(normal visual insert motion))
-  (evil-make-intercept-map
-   ;; NOTE: This requires an evil version from 2018-03-20 or later
-   (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
-   state))
+;; (dolist (state '(normal visual insert motion))
+;;   (evil-make-intercept-map
+;;    ;; NOTE: This requires an evil version from 2018-03-20 or later
+;;    (evil-get-auxiliary-keymap kk/intercept-mode-map state t t)
+;;    state))
 
-(evil-define-key 'normal kk/intercept-mode-map
-  (kbd "g j") 'evil-next-visual-line
-  (kbd "g k") 'evil-previous-visual-line)
+;; (evil-define-key 'normal kk/intercept-mode-map
+;;   (kbd "g j") 'evil-next-visual-line
+;;   (kbd "g k") 'evil-previous-visual-line)
 
 #+end_src
 
@@ -2755,12 +2757,12 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-Alh --group-directories-first"))
-  :hook (dired-mode . dired-hide-details-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer
-    "L" 'dired-open-xdg))
+  :hook (dired-mode . dired-hide-details-mode))
+  ;; :config
+  ;; (evil-collection-define-key 'normal 'dired-mode-map
+  ;;   "h" 'dired-single-up-directory
+  ;;   "l" 'dired-single-buffer
+  ;;   "L" 'dired-open-xdg))
 
 (use-package dired-single
   :after dired)
@@ -2777,10 +2779,10 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                 ("mkv" . "mpv"))))
 
 (use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+  :hook (dired-mode . dired-hide-dotfiles-mode))
+  ;; :config
+  ;; (evil-collection-define-key 'normal 'dired-mode-map
+  ;;   "H" 'dired-hide-dotfiles-mode))
 
 #+end_src
 
