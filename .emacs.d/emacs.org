@@ -2301,11 +2301,14 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 
 (defhydra hydra-org-mode (:hint nil)
   "
-^Org-Mode
+^Pomodoro
 ^^^^^^^^-----------------------------------------------------------------
 _p_: pomodoro
+_e_: extend clock
+^ ^  until now
 "
-  ("p" org-pomodoro :exit t))
+  ("p" org-pomodoro :exit t)
+  ("e" org-pomodoro-extend-last-clock :exit t))
 (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
 (defhydra hydra-straight-helper (:hint nil)
