@@ -845,9 +845,9 @@ Intended to be used in an `org-mode-hook'."
   (setq org-track-ordered-property-with-tag t)
   (setq org-agenda-dim-blocked-tasks 't)
   (setq org-agenda-sorting-strategy
-        '((agenda habit-down time-up category-up todo-state-up)
-          (todo priority-down time-up todo-state-up category-up)
-          (tags priority-down time-up todo-state-up category-up)
+        '((agenda habit-down time-up category-up todo-state-up category-up)
+          (todo habit-down priority-down time-up todo-state-up)
+          (tags priority-down time-up todo-state-up)
           (search category-keep)))
   (setq org-sort-agenda-noeffort-is-high nil)
   (setq org-global-properties
