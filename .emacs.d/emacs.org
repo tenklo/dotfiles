@@ -1269,8 +1269,8 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "WAIT(w@/!)" "|" "DONE(d@/!)" "SUBDONE(D@/!)" "SUBCANC(K@/!)")
-        (sequence "ACTIVE(a@/!)" "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "COMPLETED(c@/!)" "CANC(k@/!)")))
+      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "WAIT(w@/!)" "|" "DONE(d@/!)")
+        (sequence "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "COMPLETED(c@/!)" "CANC(k@/!)")))
 
 #+end_src
 
@@ -1298,8 +1298,9 @@ Intended to be used in an `org-mode-hook'."
              ((org-agenda-overriding-header "Next Tasks"))))
 
 (setq kk/org-agenda-active-block
-      '(todo "ACTIVE"
-             ((org-agenda-overriding-header "Active Projects"))))
+      '(todo ""
+             ((org-agenda-overriding-header "Active Projects")
+	      (org-agenda-skip-function 'bh/skip-non-projects))))
 
 (setq kk/org-agenda-unscheduled-todos
       '(todo "TODO"
