@@ -14,7 +14,7 @@ videoaudio=mpv
 videoaudioweb=mpv
 reader=$READER
 images=sxiv
-text="nvim"
+text="emacsc"
 interm="$TERMINAL -e"
 
 # combining handeling of special extensions & using mime-types
