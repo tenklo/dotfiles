@@ -554,6 +554,7 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 :END:
 
 [[http://www.totherme.org/configs/org-stuff.html#orgheadline6][Found here.]]
+[[http://doc.norang.ca/org-mode.html][This might be an original source.]]
 
 #+begin_src emacs-lisp
 (defun bh/is-project-p ()
