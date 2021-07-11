@@ -3126,7 +3126,6 @@ This is used to have standard bookmarks, to be added to context specific bookmar
 
 (use-package org-mime
   :straight t
-  :defer t
   :config
   (setq org-mime-export-options '(:section-numbers nil
                                                    :with-author nil
