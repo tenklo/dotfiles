@@ -873,6 +873,7 @@ Intended to be used in an `org-mode-hook'."
   (setq org-log-into-drawer t)
   (setq org-habit-show-habits-only-for-today nil)
   (setq org-clock-into-drawer "CLOCKING")
+  (setq org-clock-history-length 35)
   (setq org-enforce-todo-checkbox-dependencies t)
   (setq org-enforce-todo-dependencies t)
   (setq org-track-ordered-property-with-tag t)
