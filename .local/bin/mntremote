@@ -8,5 +8,5 @@ options="-o idmap=user -o reconnect -o follow_symlinks $@"
 projects=~/.local/share/data/remotes
 test -f "$projects" && project="$(sort "$projects" | cut -d';' -f1 | $menu)" && test -n "$project" && remote="$(grep "$project" "$projects" | cut -d';' -f2)" && mntpoint="$(grep "$project" "$projects" | cut -d';' -f3)"
 
-test -n "$remote" && test -n "$mntpoint" && sshfs "$remote" "$mntpoint" $options || exit 1
+test -n "$remote" && test -n "$mntpoint" && sshfs "$remote" "$mntpoint" $options && notify-send "success" || exit 1
 echo "$mntpoint"
