@@ -1425,9 +1425,6 @@ Installation of lsp-mode likes to fail because were not able to install the "spi
   :after lsp-mode
   :commands treemacs)
 
-(global-set-key (kbd "C-c t") 'lsp-treemacs-symbols)
-
-
 #+end_src
 
 *** TypeScript
