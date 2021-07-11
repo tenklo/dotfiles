@@ -1340,6 +1340,10 @@ Intended to be used in an `org-mode-hook'."
          ((todo "SOMEDAY"
                 ((org-agenda-overriding-header "SOMEDAYs"))))
          ((org-agenda-start-with-follow-mode t)))
+	("wd" "DONE these"
+	 ((tags-todo "-TODO=\"SOMEDAY\""
+		((org-agenda-overriding-header "Forgot to mark as done?")
+		 (org-agenda-skip-function 'bh/skip-projects-and-habits)))))
         ("wa" "Archive These"
          ((todo "DONE|CANC|COMPLETED"
                 ((org-agenda-overriding-header "Done Tasks"))))
