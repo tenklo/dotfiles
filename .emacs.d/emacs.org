@@ -1325,7 +1325,7 @@ Code taken from [[https://lists.gnu.org/archive/html/emacs-orgmode/2010-11/msg00
 
 #+end_src
 
-** Pomororo
+** Pomodoro
 :PROPERTIES:
 :ID:       3d78b0bd-72a8-4f42-8dd5-21cf8a9c10c8
 :END:
