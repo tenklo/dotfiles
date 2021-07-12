@@ -1431,6 +1431,9 @@ Intended to be used in an `org-mode-hook'."
                  (org-agenda-entry-types nil)))
           (todo "NEXT"
                 ((org-agenda-overriding-header "Unscheduled Next Tasks")
+                 (org-agenda-todo-ignore-scheduled)
+		 (org-enforce-todo-checkbox-dependencies nil)
+                 (org-agenda-dim-blocked-tasks 'invisible))))
          ((org-agenda-regexp-filter '("+TODAY\\|NEXT"))))
 
         ("H" "Sched. for today but no TODAY keyword"
