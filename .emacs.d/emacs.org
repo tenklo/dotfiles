@@ -835,6 +835,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+end_src
 
+** Straight
+:PROPERTIES:
+:ID:       2a51a084-49a1-4175-89c5-0f791224ad87
+:END:
+
+#+begin_src emacs-lisp
+
+(defalias 'kk/straight 'hydra-straight-helper/body)
+
+#+end_src
+
 * Package System Setup
 :PROPERTIES:
 :ID:       9098e83f-8fe9-41cd-be54-815d2b2f8635
@@ -1179,7 +1190,10 @@ Intended to be used in an `org-mode-hook'."
         (concat "#+COLUMNS: %7CATEGORY(Cat.) %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
                 "%6CLOCKSUM(Clock) %6EFFORT(Effort){:}"))
   (setq org-agenda-files kk/org-agenda-files)
-  (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
+  (setq org-refile-targets '((kk/org-agenda-files :regexp . "^\*+ Inbox")
+                             (nil :level . 3)))
+  (setq org-refile-use-outline-path t)
+  (setq org-outline-path-complete-in-steps nil)
   (setq org-capture-templates
         `(("w" "Work")
           ("p" "Personal")
