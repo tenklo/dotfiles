@@ -1192,6 +1192,8 @@ Intended to be used in an `org-mode-hook'."
   (setq org-agenda-files kk/org-agenda-files)
   (setq org-refile-targets '((kk/org-agenda-files :regexp . "^\*+ Inbox")
                              (nil :level . 3)))
+  (setq org-refile-use-outline-path t)
+  (setq org-outline-path-complete-in-steps nil)
   (setq org-capture-templates
         `(("w" "Work")
           ("p" "Personal")
