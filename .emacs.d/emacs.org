@@ -1467,12 +1467,12 @@ Intended to be used in an `org-mode-hook'."
          (,kk/org-agenda-active-block
           (todo "WAIT"
                 ((org-agenda-overriding-header "Waiting")))
+          (tags-todo "-TODO=\"SOMEDAY\"-TODO=\"HOLD\""
+                     ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                      (org-agenda-overriding-header "Stuck Projects")
+                      (org-agenda-todo-ignore-scheduled)))
           (todo "HOLD"
                 ((org-agenda-overriding-header "Stopped working on these")))
-	  (todo ""
-		((org-agenda-skip-function 'bh/skip-non-stuck-projects)
-		 (org-agenda-overriding-header "Stuck Projects")
-		 (org-agenda-todo-ignore-scheduled)))
           (todo "COMPLETED"
                 ((org-agenda-overriding-header "Completed Projects")))
           (todo "CANC"
