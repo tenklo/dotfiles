@@ -1190,7 +1190,8 @@ Intended to be used in an `org-mode-hook'."
         (concat "#+COLUMNS: %7CATEGORY(Cat.) %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
                 "%6CLOCKSUM(Clock) %6EFFORT(Effort){:}"))
   (setq org-agenda-files kk/org-agenda-files)
-  (setq org-refile-targets '((kk/org-agenda-files :maxlevel . 3)))
+  (setq org-refile-targets '((kk/org-agenda-files :regexp . "^\*+ Inbox")
+                             (nil :level . 3)))
   (setq org-capture-templates
         `(("w" "Work")
           ("p" "Personal")
