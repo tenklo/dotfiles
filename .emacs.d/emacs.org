@@ -835,6 +835,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+end_src
 
+** Straight
+:PROPERTIES:
+:ID:       2a51a084-49a1-4175-89c5-0f791224ad87
+:END:
+
+#+begin_src emacs-lisp
+
+(defalias 'kk/straight 'hydra-straight-helper/body)
+
+#+end_src
+
 * Package System Setup
 :PROPERTIES:
 :ID:       9098e83f-8fe9-41cd-be54-815d2b2f8635
