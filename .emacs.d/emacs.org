@@ -772,7 +772,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
        ((org-is-habit-p)
         subtree-end)
        ((and (bh/is-project-subtree-p)
-             (member (org-get-todo-state) (list "NEXT")))
+             (member (org-get-todo-state) (list "NEXT" "TODAY")))
         subtree-end)
        ((not (bh/is-project-subtree-p))
         subtree-end)
