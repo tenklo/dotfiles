@@ -2611,13 +2611,14 @@ _s_: smartparens       _d_: dap
 ^^^^^^^^-----------------------------------------------------------------
 _r_: by regex           _d_: new mail dir
 _f_: by sender          _c_: switch context
-_s_: by subject
+_s_: by subject         _h_: toggle html view
 "
     ("r" kk/mail-block-by-regex :exit t)
     ("f" kk/mail-block-by-sender :exit t)
     ("s" kk/mail-block-by-subject :exit t)
     ("d" kk/mu4e-create-new-mail-folder :exit t)
-    ("c" mu4e-context-switch))
+    ("c" mu4e-context-switch)
+    ("h" mu4e-view-toggle-html))
 
   (defhydra hydra-mail-compose (:hint nil)
     "
