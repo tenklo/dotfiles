@@ -1300,8 +1300,8 @@ Intended to be used in an `org-mode-hook'."
 (setq kk/org-agenda-active-block
       '(todo ""
              ((org-agenda-overriding-header "Active Projects")
-	      (org-agenda-dim-blocked-tasks nil)
-	      (org-agenda-skip-function 'bh/skip-non-projects))))
+              (org-agenda-dim-blocked-tasks nil)
+              (org-agenda-skip-function 'bh/skip-non-projects))))
 
 (setq kk/org-agenda-unscheduled-todos
       '(todo "TODO"
@@ -1341,14 +1341,14 @@ Intended to be used in an `org-mode-hook'."
          ((todo "SOMEDAY"
                 ((org-agenda-overriding-header "SOMEDAYs"))))
          ((org-agenda-start-with-follow-mode t)))
-	("wd" "DONE these"
-	 ((tags-todo "-TODO=\"SOMEDAY\""
-		((org-agenda-overriding-header "Forgot to mark as done?")
-		 (org-agenda-skip-function 'bh/skip-projects-and-habits)))))
+        ("wd" "DONE these"
+         ((tags-todo "-TODO=\"SOMEDAY\""
+                     ((org-agenda-overriding-header "Forgot to mark as done?")
+                      (org-agenda-skip-function 'bh/skip-projects-and-habits)))))
         ("wa" "Archive These"
          ((todo ""
                 ((org-agenda-overriding-header "Archivable Tasks")
-		 (org-agenda-skip-function 'bh/skip-non-archivable-tasks))))
+                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks))))
          ((org-agenda-start-with-follow-mode t)
           (org-agenda-start-with-log-mode nil)))
 
