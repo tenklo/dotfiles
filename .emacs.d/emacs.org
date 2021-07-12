@@ -1430,7 +1430,7 @@ Intended to be used in an `org-mode-hook'."
                 ((org-agenda-overriding-header "Today Tasks")
                  (org-agenda-entry-types nil)))
           (todo "NEXT"
-                ((org-agenda-overriding-header "Next Tasks"))))
+                ((org-agenda-overriding-header "Unscheduled Next Tasks")
          ((org-agenda-regexp-filter '("+TODAY\\|NEXT"))))
 
         ("H" "Sched. for today but no TODAY keyword"
