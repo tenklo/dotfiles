@@ -1350,6 +1350,10 @@ Intended to be used in an `org-mode-hook'."
                    (org-agenda-overriding-header "Stuck Projects")
                    (org-agenda-todo-ignore-scheduled))))
 
+(setq kk/org-agenda-nothing-block
+      '(tags "foo"
+                    ((org-agenda-overriding-header ""))))
+
 #+end_src
 
 *** Commands
@@ -1524,15 +1528,19 @@ Intended to be used in an `org-mode-hook'."
         (" " "Agenda"
          ((agenda ""
                   ((org-agenda-span 1)))
+          ,(if (not (string-empty-p kk/personal-agenda-file))
+               '(tags-todo "financetopay"
+                           ((org-agenda-overriding-header "To Pay")))
+             kk/org-agenda-nothing-block)
           (tags-todo "refile"
                      ((org-agenda-overriding-header "Tasks to Refile")
                       (org-tags-match-list-sublevels nil)))
-          ,kk/org-agenda-stuck-projects
           (tags-todo "+TODO=\"WAIT\""
                      ((org-agenda-overriding-header "Unscheduled Waits")
                       (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-todo-ignore-scheduled 'all)))
-          (tags-todo "-TODO=\"HOLD\""
+          ,kk/org-agenda-stuck-projects
+          (tags-todo "-TODO=\"HOLD\"-TODO=\"SOMEDAY\""
                      ((org-agenda-overriding-header "Projects")
                       (org-agenda-skip-function 'bh/skip-non-projects)
                       (org-tags-match-list-sublevels 'indented)
