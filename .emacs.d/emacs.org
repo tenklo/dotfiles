@@ -645,7 +645,7 @@ Callers of this function already widen the buffer view."
                  (has-next ))
             (save-excursion
               (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ TODAY\\|^\\*+ NEXT\\|^\\*+ WAIT" subtree-end t))
+              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT\\|^\\*+ WAIT" subtree-end t))
                 (unless (member "WAITING" (org-get-tags-at))
                   (setq has-next t))))
             (if has-next
@@ -664,7 +664,7 @@ Callers of this function already widen the buffer view."
                  (has-next ))
             (save-excursion
               (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ TODAY\\|^\\*+ NEXT\\|^\\*+ WAIT" subtree-end t))
+              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT\\|^\\*+ WAIT" subtree-end t))
                 (unless (member "WAITING" (org-get-tags-at))
                   (setq has-next t))))
             (if has-next
@@ -772,7 +772,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
        ((org-is-habit-p)
         subtree-end)
        ((and (bh/is-project-subtree-p)
-             (member (org-get-todo-state) (list "NEXT" "TODAY")))
+             (member (org-get-todo-state) (list "NEXT")))
         subtree-end)
        ((not (bh/is-project-subtree-p))
         subtree-end)
@@ -1463,29 +1463,6 @@ Intended to be used in an `org-mode-hook'."
                    (org-agenda-span 1))))
          ((org-agenda-start-with-log-mode t)
           (org-agenda-log-mode-items '(closed clock state))))
-
-        ("h" "Today"
-         ((agenda "TODAY"
-                  ((org-agenda-overriding-header "Work on these today")
-                   (org-agenda-span 1)
-                   (org-agenda-skip-timestamp-if-done t)
-                   (org-deadline-warning-days 0)
-                   (org-agenda-skip-deadline-if-done t)
-                   (org-agenda-skip-scheduled-if-done t)))
-          (todo "TODAY"
-                ((org-agenda-overriding-header "Today Tasks")
-                 (org-agenda-entry-types nil)))
-          (todo "NEXT"
-                ((org-agenda-overriding-header "Unscheduled Next Tasks")
-                 (org-agenda-todo-ignore-with-date t)
-                 (org-enforce-todo-checkbox-dependencies nil)
-                 (org-agenda-dim-blocked-tasks 'invisible))))
-         ((org-agenda-regexp-filter '("+TODAY\\|NEXT"))))
-
-        ("H" "Sched. for today but no TODAY keyword"
-         ((tags-todo ,(concat "-TODO=\"TODAY\"+SCHEDULED<=\"<"
-                              (kk/date "today" "%Y-%m-%d") ">\"")
-                     ((org-agenda-overriding-header "Scheduled for today, but no TODAY keyword")))))
 
         ("f" . "Finances")
         ("ft" "to track"
