@@ -1192,7 +1192,7 @@ Intended to be used in an `org-mode-hook'."
           (todo habit-down priority-down time-up todo-state-up)
           (tags priority-down time-up todo-state-up)
           (search category-keep)))
-  (setq org-sort-agenda-noeffort-is-high nil)
+  (setq org-sort-agenda-noeffort-is-high t)
   (setq org-global-properties
         `(("Effort_ALL" .
            ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
