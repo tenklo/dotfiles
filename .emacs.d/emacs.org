@@ -833,6 +833,13 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
             (or subtree-end (point-max)))
         next-headline))))
 
+;;;; Refile settings
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
+
 #+end_src
 
 ** Straight
