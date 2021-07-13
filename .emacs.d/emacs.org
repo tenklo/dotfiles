@@ -1295,6 +1295,14 @@ Intended to be used in an `org-mode-hook'."
       '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "WAIT(w@/!)" "|" "DONE(d@/!)")
         (sequence "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "COMPLETED(c@/!)" "CANC(k@/!)")))
 
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "light pink" :weight bold)
+              ("NEXT" :foreground "slate blue" :weight bold)
+              ("DONE" :foreground "green" :weight bold)
+              ("WAIT" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANC" :foreground "green" :weight bold))))
+
 #+end_src
 
 ** Tags
