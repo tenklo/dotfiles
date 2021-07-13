@@ -1179,6 +1179,8 @@ Intended to be used in an `org-mode-hook'."
   (setq org-log-reschedule 'note)
   (setq org-log-into-drawer t)
   (setq org-habit-show-habits-only-for-today nil)
+  (setq org-habit-completed-glyph ?X)
+  (setq org-habit-today-glyph ?)
   (setq org-clock-into-drawer "CLOCKING")
   (setq org-clock-history-length 35)
   (setq org-enforce-todo-checkbox-dependencies t)
