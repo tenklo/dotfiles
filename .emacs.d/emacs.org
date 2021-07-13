@@ -1172,6 +1172,8 @@ Intended to be used in an `org-mode-hook'."
   (setq org-indent-indentation-per-level 3)
   (setq org-startup-indented t)
   (setq org-ellipsis " ⤵")
+  (setq org-use-fast-todo-selection t)
+  (setq org-treat-S-cursor-todo-selection-as-state-change nil)
   (setq org-image-actual-width 500)
   (setq org-log-done 'note)
   (setq org-log-reschedule 'note)
