@@ -1292,8 +1292,8 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "TODAY(j!/!)" "WAIT(w@/!)" "|" "DONE(d@/!)")
-        (sequence "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "COMPLETED(c@/!)" "CANC(k@/!)")))
+      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "|" "DONE(d@/!)")
+        (sequence "WAIT(w@/!)" "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "CANC(k@/!)")))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "light pink" :weight bold)
