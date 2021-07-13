@@ -1280,7 +1280,10 @@ Intended to be used in an `org-mode-hook'."
   (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
 
 
-(advice-add 'org-refile :after 'org-save-all-org-buffers)
+(advice-add 'org-refile :after
+        (lambda (&rest _)
+        (org-save-all-org-buffers)))
+
 
 #+end_src
 
