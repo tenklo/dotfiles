@@ -2447,7 +2447,7 @@ Defining leader keys using the general package.
                                  (kk/merge-diary-files)
   (org-agenda))
 (global-set-key (kbd "C-c a") 'kk/org-agenda)
-(global-set-key [f12] 'kk/org-agenda)
+(global-set-key [f12] 'org-agenda)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
