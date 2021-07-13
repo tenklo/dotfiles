@@ -2373,10 +2373,12 @@ Defining leader keys using the general package.
 
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
-(global-set-key (kbd "C-c a") '(lambda ()
+(defun kk/org-agenda ()
                                  (interactive)
                                  (kk/merge-diary-files)
-                                 (org-agenda)))
+  (org-agenda))
+(global-set-key (kbd "C-c a") 'kk/org-agenda)
+(global-set-key [f12] 'kk/org-agenda)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
