@@ -37,7 +37,7 @@ the individual device needs.
   ("T490s"
    (setq kk/default-font-size 180)
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
-			    "~/Nextcloud/Documents/org"))
+                            "~/Nextcloud/Documents/org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")))
 #+end_src
@@ -69,10 +69,38 @@ the individual device needs.
 ** General
 
 #+begin_src emacs-lisp
+(defun kk/org-mode-setup ()
+  "Set org-specific settings.
+Intended to be used in an `org-mode-hook'."
+  (visual-line-mode 1)
+  (setq prettify-symbols-alist '(("[ ]" . "")
+                                 ("[X]" . "")
+                                 ("[-]" . "")
+                                 ("#+begin_src" . "")
+                                 ("#+end_src" . "―")))
+  (prettify-symbols-mode)
+  (setq-local display-line-numbers-type t))
+
 (use-package org
+  :hook (org-mode . kk/org-mode-setup)
   :config
   (setq initial-major-mode 'org-mode)
-  (setq org-startup-folded 'fold))
+
+  (setq org-startup-folded 'fold)
+
+  (setq org-image-actual-width 500)
+
+  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-enforce-todo-dependencies t)
+  (setq org-track-ordered-property-with-tag t)
+
+  (setq org-global-properties
+        `(("Effort_ALL" .
+           ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
+                    "6:00"))))
+  (setq org-columns-default-format
+        (concat "#+COLUMNS: %7CATEGORY(Cat.) %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
+                "%6CLOCKSUM(Clock) %6EFFORT(Effort){:}")))
 #+end_src
 
 *** Todo Keywords
@@ -99,6 +127,9 @@ the individual device needs.
               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+
+(setq org-use-fast-todo-selection t)
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
 *** Indentation
@@ -119,7 +150,35 @@ the individual device needs.
 
 (advice-add 'org-refile :after
             (lambda (&rest _)
-              (org-save-all-org-buffers))
+              (org-save-all-org-buffers)))
+#+end_src
+
+*** Logging
+
+#+begin_src emacs-lisp
+(setq org-log-done 'note)
+(setq org-log-reschedule 'note)
+(setq org-log-into-drawer t)
+#+end_src
+
+*** Clocking
+
+#+begin_src emacs-lisp
+(setq org-clock-into-drawer "CLOCKING")
+(setq org-clock-history-length 35)
+#+end_src
+
+*** Babel
+
+#+begin_src emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+end_src
+
+*** Org ID
+
+#+begin_src emacs-lisp
+(require 'org-id)
+(setq org-id-link-to-org-use-id t)
 #+end_src
 
 ** Agenda
@@ -127,7 +186,8 @@ the individual device needs.
 *** Settings
 
 #+begin_src emacs-lisp
-
+(setq org-agenda-dim-blocked-tasks 't)
+(setq org-sort-agenda-noeffort-is-high t)
 #+end_src
 
 *** Custom Agenda Commands
@@ -136,7 +196,7 @@ the individual device needs.
 (setq kk/org-agenda-stuck-projects
       '(tags-todo "-CANCELLED-HOLD/!"
                   ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
-		   (org-tags-match-list-sublevels 'indented)
+                   (org-tags-match-list-sublevels 'indented)
                    (org-agenda-overriding-header "Stuck Projects")
                    (org-agenda-todo-ignore-scheduled))))
 
@@ -170,7 +230,7 @@ the individual device needs.
          ((tags-todo "financeawaiting"
                      ((org-agenda-overriding-header "Waiting for these payments"))))
          ((org-agenda-view-columns-initially t)))
-	
+
         (" " "Agenda"
          ((agenda ""
                   ((org-agenda-span 1)
@@ -308,12 +368,6 @@ the individual device needs.
                              (0 (prog1 () (compose-region (match-beginning 1)
                                                           (match-end 1) "•"))))))
   (prettify-symbols-mode))
-
-(setq prettify-symbols-alist '(("[ ]" . "")
-                               ("[X]" . "")
-                               ("[-]" . "")
-                               ("#+begin_src" . "")
-                               ("#+end_src" . "―")))
 
 (setq org-ellipsis " ⤵")
 
@@ -612,6 +666,15 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (setq org-refile-target-verify-function 'bh/verify-refile-target)
 #+end_src
 
+** Habits
+
+#+begin_src emacs-lisp
+(setq org-habit-show-habits-only-for-today nil)
+(setq org-habit-completed-glyph ?X)
+(setq org-habit-today-glyph ?)
+(setq org-habit-graph-column 53)
+#+end_src
+
 * Development
 
 ** Magit
@@ -645,6 +708,53 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :hook (prog-mode . smartparens-mode)
   :config
   (require 'smartparens-config))
+#+end_src
+
+* File Management
+
+** Dired
+
+#+begin_src emacs-lisp
+(use-package dired
+  :straight nil
+  :commands
+  (dired dired-jump)
+  :bind
+  (("C-x C-j" . dired-jump))
+  :custom
+  ((dired-listing-switches "-Alh --group-directories-first"))
+  :hook
+  (dired-mode . dired-hide-details-mode))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(defun kk/dired-dotfiles-toggle ()
+  "Show/hide dot-files"
+  (interactive)
+  (when (equal major-mode 'dired-mode)
+    (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
+        (progn
+          (set (make-local-variable 'dired-dotfiles-show-p) nil)
+          (message "h")
+          (dired-mark-files-regexp "^\\\.")
+          (dired-do-kill-lines))
+      (progn (revert-buffer) ; otherwise just revert to re-show
+             (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+(bind-key "." 'kk/dired-dotfiles-toggle 'dired-mode-map)
+#+end_src
+
+* Misc
+
+#+begin_src emacs-lisp
+(defun kk/tidy-buffer ()
+  "Indent and tidy up the current buffer.
+Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace)))
 #+end_src
 
 * UI
