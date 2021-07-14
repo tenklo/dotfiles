@@ -1500,7 +1500,7 @@ Intended to be used in an `org-mode-hook'."
          ((agenda ""
                   ((org-agenda-span 1)))
           ,(if (not (string-empty-p kk/personal-agenda-file))
-               '(tags-todo "financetopay"
+               '(tags-todo "financetopay-TODO=\"WAIT\"-TODO=\"HOLD\""
                            ((org-agenda-overriding-header "To Pay")))
              kk/org-agenda-nothing-block)
           (tags-todo "refile"
