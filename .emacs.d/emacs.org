@@ -1277,8 +1277,8 @@ Intended to be used in an `org-mode-hook'."
 
 
 (advice-add 'org-refile :after
-        (lambda (&rest _)
-        (org-save-all-org-buffers)))
+            (lambda (&rest _)
+              (org-save-all-org-buffers)))
 
 
 #+end_src
@@ -1346,7 +1346,7 @@ Intended to be used in an `org-mode-hook'."
 
 (setq kk/org-agenda-nothing-block
       '(tags "foo"
-                    ((org-agenda-overriding-header ""))))
+             ((org-agenda-overriding-header ""))))
 
 #+end_src
 
@@ -2426,8 +2426,8 @@ Defining leader keys using the general package.
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 (defun kk/org-agenda ()
-                                 (interactive)
-                                 (kk/merge-diary-files)
+  (interactive)
+  (kk/merge-diary-files)
   (org-agenda))
 (global-set-key (kbd "C-c a") 'kk/org-agenda)
 (global-set-key [f12] 'org-agenda)
