@@ -1352,6 +1352,7 @@ Intended to be used in an `org-mode-hook'."
 (setq kk/org-agenda-stuck-projects
       '(tags-todo "-CANCELLED-HOLD/!"
                   ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
+		   (org-tags-match-list-sublevels 'indented)
                    (org-agenda-overriding-header "Stuck Projects")
                    (org-agenda-todo-ignore-scheduled))))
 
