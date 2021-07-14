@@ -1509,7 +1509,10 @@ Intended to be used in an `org-mode-hook'."
 
         (" " "Agenda"
          ((agenda ""
-                  ((org-agenda-span 1)))
+                  ((org-agenda-span 1)
+                   (org-agenda-skip-timestamp-if-done t)
+                   (org-agenda-skip-deadline-if-done t)
+                   (org-agenda-skip-scheduled-if-done t)))
           ,(if (not (string-empty-p kk/personal-agenda-file))
                '(tags-todo "financetopay-CANCELLED-WAITING-HOLD"
                            ((org-agenda-overriding-header "To Pay")))
