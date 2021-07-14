@@ -557,6 +557,7 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 [[http://doc.norang.ca/org-mode.html][This might be an original source.]]
 
 #+begin_src emacs-lisp
+
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
   (save-restriction
@@ -1349,8 +1350,9 @@ Intended to be used in an `org-mode-hook'."
               (org-agenda-todo-ignore-with-date t))))
 
 (setq kk/org-agenda-stuck-projects
-      '(tags-todo "-CANCELLED/!"
+      '(tags-todo "-CANCELLED-HOLD/!"
                   ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
+		   (org-tags-match-list-sublevels 'indented)
                    (org-agenda-overriding-header "Stuck Projects")
                    (org-agenda-todo-ignore-scheduled))))
 
@@ -1508,7 +1510,10 @@ Intended to be used in an `org-mode-hook'."
 
         (" " "Agenda"
          ((agenda ""
-                  ((org-agenda-span 1)))
+                  ((org-agenda-span 1)
+                   (org-agenda-skip-timestamp-if-done t)
+                   (org-agenda-skip-deadline-if-done t)
+                   (org-agenda-skip-scheduled-if-done t)))
           ,(if (not (string-empty-p kk/personal-agenda-file))
                '(tags-todo "financetopay-CANCELLED-WAITING-HOLD"
                            ((org-agenda-overriding-header "To Pay")))
@@ -1563,7 +1568,7 @@ Intended to be used in an `org-mode-hook'."
                       (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-sorting-strategy
                        '(todo-state-down category-keep))))
-          (tags-todo "-CANCELLED+WAITING|HOLD/!"
+          (tags-todo "-CANCELLED&+HOLD|-CANCELLED&+WAITING/!"
                      ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
                                                                 ""
@@ -1572,7 +1577,8 @@ Intended to be used in an `org-mode-hook'."
                       (org-tags-match-list-sublevels nil)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks))))
-         ((org-agenda-compact-blocks t)))))
+         ((org-agenda-compact-blocks t)
+          (org-agenda-dim-blocked-tasks nil)))))
 ;; (tags "-REFILE/"
 ;;       ((org-agenda-overriding-header "Tasks to Archive")
 ;;        (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
