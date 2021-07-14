@@ -1188,6 +1188,7 @@ Intended to be used in an `org-mode-hook'."
   (setq org-enforce-todo-dependencies t)
   (setq org-track-ordered-property-with-tag t)
   (setq org-agenda-dim-blocked-tasks 't)
+  (setq org-stuck-projects (quote ("" nil nil "")))
   (setq org-agenda-sorting-strategy
         '((agenda habit-down time-up category-up todo-state-up category-up)
           (todo habit-down priority-down time-up todo-state-up)
