@@ -1349,7 +1349,7 @@ Intended to be used in an `org-mode-hook'."
               (org-agenda-todo-ignore-with-date t))))
 
 (setq kk/org-agenda-stuck-projects
-      '(tags-todo "-CANCELLED/!"
+      '(tags-todo "-CANCELLED-HOLD/!"
                   ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
                    (org-agenda-overriding-header "Stuck Projects")
                    (org-agenda-todo-ignore-scheduled))))
