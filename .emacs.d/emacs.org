@@ -1394,9 +1394,9 @@ Intended to be used in an `org-mode-hook'."
 
         ("wn" "Set To NEXT"
          ((todo "TODO"
-                ((org-agenda-overriding-header "Unscheduled TODOs")
+                ((org-agenda-overriding-header "Standalone TODO Tasks")
                  (org-agenda-todo-ignore-with-date t)
-                 (org-agenda-skip-function 'bh/skip-projects-and-habits))))
+                 (org-agenda-skip-function 'bh/skip-project-tasks))))
          ((org-agenda-start-with-follow-mode t)
           (org-agenda-start-with-log-mode nil)))
 
