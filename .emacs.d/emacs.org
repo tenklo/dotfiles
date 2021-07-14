@@ -557,6 +557,7 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 [[http://doc.norang.ca/org-mode.html][This might be an original source.]]
 
 #+begin_src emacs-lisp
+
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
   (save-restriction
@@ -1573,7 +1574,7 @@ Intended to be used in an `org-mode-hook'."
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks))))
          ((org-agenda-compact-blocks t)
-	  (org-agenda-dim-blocked-tasks nil)))))
+          (org-agenda-dim-blocked-tasks nil)))))
 ;; (tags "-REFILE/"
 ;;       ((org-agenda-overriding-header "Tasks to Archive")
 ;;        (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
