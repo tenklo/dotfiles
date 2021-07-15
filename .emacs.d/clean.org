@@ -401,12 +401,12 @@ Intended to be used in an `org-mode-hook'."
                       (org-tags-match-list-sublevels nil)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
-	  (tags "-REFILE/"
+          (tags "-REFILE/"
                 ((org-agenda-overriding-header "Tasks to Archive")
                  (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                  (org-tags-match-list-sublevels nil))))
-          ((org-agenda-compact-blocks t)
-           (org-agenda-dim-blocked-tasks nil)))))
+         ((org-agenda-compact-blocks t)
+          (org-agenda-dim-blocked-tasks nil)))))
 #+end_src
 
 ** Capture Templates
@@ -427,10 +427,10 @@ Intended to be used in an `org-mode-hook'."
         ("ft" "to track" entry (file kk/org-refile-target)
          "* TODO Expense: %?\n :LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
          :empty-lines 0)
-        ("fp" "to pay" entry (id kk/org-refile-target)
+        ("fp" "to pay" entry (file kk/org-refile-target)
          "* TODO %?\n :PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
          :empty-lines 0)
-        ("fw" "awaiting payment" entry (id kk/org-refile-target)
+        ("fw" "awaiting payment" entry (file kk/org-refile-target)
          "* WAIT %?\n :PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n - Added: %U\n :END:\n  %a\n  %i"
          :empty-lines 0)
 
@@ -440,13 +440,13 @@ Intended to be used in an `org-mode-hook'."
          :clock-in :clock-resume :empty-lines 1)
 
         ("mb" "Books" entry
-         (id kk/org-refile-target)
+         (file kk/org-refile-target)
          "* TODO %^{Description}\n:PROPERTIES:\n:PAGES: %^{Pages}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
         ("mm" "Movies" entry
-         (id kk/org-refile-target)
+         (file kk/org-refile-target)
          "* TODO %^{Description}\n:PROPERTIES:\n:LENGTH: %^{Length}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
         ("ms" "TV Shows" entry
-         (id kk/org-refile-target)
+         (file kk/org-refile-target)
          "* TODO %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
 
         ("m" "Media")))
