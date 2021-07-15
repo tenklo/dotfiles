@@ -10,18 +10,27 @@ the individual device needs.
 * General
 
 ** Startup Performance
+:PROPERTIES:
+:ID:       f4bea356-d5e1-4235-8110-381c0123e894
+:END:
 
 #+begin_src emacs-lisp
 (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
 ** Aliases
+:PROPERTIES:
+:ID:       70553041-474f-4e9b-908d-bc5073359a77
+:END:
 
 #+begin_src emacs-lisp
 (define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
 #+end_src
 
 ** Auto Reverting
+:PROPERTIES:
+:ID:       01cb8b21-9528-4a0e-b1da-c5f06e5598fe
+:END:
 
 #+begin_src emacs-lisp
 (setq global-auto-revert-non-file-buffers t)
@@ -31,6 +40,9 @@ the individual device needs.
 * System Specific
 
 ** Declarations
+:PROPERTIES:
+:ID:       1443235a-a748-4b0e-82f6-974bfa2c3dae
+:END:
 
 #+begin_src emacs-lisp
 (defvar kk/default-font-size 150)
@@ -39,6 +51,9 @@ the individual device needs.
 #+end_src
 
 ** Allocations
+:PROPERTIES:
+:ID:       d6e46e0c-4556-4475-b0dd-8653b9d5beb9
+:END:
 
 #+begin_src emacs-lisp
 (pcase system-name
@@ -56,6 +71,9 @@ the individual device needs.
 #+end_src
 
 * Package System
+:PROPERTIES:
+:ID:       c8c6f928-3490-42ce-abfc-8858a1905f9f
+:END:
 
 #+begin_src emacs-lisp
 (defvar bootstrap-version)
@@ -80,6 +98,9 @@ the individual device needs.
 * Org
 
 ** General
+:PROPERTIES:
+:ID:       74852722-8797-415d-bc25-74e9a153b9e4
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/org-mode-setup ()
@@ -117,6 +138,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Todo Keywords
+:PROPERTIES:
+:ID:       74a4e252-878c-4a63-bfec-bd3f3615cd23
+:END:
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords
@@ -145,6 +169,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Indentation
+:PROPERTIES:
+:ID:       85461031-c9d3-4146-8847-191bd47f97bf
+:END:
 
 #+begin_src emacs-lisp
 (setq org-indent-indentation-per-level 3)
@@ -153,6 +180,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Refiling
+:PROPERTIES:
+:ID:       a2b00b99-bd7b-4e59-8a36-2aa3403d8e94
+:END:
 
 #+begin_src emacs-lisp
 (setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
@@ -166,6 +196,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Logging
+:PROPERTIES:
+:ID:       3cec1cc3-4108-4da2-b226-b6280fffa9b3
+:END:
 
 #+begin_src emacs-lisp
 (setq org-log-done 'note)
@@ -174,6 +207,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Clocking
+:PROPERTIES:
+:ID:       fc4b200f-b33c-4b66-8804-410e208d758d
+:END:
 
 #+begin_src emacs-lisp
 (setq org-clock-into-drawer "CLOCKING")
@@ -181,18 +217,27 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 **** Pomodoro
+:PROPERTIES:
+:ID:       0cdbe69c-6b00-469d-ad5b-d9c48a714cb8
+:END:
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro)
 #+end_src
 
 *** Babel
+:PROPERTIES:
+:ID:       f3f22b11-bb68-4b6f-a84f-be1f24788fc2
+:END:
 
 #+begin_src emacs-lisp
 (setq org-confirm-babel-evaluate nil)
 #+end_src
 
 *** Org ID
+:PROPERTIES:
+:ID:       6832e9be-653e-4411-83c9-4993e4439e45
+:END:
 
 #+begin_src emacs-lisp
 (require 'org-id)
@@ -202,6 +247,9 @@ Intended to be used in an `org-mode-hook'."
 ** Agenda
 
 *** Settings
+:PROPERTIES:
+:ID:       7fa5111d-0a34-4f53-b45d-9ea5fe1340db
+:END:
 
 #+begin_src emacs-lisp
 (setq org-agenda-dim-blocked-tasks 't)
@@ -211,6 +259,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Custom Agenda Commands
+:PROPERTIES:
+:ID:       7aecd838-676f-4250-812e-2a80cbfcaf99
+:END:
 
 #+begin_src emacs-lisp
 (setq kk/org-agenda-stuck-projects
@@ -325,6 +376,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 ** Capture Templates
+:PROPERTIES:
+:ID:       50b809d1-3266-49a1-8e99-b5a874f84339
+:END:
 
 #+begin_src emacs-lisp
 (define-key global-map (kbd "C-c j")
@@ -365,6 +419,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 ** Structure Templates
+:PROPERTIES:
+:ID:       7ce3f595-e2d7-4fe3-915c-e425069e751f
+:END:
 
 #+begin_src emacs-lisp
 (require 'org-tempo)
@@ -375,12 +432,18 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 ** Keybindings
+:PROPERTIES:
+:ID:       7d58f47e-cee0-4873-87d1-94284520157a
+:END:
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "<f12>") 'org-agenda)
 #+end_src
 
 ** Font And Display
+:PROPERTIES:
+:ID:       7084e52f-9183-4ee7-ad73-a2585570a273
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/org-font-setup ()
@@ -404,6 +467,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 ** Bernt Hansen code snippets
+:PROPERTIES:
+:ID:       a2c9914f-362f-48c2-960d-0f852ce466a6
+:END:
 
 #+begin_src emacs-lisp
 (defun bh/is-project-p ()
@@ -691,6 +757,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+end_src
 
 ** Habits
+:PROPERTIES:
+:ID:       c642846e-ca64-4690-9127-c499d2e939ab
+:END:
 
 #+begin_src emacs-lisp
 (setq org-habit-show-habits-only-for-today nil)
@@ -702,6 +771,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 * Development
 
 ** Magit
+:PROPERTIES:
+:ID:       a9ef789b-24c9-4caf-a4bb-3152b073becd
+:END:
 
 #+begin_src emacs-lisp
 (use-package magit
@@ -713,6 +785,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 ** Parenthesis
 
 *** Rainbow Delimiters
+:PROPERTIES:
+:ID:       96a5d5e7-2058-44cb-ba58-98158c6b89bf
+:END:
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
@@ -721,11 +796,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+end_src
 
 *** Show-Paren-Mode
+:PROPERTIES:
+:ID:       3cdc25e8-501b-465c-8f8a-96d3009f09b0
+:END:
 #+begin_src emacs-lisp
 (show-paren-mode 1)
 #+end_src
 
 *** Smartparens
+:PROPERTIES:
+:ID:       1e23f124-2a25-4c9a-916e-29758dcd8277
+:END:
 #+begin_src emacs-lisp
 (use-package smartparens
   :defer t
@@ -737,6 +818,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 * File Management
 
 ** Dired
+:PROPERTIES:
+:ID:       919bb05a-59a8-48b1-9cd9-93504a3db3c3
+:END:
 
 #+begin_src emacs-lisp
 (use-package dired
@@ -793,6 +877,9 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 * UI
 
 ** General
+:PROPERTIES:
+:ID:       20b847fc-991f-4607-9466-84453ddfd8ec
+:END:
 
 #+begin_src emacs-lisp
 (setq inhibit-startup-message t)
@@ -805,12 +892,18 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 #+end_src
 
 ** Theme
+:PROPERTIES:
+:ID:       ffb701d8-a36e-4194-bd46-b8ae1777cdfe
+:END:
 
 #+begin_src emacs-lisp
 (load-theme 'adwaita)
 #+end_src
 
 ** Columns And Line Numbers
+:PROPERTIES:
+:ID:       5f4d3123-a3a6-423a-aee0-752c1fe060a1
+:END:
 
 #+begin_src emacs-lisp
 (column-number-mode)
@@ -829,6 +922,9 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 #+end_src
 
 ** Unicode Support
+:PROPERTIES:
+:ID:       293f1ee7-6737-4e9b-866b-11e59829e2bb
+:END:
 
 #+begin_src emacs-lisp
 (use-package unicode-fonts)
@@ -836,6 +932,9 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 #+end_src
 
 ** Helm
+:PROPERTIES:
+:ID:       435befc9-85d3-4c08-8f89-b2356a88eeca
+:END:
 
 #+begin_src emacs-lisp
 (use-package helm
@@ -857,6 +956,9 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 #+end_src
 
 ** Helpful
+:PROPERTIES:
+:ID:       204dc542-3e93-4077-8a47-acc90f8510e8
+:END:
 
 #+begin_src emacs-lisp
 (use-package helpful
@@ -869,6 +971,9 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 #+end_src
 
 ** Font Configuration
+:PROPERTIES:
+:ID:       c83260d7-f416-4dbc-b0d1-6df254a74017
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/set-font-faces ()
@@ -892,6 +997,9 @@ in case Emacs daemon is used."
 #+end_src
 
 ** Which Key
+:PROPERTIES:
+:ID:       b7c93b91-3d33-4889-8846-5e1637eae405
+:END:
 
 #+begin_src emacs-lisp
 (use-package which-key
@@ -903,6 +1011,9 @@ in case Emacs daemon is used."
 #+end_src
 
 * Customization Through Emacs
+:PROPERTIES:
+:ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
+:END:
 
 Make =M-x customize= persistent.
 
@@ -923,6 +1034,9 @@ Make =M-x customize= persistent.
 #+end_src
 
 * Runtime Performance
+:PROPERTIES:
+:ID:       b1f0f902-230b-4db1-9b12-571e84c57cb4
+:END:
 
 Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
 
