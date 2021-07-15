@@ -107,13 +107,12 @@ Intended to be used in an `org-mode-hook'."
 
 #+begin_src emacs-lisp
 (setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "NEXT(n!/!)" "|" "DONE(d@/!)")
-        (sequence "WAIT(w@/!)" "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "CANC(k@/!)")))
+      '((sequence "TODO(t!/!)" "NEXT(n!/!)" "|" "DONE(d!/!)")
+        (sequence "WAIT(w@/!)" "HOLD(h@/!)" "|" "CANC(k@/!)" "PHONE" "MEETING")))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
               ("NEXT" :foreground "slate blue" :weight bold)
-              ("SOMEDAY" :foreground "pink" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAIT" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
@@ -123,7 +122,6 @@ Intended to be used in an `org-mode-hook'."
       (quote (("CANC" ("CANCELLED" . t))
               ("WAIT" ("WAITING" . t))
               ("HOLD" ("WAITING") ("HOLD" . t))
-              ("SOMEDAY" ("WAITING") ("HOLD" . t))
               (done ("WAITING") ("HOLD"))
               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
@@ -332,13 +330,13 @@ Intended to be used in an `org-mode-hook'."
 
         ("mb" "Books" entry
          (id kk/org-refile-target)
-         "* SOMEDAY %^{Description}\n:PROPERTIES:\n:PAGES: %^{Pages}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
+         "* TODO %^{Description}\n:PROPERTIES:\n:PAGES: %^{Pages}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
         ("mm" "Movies" entry
          (id kk/org-refile-target)
-         "* SOMEDAY %^{Description}\n:PROPERTIES:\n:LENGTH: %^{Length}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
+         "* TODO %^{Description}\n:PROPERTIES:\n:LENGTH: %^{Length}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
         ("ms" "TV Shows" entry
          (id kk/org-refile-target)
-         "* SOMEDAY %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
+         "* TODO %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:")
 
         ("m" "Media")))
 #+end_src
