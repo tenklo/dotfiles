@@ -173,6 +173,12 @@ Intended to be used in an `org-mode-hook'."
 (setq org-clock-history-length 35)
 #+end_src
 
+**** Pomodoro
+
+#+begin_src emacs-lisp
+(use-package org-pomodoro)
+#+end_src
+
 *** Babel
 
 #+begin_src emacs-lisp
