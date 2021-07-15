@@ -62,6 +62,20 @@ the individual device needs.
 (global-auto-revert-mode)
 #+end_src
 
+** Movement
+
+*** Move Where I Mean Package
+:PROPERTIES:
+:ID:       df185c2f-c1cc-4921-840c-3c444ff07e46
+:END:
+
+#+begin_src emacs-lisp
+(use-package mwim
+  :config
+  (global-set-key (kbd "C-a") 'mwim-beginning)
+  (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
+#+end_src
+
 * System Specific
 
 ** Declarations
