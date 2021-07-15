@@ -111,8 +111,9 @@ Intended to be used in an `org-mode-hook'."
         (sequence "WAIT(w@/!)" "SOMEDAY(s@/!)" "HOLD(h@/!)" "|" "CANC(k@/!)")))
 
 (setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "pink" :weight bold)
+      (quote (("TODO" :foreground "red" :weight bold)
               ("NEXT" :foreground "slate blue" :weight bold)
+              ("SOMEDAY" :foreground "pink" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAIT" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
