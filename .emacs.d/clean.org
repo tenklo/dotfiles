@@ -21,6 +21,13 @@ the individual device needs.
 (define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
 #+end_src
 
+** Auto Reverting
+
+#+begin_src emacs-lisp
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode)
+#+end_src
+
 * System Specific
 
 ** Declarations
