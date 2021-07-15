@@ -15,6 +15,12 @@ the individual device needs.
 (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
+** Aliases
+
+#+begin_src emacs-lisp
+(define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
+#+end_src
+
 * System Specific
 
 ** Declarations
