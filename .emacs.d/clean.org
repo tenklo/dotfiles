@@ -258,6 +258,24 @@ Intended to be used in an `org-mode-hook'."
 (setq org-id-link-to-org-use-id t)
 #+end_src
 
+*** Contrib
+:PROPERTIES:
+:ID:       d6b6e0d2-ef08-441a-bdea-4e27f1da8ce8
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-contrib)
+#+end_src
+
+**** Org Checklist
+:PROPERTIES:
+:ID:       2558d47c-c070-4777-a90e-ef30c6e5043c
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-checklist)
+#+end_src
+
 ** Agenda
 
 *** Settings
