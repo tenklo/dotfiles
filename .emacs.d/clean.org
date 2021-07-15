@@ -194,6 +194,8 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 (setq org-agenda-dim-blocked-tasks 't)
 (setq org-sort-agenda-noeffort-is-high t)
+
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
 #+end_src
 
 *** Custom Agenda Commands
