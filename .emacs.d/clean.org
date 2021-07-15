@@ -256,6 +256,8 @@ Intended to be used in an `org-mode-hook'."
 (setq org-sort-agenda-noeffort-is-high t)
 
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
+
+(setq org-agenda-text-search-extra-files '(agenda-archives))
 #+end_src
 
 *** Custom Agenda Commands
