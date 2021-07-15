@@ -245,6 +245,8 @@ Intended to be used in an `org-mode-hook'."
                      ((org-agenda-overriding-header "Unscheduled Waits")
                       (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-todo-ignore-scheduled 'all)))
+	  (tags-todo "checkBack-HOLD-CANCELLED/!"
+		     ((org-agenda-overriding-header "Check Back on these")))
           ,kk/org-agenda-stuck-projects
           (tags-todo "-HOLD-CANCELLED/!"
                      ((org-agenda-overriding-header "Projects")
