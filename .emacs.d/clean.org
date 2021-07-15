@@ -303,9 +303,13 @@ Intended to be used in an `org-mode-hook'."
                       (org-agenda-skip-function 'bh/skip-non-tasks)
                       (org-tags-match-list-sublevels nil)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks))))
-         ((org-agenda-compact-blocks t)
-          (org-agenda-dim-blocked-tasks nil)))))
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
+	  (tags "-REFILE/"
+                ((org-agenda-overriding-header "Tasks to Archive")
+                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                 (org-tags-match-list-sublevels nil))))
+          ((org-agenda-compact-blocks t)
+           (org-agenda-dim-blocked-tasks nil)))))
 #+end_src
 
 ** Capture Templates
