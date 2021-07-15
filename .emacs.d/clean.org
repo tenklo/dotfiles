@@ -834,6 +834,7 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
   (helm-mode 1)
   :bind
   (("M-x"     . helm-M-x) ;; run functions
+   ("M-s s"   . helm-occur-from-isearch)
    ("C-x C-f" . helm-find-files) ;; open or create files
    ("C-x b"   . helm-mini) ;; selct buffers
    ("C-x C-r" . helm-recentf) ;; select recently saved files
