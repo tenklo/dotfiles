@@ -18,6 +18,31 @@ the individual device needs.
 (setq gc-cons-threshold (* 50 1000 1000))
 #+end_src
 
+** Package System
+:PROPERTIES:
+:ID:       c8c6f928-3490-42ce-abfc-8858a1905f9f
+:END:
+
+#+begin_src emacs-lisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+
+(setq straight-use-package-by-default t)
+(setq use-package-verbose t)
+#+end_src
+
 ** Aliases
 :PROPERTIES:
 :ID:       70553041-474f-4e9b-908d-bc5073359a77
@@ -68,31 +93,6 @@ the individual device needs.
                             "~/Nextcloud/Documents/org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")))
-#+end_src
-
-* Package System
-:PROPERTIES:
-:ID:       c8c6f928-3490-42ce-abfc-8858a1905f9f
-:END:
-
-#+begin_src emacs-lisp
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-
-(setq straight-use-package-by-default t)
-(setq use-package-verbose t)
 #+end_src
 
 * Org
