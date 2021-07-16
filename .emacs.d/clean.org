@@ -176,9 +176,9 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-todo-state-tags-triggers
       (quote (("CANC" ("CANCELLED" . t))
-              ("WAIT" ("WAITING" . t))
+              ("WAIT" ("WAITING" . t) ("checkBack"))
               ("HOLD" ("WAITING") ("HOLD" . t))
-              (done ("WAITING") ("HOLD"))
+              (done ("WAITING") ("HOLD") ("checkBack"))
               ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
               ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
               ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
