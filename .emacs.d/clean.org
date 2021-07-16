@@ -495,6 +495,19 @@ Intended to be used in an `org-mode-hook'."
                                                           (match-end 1) "•"))))))
   (prettify-symbols-mode))
 
+(setq org-list-demote-modify-bullet (quote (("+" . "-")
+                                            ("*" . "-")
+                                            ("1." . "-")
+                                            ("1)" . "-")
+                                            ("A)" . "-")
+                                            ("B)" . "-")
+                                            ("a)" . "-")
+                                            ("b)" . "-")
+                                            ("A." . "-")
+                                            ("B." . "-")
+                                            ("a." . "-")
+                                            ("b." . "-"))))
+
 (setq org-ellipsis " ⤵")
 
 (use-package org-bullets
