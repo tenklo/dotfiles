@@ -965,7 +965,18 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 
 ** Calendar
 
-*** German Holidays
+*** German
+
+**** Weekday
+:PROPERTIES:
+:ID:       20b45f13-97ac-4ba5-bdf5-c179dbf45675
+:END:
+
+#+begin_src emacs-lisp
+(setq calendar-week-start-day 1)
+#+end_src
+
+**** Holidays
 :PROPERTIES:
 :ID:       510db8be-f33a-4d18-8b6e-8e9751b71f0b
 :END:
