@@ -281,6 +281,25 @@ Intended to be used in an `org-mode-hook'."
 (require 'org-checklist)
 #+end_src
 
+*** URL Retrieving
+:PROPERTIES:
+:ID:       05e72995-9401-44f6-a16c-7566337bac5b
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/org-link-copy (&optional arg)
+  "Extract URL from org-mode link and add it to kill ring."
+  (interactive "P")
+  (let* ((link (org-element-lineage (org-element-context) '(link) t))
+          (type (org-element-property :type link))
+          (url (org-element-property :path link))
+          (url (concat type ":" url)))
+    (kill-new url)
+    (message (concat "Copied URL: " url))))
+
+(define-key org-mode-map (kbd "C-c p") 'kk/org-link-copy)
+#+end_src
+
 ** Agenda
 
 *** Settings
