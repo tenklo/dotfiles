@@ -291,9 +291,9 @@ Intended to be used in an `org-mode-hook'."
   "Extract URL from org-mode link and add it to kill ring."
   (interactive "P")
   (let* ((link (org-element-lineage (org-element-context) '(link) t))
-          (type (org-element-property :type link))
-          (url (org-element-property :path link))
-          (url (concat type ":" url)))
+         (type (org-element-property :type link))
+         (url (org-element-property :path link))
+         (url (concat type ":" url)))
     (kill-new url)
     (message (concat "Copied URL: " url))))
 
@@ -369,9 +369,9 @@ Intended to be used in an `org-mode-hook'."
                    (org-agenda-skip-timestamp-if-done t)
                    (org-agenda-skip-deadline-if-done t)
                    (org-agenda-skip-scheduled-if-done t)))
-	  (tags "refile"
-                     ((org-agenda-overriding-header "Tasks to Refile")
-                      (org-tags-match-list-sublevels nil)))
+          (tags "refile"
+                ((org-agenda-overriding-header "Tasks to Refile")
+                 (org-tags-match-list-sublevels nil)))
           (tags-todo "+TODO=\"WAIT\""
                      ((org-agenda-overriding-header "Unscheduled Waits")
                       (org-agenda-tags-todo-honor-ignore-options t)
