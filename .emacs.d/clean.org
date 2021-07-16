@@ -317,6 +317,8 @@ Intended to be used in an `org-mode-hook'."
 
 ;; Use sticky agenda's so they persist
 (setq org-agenda-sticky t)
+
+(setq org-agenda-persistent-filter t)
 #+end_src
 
 *** Custom Agenda Commands
