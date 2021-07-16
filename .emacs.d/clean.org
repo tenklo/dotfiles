@@ -290,6 +290,9 @@ Intended to be used in an `org-mode-hook'."
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
 (setq org-agenda-text-search-extra-files '(agenda-archives))
+
+;; Use sticky agenda's so they persist
+(setq org-agenda-sticky t)
 #+end_src
 
 *** Custom Agenda Commands
