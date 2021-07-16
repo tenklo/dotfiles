@@ -819,6 +819,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (setq org-habit-completed-glyph ?X)
 (setq org-habit-today-glyph ?)
 (setq org-habit-graph-column 53)
+
+                                        ; When deactivating habit display via 'K', pull them up again on the next day
+(run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 #+end_src
 
 * Development
