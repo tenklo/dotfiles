@@ -143,6 +143,10 @@ Intended to be used in an `org-mode-hook'."
   (setq org-enforce-todo-dependencies t)
   (setq org-track-ordered-property-with-tag t)
 
+  (setq org-show-following-heading t)
+  (setq org-show-hierarchy-above t)
+  (setq org-show-siblings (quote ((default))))
+
   (setq org-global-properties
         `(("Effort_ALL" .
            ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
