@@ -919,6 +919,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
 :END:
 
+** Tidy Buffer
+:PROPERTIES:
+:ID:       9e07d209-3745-4c07-9c10-f1c02cffa3c0
+:END:
 #+begin_src emacs-lisp
 (defun kk/tidy-buffer ()
   "Indent and tidy up the current buffer.
