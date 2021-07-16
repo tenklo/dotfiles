@@ -350,9 +350,9 @@ Intended to be used in an `org-mode-hook'."
                    (org-agenda-skip-timestamp-if-done t)
                    (org-agenda-skip-deadline-if-done t)
                    (org-agenda-skip-scheduled-if-done t)))
-          (tags-todo "refile"
                      ((org-agenda-overriding-header "Tasks to Refile")
                       (org-tags-match-list-sublevels nil)))
+          (tags "refile"
           (tags-todo "+TODO=\"WAIT\""
                      ((org-agenda-overriding-header "Unscheduled Waits")
                       (org-agenda-tags-todo-honor-ignore-options t)
