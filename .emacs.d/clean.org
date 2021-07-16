@@ -602,6 +602,7 @@ Callers of this function already widen the buffer view."
     (org-agenda-redo))
   (message "%s WAITING and SCHEDULED NEXT Tasks" (if bh/hide-scheduled-and-waiting-next-tasks "Hide" "Show")))
 
+(setq kk/stuck-projects-regexp "^\\*+ NEXT")
 (defun bh/skip-stuck-projects ()
   "Skip trees that are not stuck projects"
   (save-restriction
@@ -612,7 +613,7 @@ Callers of this function already widen the buffer view."
                  (has-next ))
             (save-excursion
               (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT\\|^\\*+ WAIT" subtree-end t))
+              (while (and (not has-next) (< (point) subtree-end) (re-search-forward kk/stuck-projects-regexp subtree-end t))
                 (unless (member "WAITING" (org-get-tags-at))
                   (setq has-next t))))
             (if has-next
@@ -631,7 +632,7 @@ Callers of this function already widen the buffer view."
                  (has-next ))
             (save-excursion
               (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT\\|^\\*+ WAIT" subtree-end t))
+              (while (and (not has-next) (< (point) subtree-end) (re-search-forward kk/stuck-projects-regexp subtree-end t))
                 (unless (member "WAITING" (org-get-tags-at))
                   (setq has-next t))))
             (if has-next
