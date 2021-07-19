@@ -139,8 +139,11 @@ Intended to be used in an `org-mode-hook'."
              (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined)))
 
 (use-package org
-  :hook (org-mode . kk/org-mode-setup)
+  :hook
+  (org-mode . kk/org-mode-setup)
+  (org-mode . turn-on-flyspell)
   :config
+  (setq flyspell-default-dictionary "german")
   (setq initial-major-mode 'org-mode)
 
   (setq org-startup-folded 'fold)
