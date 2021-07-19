@@ -558,6 +558,7 @@ Intended to be used in an `org-mode-hook'."
                                                           (match-end 1) "•"))))))
   (prettify-symbols-mode))
 
+(setq org-alphabetical-lists t)
 (setq org-list-demote-modify-bullet (quote (("+" . "-")
                                             ("*" . "-")
                                             ("1." . "-")
