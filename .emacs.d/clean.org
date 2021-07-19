@@ -905,7 +905,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 * Development
 
-** Magit
+** General
+
+*** Magit
 :PROPERTIES:
 :ID:       a9ef789b-24c9-4caf-a4bb-3152b073becd
 :END:
@@ -917,9 +919,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 #+end_src
 
-** Parenthesis
+*** Parenthesis
 
-*** Rainbow Delimiters
+**** Rainbow Delimiters
 :PROPERTIES:
 :ID:       96a5d5e7-2058-44cb-ba58-98158c6b89bf
 :END:
@@ -930,7 +932,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
-*** Show-Paren-Mode
+**** Show-Paren-Mode
 :PROPERTIES:
 :ID:       3cdc25e8-501b-465c-8f8a-96d3009f09b0
 :END:
@@ -938,7 +940,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (show-paren-mode 1)
 #+end_src
 
-*** Smartparens
+**** Smartparens
 :PROPERTIES:
 :ID:       1e23f124-2a25-4c9a-916e-29758dcd8277
 :END:
