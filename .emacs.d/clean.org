@@ -952,6 +952,12 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (require 'smartparens-config))
 #+end_src
 
+** SQL
+
+#+begin_src emacs-lisp
+(use-package sqlformat)
+#+end_src
+
 * File Management
 
 ** Dired
