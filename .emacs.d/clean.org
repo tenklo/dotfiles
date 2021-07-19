@@ -227,6 +227,8 @@ Intended to be used in an `org-mode-hook'."
 (advice-add 'org-refile :after
             (lambda (&rest _)
               (org-save-all-org-buffers)))
+
+(setq org-clone-delete-id t)
 #+end_src
 
 *** Logging
