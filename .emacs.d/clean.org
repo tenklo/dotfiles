@@ -111,13 +111,15 @@ the individual device needs.
 (pcase system-name
   ("dwhpd"
    (setq kk/default-font-size 140)
-   (setq org-agenda-files '("~/nextcloud_work/Documents/org"))
+   (setq org-agenda-files '("~/nextcloud_work/Documents/org"
+                            "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org"))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
-                            "~/Nextcloud/Documents/org"))
+                            "~/Nextcloud/Documents/org"
+                            "~/nextcloud_work/schule/schule.org"))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")))
