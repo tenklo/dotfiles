@@ -76,6 +76,16 @@ the individual device needs.
   (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
 #+end_src
 
+*** Expand Region
+
+#+begin_src emacs-lisp
+(use-package expand-region
+  :bind
+  (("C-+" . 'er/expand-region))
+  :config
+  (delete-selection-mode 1))
+#+end_src
+
 * System Specific
 
 ** Declarations
