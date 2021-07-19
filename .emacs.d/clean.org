@@ -240,6 +240,8 @@ Intended to be used in an `org-mode-hook'."
 (setq org-log-done 'note)
 (setq org-log-reschedule 'note)
 (setq org-log-into-drawer t)
+
+(setq org-agenda-skip-additional-timestamps-same-entry t)
 #+end_src
 
 *** Clocking
