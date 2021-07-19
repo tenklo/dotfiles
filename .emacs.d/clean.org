@@ -445,6 +445,7 @@ Intended to be used in an `org-mode-hook'."
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
                                                                 ""
                                                               " (including WAITING and SCHEDULED tasks)")))
+		      (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-skip-function 'bh/skip-project-tasks)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
@@ -456,6 +457,7 @@ Intended to be used in an `org-mode-hook'."
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
                                                                 ""
                                                               " (including WAITING and SCHEDULED tasks)")))
+		      (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-skip-function 'bh/skip-non-tasks)
                       (org-tags-match-list-sublevels nil)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
