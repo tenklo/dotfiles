@@ -319,6 +319,15 @@ Intended to be used in an `org-mode-hook'."
 (define-key org-mode-map (kbd "C-c p") 'kk/org-link-copy)
 #+end_src
 
+*** Org Depend
+:PROPERTIES:
+:ID:       516b5bac-7338-4c15-8442-749129a6b553
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-depend)
+#+end_src
+
 ** Agenda
 
 *** Settings
