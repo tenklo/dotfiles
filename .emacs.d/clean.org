@@ -77,6 +77,9 @@ the individual device needs.
 #+end_src
 
 *** Expand Region
+:PROPERTIES:
+:ID:       e0917147-ef19-4ed3-8952-ec15cd7bdc3c
+:END:
 
 #+begin_src emacs-lisp
 (use-package expand-region
