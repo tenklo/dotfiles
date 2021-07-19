@@ -185,7 +185,9 @@ Intended to be used in an `org-mode-hook'."
               ("DONE" :foreground "forest green" :weight bold)
               ("WAIT" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
-              ("CANC" :foreground "forest green" :weight bold))))
+              ("CANC" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "dimgrey" :weight bold)
+              ("MEETING" :foreground "dimgrey" :weight bold))))
 
 (setq org-todo-state-tags-triggers
       (quote (("CANC" ("CANCELLED" . t))
