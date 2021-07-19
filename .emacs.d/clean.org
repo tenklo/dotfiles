@@ -143,13 +143,13 @@ Intended to be used in an `org-mode-hook'."
   (prettify-symbols-mode)
   (setq-local display-line-numbers-type t)
   (lambda ()
-             ;; Undefine C-c [ and C-c ] since this breaks my
-             ;; org-agenda files when directories are include It
-             ;; expands the files in the directories individually
-             (org-defkey org-mode-map "\C-c[" 'undefined)
-             (org-defkey org-mode-map "\C-c]" 'undefined)
-             (org-defkey org-mode-map "\C-c;" 'undefined)
-             (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined)))
+    ;; Undefine C-c [ and C-c ] since this breaks my
+    ;; org-agenda files when directories are include It
+    ;; expands the files in the directories individually
+    (org-defkey org-mode-map "\C-c[" 'undefined)
+    (org-defkey org-mode-map "\C-c]" 'undefined)
+    (org-defkey org-mode-map "\C-c;" 'undefined)
+    (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined)))
 
 (use-package org
   :hook
@@ -458,7 +458,7 @@ Intended to be used in an `org-mode-hook'."
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
                                                                 ""
                                                               " (including WAITING and SCHEDULED tasks)")))
-		      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-skip-function 'bh/skip-project-tasks)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
@@ -470,7 +470,7 @@ Intended to be used in an `org-mode-hook'."
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
                                                                 ""
                                                               " (including WAITING and SCHEDULED tasks)")))
-		      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-skip-function 'bh/skip-non-tasks)
                       (org-tags-match-list-sublevels nil)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
