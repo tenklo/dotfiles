@@ -158,6 +158,8 @@ Intended to be used in an `org-mode-hook'."
   (setq org-show-hierarchy-above t)
   (setq org-show-siblings (quote ((default))))
 
+  (setq org-catch-invisible-edits 'error)
+
   (setq org-global-properties
         `(("Effort_ALL" .
            ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
