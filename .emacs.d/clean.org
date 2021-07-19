@@ -496,6 +496,9 @@ Intended to be used in an `org-mode-hook'."
       `(("t" "Task" entry (file kk/org-refile-target)
          "* TODO %?\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
+        ("u" "Urgent Task" entry (file kk/org-refile-target)
+         "* TODO %?\nSCHEDULED: %t\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
+         :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
         ("ft" "to track" entry (file kk/org-refile-target)
