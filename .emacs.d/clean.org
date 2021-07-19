@@ -78,7 +78,7 @@ the individual device needs.
 
 *** Expand Region
 :PROPERTIES:
-:ID:       c44bd9d8-e1f7-4423-862b-25ec8e3dbf2e
+:ID:       e0917147-ef19-4ed3-8952-ec15cd7bdc3c
 :END:
 
 #+begin_src emacs-lisp
@@ -111,13 +111,15 @@ the individual device needs.
 (pcase system-name
   ("dwhpd"
    (setq kk/default-font-size 140)
-   (setq org-agenda-files '("~/nextcloud_work/Documents/org"))
+   (setq org-agenda-files '("~/nextcloud_work/Documents/org"
+                            "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org"))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
-                            "~/Nextcloud/Documents/org"))
+                            "~/Nextcloud/Documents/org"
+                            "~/nextcloud_work/schule/schule.org"))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")))
@@ -920,7 +922,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 * Development
 
-** Magit
+** General
+
+*** Magit
 :PROPERTIES:
 :ID:       a9ef789b-24c9-4caf-a4bb-3152b073becd
 :END:
@@ -932,9 +936,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 #+end_src
 
-** Parenthesis
+*** Parenthesis
 
-*** Rainbow Delimiters
+**** Rainbow Delimiters
 :PROPERTIES:
 :ID:       96a5d5e7-2058-44cb-ba58-98158c6b89bf
 :END:
@@ -945,7 +949,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
-*** Show-Paren-Mode
+**** Show-Paren-Mode
 :PROPERTIES:
 :ID:       3cdc25e8-501b-465c-8f8a-96d3009f09b0
 :END:
@@ -953,7 +957,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (show-paren-mode 1)
 #+end_src
 
-*** Smartparens
+**** Smartparens
 :PROPERTIES:
 :ID:       1e23f124-2a25-4c9a-916e-29758dcd8277
 :END:
@@ -963,6 +967,12 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :hook (prog-mode . smartparens-mode)
   :config
   (require 'smartparens-config))
+#+end_src
+
+** SQL
+
+#+begin_src emacs-lisp
+(use-package sqlformat)
 #+end_src
 
 * File Management
