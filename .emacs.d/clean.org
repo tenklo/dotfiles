@@ -347,6 +347,8 @@ Intended to be used in an `org-mode-hook'."
 (setq org-agenda-sticky t)
 
 (setq org-agenda-persistent-filter t)
+
+(setq org-agenda-window-setup 'current-window)
 #+end_src
 
 *** Custom Agenda Commands
