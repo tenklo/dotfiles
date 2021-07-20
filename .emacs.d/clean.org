@@ -683,6 +683,7 @@ Callers of this function already widen the buffer view."
   (when  (equal major-mode 'org-agenda-mode)
     (org-agenda-redo))
   (message "%s WAITING and SCHEDULED NEXT Tasks" (if bh/hide-scheduled-and-waiting-next-tasks "Hide" "Show")))
+(bind-key (kbd "C-c C-x n") 'bh/toggle-next-task-display org-agenda-mode-map)
 
 (setq kk/stuck-projects-regexp "^\\*+ NEXT")
 (defun bh/skip-stuck-projects ()
