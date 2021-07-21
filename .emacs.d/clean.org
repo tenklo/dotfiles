@@ -1203,6 +1203,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                     (when msg
                       (string-match-p (concat "^/" ,maildir "/")
                                       (mu4e-message-field msg :maildir))))
+      :enter-func (lambda ()
+                    (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                      (revert-buffer)))
       :vars '((user-mail-address . ,mail)
               (user-full-name . ,name)
               (mu4e-sent-folder . ,sent)
