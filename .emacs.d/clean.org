@@ -1095,6 +1095,84 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
         (holiday-fixed 11 1 "Allerheiligen")
         ;; (holiday-float 11 3 1 "Buss- und Bettag" 16)
         (holiday-float 11 0 1 "Totensonntag" 20)))
+
+* Mail (mu4e)
+
+** Signatures
+
+#+begin_src emacs-lisp
+(defun kk/mu4e-choose-signature ()
+  "Insert one of a number of sigs."
+  (interactive)
+  (let ((message-signature
+         (mu4e-read-option "Signature:"
+                           '(("work" .
+                              (concat
+                               "-------------------------------------\n"
+                               "digital worx GmbH\n"
+                               "Schulze-Delitzsch-Str. 16\n"
+                               "70565 Stuttgart\n"
+                               "\n"
+                               "Tel. 0711 220 40 93 0\n"
+                               "Fax. 0711 220 40 93 44\n"
+                               "\n"
+                               "kloess@digital-worx.de\n"
+                               "\n"
+                               "http://www.digital-worx.de\n"
+                               "-------------------------------------\n"
+                               "Geschaeftsfuehrer:\n"
+                               "Sven Rahlfs\n"
+                               "Mirko Ross\n"
+                               "\n"
+                               "HRB 22 5281 Amtsgericht Stuttgart\n"
+                               "USt.-Id. Nr.: DE218401190\n"
+                               "-------------------------------------"))))))
+    (message-insert-signature)))
+#+end_src
+
+** General
+
+#+begin_src emacs-lisp
+(use-package mu4e
+  :defer 0
+  :straight nil
+  :bind (("C-c m" . mu4e))
+  :custom
+  (mu4e-confirm-quit nil)
+  :config
+  (setq mu4e-context-policy 'pick-first)
+  (setq mu4e-compose-context-policy 'always-ask)
+  ;; Display options
+  (setq mu4e-view-show-images t)
+  (setq mu4e-view-show-addresses 't)
+  (setq mu4e-headers-include-related nil)
+
+  (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Refresh mail using mbsync every 5 minutes
+  (setq mu4e-update-interval (* 5 60))
+  (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
+  (setq mu4e-maildir "~/.local/share/mail")
+
+  ;; Configure the function to use for sending mail
+  (setq sendmail-program "/usr/bin/msmtp"
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        send-mail-function 'smtpmail-send-it
+        message-send-mail-function 'message-send-mail-with-sendmail)
+
+  (setq mu4e-compose-format-flowed t)
+
+  (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map))
+#+end_src
+
+** Contexts
+
+#+begin_src emacs-lisp
+
 #+end_src
 
 * UI
