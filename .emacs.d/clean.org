@@ -100,6 +100,12 @@ the individual device needs.
 (defvar kk/default-font-size 150)
 (defvar kk/org-refile-target "")
 (defvar kk/journal-file "")
+
+(defvar kk/mu4e-context-name-dx "dx")
+(defvar kk/mu4e-context-name-its "its")
+(defvar kk/mu4e-context-name-kloess.xyz-info "info")
+(defvar kk/mu4e-context-name-kloess.xyz-karsten "karsten")
+(defvar kk/mu4e-context-name-kloess.xyz-k "k")
 #+end_src
 
 ** Allocations
@@ -114,7 +120,9 @@ the individual device needs.
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
                             "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
-   (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org"))
+   (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org")
+   (setq kk/mu4e-contexts '(kk/mu4e-context-name-dx
+                            kk/mu4e-context-name-its)))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
@@ -122,7 +130,12 @@ the individual device needs.
                             "~/nextcloud_work/schule/schule.org"))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
-   (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")))
+   (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
+   (setq kk/mu4e-contexts '(kk/mu4e-context-name-dx
+                            kk/mu4e-context-name-its
+                            kk/mu4e-context-name-kloess.xyz-info
+                            kk/mu4e-context-name-kloess.xyz-karsten
+                            kk/mu4e-context-name-kloess.xyz-k))))
 #+end_src
 
 * Org
@@ -1195,7 +1208,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
        (sent       (concat "/" maildir "/Sent"))
        (trash      (concat "/" maildir "/Trash"))
        (refile     (concat "/" maildir "/Archive"))
-       (draft      (concat "/" maildir "/Drafts")))
+       (draft      (concat "/" maildir "/Drafts"))
+       (c-name     (if (symbolp c-name) (symbol-value c-name) c-name))
+       )
 
     `(make-mu4e-context
       :name ,c-name
@@ -1238,30 +1253,30 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+begin_src emacs-lisp
 (setq mu4e-contexts
       `(,(df/mu4e-context
-          :c-name "dx"
+          :c-name kk/mu4e-context-name-dx
           :maildir "kloess@digital-worx.de"
           :mail "kloess@digital-worx.de"
           :smtp "")
 
         ,(df/mu4e-context
-          :c-name "its"
+          :c-name kk/mu4e-context-name-its
           :maildir "karsten.kloess@its-stuttgart.de"
           :mail "karsten.kloess@its-stuttgart.de"
           :smtp "")
 
         ,(df/mu4e-context
-          :c-name "info"
+          :c-name kk/mu4e-context-name-kloess.xyz-info
           :maildir "info@kloess.xyz"
           :mail "info@kloess.xyz"
           :smtp "")
 
         ,(df/mu4e-context
-          :c-name "karsten"
+          :c-name kk/mu4e-context-name-kloess.xyz-karsten
           :maildir "karsten@kloess.xyz"
           :mail "karsten@kloess.xyz"
           :smtp "")
         ,(df/mu4e-context
-          :c-name "1k"
+          :c-name kk/mu4e-context-name-kloess.xyz-k
           :maildir "k@kloess.xyz"
           :mail "k@kloess.xyz"
           :smtp "")))
