@@ -1215,6 +1215,41 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                                        (,draft   . ?d)))))))
 #+end_src
 
+** Contexts
+:PROPERTIES:
+:ID:       a9a41e4e-f62a-4ca7-9785-4e75658dc6bf
+:END:
+
+#+begin_src emacs-lisp
+(setq mu4e-contexts
+      `(,(df/mu4e-context
+          :c-name "dx"
+          :maildir "kloess@digital-worx.de"
+          :mail "kloess@digital-worx.de"
+          :smtp "")
+
+        ,(df/mu4e-context
+          :c-name "its"
+          :maildir "karsten.kloess@its-stuttgart.de"
+          :mail "karsten.kloess@its-stuttgart.de"
+          :smtp "")
+
+        ,(df/mu4e-context
+          :c-name "info"
+          :maildir "info@kloess.xyz"
+          :mail "info@kloess.xyz"
+          :smtp "")
+
+        ,(df/mu4e-context
+          :c-name "karsten"
+          :maildir "karsten@kloess.xyz"
+          :mail "karsten@kloess.xyz"
+          :smtp "")
+        ,(df/mu4e-context
+          :c-name "1k"
+          :maildir "k@kloess.xyz"
+          :mail "k@kloess.xyz"
+          :smtp "")))
 #+end_src
 
 * UI
