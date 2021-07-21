@@ -1242,7 +1242,14 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                                        (,sent    . ?s)
                                        (,trash   . ?t)
                                        (,refile  . ?a)
-                                       (,draft   . ?d)))))))
+                                       (,draft   . ?d)))
+              (mu4e-bookmarks .
+                              ((:name ,(concat "Unread " c-name) :query ,(concat "m:/" maildir "/ AND flag:unread AND NOT flag:trashed") :key ?u)
+                               (:name ,(concat "Today's messages " c-name) :query ,(concat "m:/" maildir "/ AND date:today..now") :key ?t)
+                               (:name ,(concat "Last 7 days " c-name) :query ,(concat "m:/" maildir "/ AND date:7d..now") :hide-unread t :key ?w)
+                               (:name ,(concat "Messages with calendar files " c-name) :query ,(concat "m:/" maildir "/ mime:text/calendar") :key ?i)
+                               (:name ,(concat "Messages with attachments " c-name) :query ,(concat "m:/" maildir "/ flag:attach") :key ?a)
+                               (:name ,(concat "Messages with images " c-name) :query ,(concat "m:/" maildir "/ mime:image/*") :key ?p)))))))
 #+end_src
 
 ** Contexts
