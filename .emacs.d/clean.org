@@ -1164,7 +1164,8 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
   (setq mu4e-compose-format-flowed t)
 
-  (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map))
+  (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
+  (global-set-key (kbd "C-c m") 'mu4e))
 #+end_src
 
 ** Context Macro
