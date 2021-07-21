@@ -971,6 +971,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+end_src
 
 ** SQL
+:PROPERTIES:
+:ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
+:END:
 
 #+begin_src emacs-lisp
 (use-package sqlformat)
@@ -1099,6 +1102,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 * Mail (mu4e)
 
 ** Signatures
+:PROPERTIES:
+:ID:       d61fb091-9bfe-452e-8c05-a9c85f5fcd9a
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/mu4e-choose-signature ()
@@ -1131,6 +1137,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+end_src
 
 ** General
+:PROPERTIES:
+:ID:       b05fad93-c979-448e-8e67-1c6fb154993e
+:END:
 
 #+begin_src emacs-lisp
 (use-package mu4e
@@ -1169,6 +1178,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+end_src
 
 ** Context Macro
+:PROPERTIES:
+:ID:       45186652-daff-4bd2-8142-b3d02cf48c5c
+:END:
 
 #+begin_src emacs-lisp
 (cl-defmacro df/mu4e-context (&key c-name maildir mail smtp
