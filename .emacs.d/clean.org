@@ -103,9 +103,9 @@ the individual device needs.
 
 (defvar kk/mu4e-context-name-dx "dx")
 (defvar kk/mu4e-context-name-its "its")
-(defvar kk/mu4e-context-name-kloess.xyz-info "info")
-(defvar kk/mu4e-context-name-kloess.xyz-karsten "karsten")
-(defvar kk/mu4e-context-name-kloess.xyz-k "k")
+(defvar kk/mu4e-context-name-kloess.xyz-info "1info")
+(defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
+(defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 #+end_src
 
 ** Allocations
