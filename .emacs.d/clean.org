@@ -1134,9 +1134,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 (use-package mu4e
-  :defer 0
   :straight nil
-  :bind (("C-c m" . mu4e))
   :custom
   (mu4e-confirm-quit nil)
   :config
