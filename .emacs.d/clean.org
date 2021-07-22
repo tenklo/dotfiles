@@ -1434,6 +1434,9 @@ Make =M-x customize= persistent.
 
 #+begin_src emacs-lisp
 (custom-set-variables
+ '(browse-url-browser-function 'eww-browse-url)
+ '(browse-url-generic-program "o")
+ '(browse-url-secondary-browser-function 'browse-url-generic)
  '(calendar-date-style 'iso)
  '(initial-scratch-message "* Scratch
 
