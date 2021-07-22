@@ -1340,35 +1340,48 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 :END:
 
 #+begin_src emacs-lisp
-(setq mu4e-contexts
-      `(,(df/mu4e-context
-          :c-name kk/mu4e-context-name-dx
-          :maildir "kloess@digital-worx.de"
-          :mail "kloess@digital-worx.de"
-          :smtp "")
+(defun kk/mu4e-context-should-be-available-p (context-name)
+  (if (member context-name kk/mu4e-contexts) t nil))
 
-        ,(df/mu4e-context
-          :c-name kk/mu4e-context-name-its
-          :maildir "karsten.kloess@its-stuttgart.de"
-          :mail "karsten.kloess@its-stuttgart.de"
-          :smtp "")
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-dx)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-dx
+                :maildir "kloess@digital-worx.de"
+                :mail "kloess@digital-worx.de"
+                :smtp "") t))
 
-        ,(df/mu4e-context
-          :c-name kk/mu4e-context-name-kloess.xyz-info
-          :maildir "info@kloess.xyz"
-          :mail "info@kloess.xyz"
-          :smtp "")
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-its)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-its
+                :maildir "karsten.kloess@its-stuttgart.de"
+                :mail "karsten.kloess@its-stuttgart.de"
+                :smtp "") t))
 
-        ,(df/mu4e-context
-          :c-name kk/mu4e-context-name-kloess.xyz-karsten
-          :maildir "karsten@kloess.xyz"
-          :mail "karsten@kloess.xyz"
-          :smtp "")
-        ,(df/mu4e-context
-          :c-name kk/mu4e-context-name-kloess.xyz-k
-          :maildir "k@kloess.xyz"
-          :mail "k@kloess.xyz"
-          :smtp "")))
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-info)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-kloess.xyz-info
+                :maildir "info@kloess.xyz"
+                :mail "info@kloess.xyz"
+                :smtp "") t))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-karsten)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-kloess.xyz-karsten
+                :maildir "karsten@kloess.xyz"
+                :mail "karsten@kloess.xyz"
+                :smtp "") t))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-k)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-kloess.xyz-k
+                :maildir "k@kloess.xyz"
+                :mail "k@kloess.xyz"
+                :smtp "")t ))
 #+end_src
 
 * UI
