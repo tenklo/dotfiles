@@ -432,6 +432,8 @@ Intended to be used in an `org-mode-hook'."
           (tags "refile"
                 ((org-agenda-overriding-header "Tasks to Refile")
                  (org-tags-match-list-sublevels nil)))
+          (tags-todo "REWORK-refile"
+                     ((org-agenda-overriding-header "Meetings and Calls to post process")))
           (tags-todo "+TODO=\"WAIT\""
                      ((org-agenda-overriding-header "Unscheduled Waits")
                       (org-agenda-tags-todo-honor-ignore-options t)
@@ -527,9 +529,9 @@ Intended to be used in an `org-mode-hook'."
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("m" "Meeting" entry (file kk/org-refile-target)
-         "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+         "* MEETING with %? :MEETING:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
         ("p" "Phone call" entry (file kk/org-refile-target)
-         "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+         "* PHONE %? :PHONE:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
 
         ("j" "Journal" entry
          (file+olp+datetree kk/journal-file)
