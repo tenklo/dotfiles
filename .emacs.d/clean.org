@@ -121,8 +121,8 @@ the individual device needs.
                             "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org")
-   (setq kk/mu4e-contexts '(kk/mu4e-context-name-dx
-                            kk/mu4e-context-name-its)))
+   (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
+                            ,kk/mu4e-context-name-its)))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
@@ -131,11 +131,11 @@ the individual device needs.
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
-   (setq kk/mu4e-contexts '(kk/mu4e-context-name-dx
-                            kk/mu4e-context-name-its
-                            kk/mu4e-context-name-kloess.xyz-info
-                            kk/mu4e-context-name-kloess.xyz-karsten
-                            kk/mu4e-context-name-kloess.xyz-k))))
+   (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
+                            ,kk/mu4e-context-name-its
+                            ,kk/mu4e-context-name-kloess.xyz-info
+                            ,kk/mu4e-context-name-kloess.xyz-karsten
+                            ,kk/mu4e-context-name-kloess.xyz-k))))
 #+end_src
 
 * Org
