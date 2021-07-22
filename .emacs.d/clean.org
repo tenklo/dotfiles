@@ -1183,6 +1183,17 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                           ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")))
 #+end_src
 
+** Searching (In) Files
+:PROPERTIES:
+:ID:       70585f37-0e72-495e-9612-1d242900c684
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
+
+(global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
+#+end_src
+
 * Mail (mu4e)
 
 ** Signatures
