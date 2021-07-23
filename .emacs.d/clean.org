@@ -1194,6 +1194,18 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
 #+end_src
 
+** Ledger Mode
+:PROPERTIES:
+:ID:       ca7bc576-ea1e-4c85-93d0-8d723f60d99e
+:END:
+
+#+begin_src emacs-lisp
+(use-package ledger-mode
+  :custom
+  (ledger-reconcile-default-commodity "€")
+  (ledger-clear-whole-transactions t))
+#+end_src
+
 * Mail (mu4e)
 
 ** Signatures
