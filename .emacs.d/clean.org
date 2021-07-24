@@ -356,6 +356,15 @@ Intended to be used in an `org-mode-hook'."
 (require 'org-depend)
 #+end_src
 
+*** Toc-Org
+:PROPERTIES:
+:ID:       ec99ed9e-b74c-473a-8f00-31b2e44b90ee
+:END:
+
+#+begin_src emacs-lisp
+(use-package toc-org)
+#+end_src
+
 ** Agenda
 
 *** Settings
