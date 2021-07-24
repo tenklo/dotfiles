@@ -1405,6 +1405,25 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                 :smtp "")t ))
 #+end_src
 
+** Block Mail
+:PROPERTIES:
+:ID:       d6ac1132-911f-49d0-af2f-b07498122171
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/mail-block-by-regex (regexp)
+  (interactive "sRegex: ")
+  (eshell-command (format "blockmailbyheaderregex \"%s\"" regexp)))
+
+(defun kk/mail-block-by-sender (sender)
+  (interactive "sSender: ")
+  (kk/mail-block-by-regex (format "^From:.*%s.*" sender)))
+
+(defun kk/mail-block-by-subject (subject)
+  (interactive "sSubject: ")
+  (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
 * UI
 
 ** General
