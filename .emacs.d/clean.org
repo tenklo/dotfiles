@@ -1773,6 +1773,15 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
     ("g" nil)))
 #+end_src
 
+** Winner Mode
+:PROPERTIES:
+:ID:       0f10d50f-ac83-4794-9f86-a2fc682faaa0
+:END:
+
+#+begin_src emacs-lisp
+(winner-mode)
+#+end_src
+
 * Customization Through Emacs
 :PROPERTIES:
 :ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
