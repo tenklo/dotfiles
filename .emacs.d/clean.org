@@ -1451,7 +1451,13 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 :END:
 
 #+begin_src emacs-lisp
-(load-theme 'adwaita)
+(use-package modus-themes
+  :init
+  (modus-themes-load-themes)
+  :config
+  (modus-themes-load-operandi)
+  :bind
+  ("<f5>" . modus-themes-toggle))
 #+end_src
 
 ** Columns And Line Numbers
