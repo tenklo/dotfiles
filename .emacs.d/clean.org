@@ -356,6 +356,15 @@ Intended to be used in an `org-mode-hook'."
 (require 'org-depend)
 #+end_src
 
+*** Toc-Org
+:PROPERTIES:
+:ID:       ec99ed9e-b74c-473a-8f00-31b2e44b90ee
+:END:
+
+#+begin_src emacs-lisp
+(use-package toc-org)
+#+end_src
+
 ** Agenda
 
 *** Settings
@@ -369,7 +378,7 @@ Intended to be used in an `org-mode-hook'."
 
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(setq org-agenda-text-search-extra-files '(agenda-archives))
+(setq org-agenda-text-search-extra-files nil)
 
 ;; Use sticky agenda's so they persist
 (setq org-agenda-sticky t)
@@ -1194,6 +1203,18 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
 #+end_src
 
+** Ledger Mode
+:PROPERTIES:
+:ID:       ca7bc576-ea1e-4c85-93d0-8d723f60d99e
+:END:
+
+#+begin_src emacs-lisp
+(use-package ledger-mode
+  :custom
+  (ledger-reconcile-default-commodity "€")
+  (ledger-clear-whole-transactions t))
+#+end_src
+
 * Mail (mu4e)
 
 ** Signatures
@@ -1249,6 +1270,10 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (setq mu4e-view-show-addresses 't)
   (setq mu4e-headers-include-related nil)
 
+  (dolist (map '(mu4e-main-mode-map
+                 mu4e-view-mode-map
+                 mu4e-headers-mode-map))
+    (bind-key "C-c h" #'hydra-mail/body map))
   (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
   ;; This is set to 't' to avoid mail syncing issues when using mbsync
@@ -1385,6 +1410,25 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                 :smtp "")t ))
 #+end_src
 
+** Block Mail
+:PROPERTIES:
+:ID:       d6ac1132-911f-49d0-af2f-b07498122171
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/mail-block-by-regex (regexp)
+  (interactive "sRegex: ")
+  (eshell-command (format "blockmailbyheaderregex \"%s\"" regexp)))
+
+(defun kk/mail-block-by-sender (sender)
+  (interactive "sSender: ")
+  (kk/mail-block-by-regex (format "^From:.*%s.*" sender)))
+
+(defun kk/mail-block-by-subject (subject)
+  (interactive "sSubject: ")
+  (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
 * UI
 
 ** General
@@ -1408,7 +1452,13 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 :END:
 
 #+begin_src emacs-lisp
-(load-theme 'adwaita)
+(use-package modus-themes
+  :init
+  (modus-themes-load-themes)
+  :config
+  (modus-themes-load-operandi)
+  :bind
+  ("<f5>" . modus-themes-toggle))
 #+end_src
 
 ** Columns And Line Numbers
@@ -1519,6 +1569,233 @@ in case Emacs daemon is used."
   :config
   (which-key-mode)
   (setq which-key-idle-delay 0.3))
+#+end_src
+
+** Hydra
+:PROPERTIES:
+:ID:       d2c4f6f8-0600-41e5-aed3-7a7b746dcc15
+:END:
+
+#+begin_src emacs-lisp
+(use-package hydra
+  :defer t
+  :config
+
+  (defhydra hydra-development (:hint nil)
+    "
+^Development^          ^LSP
+^^^^^^^^-----------------------------------------------------------------
+^ ^                    _l_: lsp
+_c_: recompile         _L_: lsp-server
+_C_: compile           _t_: tree
+_s_: smartparens       _d_: dap
+"
+    ("c" recompile :exit t)
+    ("C" compile :exit t)
+    ("f" kk/tidy-buffer :exit t)
+    ("l" hydra-lsp/body :exit t)
+    ("L" lsp :exit t)
+    ("t" treemacs :exit t)
+    ("d" dap-hydra :exit t)
+    ("s" hydra-smartparens/body :exit t))
+  (bind-key "C-c h" #'hydra-development/body prog-mode-map)
+
+  (defhydra hydra-mail (:hint nil)
+    "
+^Blocking^              ^Misc
+^^^^^^^^-----------------------------------------------------------------
+_r_: by regex           _d_: new mail dir
+_f_: by sender          _c_: switch context
+_s_: by subject         _h_: toggle html view
+"
+    ("r" kk/mail-block-by-regex :exit t)
+    ("f" kk/mail-block-by-sender :exit t)
+    ("s" kk/mail-block-by-subject :exit t)
+    ("d" kk/mu4e-create-new-mail-folder :exit t)
+    ("c" mu4e-context-switch)
+    ("h" mu4e-view-toggle-html))
+
+  (defhydra hydra-mail-compose (:hint nil)
+    "
+^Add^                   ^Org
+^^^^^^^^-----------------------------------------------------------------
+_s_: signature          _e_: edit
+_a_: attachment         _h_: htmlize
+"
+    ("s" kk/mu4e-choose-signature :exit t)
+    ("a" mail-add-attachment :exit t)
+    ("h" org-mime-htmlize :exit t)
+    ("e" org-mime-edit-mail-in-org-mode :exit t))
+
+  (defhydra hydra-ediff (:color blue :hint nil)
+    "
+^Buffers^              ^Files^                ^VC^               ^Ediff regions
+^^^^^^^^-----------------------------------------------------------------
+_b_: buffers           _f_: files             _r_: revisions     _l_: linewise
+_B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
+^ ^                    _c_: current file
+"
+    ("b" ediff-buffers)
+    ("B" ediff-buffers3)
+    ("=" ediff-files)
+    ("f" ediff-files)
+    ("F" ediff-files3)
+    ("c" ediff-current-file)
+    ("r" ediff-revision)
+    ("l" ediff-regions-linewise)
+    ("w" ediff-regions-wordwise))
+  (global-set-key (kbd "C-c d") 'hydra-ediff/body)
+
+  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+  ;; focus on the *Occur* window and hides upon request in case needed later.
+  (defhydra hydra-occur-dwim (:hint nil)
+    "
+  ^Occur^             ^Navigation^     ^Visibility
+  ^^^^^^^^-----------------------------------------------------------------
+  _o_: occur-dwim     _j_: next        _h_: hide
+  ^ ^                 _k_: prev        _r_: re-attach
+  "
+    ("o" occur-dwim "occur-dwim" :color red)
+    ("j" occur-next "Next" :color red)
+    ("k" occur-prev "Prev":color red)
+    ("h" delete-window "Hide" :color blue)
+    ("r" (reattach-occur) "Re-attach" :color red))
+
+  (global-set-key (kbd "M-s O") 'hydra-occur-dwim/body)
+
+  (defhydra hydra-org-mode (:hint nil)
+    "
+      ^Time                           ^Agenda
+      ^^^^^^^^-----------------------------------------------------------------
+      _p_: pomodoro                   _s_: search
+      _e_: extend clock to now        _S_: search todo only
+      _i_: clock in                   _m_: match
+      _o_: clock out                  _M_: match todo only
+      "
+    ("p" org-pomodoro :exit t)
+    ("e" org-pomodoro-extend-last-clock :exit t)
+    ("i" org-clock-in :exit t)
+    ("o" org-clock-out :exit t)
+    ("s" org-search-view :exit t)
+    ("S" (org-search-view t) :exit t)
+    ("m" org-tags-view :exit t)
+    ("M" (org-tags-view t) :exit t))
+  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+
+  (defhydra hydra-straight-helper (:hint nil)
+    "
+      _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
+      _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
+      ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
+      _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
+      _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
+    ("c" straight-check-all)
+    ("C" straight-check-package)
+    ("r" straight-rebuild-all)
+    ("R" straight-rebuild-package)
+    ("f" straight-fetch-all)
+    ("F" straight-fetch-package)
+    ("p" straight-pull-all)
+    ("P" straight-pull-package)
+    ("m" straight-merge-all)
+    ("M" straight-merge-package)
+    ("n" straight-normalize-all)
+    ("N" straight-normalize-package)
+    ("u" straight-push-all)
+    ("U" straight-push-package)
+    ("v" straight-freeze-versions)
+    ("V" straight-thaw-versions)
+    ("w" straight-watcher-start)
+    ("W" straight-watcher-quit)
+    ("g" straight-get-recipe)
+    ("e" straight-prune-build)
+    ("q" nil))
+
+  (defhydra hydra-anki-mode (:hint nil)
+    "
+      ^Anki
+      ^^^^^^^^-----------------------------------------------------------------
+      _i_: insert note         _s_: export subtree to html
+      _c_: cloze region        _C_: convert region to html
+      _p_: push notes
+      "
+    ("p" anki-editor-push-notes :exit t)
+    ("i" anki-editor-insert-note :exit t)
+    ("c" anki-editor-cloze-region :exit t)
+    ("s" anki-editor-export-subtree-to-html :exit t)
+    ("C" anki-editor-convert-region-to-html :exit t))
+  (add-hook 'anki-editor-mode-hook
+            (lambda () (local-set-key (kbd "C-c h") #'hydra-anki-mode/body)))
+
+  (defhydra hydra-smartparens (:hint nil)
+    "
+      Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
+      ------------------------------------------------------------------------------------------------------------------------
+      [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
+      [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
+      [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
+      [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
+    ;; Moving
+    ("a" sp-beginning-of-sexp)
+    ("e" sp-end-of-sexp)
+    ("f" sp-forward-sexp)
+    ("b" sp-backward-sexp)
+    ("n" sp-down-sexp)
+    ("N" sp-backward-down-sexp)
+    ("p" sp-up-sexp)
+    ("P" sp-backward-up-sexp)
+
+    ;; Slurping & barfing
+    ("h" sp-backward-slurp-sexp)
+    ("H" sp-backward-barf-sexp)
+    ("l" sp-forward-slurp-sexp)
+    ("L" sp-forward-barf-sexp)
+
+    ;; Wrapping
+    ("R" sp-rewrap-sexp)
+    ("u" sp-unwrap-sexp)
+    ("U" sp-backward-unwrap-sexp)
+    ("(" sp-wrap-round)
+    ("{" sp-wrap-curly)
+    ("[" sp-wrap-square)
+
+    ;; Sexp juggling
+    ("S" sp-split-sexp)
+    ("s" sp-splice-sexp)
+    ("r" sp-raise-sexp)
+    ("j" sp-join-sexp)
+    ("t" sp-transpose-sexp)
+    ("A" sp-absorb-sexp)
+    ("E" sp-emit-sexp)
+    ("o" sp-convolute-sexp)
+
+    ;; Destructive editing
+    ("c" sp-change-inner :exit t)
+    ("C" sp-change-enclosing :exit t)
+    ("k" sp-kill-sexp)
+    ("K" sp-backward-kill-sexp)
+    ("w" sp-copy-sexp)
+
+    ("q" nil)
+    ("g" nil)))
+#+end_src
+
+** Winner Mode
+:PROPERTIES:
+:ID:       0f10d50f-ac83-4794-9f86-a2fc682faaa0
+:END:
+
+#+begin_src emacs-lisp
+(winner-mode)
+#+end_src
+
+** Bookmark+
+:PROPERTIES:
+:ID:       c778dfd0-9d6f-4e3e-901a-c62ca7915fb0
+:END:
+
+#+begin_src emacs-lisp
+(use-package bookmark+)
 #+end_src
 
 * Customization Through Emacs
