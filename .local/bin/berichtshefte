@@ -21,11 +21,12 @@ path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"
 nextweek="next"
-thisweek="."
-prevweek=".."
+thisweek=". this week"
+prevweek=".. previous week"
+weekbeforelast="... week before that"
 all="all existing"
 bydate="by date"
-selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$all\n$bydate" | dmenu -p "Berichtsheft") || exit
+selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$weekbeforelast\n$all\n$bydate" | dmenu -p "Berichtsheft") || exit
 
 getconf(){
     # test -f "$conffile" || {printf "No config specified" exit 1};
@@ -89,6 +90,7 @@ case $selection in
 	       file="$mondayfordate$suffix";;
     $nextweek) file="$(date -dnext-monday +%y%m%d)$suffix";;
     $prevweek) [ $(date +%u) -eq 1 ] && file="$(date -dlast-monday +%y%m%d)$suffix" || file="$(date -d'monday-14 days' +%y%m%d)$suffix";;
+    $weekbeforelast) [ $(date +%u) -eq 1 ] && file="$(date -d'monday-14 days' +%y%m%d)$suffix" || file="$(date -d'monday-21 days' +%y%m%d)$suffix";;
     $bydate) getdate;
 	     getmondayfordate $thedate
 	     file="$mondayfordate$suffix";;
