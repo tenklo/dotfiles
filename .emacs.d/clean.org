@@ -1788,6 +1788,15 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 (winner-mode)
 #+end_src
 
+** Bookmark+
+:PROPERTIES:
+:ID:       c778dfd0-9d6f-4e3e-901a-c62ca7915fb0
+:END:
+
+#+begin_src emacs-lisp
+(use-package bookmark+)
+#+end_src
+
 * Customization Through Emacs
 :PROPERTIES:
 :ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
