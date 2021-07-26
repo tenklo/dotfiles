@@ -521,21 +521,21 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-capture-templates
       `(("t" "Task" entry (file kk/org-refile-target)
-         "* TODO %?\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("u" "Urgent Task" entry (file kk/org-refile-target)
-         "* TODO %?\nSCHEDULED: %t\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %?\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
         ("ft" "to track" entry (file kk/org-refile-target)
-         "* TODO Expense: %?\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
+         "* TODO Expense: %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("fp" "to pay" entry (file kk/org-refile-target)
-         "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("fw" "awaiting payment" entry (file kk/org-refile-target)
-         "* WAIT %?\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n - Added: %U\n:END:\n  %a\n  %i"
+         "* WAIT %?\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("m" "Meeting" entry (file kk/org-refile-target)
