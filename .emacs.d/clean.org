@@ -1331,7 +1331,8 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                                (:name ,(concat "Last 7 days " c-name) :query ,(concat "m:/" maildir "/ AND date:7d..now") :hide-unread t :key ?w)
                                (:name ,(concat "Messages with calendar files " c-name) :query ,(concat "m:/" maildir "/ mime:text/calendar") :key ?i)
                                (:name ,(concat "Messages with attachments " c-name) :query ,(concat "m:/" maildir "/ flag:attach") :key ?a)
-                               (:name ,(concat "Messages with images " c-name) :query ,(concat "m:/" maildir "/ mime:image/*") :key ?p)))))))
+                               (:name ,(concat "Messages with images " c-name) :query ,(concat "m:/" maildir "/ mime:image/*") :key ?p)
+                               (:name "All Unread" :query "flag:unread" :key ?x)))))))
 #+end_src
 
 ** Contexts
