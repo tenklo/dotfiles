@@ -1513,6 +1513,11 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 :ID:       ffb701d8-a36e-4194-bd46-b8ae1777cdfe
 :END:
 
+*** Modus Themes
+:PROPERTIES:
+:ID:       320a5439-c545-49fe-81fa-755389c1e183
+:END:
+
 #+begin_src emacs-lisp
 (use-package modus-themes
   :init
