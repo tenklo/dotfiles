@@ -1528,6 +1528,21 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   ("<f5>" . modus-themes-toggle))
 #+end_src
 
+*** Themes And Sunrise/Sunset
+:PROPERTIES:
+:ID:       c5794de1-e4a3-454f-b43d-4ff6b1fb3550
+:END:
+
+#+begin_src emacs-lisp
+(use-package theme-changer
+  :init
+  (setq calendar-location-name "Dallas, TX")
+  (setq calendar-latitude 48.8)
+  (setq calendar-longitude 9.2)
+  :config
+  (change-theme 'modus-operandi 'modus-vivendi))
+#+end_src
+
 ** Columns And Line Numbers
 :PROPERTIES:
 :ID:       5f4d3123-a3a6-423a-aee0-752c1fe060a1
