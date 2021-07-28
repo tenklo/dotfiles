@@ -1374,8 +1374,8 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
        (trash      (concat "/" maildir "/Trash"))
        (refile     (concat "/" maildir "/Archive"))
        (draft      (concat "/" maildir "/Drafts"))
-       (c-name     (if (symbolp c-name) (symbol-value c-name) c-name))
-       )
+       (junk       (concat "/" maildir "/Junk"))
+       (c-name     (if (symbolp c-name) (symbol-value c-name) c-name)))
 
     `(make-mu4e-context
       :name ,c-name
@@ -1407,7 +1407,8 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                                        (,sent    . ?s)
                                        (,trash   . ?t)
                                        (,refile  . ?a)
-                                       (,draft   . ?d)))
+                                       (,draft   . ?d)
+                                       (,junk    . ?j)))
               (mu4e-bookmarks .
                               ((:name ,(concat "Unread " c-name) :query ,(concat "m:/" maildir "/ AND flag:unread AND NOT flag:trashed") :key ?u)
                                (:name ,(concat "Today's messages " c-name) :query ,(concat "m:/" maildir "/ AND date:today..now") :key ?t)
