@@ -947,6 +947,31 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 #+end_src
 
+** Roam
+:PROPERTIES:
+:ID:       29a3e863-3bc5-4f9c-9ef9-3129e057892e
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/Nextcloud/Documents/roam")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"    . completion-at-point))
+  :config
+  (org-roam-setup)
+  (setq org-roam-mode-section-functions
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              #'org-roam-unlinked-references-section)))
+#+end_src
+
 * Development
 
 ** General
