@@ -172,6 +172,7 @@ Intended to be used in an `org-mode-hook'."
   (org-mode . turn-on-flyspell)
   :config
   (setq flyspell-default-dictionary "german")
+  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point)
   (setq initial-major-mode 'org-mode)
 
   (setq org-startup-folded 'fold)
