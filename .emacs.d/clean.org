@@ -952,6 +952,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 :ID:       29a3e863-3bc5-4f9c-9ef9-3129e057892e
 :END:
 
+[[https://www.orgroam.com/manual.html#Org_002droam-Protocol][Information on how to set up org-roam-protocol.]]
+
 #+begin_src emacs-lisp
 (use-package org-roam
   :init
@@ -971,10 +973,19 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :config
   (org-roam-setup)
   (require 'org-roam-graph)
+  (require 'org-roam-protocol)
   (setq org-roam-mode-section-functions
         (list #'org-roam-backlinks-section
               #'org-roam-reflinks-section
-              #'org-roam-unlinked-references-section)))
+              #'org-roam-unlinked-references-section))
+  (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 0)
+                 (window-width . 0.33)
+                 (window-parameters . ((no-other-window . t)
+                                       (no-delete-other-windows . t))))))
 #+end_src
 
 * Development
