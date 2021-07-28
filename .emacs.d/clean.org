@@ -171,8 +171,6 @@ Intended to be used in an `org-mode-hook'."
   (org-mode . kk/org-mode-setup)
   (org-mode . turn-on-flyspell)
   :config
-  (setq flyspell-default-dictionary "german")
-  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point)
   (setq initial-major-mode 'org-mode)
 
   (setq org-startup-folded 'fold)
@@ -1268,6 +1266,16 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (ledger-clear-whole-transactions t))
 #+end_src
 
+** Flyspell
+
+#+begin_src emacs-lisp
+(use-package flyspell
+  :straight nil
+  :config
+  (setq flyspell-default-dictionary "german")
+  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
@@ -1922,7 +1930,8 @@ Make =M-x customize= persistent.
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
  '(grep-template "grep <X> <C> -n -I --null -e <R> <F>")
  '(org-modules
-   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m)))
+   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+ '(org-tags-exclude-from-inheritance '("ATTACH")))
 #+end_src
 
 * Keyboard Macros
