@@ -171,8 +171,6 @@ Intended to be used in an `org-mode-hook'."
   (org-mode . kk/org-mode-setup)
   (org-mode . turn-on-flyspell)
   :config
-  (setq flyspell-default-dictionary "german")
-  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point)
   (setq initial-major-mode 'org-mode)
 
   (setq org-startup-folded 'fold)
@@ -1250,6 +1248,16 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   :custom
   (ledger-reconcile-default-commodity "€")
   (ledger-clear-whole-transactions t))
+#+end_src
+
+** Flyspell
+
+#+begin_src emacs-lisp
+(use-package flyspell
+  :straight nil
+  :config
+  (setq flyspell-default-dictionary "german")
+  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
 #+end_src
 
 * Communication
