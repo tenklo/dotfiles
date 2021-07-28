@@ -1153,6 +1153,17 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 ** Web
 
+*** Eww
+:PROPERTIES:
+:ID:       2c375c8d-6c40-40d0-a623-f264292e7467
+:END:
+
+#+begin_src emacs-lisp
+(use-package eww
+  :config (setq browse-url-browser-function 'eww
+                shr-width 80))
+#+end_src
+
 *** Search Logic
 :PROPERTIES:
 :ID:       5e5846c9-ca66-4500-9276-b69bb8191bc2
