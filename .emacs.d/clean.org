@@ -172,6 +172,7 @@ Intended to be used in an `org-mode-hook'."
   (org-mode . turn-on-flyspell)
   :config
   (setq flyspell-default-dictionary "german")
+  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point)
   (setq initial-major-mode 'org-mode)
 
   (setq org-startup-folded 'fold)
@@ -946,6 +947,31 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
 #+end_src
 
+** Roam
+:PROPERTIES:
+:ID:       29a3e863-3bc5-4f9c-9ef9-3129e057892e
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/Nextcloud/Documents/roam")
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         :map org-mode-map
+         ("C-M-i"    . completion-at-point))
+  :config
+  (org-roam-setup)
+  (setq org-roam-mode-section-functions
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              #'org-roam-unlinked-references-section)))
+#+end_src
+
 * Development
 
 ** General
@@ -1127,6 +1153,17 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 ** Web
 
+*** Eww
+:PROPERTIES:
+:ID:       2c375c8d-6c40-40d0-a623-f264292e7467
+:END:
+
+#+begin_src emacs-lisp
+(use-package eww
+  :config (setq browse-url-browser-function 'eww
+                shr-width 80))
+#+end_src
+
 *** Search Logic
 :PROPERTIES:
 :ID:       5e5846c9-ca66-4500-9276-b69bb8191bc2
@@ -1215,9 +1252,11 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (ledger-clear-whole-transactions t))
 #+end_src
 
-* Mail (mu4e)
+* Communication
 
-** Signatures
+** Mail (mu4e)
+
+*** Signatures
 :PROPERTIES:
 :ID:       d61fb091-9bfe-452e-8c05-a9c85f5fcd9a
 :END:
@@ -1252,7 +1291,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
     (message-insert-signature)))
 #+end_src
 
-** General
+*** General
 :PROPERTIES:
 :ID:       b05fad93-c979-448e-8e67-1c6fb154993e
 :END:
@@ -1298,7 +1337,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (global-set-key (kbd "C-c m") 'mu4e))
 #+end_src
 
-** Context Macro
+*** Context Macro
 :PROPERTIES:
 :ID:       45186652-daff-4bd2-8142-b3d02cf48c5c
 :END:
@@ -1361,7 +1400,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                                (:name "All Unread" :query "flag:unread" :key ?x)))))))
 #+end_src
 
-** Contexts
+*** Contexts
 :PROPERTIES:
 :ID:       a9a41e4e-f62a-4ca7-9785-4e75658dc6bf
 :END:
@@ -1411,7 +1450,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                 :smtp "")t ))
 #+end_src
 
-** Block Mail
+*** Block Mail
 :PROPERTIES:
 :ID:       d6ac1132-911f-49d0-af2f-b07498122171
 :END:
@@ -1428,6 +1467,28 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (defun kk/mail-block-by-subject (subject)
   (interactive "sSubject: ")
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
+** Matrix
+
+*** Ement.el
+:PROPERTIES:
+:ID:       6c2b0d6c-c362-4a45-b69a-c71e015602c9
+:END:
+
+[[https://github.com/alphapapa/ement.el]]
+
+#+begin_src emacs-lisp
+;; Install `plz' HTTP library (not on MELPA yet).
+(use-package plz
+  :straight (plz :fetcher github :repo "alphapapa/plz.el"))
+
+;; Install Ement.
+(use-package ement
+  :straight (ement :fetcher github :repo "alphapapa/ement.el")
+  :custom
+  (ement-room-prism 'both)
+  (ement-save-session t))
 #+end_src
 
 * UI
@@ -1452,6 +1513,11 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 :ID:       ffb701d8-a36e-4194-bd46-b8ae1777cdfe
 :END:
 
+*** Modus Themes
+:PROPERTIES:
+:ID:       320a5439-c545-49fe-81fa-755389c1e183
+:END:
+
 #+begin_src emacs-lisp
 (use-package modus-themes
   :init
@@ -1460,6 +1526,21 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (modus-themes-load-operandi)
   :bind
   ("<f5>" . modus-themes-toggle))
+#+end_src
+
+*** Themes And Sunrise/Sunset
+:PROPERTIES:
+:ID:       c5794de1-e4a3-454f-b43d-4ff6b1fb3550
+:END:
+
+#+begin_src emacs-lisp
+(use-package theme-changer
+  :init
+  (setq calendar-location-name "Dallas, TX")
+  (setq calendar-latitude 48.8)
+  (setq calendar-longitude 9.2)
+  :config
+  (change-theme 'modus-operandi 'modus-vivendi))
 #+end_src
 
 ** Columns And Line Numbers
