@@ -1328,7 +1328,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (dolist (map '(mu4e-main-mode-map
                  mu4e-view-mode-map
                  mu4e-headers-mode-map))
-    (bind-key "C-c h" #'hydra-mail/body map))
+    (progn
+      (bind-key "C-c h" #'hydra-mail/body map)
+      (bind-key "," #'mu4e-context-switch map)))
   (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
 
   ;; This is set to 't' to avoid mail syncing issues when using mbsync
