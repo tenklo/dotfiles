@@ -1469,6 +1469,28 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
 #+end_src
 
+** Matrix
+
+*** Ement.el
+:PROPERTIES:
+:ID:       6c2b0d6c-c362-4a45-b69a-c71e015602c9
+:END:
+
+[[https://github.com/alphapapa/ement.el]]
+
+#+begin_src emacs-lisp
+;; Install `plz' HTTP library (not on MELPA yet).
+(use-package plz
+  :straight (plz :fetcher github :repo "alphapapa/plz.el"))
+
+;; Install Ement.
+(use-package ement
+  :straight (ement :fetcher github :repo "alphapapa/ement.el")
+  :custom
+  (ement-room-prism 'both)
+  (ement-save-session t))
+#+end_src
+
 * UI
 
 ** General
