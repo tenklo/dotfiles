@@ -986,6 +986,15 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                                        (no-delete-other-windows . t))))))
 #+end_src
 
+** Contacts
+:PROPERTIES:
+:ID:       66527cda-1323-4a62-a46c-7d1e6ec85d19
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-contacts)
+#+end_src
+
 * Development
 
 ** General
