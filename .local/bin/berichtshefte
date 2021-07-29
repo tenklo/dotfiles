@@ -63,15 +63,15 @@ createtemp() {
 }
 
 modifytemplate(){
-    sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholdername#$nameazubi#g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placehholderausbildungsjahr#$ausbildungsjahr#g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderstundenbetrtaetigkeit##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderbetrtaetigkeit##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderstundensonstiges##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholdersonstiges##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderstundenfaecher##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderfaecher##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholdername#$nameazubi#g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placehholderausbildungsjahr#$ausbildungsjahr#g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderstundenbetrtaetigkeit##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderbetrtaetigkeit##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderstundensonstiges##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholdersonstiges##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderstundenfaecher##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderfaecher##g" "$tmp/content.xml" || echo "failed to substitute"
 }
 
 getconf
