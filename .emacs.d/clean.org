@@ -99,6 +99,7 @@ the individual device needs.
 #+begin_src emacs-lisp
 (defvar kk/default-font-size 150)
 (defvar kk/org-refile-target "")
+(defvar kk/org-roam-directory "")
 (defvar kk/journal-file "")
 
 (defvar kk/mu4e-context-name-dx "dx")
@@ -125,9 +126,11 @@ the individual device needs.
                             ,kk/mu4e-context-name-its)))
   ("T490s"
    (setq kk/default-font-size 180)
-   (setq org-agenda-files '("~/nextcloud_work/Documents/org"
+   (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
+   (setq org-agenda-files `("~/nextcloud_work/Documents/org"
                             "~/Nextcloud/Documents/org"
-                            "~/nextcloud_work/schule/schule.org"))
+                            "~/nextcloud_work/schule/schule.org"
+                            ,kk/org-roam-directory))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
@@ -957,7 +960,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "~/Nextcloud/Documents/roam")
+  (org-roam-directory kk/org-roam-directory)
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
