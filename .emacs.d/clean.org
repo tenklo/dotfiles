@@ -523,7 +523,7 @@ Intended to be used in an `org-mode-hook'."
          "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("u" "Urgent Task" entry (file kk/org-refile-target)
-         "* TODO %?\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
