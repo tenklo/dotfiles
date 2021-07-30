@@ -15,8 +15,6 @@ placeholderstundenbetrtaetigkeit=~StundenProBetrTaetigkeit~
 placeholderstundenfaecher=~StundenProFach~
 placeholderstundensonstiges=~StundenProSonstiges~
 
-ausbildungsjahr=$(expr $(python -c "from datetime import date as d; print(d.today() - d(2019, 9, 1))" | sed 's/\(^[0-9]*\s\).*$/\1/') / 365 + 1)
-
 path=$HOME/nextcloud_work/Berichtsheft
 tmp=/tmp/berichtsheft
 suffix="_Ausbildung_IT_Karsten_Kloess.odt"
@@ -30,7 +28,7 @@ selection=$(echo -e "$thisweek\n$nextweek\n$prevweek\n$weekbeforelast\n$all\n$by
 
 getconf(){
     # test -f "$conffile" || {printf "No config specified" exit 1};
-    ausbildungsjahr="2/3"
+    ausbildungsjahr="$(expr $(python -c "from datetime import date as d; print(d.today() - d(2019, 9, 1))" | sed 's/\(^[0-9]*\s\).*$/\1/') / 365 + 1)/3"
     # ausbildungsbeginn=$(grep "ausbildungsbeginn" "$conffile" | sed 's/ausbildungsbeginn\( \)+=\( \)+//g');
     nameazubi="Karsten Klöss"
     # nameazubi=$(grep "nameazubi" "$conffile" | sed 's/nameazubi\( \)+=\( \)+//g');
@@ -63,15 +61,15 @@ createtemp() {
 }
 
 modifytemplate(){
-    sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholdername#$nameazubi#g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placehholderausbildungsjahr#$ausbildungsjahr#g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderstundenbetrtaetigkeit##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderbetrtaetigkeit##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderstundensonstiges##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholdersonstiges##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderstundenfaecher##g" "$tmp/content.xml" echo "failed to substitute"
-    sed -i "s#$placeholderfaecher##g" "$tmp/content.xml" echo "failed to substitute"
+    sed -i "s#$placeholderausbildungswoche#$to#g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholdername#$nameazubi#g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placehholderausbildungsjahr#$ausbildungsjahr#g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderstundenbetrtaetigkeit##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderbetrtaetigkeit##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderstundensonstiges##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholdersonstiges##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderstundenfaecher##g" "$tmp/content.xml" || echo "failed to substitute"
+    sed -i "s#$placeholderfaecher##g" "$tmp/content.xml" || echo "failed to substitute"
 }
 
 getconf
