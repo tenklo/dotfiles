@@ -1165,6 +1165,15 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
         (holiday-float 11 0 1 "Totensonntag" 20)))
 #+end_src
 
+*** Keybinding
+:PROPERTIES:
+:ID:       9ad991c8-4388-4ff3-9026-a554f5481f77
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c c") 'calendar)
+#+end_src
+
 ** Web
 
 *** Eww
