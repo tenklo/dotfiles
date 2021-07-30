@@ -273,6 +273,8 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-agenda-skip-additional-timestamps-same-entry t)
 (setq org-agenda-log-mode-items (quote (closed state)))
+
+(use-package htmlize)
 #+end_src
 
 *** Clocking
