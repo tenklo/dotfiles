@@ -137,7 +137,8 @@ the individual device needs.
                             ,kk/mu4e-context-name-its
                             ,kk/mu4e-context-name-kloess.xyz-info
                             ,kk/mu4e-context-name-kloess.xyz-karsten
-                            ,kk/mu4e-context-name-kloess.xyz-k))))
+                            ,kk/mu4e-context-name-kloess.xyz-k))
+   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")))
 #+end_src
 
 * Org
@@ -404,6 +405,9 @@ as the default task."
     (bh/clock-in-parent-task)))
 
 (add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+
+(global-set-key (kbd "<f9> i") 'bh/punch-in)
+(global-set-key (kbd "<f9> o") 'bh/punch-out)
 #+end_src
 
 **** Pomodoro
