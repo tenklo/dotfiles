@@ -1057,6 +1057,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 (add-hook 'org-after-todo-state-change-hook 'bh/mark-next-parent-tasks-todo 'append)
 (add-hook 'org-clock-in-hook 'bh/mark-next-parent-tasks-todo 'append)
+
+
+(defun bh/hide-other ()
+  (interactive)
+  (save-excursion
+    (org-back-to-heading 'invisible-ok)
+    (hide-other)
+    (org-cycle)
+    (org-cycle)
+    (org-cycle)))
+(global-set-key (kbd "<f9> h") 'bh/hide-other)
 #+end_src
 
 ** Habits
