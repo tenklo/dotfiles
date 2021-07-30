@@ -272,6 +272,7 @@ Intended to be used in an `org-mode-hook'."
 (setq org-log-into-drawer t)
 
 (setq org-agenda-skip-additional-timestamps-same-entry t)
+(setq org-agenda-log-mode-items (quote (closed state)))
 #+end_src
 
 *** Clocking
