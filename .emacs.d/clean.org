@@ -1401,6 +1401,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+end_src
 
 ** Flyspell
+:PROPERTIES:
+:ID:       f80a76f0-45a3-4234-94e1-c952e4fb7f55
+:END:
 
 #+begin_src emacs-lisp
 (use-package flyspell
