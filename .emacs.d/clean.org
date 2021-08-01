@@ -108,6 +108,7 @@ the individual device needs.
 (defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/organization-task-id "")
+(defvar kk/mu4e-contexts '())
 #+end_src
 
 ** Allocations
