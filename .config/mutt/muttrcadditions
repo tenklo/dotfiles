@@ -1,6 +1,0 @@
-# additions which are not mw related
-
-set mailcap_path =~/.config/mutt/mailcap
-set query_command = "abook --config $XDG_CONFIG_HOME/abook/abookrc --datafile $XDG_DATA_HOME/abook/addressbook --mutt-query '%s'"
-
-set date_format="%Y %m %d %H:%M"

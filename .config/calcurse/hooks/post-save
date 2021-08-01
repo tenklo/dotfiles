@@ -1,6 +1,0 @@
-#!/bin/sh
-
-path=${XDG_DATA_HOME:-$HOME/.local/share}/calcurse
-isalldatadir=$path/.all
-test -f "$isalldatadir" && notify-send --urgency critical "calcurse" "Änderungen in 'all' werden überschrieben werden! Stattdessen im passenden Kalender vornehmen."
-calcurseupdateall
