@@ -2101,9 +2101,6 @@ Make =M-x customize= persistent.
  '(calendar-date-style 'iso)
  '(initial-scratch-message "* Scratch
 
-
-
-,* Pomodoros
 ")
  '(grep-find-template
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
