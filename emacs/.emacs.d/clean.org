@@ -1,0 +1,2136 @@
+#+TITLE: Clean Emacs Configuration
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
+
+* About
+
+This configuration aims to be simple, while still providing everything
+I need. It should work across different devices, but provide only data
+the individual device needs.
+
+* General
+
+** Startup Performance
+:PROPERTIES:
+:ID:       f4bea356-d5e1-4235-8110-381c0123e894
+:END:
+
+#+begin_src emacs-lisp
+(setq gc-cons-threshold (* 50 1000 1000))
+#+end_src
+
+** Package System
+:PROPERTIES:
+:ID:       c8c6f928-3490-42ce-abfc-8858a1905f9f
+:END:
+
+#+begin_src emacs-lisp
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+
+(setq straight-use-package-by-default t)
+(setq use-package-verbose t)
+#+end_src
+
+** Aliases
+:PROPERTIES:
+:ID:       70553041-474f-4e9b-908d-bc5073359a77
+:END:
+
+#+begin_src emacs-lisp
+(define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
+#+end_src
+
+** Auto Reverting
+:PROPERTIES:
+:ID:       01cb8b21-9528-4a0e-b1da-c5f06e5598fe
+:END:
+
+#+begin_src emacs-lisp
+(setq global-auto-revert-non-file-buffers t)
+(global-auto-revert-mode)
+#+end_src
+
+** Movement
+
+*** Move Where I Mean Package
+:PROPERTIES:
+:ID:       df185c2f-c1cc-4921-840c-3c444ff07e46
+:END:
+
+#+begin_src emacs-lisp
+(use-package mwim
+  :config
+  (global-set-key (kbd "C-a") 'mwim-beginning)
+  (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
+#+end_src
+
+*** Expand Region
+:PROPERTIES:
+:ID:       e0917147-ef19-4ed3-8952-ec15cd7bdc3c
+:END:
+
+#+begin_src emacs-lisp
+(use-package expand-region
+  :bind
+  (("C-+" . 'er/expand-region))
+  :config
+  (delete-selection-mode 1))
+#+end_src
+
+* System Specific
+
+** Declarations
+:PROPERTIES:
+:ID:       1443235a-a748-4b0e-82f6-974bfa2c3dae
+:END:
+
+#+begin_src emacs-lisp
+(defvar kk/default-font-size 150)
+(defvar kk/org-refile-target "")
+(defvar kk/org-roam-directory "")
+(defvar kk/journal-file "")
+
+(defvar kk/mu4e-context-name-dx "dx")
+(defvar kk/mu4e-context-name-its "its")
+(defvar kk/mu4e-context-name-kloess.xyz-info "1info")
+(defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
+(defvar kk/mu4e-context-name-kloess.xyz-k "3k")
+(defvar kk/organization-task-id "")
+(defvar kk/mu4e-contexts '())
+#+end_src
+
+** Allocations
+:PROPERTIES:
+:ID:       d6e46e0c-4556-4475-b0dd-8653b9d5beb9
+:END:
+
+#+begin_src emacs-lisp
+(pcase system-name
+  ("dwhpd"
+   (setq kk/default-font-size 140)
+   (setq org-agenda-files '("~/nextcloud_work/Documents/org"
+                            "~/nextcloud_work/schule/schule.org"))
+   (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
+   (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org")
+   (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
+                            ,kk/mu4e-context-name-its))
+   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2"))
+  ("T490s"
+   (setq kk/default-font-size 180)
+   (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
+   (setq org-agenda-files `("~/nextcloud_work/Documents/org"
+                            "~/Nextcloud/Documents/org"
+                            "~/nextcloud_work/schule/schule.org"
+                            ,kk/org-roam-directory))
+   (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
+   (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
+   (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
+   (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
+                            ,kk/mu4e-context-name-its
+                            ,kk/mu4e-context-name-kloess.xyz-info
+                            ,kk/mu4e-context-name-kloess.xyz-karsten
+                            ,kk/mu4e-context-name-kloess.xyz-k))
+   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")))
+#+end_src
+
+* Org
+
+** General
+:PROPERTIES:
+:ID:       74852722-8797-415d-bc25-74e9a153b9e4
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/org-mode-setup ()
+  "Set org-specific settings.
+Intended to be used in an `org-mode-hook'."
+  (visual-line-mode 1)
+  (setq prettify-symbols-alist '(("[ ]" . "")
+                                 ("[X]" . "")
+                                 ("[-]" . "")
+                                 ("#+begin_src" . "")
+                                 ("#+end_src" . "―")))
+  (prettify-symbols-mode)
+  (setq-local display-line-numbers-type t)
+  (lambda ()
+    ;; Undefine C-c [ and C-c ] since this breaks my
+    ;; org-agenda files when directories are include It
+    ;; expands the files in the directories individually
+    (org-defkey org-mode-map "\C-c[" 'undefined)
+    (org-defkey org-mode-map "\C-c]" 'undefined)
+    (org-defkey org-mode-map "\C-c;" 'undefined)
+    (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined)))
+
+(use-package org
+  :hook
+  (org-mode . kk/org-mode-setup)
+  (org-mode . turn-on-flyspell)
+  :config
+  (setq initial-major-mode 'org-mode)
+
+  (setq org-startup-folded 'fold)
+
+  (setq org-image-actual-width 500)
+
+  (setq org-enforce-todo-checkbox-dependencies t)
+  (setq org-enforce-todo-dependencies t)
+  (setq org-track-ordered-property-with-tag t)
+
+  (setq org-show-following-heading t)
+  (setq org-show-hierarchy-above t)
+  (setq org-show-siblings (quote ((default))))
+
+  (setq org-catch-invisible-edits 'error)
+
+  (setq org-global-properties
+        `(("Effort_ALL" .
+           ,(concat "0 0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
+                    "6:00"))))
+  (setq org-columns-default-format
+        (concat "#+COLUMNS: %7CATEGORY(Cat.) %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
+                "%6CLOCKSUM(Clock) %6EFFORT(Effort){:}")))
+#+end_src
+
+*** Todo Keywords
+:PROPERTIES:
+:ID:       74a4e252-878c-4a63-bfec-bd3f3615cd23
+:END:
+
+#+begin_src emacs-lisp
+(setq org-todo-keywords
+      '((sequence "TODO(t!/!)" "NEXT(n!/!)" "|" "DONE(d!/!)")
+        (sequence "WAIT(w@/!)" "HOLD(h@/!)" "|" "CANC(k@/!)" "PHONE" "MEETING")))
+
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "red" :weight bold)
+              ("NEXT" :foreground "slate blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAIT" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANC" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "dimgrey" :weight bold)
+              ("MEETING" :foreground "dimgrey" :weight bold))))
+
+(setq org-todo-state-tags-triggers
+      (quote (("CANC" ("CANCELLED" . t))
+              ("WAIT" ("WAITING" . t) ("checkBack"))
+              ("HOLD" ("WAITING") ("HOLD" . t))
+              (done ("WAITING") ("HOLD") ("checkBack"))
+              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+
+(setq org-use-fast-todo-selection t)
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+#+end_src
+
+*** Indentation
+:PROPERTIES:
+:ID:       85461031-c9d3-4146-8847-191bd47f97bf
+:END:
+
+#+begin_src emacs-lisp
+(setq org-indent-indentation-per-level 3)
+(setq org-edit-src-content-indentation 0)
+(setq org-startup-indented t)
+#+end_src
+
+*** Refiling
+:PROPERTIES:
+:ID:       a2b00b99-bd7b-4e59-8a36-2aa3403d8e94
+:END:
+
+#+begin_src emacs-lisp
+(setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
+
+(setq org-refile-use-outline-path t)
+(setq org-outline-path-complete-in-steps nil)
+
+(advice-add 'org-refile :after
+            (lambda (&rest _)
+              (org-save-all-org-buffers)))
+
+(setq org-clone-delete-id t)
+#+end_src
+
+*** Logging
+:PROPERTIES:
+:ID:       3cec1cc3-4108-4da2-b226-b6280fffa9b3
+:END:
+
+#+begin_src emacs-lisp
+(setq org-log-done 'note)
+(setq org-log-reschedule 'note)
+(setq org-log-into-drawer t)
+
+(setq org-agenda-skip-additional-timestamps-same-entry t)
+#+end_src
+
+*** Clocking
+:PROPERTIES:
+:ID:       fc4b200f-b33c-4b66-8804-410e208d758d
+:END:
+
+#+begin_src emacs-lisp
+(setq org-clock-into-drawer "CLOCKING")
+
+;; Show lot of clocking history so it's easy to pick items off the C-F11 list
+(setq org-clock-history-length 35)
+
+;; Resume clocking task when emacs is restarted
+(org-clock-persistence-insinuate)
+
+;; Resume clocking task on clock-in if the clock is open
+(setq org-clock-in-resume t)
+
+;; Change tasks to NEXT when clocking in
+(setq org-clock-in-switch-to-state 'bh/clock-in-to-next)
+
+;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
+(setq org-clock-out-remove-zero-time-clocks t)
+
+;; Clock out when moving task to a done state
+(setq org-clock-out-when-done t)
+
+;; Save the running clock and all clock history when exiting Emacs, load it on startup
+(setq org-clock-persist t)
+
+;; Do not prompt to resume an active clock
+(setq org-clock-persist-query-resume nil)
+
+;; Enable auto clock resolution for finding open clocks
+(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
+
+;; Include current clocking task in clock reports
+(setq org-clock-report-include-clocking-task t)
+
+(setq bh/keep-clock-running nil)
+
+(defun bh/clock-in-to-next (kw)
+  "Switch a task from TODO to NEXT when clocking in.
+Skips capture tasks, projects, and subprojects.
+Switch projects and subprojects from NEXT back to TODO"
+  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
+    (cond
+     ((and (member (org-get-todo-state) (list "TODO"))
+           (bh/is-task-p))
+      "NEXT")
+     ((and (member (org-get-todo-state) (list "NEXT"))
+           (bh/is-project-p))
+      "TODO"))))
+
+(defun bh/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-up-heading-safe)
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+(defun bh/punch-in (arg)
+  "Start continuous clocking and set the default task to the
+selected task.  If no task is selected set the Organization task
+as the default task."
+  (interactive "p")
+  (setq bh/keep-clock-running t)
+  (if (equal major-mode 'org-agenda-mode)
+      ;;
+      ;; We're in the agenda
+      ;;
+      (let* ((marker (org-get-at-bol 'org-hd-marker))
+             (tags (org-with-point-at marker (org-get-tags-at))))
+        (if (and (eq arg 4) tags)
+            (org-agenda-clock-in '(16))
+          (bh/clock-in-organization-task-as-default)))
+    ;;
+    ;; We are not in the agenda
+    ;;
+    (save-restriction
+      (widen)
+                                        ; Find the tags on the current task
+      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
+          (org-clock-in '(16))
+        (bh/clock-in-organization-task-as-default)))))
+
+(defun bh/punch-out ()
+  (interactive)
+  (setq bh/keep-clock-running nil)
+  (when (org-clock-is-active)
+    (org-clock-out))
+  (org-agenda-remove-restriction-lock))
+
+(defun bh/clock-in-default-task ()
+  (save-excursion
+    (org-with-point-at org-clock-default-task
+      (org-clock-in))))
+
+(defun bh/clock-in-parent-task ()
+  "Move point to the parent (project) task if any and clock in"
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (while (and (not parent-task) (org-up-heading-safe))
+          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+            (setq parent-task (point))))
+        (if parent-task
+            (org-with-point-at parent-task
+              (org-clock-in))
+          (when bh/keep-clock-running
+            (bh/clock-in-default-task)))))))
+
+(setq bh/organization-task-id kk/organization-task-id)
+
+(defun bh/clock-in-organization-task-as-default ()
+  (interactive)
+  (org-with-point-at (org-id-find bh/organization-task-id 'marker)
+    (org-clock-in '(16))))
+
+(defun bh/clock-out-maybe ()
+  (when (and bh/keep-clock-running
+             (not org-clock-clocking-in)
+             (marker-buffer org-clock-default-task)
+             (not org-clock-resolving-clocks-due-to-idleness))
+    (bh/clock-in-parent-task)))
+
+(add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
+
+(global-set-key (kbd "<f9> i") 'bh/punch-in)
+(global-set-key (kbd "<f9> o") 'bh/punch-out)
+#+end_src
+
+**** Pomodoro
+:PROPERTIES:
+:ID:       0cdbe69c-6b00-469d-ad5b-d9c48a714cb8
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-pomodoro)
+#+end_src
+
+*** Babel
+:PROPERTIES:
+:ID:       f3f22b11-bb68-4b6f-a84f-be1f24788fc2
+:END:
+
+#+begin_src emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+end_src
+
+*** Org ID
+:PROPERTIES:
+:ID:       6832e9be-653e-4411-83c9-4993e4439e45
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-id)
+(setq org-id-link-to-org-use-id t)
+#+end_src
+
+*** Contrib
+:PROPERTIES:
+:ID:       d6b6e0d2-ef08-441a-bdea-4e27f1da8ce8
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-contrib)
+#+end_src
+
+**** Org Checklist
+:PROPERTIES:
+:ID:       2558d47c-c070-4777-a90e-ef30c6e5043c
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-checklist)
+#+end_src
+
+*** URL Retrieving
+:PROPERTIES:
+:ID:       05e72995-9401-44f6-a16c-7566337bac5b
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/org-link-copy (&optional arg)
+  "Extract URL from org-mode link and add it to kill ring."
+  (interactive "P")
+  (let* ((link (org-element-lineage (org-element-context) '(link) t))
+         (type (org-element-property :type link))
+         (url (org-element-property :path link))
+         (url (concat type ":" url)))
+    (kill-new url)
+    (message (concat "Copied URL: " url))))
+
+(define-key org-mode-map (kbd "C-c p") 'kk/org-link-copy)
+#+end_src
+
+*** Org Depend
+:PROPERTIES:
+:ID:       516b5bac-7338-4c15-8442-749129a6b553
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-depend)
+#+end_src
+
+*** Toc-Org
+:PROPERTIES:
+:ID:       ec99ed9e-b74c-473a-8f00-31b2e44b90ee
+:END:
+
+#+begin_src emacs-lisp
+(use-package toc-org)
+#+end_src
+
+** Agenda
+
+*** Settings
+:PROPERTIES:
+:ID:       7fa5111d-0a34-4f53-b45d-9ea5fe1340db
+:END:
+
+#+begin_src emacs-lisp
+(setq org-agenda-dim-blocked-tasks 't)
+(setq org-sort-agenda-noeffort-is-high t)
+
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
+
+(setq org-agenda-text-search-extra-files nil)
+
+;; Use sticky agenda's so they persist
+(setq org-agenda-sticky t)
+
+(setq org-agenda-persistent-filter t)
+
+(setq org-agenda-window-setup 'current-window)
+#+end_src
+
+*** Custom Agenda Commands
+:PROPERTIES:
+:ID:       7aecd838-676f-4250-812e-2a80cbfcaf99
+:END:
+
+#+begin_src emacs-lisp
+(setq kk/org-agenda-stuck-projects
+      '(tags-todo "-CANCELLED-HOLD/!"
+                  ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                   (org-tags-match-list-sublevels 'indented)
+                   (org-agenda-overriding-header "Stuck Projects")
+                   (org-agenda-todo-ignore-scheduled))))
+
+(setq org-agenda-custom-commands
+      `(("A" agenda*)
+        ("d" "Deadlines"
+         ((agenda ""
+                  ((org-deadline-warning-days 365)
+                   (org-agenda-span 1)
+
+                   (org-agenda-sorting-strategy
+                    '((agenda habit-down deadline-up time-up
+                              category-up todo-state-up)))
+                   (org-agenda-show-all-dates nil)))
+          (agenda ""
+                  ((org-agenda-span 'year)
+                   (org-deadline-warning-days 0))))
+         ((org-agenda-start-with-log-mode nil)
+          (org-agenda-include-diary nil)
+          (org-agenda-entry-types '(:deadline))))
+
+        ("f" . "Finances")
+        ("ft" "to track"
+         ((tags-todo "financetotrack"
+                     ((org-agenda-overriding-header "Track these payments")))))
+        ("fp" "to pay"
+         ((tags-todo "financetopay"
+                     ((org-agenda-overriding-header "Pay these"))))
+         ((org-agenda-view-columns-initially t)))
+        ("fw" "wait for payment"
+         ((tags-todo "financeawaiting"
+                     ((org-agenda-overriding-header "Waiting for these payments"))))
+         ((org-agenda-view-columns-initially t)))
+
+        (" " "Agenda"
+         ((agenda ""
+                  ((org-agenda-span 1)
+                   (org-agenda-skip-timestamp-if-done t)
+                   (org-agenda-skip-deadline-if-done t)
+                   (org-agenda-skip-scheduled-if-done t)))
+          (tags "refile"
+                ((org-agenda-overriding-header "Tasks to Refile")
+                 (org-tags-match-list-sublevels nil)))
+          (tags-todo "REWORK-refile"
+                     ((org-agenda-overriding-header "Meetings and Calls to post process")))
+          (tags-todo "+TODO=\"WAIT\""
+                     ((org-agenda-overriding-header "Unscheduled Waits")
+                      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-todo-ignore-scheduled 'all)))
+          ,kk/org-agenda-stuck-projects
+          (tags-todo "-HOLD-CANCELLED/!"
+                     ((org-agenda-overriding-header "Projects")
+                      (org-agenda-skip-function 'bh/skip-non-projects)
+                      (org-tags-match-list-sublevels 'indented)
+                      (org-agenda-sorting-strategy
+                       '(category-keep))))
+          (tags-todo "-CANCELLED/!NEXT"
+                     ((org-agenda-overriding-header (concat "Project Next Tasks"
+                                                            (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                ""
+                                                              " (including WAITING and SCHEDULED tasks)")))
+                      (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                      (org-tags-match-list-sublevels t)
+                      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-sorting-strategy
+                       '(todo-state-down effort-up category-keep))))
+          (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                     ((org-agenda-overriding-header (concat "Standalone Tasks"
+                                                            (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                ""
+                                                              " (including WAITING and SCHEDULED tasks)")))
+                      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-skip-function 'bh/skip-project-tasks)
+                      (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-sorting-strategy
+                       '(todo-state-down category-keep))))
+
+          (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                     ((org-agenda-overriding-header (concat "Project Subtasks"
+                                                            (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                ""
+                                                              " (including WAITING and SCHEDULED tasks)")))
+                      (org-agenda-skip-function 'bh/skip-non-project-tasks)
+                      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-sorting-strategy
+                       '(category-keep))))
+          (tags-todo "-CANCELLED&+HOLD|-CANCELLED&+WAITING/!"
+                     ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
+                                                            (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                ""
+                                                              " (including WAITING and SCHEDULED tasks)")))
+                      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-skip-function 'bh/skip-non-tasks)
+                      (org-tags-match-list-sublevels nil)
+                      (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
+          (tags "-REFILE/"
+                ((org-agenda-overriding-header "Tasks to Archive")
+                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                 (org-tags-match-list-sublevels nil))))
+         ((org-agenda-compact-blocks t)
+          (org-agenda-dim-blocked-tasks nil)))))
+#+end_src
+
+** Capture Templates
+:PROPERTIES:
+:ID:       50b809d1-3266-49a1-8e99-b5a874f84339
+:END:
+
+#+begin_src emacs-lisp
+(define-key global-map (kbd "C-c j")
+  (lambda () (interactive) (org-capture nil)))
+
+(setq org-capture-templates
+      `(("t" "Task" entry (file kk/org-refile-target)
+         "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         :empty-lines 0 :clock-in t :clock-resume t)
+        ("u" "Urgent Task" entry (file kk/org-refile-target)
+         "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         :empty-lines 0 :clock-in t :clock-resume t)
+
+        ("f" "Finances")
+        ("ft" "to track" entry (file kk/org-refile-target)
+         "* TODO Expense: %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         :empty-lines 0 :clock-in t :clock-resume t)
+        ("fp" "to pay" entry (file kk/org-refile-target)
+         "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         :empty-lines 0 :clock-in t :clock-resume t)
+        ("fw" "awaiting payment" entry (file kk/org-refile-target)
+         "* WAIT %?\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         :empty-lines 0 :clock-in t :clock-resume t)
+
+        ("m" "Meeting" entry (file kk/org-refile-target)
+         "* MEETING with %? :MEETING:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
+        ("p" "Phone call" entry (file kk/org-refile-target)
+         "* PHONE %? :PHONE:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
+
+        ("j" "Journal" entry
+         (file+olp+datetree kk/journal-file)
+         "\n* %<%H:%M> Uhr\n\n%?\n\n"
+         :clock-in :clock-resume :empty-lines 1)
+
+        ("Mb" "Books" entry
+         (file kk/org-refile-target)
+         "* TODO %^{Description}\n:PROPERTIES:\n:PAGES: %^{Pages}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:" :clock-in t :clock-resume t)
+        ("Mm" "Movies" entry
+         (file kk/org-refile-target)
+         "* TODO %^{Description}\n:PROPERTIES:\n:LENGTH: %^{Length}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:" :clock-in t :clock-resume t)
+        ("Ms" "TV Shows" entry
+         (file kk/org-refile-target)
+         "* TODO %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:" :clock-in t :clock-resume t)
+
+        ("M" "Media")))
+#+end_src
+
+** Structure Templates
+:PROPERTIES:
+:ID:       7ce3f595-e2d7-4fe3-915c-e425069e751f
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-tempo)
+
+(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+#+end_src
+
+** Keybindings
+:PROPERTIES:
+:ID:       7d58f47e-cee0-4873-87d1-94284520157a
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "<f12>") 'org-agenda)
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+#+end_src
+
+** Font And Display
+:PROPERTIES:
+:ID:       7084e52f-9183-4ee7-ad73-a2585570a273
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/org-font-setup ()
+  "Set `org-mode' specific font settings."
+  (interactive)
+  ;; Replace list hyphen with dot
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1)
+                                                          (match-end 1) "•"))))))
+  (prettify-symbols-mode))
+
+(setq org-alphabetical-lists t)
+(setq org-list-demote-modify-bullet (quote (("+" . "-")
+                                            ("*" . "-")
+                                            ("1." . "-")
+                                            ("1)" . "-")
+                                            ("A)" . "-")
+                                            ("B)" . "-")
+                                            ("a)" . "-")
+                                            ("b)" . "-")
+                                            ("A." . "-")
+                                            ("B." . "-")
+                                            ("a." . "-")
+                                            ("b." . "-"))))
+
+(setq org-ellipsis " ⤵")
+
+(use-package org-bullets
+  :after org
+  :hook
+  (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●")))
+#+end_src
+
+** Bernt Hansen code snippets
+:PROPERTIES:
+:ID:       a2c9914f-362f-48c2-960d-0f852ce466a6
+:END:
+
+#+begin_src emacs-lisp
+(defun bh/is-project-p ()
+  "Any task with a todo keyword subtask"
+  (save-restriction
+    (widen)
+    (let ((has-subtask)
+          (subtree-end (save-excursion (org-end-of-subtree t)))
+          (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
+      (save-excursion
+        (forward-line 1)
+        (while (and (not has-subtask)
+                    (< (point) subtree-end)
+                    (re-search-forward "^\*+ " subtree-end t))
+          (when (member (org-get-todo-state) org-todo-keywords-1)
+            (setq has-subtask t))))
+      (and is-a-task has-subtask))))
+
+(defun bh/is-project-subtree-p ()
+  "Any task with a todo keyword that is in a project subtree.
+Callers of this function already widen the buffer view."
+  (let ((task (save-excursion (org-back-to-heading 'invisible-ok)
+                              (point))))
+    (save-excursion
+      (bh/find-project-task)
+      (if (equal (point) task)
+          nil
+        t))))
+
+(defun bh/is-task-p ()
+  "Any task with a todo keyword and no subtask"
+  (save-restriction
+    (widen)
+    (let ((has-subtask)
+          (subtree-end (save-excursion (org-end-of-subtree t)))
+          (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
+      (save-excursion
+        (forward-line 1)
+        (while (and (not has-subtask)
+                    (< (point) subtree-end)
+                    (re-search-forward "^\*+ " subtree-end t))
+          (when (member (org-get-todo-state) org-todo-keywords-1)
+            (setq has-subtask t))))
+      (and is-a-task (not has-subtask)))))
+
+(defun bh/is-subproject-p ()
+  "Any task which is a subtask of another project"
+  (let ((is-subproject)
+        (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
+    (save-excursion
+      (while (and (not is-subproject) (org-up-heading-safe))
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq is-subproject t))))
+    (and is-a-task is-subproject)))
+
+(defun bh/list-sublevels-for-projects-indented ()
+  "Set org-tags-match-list-sublevels so when restricted to a subtree we list all subtasks.
+  This is normally used by skipping functions where this variable is already local to the agenda."
+  (if (marker-buffer org-agenda-restrict-begin)
+      (setq org-tags-match-list-sublevels 'indented)
+    (setq org-tags-match-list-sublevels nil))
+  nil)
+
+(defun bh/list-sublevels-for-projects ()
+  "Set org-tags-match-list-sublevels so when restricted to a subtree we list all subtasks.
+  This is normally used by skipping functions where this variable is already local to the agenda."
+  (if (marker-buffer org-agenda-restrict-begin)
+      (setq org-tags-match-list-sublevels t)
+    (setq org-tags-match-list-sublevels nil))
+  nil)
+
+(defvar bh/hide-scheduled-and-waiting-next-tasks t)
+
+(defun bh/toggle-next-task-display ()
+  (interactive)
+  (setq bh/hide-scheduled-and-waiting-next-tasks (not bh/hide-scheduled-and-waiting-next-tasks))
+  (when  (equal major-mode 'org-agenda-mode)
+    (org-agenda-redo))
+  (message "%s WAITING and SCHEDULED NEXT Tasks" (if bh/hide-scheduled-and-waiting-next-tasks "Hide" "Show")))
+(bind-key (kbd "C-c C-x n") 'bh/toggle-next-task-display org-agenda-mode-map)
+(bind-key (kbd "W") 'bh/toggle-next-task-display org-agenda-mode-map)
+
+(setq kk/stuck-projects-regexp "^\\*+ NEXT")
+(defun bh/skip-stuck-projects ()
+  "Skip trees that are not stuck projects"
+  (save-restriction
+    (widen)
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+      (if (bh/is-project-p)
+          (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
+                 (has-next ))
+            (save-excursion
+              (forward-line 1)
+              (while (and (not has-next) (< (point) subtree-end) (re-search-forward kk/stuck-projects-regexp subtree-end t))
+                (unless (member "WAITING" (org-get-tags-at))
+                  (setq has-next t))))
+            (if has-next
+                nil
+              next-headline)) ; a stuck project, has subtasks but no next task
+        nil))))
+
+(defun bh/skip-non-stuck-projects ()
+  "Skip trees that are not stuck projects"
+  ;; (bh/list-sublevels-for-projects-indented)
+  (save-restriction
+    (widen)
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+      (if (bh/is-project-p)
+          (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
+                 (has-next ))
+            (save-excursion
+              (forward-line 1)
+              (while (and (not has-next) (< (point) subtree-end) (re-search-forward kk/stuck-projects-regexp subtree-end t))
+                (unless (member "WAITING" (org-get-tags-at))
+                  (setq has-next t))))
+            (if has-next
+                next-headline
+              nil)) ; a stuck project, has subtasks but no next task
+        next-headline))))
+
+(defun bh/skip-non-projects ()
+  "Skip trees that are not projects"
+  ;; (bh/list-sublevels-for-projects-indented)
+  (if (save-excursion (bh/skip-non-stuck-projects))
+      (save-restriction
+        (widen)
+        (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+          (cond
+           ((bh/is-project-p)
+            nil)
+           ((and (bh/is-project-subtree-p) (not (bh/is-task-p)))
+            nil)
+           (t
+            subtree-end))))
+    (save-excursion (org-end-of-subtree t))))
+
+(defun bh/skip-project-trees-and-habits ()
+  "Skip trees that are projects"
+  (save-restriction
+    (widen)
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (cond
+       ((bh/is-project-p)
+        subtree-end)
+       ((org-is-habit-p)
+        subtree-end)
+       (t
+        nil)))))
+
+(defun bh/skip-projects-and-habits-and-single-tasks ()
+  "Skip trees that are projects, tasks that are habits, single non-project tasks"
+  (save-restriction
+    (widen)
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+      (cond
+       ((org-is-habit-p)
+        next-headline)
+       ((and bh/hide-scheduled-and-waiting-next-tasks
+             (member "WAITING" (org-get-tags-at)))
+        next-headline)
+       ((bh/is-project-p)
+        next-headline)
+       ((and (bh/is-task-p) (not (bh/is-project-subtree-p)))
+        next-headline)
+       (t
+        nil)))))
+
+(defun bh/skip-project-tasks-maybe ()
+  "Show tasks related to the current restriction.
+When restricted to a project, skip project and sub project tasks, habits, NEXT tasks, and loose tasks.
+When not restricted, skip project and sub-project tasks, habits, and project related tasks."
+  (save-restriction
+    (widen)
+    (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
+           (next-headline (save-excursion (or (outline-next-heading) (point-max))))
+           (limit-to-project (marker-buffer org-agenda-restrict-begin)))
+      (cond
+       ((bh/is-project-p)
+        next-headline)
+       ((org-is-habit-p)
+        subtree-end)
+       ((and (not limit-to-project)
+             (bh/is-project-subtree-p))
+        subtree-end)
+       ((and limit-to-project
+             (bh/is-project-subtree-p)
+             (member (org-get-todo-state) (list "NEXT")))
+        subtree-end)
+       (t
+        nil)))))
+
+(defun bh/skip-project-tasks ()
+  "Show non-project tasks.
+Skip project and sub-project tasks, habits, and project related tasks."
+  (save-restriction
+    (widen)
+    (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (cond
+       ((bh/is-project-p)
+        subtree-end)
+       ((org-is-habit-p)
+        subtree-end)
+       ((bh/is-project-subtree-p)
+        subtree-end)
+       (t
+        nil)))))
+
+(defun bh/skip-non-project-tasks ()
+  "Show project tasks.
+Skip project and sub-project tasks, habits, and loose non-project tasks."
+  (save-restriction
+    (widen)
+    (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
+           (next-headline (save-excursion (or (outline-next-heading) (point-max)))))
+      (cond
+       ((bh/is-project-p)
+        next-headline)
+       ((org-is-habit-p)
+        subtree-end)
+       ((and (bh/is-project-subtree-p)
+             (member (org-get-todo-state) (list "NEXT")))
+        subtree-end)
+       ((not (bh/is-project-subtree-p))
+        subtree-end)
+       (t
+        nil)))))
+
+(defun bh/skip-projects-and-habits ()
+  "Skip trees that are projects and tasks that are habits"
+  (save-restriction
+    (widen)
+    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (cond
+       ((bh/is-project-p)
+        subtree-end)
+       ((org-is-habit-p)
+        subtree-end)
+       (t
+        nil)))))
+
+(defun bh/skip-non-subprojects ()
+  "Skip trees that are not projects"
+  (let ((next-headline (save-excursion (outline-next-heading))))
+    (if (bh/is-subproject-p)
+        nil
+      next-headline)))
+
+(defun bh/find-project-task ()
+  "Move point to the parent (project) task if any"
+  (save-restriction
+    (widen)
+    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
+      (while (org-up-heading-safe)
+        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (setq parent-task (point))))
+      (goto-char parent-task)
+      parent-task)))
+
+(defun bh/skip-non-archivable-tasks ()
+  "Skip trees that are not available for archiving"
+  (save-restriction
+    (widen)
+    ;; Consider only tasks with done todo headings as archivable candidates
+    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
+          (subtree-end (save-excursion (org-end-of-subtree t))))
+      (if (member (org-get-todo-state) org-todo-keywords-1)
+          (if (member (org-get-todo-state) org-done-keywords)
+              (let* ((daynr (string-to-int (format-time-string "%d" (current-time))))
+                     (a-month-ago (* 60 60 24 (+ daynr 1)))
+                     (last-month (format-time-string "%Y-%m-" (time-subtract (current-time) (seconds-to-time a-month-ago))))
+                     (this-month (format-time-string "%Y-%m-" (current-time)))
+                     (subtree-is-current (save-excursion
+                                           (forward-line 1)
+                                           (and (< (point) subtree-end)
+                                                (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
+                (if subtree-is-current
+                    subtree-end ; Has a date in this month or last month, skip it
+                  nil))  ; available to archive
+            (or subtree-end (point-max)))
+        next-headline))))
+
+;;;; Refile settings
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+(defun bh/mark-next-parent-tasks-todo ()
+  "Visit each parent task and change NEXT states to TODO"
+  (let ((mystate (or (and (fboundp 'org-state)
+                          state)
+                     (nth 2 (org-heading-components)))))
+    (when mystate
+      (save-excursion
+        (while (org-up-heading-safe)
+          (when (member (nth 2 (org-heading-components)) (list "NEXT"))
+            (org-todo "TODO")))))))
+
+(add-hook 'org-after-todo-state-change-hook 'bh/mark-next-parent-tasks-todo 'append)
+(add-hook 'org-clock-in-hook 'bh/mark-next-parent-tasks-todo 'append)
+
+
+(defun bh/hide-other ()
+  (interactive)
+  (save-excursion
+    (org-back-to-heading 'invisible-ok)
+    (hide-other)
+    (org-cycle)
+    (org-cycle)
+    (org-cycle)))
+(global-set-key (kbd "<f9> h") 'bh/hide-other)
+#+end_src
+
+** Habits
+:PROPERTIES:
+:ID:       c642846e-ca64-4690-9127-c499d2e939ab
+:END:
+
+#+begin_src emacs-lisp
+(setq org-habit-show-habits-only-for-today nil)
+(setq org-habit-completed-glyph ?X)
+(setq org-habit-today-glyph ?)
+(setq org-habit-graph-column 53)
+
+                                        ; When deactivating habit display via 'K', pull them up again on the next day
+(run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
+#+end_src
+
+** Roam
+:PROPERTIES:
+:ID:       29a3e863-3bc5-4f9c-9ef9-3129e057892e
+:END:
+
+[[https://www.orgroam.com/manual.html#Org_002droam-Protocol][Information on how to set up org-roam-protocol.]]
+
+#+begin_src emacs-lisp
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory kk/org-roam-directory)
+  (org-roam-completion-everywhere t)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ;; Dailies
+         ("C-c n j" . org-roam-dailies-capture-today)
+         :map org-mode-map
+         ("C-M-i"    . completion-at-point))
+  :config
+  (org-roam-setup)
+  (require 'org-roam-graph)
+  (require 'org-roam-protocol)
+  (setq org-roam-mode-section-functions
+        (list #'org-roam-backlinks-section
+              #'org-roam-reflinks-section
+              #'org-roam-unlinked-references-section))
+  (add-to-list 'display-buffer-alist
+               '("\\*org-roam\\*"
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 0)
+                 (window-width . 0.33)
+                 (window-parameters . ((no-other-window . t)
+                                       (no-delete-other-windows . t))))))
+#+end_src
+
+** Contacts
+:PROPERTIES:
+:ID:       66527cda-1323-4a62-a46c-7d1e6ec85d19
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-contacts)
+#+end_src
+
+* Development
+
+** General
+
+*** Magit
+:PROPERTIES:
+:ID:       a9ef789b-24c9-4caf-a4bb-3152b073becd
+:END:
+
+#+begin_src emacs-lisp
+(use-package magit
+  :commands magit-status
+  :config
+  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
+#+end_src
+
+*** Parenthesis
+
+**** Rainbow Delimiters
+:PROPERTIES:
+:ID:       96a5d5e7-2058-44cb-ba58-98158c6b89bf
+:END:
+
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+
+**** Show-Paren-Mode
+:PROPERTIES:
+:ID:       3cdc25e8-501b-465c-8f8a-96d3009f09b0
+:END:
+#+begin_src emacs-lisp
+(show-paren-mode 1)
+#+end_src
+
+**** Smartparens
+:PROPERTIES:
+:ID:       1e23f124-2a25-4c9a-916e-29758dcd8277
+:END:
+#+begin_src emacs-lisp
+(use-package smartparens
+  :defer t
+  :hook (prog-mode . smartparens-mode)
+  :config
+  (require 'smartparens-config))
+#+end_src
+
+** SQL
+:PROPERTIES:
+:ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
+:END:
+
+#+begin_src emacs-lisp
+(use-package sqlformat)
+#+end_src
+
+* File Management
+
+** Dired
+:PROPERTIES:
+:ID:       919bb05a-59a8-48b1-9cd9-93504a3db3c3
+:END:
+
+#+begin_src emacs-lisp
+(use-package dired
+  :straight nil
+  :bind
+  (("C-x C-j" . dired-jump))
+  :custom
+  ((dired-listing-switches "-Alh --group-directories-first"))
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  :config
+  (bind-key "." 'kk/dired-dotfiles-toggle 'dired-mode-map)
+  (define-key dired-mode-map (kbd "C-c o") 'kk/dired-open-file))
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(defun kk/dired-dotfiles-toggle ()
+  "Show/hide dot-files"
+  (interactive)
+  (when (equal major-mode 'dired-mode)
+    (if (or (not (boundp 'dired-dotfiles-show-p)) dired-dotfiles-show-p) ; if currently showing
+        (progn
+          (set (make-local-variable 'dired-dotfiles-show-p) nil)
+          (message "h")
+          (dired-mark-files-regexp "^\\\.")
+          (dired-do-kill-lines))
+      (progn (revert-buffer) ; otherwise just revert to re-show
+             (set (make-local-variable 'dired-dotfiles-show-p) t)))))
+
+(defun kk/dired-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (call-process "xdg-open" nil 0 nil file)))
+#+end_src
+
+* Misc
+:PROPERTIES:
+:ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
+:END:
+
+** Tidy Buffer
+:PROPERTIES:
+:ID:       9e07d209-3745-4c07-9c10-f1c02cffa3c0
+:END:
+#+begin_src emacs-lisp
+(defun kk/tidy-buffer ()
+  "Indent and tidy up the current buffer.
+Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace)))
+(global-set-key (kbd "<f9> t") 'kk/tidy-buffer)
+#+end_src
+
+** Calendar
+
+*** German
+
+**** Weekday
+:PROPERTIES:
+:ID:       20b45f13-97ac-4ba5-bdf5-c179dbf45675
+:END:
+
+#+begin_src emacs-lisp
+(setq calendar-week-start-day 1)
+#+end_src
+
+**** Holidays
+:PROPERTIES:
+:ID:       510db8be-f33a-4d18-8b6e-8e9751b71f0b
+:END:
+
+This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#h5o-32][this]] entry in the emacs wiki.
+
+#+begin_src emacs-lisp
+(setq holiday-hebrew-holidays nil)
+(setq holiday-islamic-holidays nil)
+(setq holiday-bahai-holidays nil)
+(setq holiday-oriental-holidays nil)
+
+(setq solar-n-hemi-seasons
+      '("Frühlingsanfang" "Sommeranfang" "Herbstanfang" "Winteranfang"))
+
+(setq holiday-general-holidays
+      '((holiday-fixed 1 1 "Neujahr")
+        (holiday-fixed 5 1 "Tag der Arbeit")
+        (holiday-fixed 10 3 "Tag der Deutschen Einheit")))
+
+;; Feiertage für Baden-Württemberg, weitere auskommentiert
+(setq holiday-christian-holidays
+      '((holiday-float 12 0 -4 "1. Advent" 24)
+        (holiday-float 12 0 -3 "2. Advent" 24)
+        (holiday-float 12 0 -2 "3. Advent" 24)
+        (holiday-float 12 0 -1 "4. Advent" 24)
+        (holiday-fixed 12 25 "1. Weihnachtstag")
+        (holiday-fixed 12 26 "2. Weihnachtstag")
+        (holiday-fixed 1 6 "Heilige Drei Könige")
+        ;; (holiday-easter-etc -48 "Rosenmontag")
+        ;; (holiday-easter-etc -3 "Gründonnerstag")
+        (holiday-easter-etc  -2 "Karfreitag")
+        (holiday-easter-etc   0 "Ostersonntag")
+        (holiday-easter-etc  +1 "Ostermontag")
+        (holiday-easter-etc +39 "Christi Himmelfahrt")
+        (holiday-easter-etc +49 "Pfingstsonntag")
+        (holiday-easter-etc +50 "Pfingstmontag")
+        (holiday-easter-etc +60 "Fronleichnam")
+        ;; (holiday-fixed 8 15 "Mariae Himmelfahrt")
+        (holiday-fixed 11 1 "Allerheiligen")
+        ;; (holiday-float 11 3 1 "Buss- und Bettag" 16)
+        (holiday-float 11 0 1 "Totensonntag" 20)))
+#+end_src
+
+*** Keybinding
+:PROPERTIES:
+:ID:       9ad991c8-4388-4ff3-9026-a554f5481f77
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c c") 'calendar)
+#+end_src
+
+** Web
+
+*** Eww
+:PROPERTIES:
+:ID:       2c375c8d-6c40-40d0-a623-f264292e7467
+:END:
+
+#+begin_src emacs-lisp
+(use-package eww
+  :config (setq browse-url-browser-function 'eww
+                shr-width 80))
+#+end_src
+
+*** Search Logic
+:PROPERTIES:
+:ID:       5e5846c9-ca66-4500-9276-b69bb8191bc2
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/pick-search-engine ()
+  (interactive)
+  (cdr (assoc (completing-read "Engine: " kk/search-engines nil t) kk/search-engines)))
+
+(defun kk/search-web-via-search-engine (search-string)
+  (interactive "sSearch for: ")
+  (eww (concat (kk/pick-search-engine) search-string)))
+
+(defun kk/search-web-via-search-engine-dwim ()
+  (interactive)
+  (if (use-region-p)
+      (let ((region-string (buffer-substring (region-beginning) (region-end))))
+        (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
+            (kk/search-web-via-search-engine region-string)
+          (call-interactively 'kk/search-web-via-search-engine)))
+    (call-interactively 'kk/search-web-via-search-engine)))
+
+(global-set-key (kbd "M-s M-w") 'kk/search-web-via-search-engine-dwim)
+#+end_src
+
+*** Search Engines
+:PROPERTIES:
+:ID:       e62c6bc0-d0e2-4eca-8ab2-261446c419ea
+:END:
+
+#+begin_src emacs-lisp
+(setq kk/search-engines '(("amazon.de" . "https://www.amazon.de/s?k=")
+                          ("arch aur" . "https://aur.archlinux.org/packages/?&K=")
+                          ("archwiki" . "https://wiki.archlinux.org/index.php?search=")
+                          ("check ssl for (sub)domain" . "https://www.ssllabs.com/ssltest/analyze.html?d=")
+                          ("dhl sendungsverfolgung" . "https://mailing.dhl.de/go/8/4A36IYXV-2DENCMYS-2PTLXTFO-CHW19XT.html?piececode=")
+                          ("dict.cc" . "https://www.dict.cc/?s=")
+                          ("dns check" . "https://intodns.com/")
+                          ("dpd sendungsverfolgung" . "https://tracking.dpd.de/parcelstatus?query=")
+                          ("duckduckgo searchengine" . "https://html.duckduckgo.com/html?q=")
+                          ("duden.de" . "https://www.duden.de/suchen/dudenonline/")
+                          ("ebay.de" . "https://www.ebay.de/sch/i.html?&_nkw=")
+                          ("english oxford dictionary" . "https://www.oxfordlearnersdictionaries.com/spellcheck/english/?q=")
+                          ("gemini searchengine gus.guru" . "gemini://gus.guru/search?")
+                          ("github" . "https://github.com/search?q=")
+                          ("gls sendungsverfolgung" . "https://www.gls-pakete.de/en/parcel-tracking#?trackingNumber=")
+                          ("google" . "https://www.google.de/search?q=")
+                          ("hermes sendungsverfolgung" . "https://www.myhermes.de/empfangen/sendungsverfolgung/sendungsinformation/#")
+                          ("imdb" . "https://www.imdb.com/find?q=")
+                          ("microsoft docs" . "https://support.microsoft.com/en-us/Search/results?query=")
+                          ("mydealz" . "https://www.mydealz.de/search?q=")
+                          ("openstreetmap karte" . "https://www.openstreetmap.org/search?query=")
+                          ("ps wiki wiki.kloess.xyz" . "https://wiki.kloess.xyz/doku.php?do=search&q=")
+                          ("reddit.com" . "https://duckduckgo.com/?q=site:reddit.com+")
+                          ("searx" . "https://searx.pofilo.fr/?q=")
+                          ("thefreedictionary" . "https://www.thefreedictionary.com/")
+                          ("thepiratebay" . "https://thepiratebay.org/search.php?q=")
+                          ("vollebak" . "https://www.vollebak.com/?s=")
+                          ("w3schools.com" . "https://duckduckgo.com/?q=site:w3schools.com+")
+                          ("wikipedia" . "https://de.wikipedia.org/wiki/")
+                          ("wolframalpha" . "https://www.wolframalpha.com/?i=")
+                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")))
+#+end_src
+
+** Searching (In) Files
+:PROPERTIES:
+:ID:       70585f37-0e72-495e-9612-1d242900c684
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
+
+(global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
+#+end_src
+
+** Ledger Mode
+:PROPERTIES:
+:ID:       ca7bc576-ea1e-4c85-93d0-8d723f60d99e
+:END:
+
+#+begin_src emacs-lisp
+(use-package ledger-mode
+  :custom
+  (ledger-reconcile-default-commodity "€")
+  (ledger-clear-whole-transactions t))
+#+end_src
+
+** Flyspell
+:PROPERTIES:
+:ID:       f80a76f0-45a3-4234-94e1-c952e4fb7f55
+:END:
+
+#+begin_src emacs-lisp
+(use-package flyspell
+  :straight nil
+  :config
+  (setq flyspell-default-dictionary "german")
+  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
+#+end_src
+
+* Communication
+
+** Mail (mu4e)
+
+*** Signatures
+:PROPERTIES:
+:ID:       d61fb091-9bfe-452e-8c05-a9c85f5fcd9a
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/mu4e-choose-signature ()
+  "Insert one of a number of sigs."
+  (interactive)
+  (let ((message-signature
+         (mu4e-read-option "Signature:"
+                           '(("work" .
+                              (concat
+                               "-------------------------------------\n"
+                               "digital worx GmbH\n"
+                               "Schulze-Delitzsch-Str. 16\n"
+                               "70565 Stuttgart\n"
+                               "\n"
+                               "Tel. 0711 220 40 93 0\n"
+                               "Fax. 0711 220 40 93 44\n"
+                               "\n"
+                               "kloess@digital-worx.de\n"
+                               "\n"
+                               "http://www.digital-worx.de\n"
+                               "-------------------------------------\n"
+                               "Geschaeftsfuehrer:\n"
+                               "Sven Rahlfs\n"
+                               "Mirko Ross\n"
+                               "\n"
+                               "HRB 22 5281 Amtsgericht Stuttgart\n"
+                               "USt.-Id. Nr.: DE218401190\n"
+                               "-------------------------------------"))))))
+    (message-insert-signature)))
+#+end_src
+
+*** General
+:PROPERTIES:
+:ID:       b05fad93-c979-448e-8e67-1c6fb154993e
+:END:
+
+#+begin_src emacs-lisp
+(use-package mu4e
+  :straight nil
+  :custom
+  (mu4e-confirm-quit nil)
+  :config
+  (setq mu4e-context-policy 'pick-first)
+  (setq mu4e-compose-context-policy 'always-ask)
+  ;; Display options
+  (setq mu4e-view-show-images t)
+  (setq mu4e-view-show-addresses 't)
+  (setq mu4e-headers-include-related nil)
+
+  (dolist (map '(mu4e-main-mode-map
+                 mu4e-view-mode-map
+                 mu4e-headers-mode-map))
+    (progn
+      (bind-key "C-c h" #'hydra-mail/body map)
+      (bind-key "," #'mu4e-context-switch map)))
+  (add-to-list 'mu4e-view-actions '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+  ;; This is set to 't' to avoid mail syncing issues when using mbsync
+  (setq mu4e-change-filenames-when-moving t)
+
+  ;; Refresh mail using mbsync every 5 minutes
+  (setq mu4e-update-interval (* 5 60))
+  (setq mu4e-get-mail-command "mbsync -a -c ~/.config/mbsync/mbsyncrc")
+  (setq mu4e-maildir "~/.local/share/mail")
+
+  ;; Configure the function to use for sending mail
+  (setq sendmail-program "/usr/bin/msmtp"
+        message-sendmail-f-is-evil t
+        message-sendmail-extra-arguments '("--read-envelope-from")
+        send-mail-function 'smtpmail-send-it
+        message-send-mail-function 'message-send-mail-with-sendmail)
+
+  (setq mu4e-compose-format-flowed t)
+
+  (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
+  (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
+  (global-set-key (kbd "C-c m") 'mu4e))
+#+end_src
+
+*** Context Macro
+:PROPERTIES:
+:ID:       45186652-daff-4bd2-8142-b3d02cf48c5c
+:END:
+
+#+begin_src emacs-lisp
+(cl-defmacro df/mu4e-context (&key c-name maildir mail smtp
+                                   (smtp-mail mail)
+                                   (smtp-port 587)
+                                   (smtp-type 'starttls)
+                                   (sent-action 'sent)
+                                   (name "Karsten Klöss")
+                                   (sig "Karsten Klöss"))
+  (let
+      ((inbox      (concat "/" maildir "/Inbox"))
+       (sent       (concat "/" maildir "/Sent"))
+       (trash      (concat "/" maildir "/Trash"))
+       (refile     (concat "/" maildir "/Archive"))
+       (draft      (concat "/" maildir "/Drafts"))
+       (junk       (concat "/" maildir "/Junk"))
+       (c-name     (if (symbolp c-name) (symbol-value c-name) c-name)))
+
+    `(make-mu4e-context
+      :name ,c-name
+      :match-func (lambda (msg)
+                    (when msg
+                      (string-match-p (concat "^/" ,maildir "/")
+                                      (mu4e-message-field msg :maildir))))
+      :enter-func (lambda ()
+                    (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+                      (revert-buffer)))
+      :vars '((user-mail-address . ,mail)
+              (user-full-name . ,name)
+              (mu4e-sent-folder . ,sent)
+              (mu4e-drafts-folder . ,draft)
+              (mu4e-trash-folder . ,trash)
+              (mu4e-refile-folder . ,refile)
+              (mu4e-compose-signature . (concat ,sig))
+              (mu4e-sent-messages-behavior . ,sent-action)
+              (smtpmail-smtp-user . ,smtp-mail)
+              (smtpmail-starttls-credentials . ((,smtp ,smtp-port nil nil)))
+              (smtpmail-auth-credentials . '((,smtp ,smtp-port ,smtp-mail nil)))
+              (smtpmail-default-smtp-server . ,smtp)
+              (smtpmail-smtp-server . ,smtp)
+              (smtpmail-stream-type . ,smtp-type)
+              (smtpmail-smtp-service . ,smtp-port)
+              (org-msg-signature . ,sig)
+              (mu4e-maildir-shortcuts .
+                                      ((,inbox   . ?i)
+                                       (,sent    . ?s)
+                                       (,trash   . ?t)
+                                       (,refile  . ?a)
+                                       (,draft   . ?d)
+                                       (,junk    . ?j)))
+              (mu4e-bookmarks .
+                              ((:name ,(concat "Unread " c-name) :query ,(concat "m:/" maildir "/ AND flag:unread AND NOT flag:trashed") :key ?u)
+                               (:name ,(concat "Today's messages " c-name) :query ,(concat "m:/" maildir "/ AND date:today..now") :key ?t)
+                               (:name ,(concat "Last 7 days " c-name) :query ,(concat "m:/" maildir "/ AND date:7d..now") :hide-unread t :key ?w)
+                               (:name ,(concat "Messages with calendar files " c-name) :query ,(concat "m:/" maildir "/ mime:text/calendar") :key ?i)
+                               (:name ,(concat "Messages with attachments " c-name) :query ,(concat "m:/" maildir "/ flag:attach") :key ?a)
+                               (:name ,(concat "Messages with images " c-name) :query ,(concat "m:/" maildir "/ mime:image/*") :key ?p)
+                               (:name "All Unread" :query "flag:unread" :key ?x)))))))
+#+end_src
+
+*** Contexts
+:PROPERTIES:
+:ID:       a9a41e4e-f62a-4ca7-9785-4e75658dc6bf
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/mu4e-context-should-be-available-p (context-name)
+  (if (member context-name kk/mu4e-contexts) t nil))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-dx)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-dx
+                :maildir "kloess@digital-worx.de"
+                :mail "kloess@digital-worx.de"
+                :smtp "") t))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-its)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-its
+                :maildir "karsten.kloess@its-stuttgart.de"
+                :mail "karsten.kloess@its-stuttgart.de"
+                :smtp "") t))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-info)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-kloess.xyz-info
+                :maildir "info@kloess.xyz"
+                :mail "info@kloess.xyz"
+                :smtp "") t))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-karsten)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-kloess.xyz-karsten
+                :maildir "karsten@kloess.xyz"
+                :mail "karsten@kloess.xyz"
+                :smtp "") t))
+
+(when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-k)
+  (add-to-list 'mu4e-contexts
+               (df/mu4e-context
+                :c-name kk/mu4e-context-name-kloess.xyz-k
+                :maildir "k@kloess.xyz"
+                :mail "k@kloess.xyz"
+                :smtp "")t ))
+#+end_src
+
+*** Block Mail
+:PROPERTIES:
+:ID:       d6ac1132-911f-49d0-af2f-b07498122171
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/mail-block-by-regex (regexp)
+  (interactive "sRegex: ")
+  (eshell-command (format "blockmailbyheaderregex \"%s\"" regexp)))
+
+(defun kk/mail-block-by-sender (sender)
+  (interactive "sSender: ")
+  (kk/mail-block-by-regex (format "^From:.*%s.*" sender)))
+
+(defun kk/mail-block-by-subject (subject)
+  (interactive "sSubject: ")
+  (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
+** Matrix
+
+*** Ement.el
+:PROPERTIES:
+:ID:       6c2b0d6c-c362-4a45-b69a-c71e015602c9
+:END:
+
+[[https://github.com/alphapapa/ement.el]]
+
+#+begin_src emacs-lisp
+;; Install `plz' HTTP library (not on MELPA yet).
+(use-package plz
+  :straight (plz :fetcher github :repo "alphapapa/plz.el"))
+
+;; Install Ement.
+(use-package ement
+  :straight (ement :fetcher github :repo "alphapapa/ement.el")
+  :custom
+  (ement-room-prism 'both)
+  (ement-save-session t))
+#+end_src
+
+* UI
+
+** General
+:PROPERTIES:
+:ID:       20b847fc-991f-4607-9466-84453ddfd8ec
+:END:
+
+#+begin_src emacs-lisp
+(setq inhibit-startup-message t)
+
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
+(setq visible-bell t)
+#+end_src
+
+** Theme
+:PROPERTIES:
+:ID:       ffb701d8-a36e-4194-bd46-b8ae1777cdfe
+:END:
+
+*** Modus Themes
+:PROPERTIES:
+:ID:       320a5439-c545-49fe-81fa-755389c1e183
+:END:
+
+#+begin_src emacs-lisp
+(use-package modus-themes
+  :init
+  (modus-themes-load-themes)
+  :config
+  (modus-themes-load-operandi)
+  :bind
+  ("<f5>" . modus-themes-toggle))
+#+end_src
+
+*** Themes And Sunrise/Sunset
+:PROPERTIES:
+:ID:       c5794de1-e4a3-454f-b43d-4ff6b1fb3550
+:END:
+
+#+begin_src emacs-lisp
+(use-package theme-changer
+  :init
+  (setq calendar-location-name "Dallas, TX")
+  (setq calendar-latitude 48.8)
+  (setq calendar-longitude 9.2)
+  :config
+  (change-theme 'modus-operandi 'modus-vivendi))
+#+end_src
+
+** Columns And Line Numbers
+:PROPERTIES:
+:ID:       5f4d3123-a3a6-423a-aee0-752c1fe060a1
+:END:
+
+#+begin_src emacs-lisp
+(column-number-mode)
+
+(global-display-line-numbers-mode t)
+(setq display-line-numbers-type 'relative)
+
+(dolist (mode '(calendar-mode-hook
+                ledger-report-mode-hook
+                ledger-reconcile-mode-hook
+                cfw:calendar-mode-hook
+                image-mode-hook
+                org-agenda-mode-hook
+                doc-view-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+
+** Unicode Support
+:PROPERTIES:
+:ID:       293f1ee7-6737-4e9b-866b-11e59829e2bb
+:END:
+
+#+begin_src emacs-lisp
+(use-package unicode-fonts)
+(use-package all-the-icons)
+#+end_src
+
+** Helm
+:PROPERTIES:
+:ID:       435befc9-85d3-4c08-8f89-b2356a88eeca
+:END:
+
+#+begin_src emacs-lisp
+(use-package helm
+  :config
+  (require 'helm-config)
+  :init
+  (helm-mode 1)
+  :bind
+  (("M-x"     . helm-M-x) ;; run functions
+   ("M-s s"   . helm-occur-from-isearch)
+   ("C-x C-f" . helm-find-files) ;; open or create files
+   ("C-x b"   . helm-mini) ;; selct buffers
+   ("C-x C-r" . helm-recentf) ;; select recently saved files
+   ("C-c i"   . helm-imenu) ;; select heading
+   ("M-y"     . helm-show-kill-ring) ;; show the kill ring
+   :map helm-map
+   ("C-z" . helm-select-action)
+   ("<tab>" . helm-execute-persistent-action)))
+#+end_src
+
+** Helpful
+:PROPERTIES:
+:ID:       204dc542-3e93-4077-8a47-acc90f8510e8
+:END:
+
+#+begin_src emacs-lisp
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-descrive-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-command] . helpful-command)
+  ([remap describe-key] . helpful-key))
+#+end_src
+
+** Font Configuration
+:PROPERTIES:
+:ID:       c83260d7-f416-4dbc-b0d1-6df254a74017
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/set-font-faces ()
+  "Set font faces.
+This function can be called to set the faces after making a frame,
+in case Emacs daemon is used."
+  (message "Settings faces!")
+  (set-face-attribute 'default nil :height kk/default-font-size))
+
+(if (daemonp)
+    (add-hook 'after-make-frame-functions
+              (lambda (frame)
+                (setq doom-modeline-icon t)
+                (with-selected-frame frame
+                  (kk/set-font-faces)
+                  (kk/org-font-setup)
+                  (unicode-fonts-setup))))
+  (kk/set-font-faces)
+  (kk/org-font-setup)
+  (unicode-fonts-setup))
+#+end_src
+
+** Which Key
+:PROPERTIES:
+:ID:       b7c93b91-3d33-4889-8846-5e1637eae405
+:END:
+
+#+begin_src emacs-lisp
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  :config
+  (which-key-mode)
+  (setq which-key-idle-delay 0.3))
+#+end_src
+
+** Hydra
+:PROPERTIES:
+:ID:       d2c4f6f8-0600-41e5-aed3-7a7b746dcc15
+:END:
+
+#+begin_src emacs-lisp
+(use-package hydra
+  :defer t
+  :config
+
+  (defhydra hydra-development (:hint nil)
+    "
+^Development^          ^LSP
+^^^^^^^^-----------------------------------------------------------------
+^ ^                    _l_: lsp
+_c_: recompile         _L_: lsp-server
+_C_: compile           _t_: tree
+_s_: smartparens       _d_: dap
+"
+    ("c" recompile :exit t)
+    ("C" compile :exit t)
+    ("f" kk/tidy-buffer :exit t)
+    ("l" hydra-lsp/body :exit t)
+    ("L" lsp :exit t)
+    ("t" treemacs :exit t)
+    ("d" dap-hydra :exit t)
+    ("s" hydra-smartparens/body :exit t))
+  (bind-key "C-c h" #'hydra-development/body prog-mode-map)
+
+  (defhydra hydra-mail (:hint nil)
+    "
+^Blocking^              ^Misc
+^^^^^^^^-----------------------------------------------------------------
+_r_: by regex           _d_: new mail dir
+_f_: by sender          _c_: switch context
+_s_: by subject         _h_: toggle html view
+"
+    ("r" kk/mail-block-by-regex :exit t)
+    ("f" kk/mail-block-by-sender :exit t)
+    ("s" kk/mail-block-by-subject :exit t)
+    ("d" kk/mu4e-create-new-mail-folder :exit t)
+    ("c" mu4e-context-switch)
+    ("h" mu4e-view-toggle-html))
+
+  (defhydra hydra-mail-compose (:hint nil)
+    "
+^Add^                   ^Org
+^^^^^^^^-----------------------------------------------------------------
+_s_: signature          _e_: edit
+_a_: attachment         _h_: htmlize
+"
+    ("s" kk/mu4e-choose-signature :exit t)
+    ("a" mail-add-attachment :exit t)
+    ("h" org-mime-htmlize :exit t)
+    ("e" org-mime-edit-mail-in-org-mode :exit t))
+
+  (defhydra hydra-ediff (:color blue :hint nil)
+    "
+^Buffers^              ^Files^                ^VC^               ^Ediff regions
+^^^^^^^^-----------------------------------------------------------------
+_b_: buffers           _f_: files             _r_: revisions     _l_: linewise
+_B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
+^ ^                    _c_: current file
+"
+    ("b" ediff-buffers)
+    ("B" ediff-buffers3)
+    ("=" ediff-files)
+    ("f" ediff-files)
+    ("F" ediff-files3)
+    ("c" ediff-current-file)
+    ("r" ediff-revision)
+    ("l" ediff-regions-linewise)
+    ("w" ediff-regions-wordwise))
+  (global-set-key (kbd "C-c d") 'hydra-ediff/body)
+
+  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+  ;; focus on the *Occur* window and hides upon request in case needed later.
+  (defhydra hydra-occur-dwim (:hint nil)
+    "
+  ^Occur^             ^Navigation^     ^Visibility
+  ^^^^^^^^-----------------------------------------------------------------
+  _o_: occur-dwim     _j_: next        _h_: hide
+  ^ ^                 _k_: prev        _r_: re-attach
+  "
+    ("o" occur-dwim "occur-dwim" :color red)
+    ("j" occur-next "Next" :color red)
+    ("k" occur-prev "Prev":color red)
+    ("h" delete-window "Hide" :color blue)
+    ("r" (reattach-occur) "Re-attach" :color red))
+
+  (global-set-key (kbd "M-s O") 'hydra-occur-dwim/body)
+
+  (defhydra hydra-org-mode (:hint nil)
+    "
+      ^Time                           ^Agenda
+      ^^^^^^^^-----------------------------------------------------------------
+      _p_: pomodoro                   _s_: search
+      _e_: extend clock to now        _S_: search todo only
+      _i_: clock in                   _m_: match
+      _o_: clock out                  _M_: match todo only
+      "
+    ("p" org-pomodoro :exit t)
+    ("e" org-pomodoro-extend-last-clock :exit t)
+    ("i" org-clock-in :exit t)
+    ("o" org-clock-out :exit t)
+    ("s" org-search-view :exit t)
+    ("S" (org-search-view t) :exit t)
+    ("m" org-tags-view :exit t)
+    ("M" (org-tags-view t) :exit t))
+  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+
+  (defhydra hydra-straight-helper (:hint nil)
+    "
+      _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
+      _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
+      ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
+      _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
+      _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
+    ("c" straight-check-all)
+    ("C" straight-check-package)
+    ("r" straight-rebuild-all)
+    ("R" straight-rebuild-package)
+    ("f" straight-fetch-all)
+    ("F" straight-fetch-package)
+    ("p" straight-pull-all)
+    ("P" straight-pull-package)
+    ("m" straight-merge-all)
+    ("M" straight-merge-package)
+    ("n" straight-normalize-all)
+    ("N" straight-normalize-package)
+    ("u" straight-push-all)
+    ("U" straight-push-package)
+    ("v" straight-freeze-versions)
+    ("V" straight-thaw-versions)
+    ("w" straight-watcher-start)
+    ("W" straight-watcher-quit)
+    ("g" straight-get-recipe)
+    ("e" straight-prune-build)
+    ("q" nil))
+
+  (defhydra hydra-anki-mode (:hint nil)
+    "
+      ^Anki
+      ^^^^^^^^-----------------------------------------------------------------
+      _i_: insert note         _s_: export subtree to html
+      _c_: cloze region        _C_: convert region to html
+      _p_: push notes
+      "
+    ("p" anki-editor-push-notes :exit t)
+    ("i" anki-editor-insert-note :exit t)
+    ("c" anki-editor-cloze-region :exit t)
+    ("s" anki-editor-export-subtree-to-html :exit t)
+    ("C" anki-editor-convert-region-to-html :exit t))
+  (add-hook 'anki-editor-mode-hook
+            (lambda () (local-set-key (kbd "C-c h") #'hydra-anki-mode/body)))
+
+  (defhydra hydra-smartparens (:hint nil)
+    "
+      Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
+      ------------------------------------------------------------------------------------------------------------------------
+      [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
+      [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
+      [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
+      [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit"
+    ;; Moving
+    ("a" sp-beginning-of-sexp)
+    ("e" sp-end-of-sexp)
+    ("f" sp-forward-sexp)
+    ("b" sp-backward-sexp)
+    ("n" sp-down-sexp)
+    ("N" sp-backward-down-sexp)
+    ("p" sp-up-sexp)
+    ("P" sp-backward-up-sexp)
+
+    ;; Slurping & barfing
+    ("h" sp-backward-slurp-sexp)
+    ("H" sp-backward-barf-sexp)
+    ("l" sp-forward-slurp-sexp)
+    ("L" sp-forward-barf-sexp)
+
+    ;; Wrapping
+    ("R" sp-rewrap-sexp)
+    ("u" sp-unwrap-sexp)
+    ("U" sp-backward-unwrap-sexp)
+    ("(" sp-wrap-round)
+    ("{" sp-wrap-curly)
+    ("[" sp-wrap-square)
+
+    ;; Sexp juggling
+    ("S" sp-split-sexp)
+    ("s" sp-splice-sexp)
+    ("r" sp-raise-sexp)
+    ("j" sp-join-sexp)
+    ("t" sp-transpose-sexp)
+    ("A" sp-absorb-sexp)
+    ("E" sp-emit-sexp)
+    ("o" sp-convolute-sexp)
+
+    ;; Destructive editing
+    ("c" sp-change-inner :exit t)
+    ("C" sp-change-enclosing :exit t)
+    ("k" sp-kill-sexp)
+    ("K" sp-backward-kill-sexp)
+    ("w" sp-copy-sexp)
+
+    ("q" nil)
+    ("g" nil))
+
+  (defhydra hydra-global (:hint nil)
+    "
+^Org                   ^Text
+^^^^^^^^-----------------------------------------------------------------
+_i_: punch in          _t_: tidy
+_o_: punch out
+"
+    ("i" 'bh/punch-in :exit t)
+    ("o" 'bh/punch-out :exit t)
+    ("t" 'kk/tidy-buffer :exit t))
+  (global-set-key (kbd "C-c g") 'hydra-global/body))
+#+end_src
+
+** Winner Mode
+:PROPERTIES:
+:ID:       0f10d50f-ac83-4794-9f86-a2fc682faaa0
+:END:
+
+#+begin_src emacs-lisp
+(winner-mode)
+#+end_src
+
+** Bookmark+
+:PROPERTIES:
+:ID:       c778dfd0-9d6f-4e3e-901a-c62ca7915fb0
+:END:
+
+#+begin_src emacs-lisp
+(use-package bookmark+)
+#+end_src
+
+* Customization Through Emacs
+:PROPERTIES:
+:ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
+:END:
+
+Make =M-x customize= persistent.
+
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(browse-url-browser-function 'eww-browse-url)
+ '(browse-url-generic-program "o")
+ '(browse-url-secondary-browser-function 'browse-url-generic)
+ '(calendar-date-style 'iso)
+ '(initial-scratch-message "* Scratch
+
+")
+ '(grep-find-template
+   "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
+ '(grep-template "grep <X> <C> -n -I --null -e <R> <F>")
+ '(org-modules
+   '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+ '(org-tags-exclude-from-inheritance '("ATTACH"))
+ '(sentence-end-double-space nil))
+#+end_src
+
+* Keyboard Macros
+:PROPERTIES:
+:ID:       bd676a93-d7f4-4fd6-9e3d-eca0e24dad28
+:END:
+
+#+begin_src emacs-lisp
+(fset 'kk/buffer-quote-access-vba-sql-statement
+      (kmacro-lambda-form [?\M-x ?s ?q ?l ?f ?o ?r ?m ?a ?t return ?\C-  ?\M-< ?\C-  ?\M-> ?\C-u ?- ?2 ?0 ?0 ?\C-x tab ?\M-< ?\C-s ?f ?r ?o ?m return ?\C-a ?\C-  ?\M-> ?\M-q ?\M-< ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g ?e ?r backspace ?y ?p backspace backspace ?x ?p return ?^ return ?\" return ?\M-< ?\M-x ?\M-p return ?$ return ?  ?\" ?  ?& ?  ?_ return] 0 "%d"))
+(fset 'kk/buffer-remove-quotes-access-vba-sql-statement
+      (kmacro-lambda-form [?\M-< ?\C-  ?\M-> ?\C-u ?- ?2 ?0 ?0 ?\C-x tab ?\M-< ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g ?e ?x ?p ?\C-m ?^ ?\" ?\C-m ?\C-m ?\M-< ?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g ?e ?x ?p ?\C-m ?\" ?. ?* ?$ ?\C-m ?\C-m] 0 "%d"))
+#+end_src
+
+* Runtime Performance
+:PROPERTIES:
+:ID:       b1f0f902-230b-4db1-9b12-571e84c57cb4
+:END:
+
+Dial the GC threshold back down so that garbage collection happens more frequently but in less time.
+
+#+begin_src emacs-lisp
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
+#+end_src
