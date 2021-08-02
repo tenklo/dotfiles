@@ -99,6 +99,7 @@ the individual device needs.
 #+begin_src emacs-lisp
 (defvar kk/default-font-size 150)
 (defvar kk/org-refile-target "")
+(defvar kk/org-roam-directory "")
 (defvar kk/journal-file "")
 
 (defvar kk/mu4e-context-name-dx "dx")
@@ -107,6 +108,7 @@ the individual device needs.
 (defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/organization-task-id "")
+(defvar kk/mu4e-contexts '())
 #+end_src
 
 ** Allocations
@@ -127,9 +129,11 @@ the individual device needs.
    (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2"))
   ("T490s"
    (setq kk/default-font-size 180)
-   (setq org-agenda-files '("~/nextcloud_work/Documents/org"
+   (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
+   (setq org-agenda-files `("~/nextcloud_work/Documents/org"
                             "~/Nextcloud/Documents/org"
-                            "~/nextcloud_work/schule/schule.org"))
+                            "~/nextcloud_work/schule/schule.org"
+                            ,kk/org-roam-directory))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
@@ -659,7 +663,7 @@ as the default task."
          "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("u" "Urgent Task" entry (file kk/org-refile-target)
-         "* TODO %?\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
@@ -844,6 +848,7 @@ Callers of this function already widen the buffer view."
     (org-agenda-redo))
   (message "%s WAITING and SCHEDULED NEXT Tasks" (if bh/hide-scheduled-and-waiting-next-tasks "Hide" "Show")))
 (bind-key (kbd "C-c C-x n") 'bh/toggle-next-task-display org-agenda-mode-map)
+(bind-key (kbd "W") 'bh/toggle-next-task-display org-agenda-mode-map)
 
 (setq kk/stuck-projects-regexp "^\\*+ NEXT")
 (defun bh/skip-stuck-projects ()
@@ -1104,7 +1109,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :init
   (setq org-roam-v2-ack t)
   :custom
-  (org-roam-directory "~/Nextcloud/Documents/roam")
+  (org-roam-directory kk/org-roam-directory)
   (org-roam-completion-everywhere t)
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)
@@ -1131,6 +1136,15 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                  (window-width . 0.33)
                  (window-parameters . ((no-other-window . t)
                                        (no-delete-other-windows . t))))))
+#+end_src
+
+** Contacts
+:PROPERTIES:
+:ID:       66527cda-1323-4a62-a46c-7d1e6ec85d19
+:END:
+
+#+begin_src emacs-lisp
+(require 'org-contacts)
 #+end_src
 
 * Development
@@ -2094,9 +2108,6 @@ Make =M-x customize= persistent.
  '(calendar-date-style 'iso)
  '(initial-scratch-message "* Scratch
 
-
-
-,* Pomodoros
 ")
  '(grep-find-template
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
