@@ -2142,6 +2142,7 @@ Make =M-x customize= persistent.
  '(browse-url-generic-program "o")
  '(browse-url-secondary-browser-function 'browse-url-generic)
  '(calendar-date-style 'iso)
+ '(dired-dwim-target 'dired-dwim-target-next)
  '(initial-scratch-message "* Scratch
 
 ")
