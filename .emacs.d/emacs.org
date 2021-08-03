@@ -3282,7 +3282,8 @@ This is used to have standard bookmarks, to be added to context specific bookmar
   (setq mu4e-compose-format-flowed t)
 
   (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
-  (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map))
+  (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
+  (mu4e t))
 
 #+end_src
 
