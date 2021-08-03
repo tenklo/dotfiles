@@ -59,6 +59,7 @@ case "$mime" in
     text/x-lisp)
         opener=emacs;;
     text/plain|text/x-*|inode/x-empty|application/json|application/csv|text/xml)
+        interm="";
         opener=$text;;
     video/*|audio/*)
         opener="$videoaudio";;
