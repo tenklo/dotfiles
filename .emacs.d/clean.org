@@ -1450,6 +1450,19 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
 #+end_src
 
+** Lively
+:PROPERTIES:
+:ID:       60315a45-4edf-40c2-ac2d-5447e199dbdc
+:END:
+
+Make code be replaced by its formatted result -- and periodically updated.
+
+#+begin_src emacs-lisp
+(use-package lively
+  :config
+  (setq lively-interval 0.5))
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
