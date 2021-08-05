@@ -2239,6 +2239,15 @@ Make code be replaced by its formatted result -- and periodically updated.
   (setq lively-interval 0.5))
 #+end_src
 
+** Sudo Edit
+:PROPERTIES:
+:ID:       41788b8b-8a6f-4db9-8330-daf138b01523
+:END:
+
+#+begin_src emacs-lisp
+(use-package sudo-edit)
+#+end_src
+
 * Terminals And Shells
 
 ** Term-Mode
