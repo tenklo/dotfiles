@@ -113,7 +113,7 @@ For editing commands I guess.
 (setq tramp-default-method "ssh")
 #+end_src
 
-*** Buffers
+** Buffers
 :PROPERTIES:
 :ID:       d86b950f-b780-49f1-a611-cf4c702a3673
 :END:
@@ -121,31 +121,6 @@ For editing commands I guess.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-#+end_src
-
-*** Media
-
-**** EMMS
-:PROPERTIES:
-:ID:       1bd9c937-52a1-4619-b373-2fee5c2784cc
-:END:
-
-#+begin_src emacs-lisp
-(use-package emms
-  :config
-  (require 'emms-setup)
-  (emms-standard)
-  (emms-default-players)
-  (setq emms-source-file-default-directory kk/emms-source-file-default-directory))
-#+end_src
-
-**** Mpv
-:PROPERTIES:
-:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
-:END:
-
-#+begin_src emacs-lisp
-(use-package mpv)
 #+end_src
 
 ** Movement
@@ -2256,6 +2231,31 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 #+begin_src emacs-lisp
 (use-package sudo-edit)
+#+end_src
+
+** Media
+
+*** EMMS
+:PROPERTIES:
+:ID:       1bd9c937-52a1-4619-b373-2fee5c2784cc
+:END:
+
+#+begin_src emacs-lisp
+(use-package emms
+  :config
+  (require 'emms-setup)
+  (emms-standard)
+  (emms-default-players)
+  (setq emms-source-file-default-directory kk/emms-source-file-default-directory))
+#+end_src
+
+*** Mpv
+:PROPERTIES:
+:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
+:END:
+
+#+begin_src emacs-lisp
+(use-package mpv)
 #+end_src
 
 * Terminals And Shells
