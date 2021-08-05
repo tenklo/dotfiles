@@ -1479,7 +1479,7 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
-(global-set-key (kbd "C-x b") 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 #+end_src
 
 ** Media
