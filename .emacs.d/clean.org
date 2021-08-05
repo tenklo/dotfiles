@@ -89,6 +89,15 @@ the individual device needs.
   (delete-selection-mode 1))
 #+end_src
 
+*** Subwords
+:PROPERTIES:
+:ID:       a6e339f7-cdbe-4b32-aadf-ed43aabc8098
+:END:
+
+#+begin_src emacs-lisp
+(global-subword-mode 1)
+#+end_src
+
 * System Specific
 
 ** Declarations
