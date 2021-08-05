@@ -102,6 +102,8 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "l c") 'daedreth/copy-whole-line)
 
 (define-key edit-commands-map (kbd "l k") 'kill-whole-line)
+
+(define-key edit-commands-map (kbd "j") 'join-line)
 #+end_src
 
 ** Tramp
