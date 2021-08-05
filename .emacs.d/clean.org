@@ -2176,6 +2176,18 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 (use-package bookmark+)
 #+end_src
 
+** Avy
+:PROPERTIES:
+:ID:       2d3a19eb-7480-40ae-858f-3611a321a8aa
+:END:
+
+#+begin_src emacs-lisp
+(use-package avy
+  :bind
+  ("M-s M-s" . avy-goto-char)
+  ("M-g M-g" . avy-goto-line))
+#+end_src
+
 * Terminals And Shells
 
 ** Term-Mode
