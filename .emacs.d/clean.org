@@ -109,6 +109,7 @@ the individual device needs.
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/organization-task-id "")
 (defvar kk/mu4e-contexts '())
+(defvar kk/emms-source-file-default-directory "")
 #+end_src
 
 ** Allocations
@@ -142,7 +143,8 @@ the individual device needs.
                             ,kk/mu4e-context-name-kloess.xyz-info
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
-   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")))
+   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
+   (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")))
 #+end_src
 
 * Org
@@ -1494,7 +1496,8 @@ Make code be replaced by its formatted result -- and periodically updated.
   :config
   (require 'emms-setup)
   (emms-standard)
-  (emms-default-players))
+  (emms-default-players)
+  (setq emms-source-file-default-directory kk/emms-source-file-default-directory))
 #+end_src
 
 *** Mpv
