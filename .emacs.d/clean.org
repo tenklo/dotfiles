@@ -2156,14 +2156,20 @@ _o_: punch out
 #+end_src
 
 ** Eshell
+:PROPERTIES:
+:ID:       ab4fd50b-ee54-4b3a-a103-d5c1a17cc299
+:END:
 
 #+begin_src emacs-lisp
-(use-package eshell
-  :config
-  (global-set-key (kbd "C-c <return>") 'eshell)
+(defun kk/eshell-configure ()
   (mapcar (lambda (x)
             (add-to-list 'eshell-visual-commands x))
           '("vim")))
+
+(use-package eshell
+  :hook (eshell-first-time-mode . kk/eshell-configure)
+  :config
+  (global-set-key (kbd "C-c <return>") 'eshell))
 #+end_src
 
 * Customization Through Emacs
