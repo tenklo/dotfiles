@@ -2136,7 +2136,7 @@ _o_: punch out
 _s_: start            _n_: next       _>_: forward     _F_: file
 _h_: stop             _p_: prev       _<_: backward    _D_: dir
 _c_: show current     _f_: shuffle    ^ ^              _T_: dir tree
-_b_: playlist buffer  ^ ^             ^ ^              _q_: quit
+_SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 "
     ("s" emms-start)
     ("h" emms-stop)
@@ -2150,7 +2150,8 @@ _b_: playlist buffer  ^ ^             ^ ^              _q_: quit
     (">" emms-seek-forward)
     ("<" emms-seek-backward)
     ("b" emms-playlist-mode-go :exit t)
-    ("q" nil :exit t))
+    ("q" nil :exit t)
+    ("SPC" emms-pause))
   (global-set-key (kbd "C-c e") 'emms-hydra/body))
 #+end_src
 
