@@ -1497,6 +1497,15 @@ Make code be replaced by its formatted result -- and periodically updated.
   (emms-default-players))
 #+end_src
 
+*** Mpv
+:PROPERTIES:
+:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
+:END:
+
+#+begin_src emacs-lisp
+(use-package mpv)
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
