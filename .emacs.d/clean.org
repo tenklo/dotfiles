@@ -1336,6 +1336,25 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (global-set-key (kbd "C-c c") 'calendar)
 #+end_src
 
+** Calc
+:PROPERTIES:
+:ID:       8fac9050-dce0-4ea8-a39e-ea37b28b2bfb
+:END:
+
+#+begin_src emacs-lisp
+(defun calc-eval-region (arg beg end)
+  "Calculate the region and display the result in the echo area.
+With prefix ARG non-nil, insert the result at the end of region."
+  (interactive "P\nr")
+  (let* ((expr (buffer-substring-no-properties beg end))
+         (result (calc-eval expr)))
+    (if (null arg)
+        (message "%s = %s" expr result)
+      (goto-char end)
+      (save-excursion
+        (insert result)))))
+#+end_src
+
 ** Web
 
 *** Eww
