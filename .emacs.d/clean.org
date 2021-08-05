@@ -1482,6 +1482,21 @@ Make code be replaced by its formatted result -- and periodically updated.
 (global-set-key (kbd "C-x b") 'ibuffer)
 #+end_src
 
+** Media
+
+*** EMMS
+:PROPERTIES:
+:ID:       1bd9c937-52a1-4619-b373-2fee5c2784cc
+:END:
+
+#+begin_src emacs-lisp
+(use-package emms
+  :config
+  (require 'emms-setup)
+  (emms-standard)
+  (emms-default-players))
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
@@ -2103,7 +2118,31 @@ _o_: punch out
     ("i" 'bh/punch-in :exit t)
     ("o" 'bh/punch-out :exit t)
     ("t" 'kk/tidy-buffer :exit t))
-  (global-set-key (kbd "C-c g") 'hydra-global/body))
+  (global-set-key (kbd "C-c g") 'hydra-global/body)
+
+  (defhydra emms-hydra (:hint nil)
+    "
+^Control^             ^^              ^^               ^Sources
+^^^^^^^^-----------------------------------------------------------------
+_s_: start            _n_: next       _>_: forward     _F_: file
+_h_: stop             _p_: prev       _<_: backward    _D_: dir
+_c_: show current     _f_: shuffle    ^ ^              _T_: dir tree
+_b_: playlist buffer  ^ ^             ^ ^              _q_: quit
+"
+    ("s" emms-start)
+    ("h" emms-stop)
+    ("n" emms-next)
+    ("p" emms-previous)
+    ("f" emms-shuffle)
+    ("c" emms-show)
+    ("F" emms-play-file)
+    ("D" emms-play-directory)
+    ("T" emms-play-directory-tree)
+    (">" emms-seek-forward)
+    ("<" emms-seek-backward)
+    ("b" emms-playlist-mode-go :exit t)
+    ("q" nil :exit t))
+  (global-set-key (kbd "C-c e") 'emms-hydra/body))
 #+end_src
 
 ** Winner Mode
