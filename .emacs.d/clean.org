@@ -2188,6 +2188,16 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
   ("M-g M-g" . avy-goto-line))
 #+end_src
 
+** New Prefix Key
+
+For editing commands I guess.
+
+#+begin_src emacs-lisp
+(define-prefix-command 'edit-commands-map)
+(global-set-key (kbd "C-z") 'edit-commands-map)
+(define-key edit-commands-map (kbd "t") 'kk/tidy-buffer)
+#+end_src
+
 * Terminals And Shells
 
 ** Term-Mode
