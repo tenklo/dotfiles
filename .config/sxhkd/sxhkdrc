@@ -17,15 +17,12 @@ XF86MonBrightnessUp
 # basic bindings
 super + Return
     $TERMINAL
-super + p
+super + x
     dmenu_run_i -l 20
 super + e
     emacsclient -cn -a ""
 
-super + b
-    o "$(bookmarks)"
-
-super + shift + b
+super + q
     bookmarks | xsel -ib
 
 super + o ; {a,b,e,E,f,h,m,p,t,z,c,v,1,2}
@@ -43,10 +40,10 @@ super + s
 super + shift + s
 	o "$(searchweb $(xsel -o))"
 
-super + x ; {o,p,u}
+super + y ; {o,p,u}
 	{typeargs "$(passmenu2 otp)",typeargs "$(passmenu2 password)",typeargs "$(passmenu2 username)"}
 
-super + shift + x
+super + shift + y
 	typeargs "$(passmenu2)"
 
 super + F1
