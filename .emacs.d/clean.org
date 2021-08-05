@@ -2124,9 +2124,9 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 _i_: punch in          _t_: tidy
 _o_: punch out
 "
-    ("i" 'bh/punch-in :exit t)
-    ("o" 'bh/punch-out :exit t)
-    ("t" 'kk/tidy-buffer :exit t))
+    ("i" bh/punch-in :exit t)
+    ("o" bh/punch-out :exit t)
+    ("t" kk/tidy-buffer :exit t))
   (global-set-key (kbd "C-c g") 'hydra-global/body)
 
   (defhydra emms-hydra (:hint nil)
