@@ -2115,6 +2115,48 @@ _o_: punch out
 (use-package bookmark+)
 #+end_src
 
+* Terminals And Shells
+
+** Term-Mode
+:PROPERTIES:
+:ID:       9345b651-2156-4bfa-8082-6462c99900fb
+:END:
+
+#+begin_src emacs-lisp
+(use-package term
+  :hook
+  (term-mode . (lambda ()
+		 (display-line-numbers-mode 0)))
+  :config
+  (setq explicit-shell-file-name "bash")
+  (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *"))
+#+end_src
+
+** Shell-Mode
+:PROPERTIES:
+:ID:       2d34a5ca-e352-4814-b9b3-264381049d20
+:END:
+
+#+begin_src emacs-lisp
+(when (eq system-type 'windows-nt)
+  (setq explicit-shell-file-name "powershell.exe")
+  (setq explicit-powershell.exe-args '()))
+
+;; without this line tramp does not seem to work.
+(setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+#+end_src
+
+** Eshell
+
+#+begin_src emacs-lisp
+(use-package eshell
+  :config
+  (global-set-key (kbd "C-c <return>") 'eshell)
+  (mapcar (lambda (x)
+            (add-to-list 'eshell-visual-commands x))
+          '("vim")))
+#+end_src
+
 * Customization Through Emacs
 :PROPERTIES:
 :ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
