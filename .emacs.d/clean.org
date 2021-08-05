@@ -1463,6 +1463,15 @@ Make code be replaced by its formatted result -- and periodically updated.
   (setq lively-interval 0.5))
 #+end_src
 
+** Tramp
+:PROPERTIES:
+:ID:       5f1f8ed1-3651-490d-8aca-cc6ca384d758
+:END:
+
+#+begin_src emacs-lisp
+(setq tramp-default-method "ssh")
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
