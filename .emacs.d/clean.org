@@ -1939,6 +1939,9 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 #+end_src
 
 ** New Prefix Key
+:PROPERTIES:
+:ID:       135229a4-8c75-45a6-a0ba-19f19b7d0c3a
+:END:
 
 For editing commands I guess.
 
@@ -1946,6 +1949,35 @@ For editing commands I guess.
 (define-prefix-command 'edit-commands-map)
 (global-set-key (kbd "C-z") 'edit-commands-map)
 (define-key edit-commands-map (kbd "t") 'kk/tidy-buffer)
+
+(defun daedreth/kill-inner-word ()
+  "Kills the entire word your cursor is in. Equivalent to 'ciw' in vim."
+  (interactive)
+  (forward-char 1)
+  (backward-word)
+  (kill-word 1))
+(define-key edit-commands-map (kbd "w k") 'daedreth/kill-inner-word)
+
+(defun daedreth/copy-whole-word ()
+  (interactive)
+  (save-excursion
+    (forward-char 1)
+    (backward-word)
+    (kill-word 1)
+    (yank)))
+(define-key edit-commands-map (kbd "w c") 'daedreth/copy-whole-word)
+
+(defun daedreth/copy-whole-line ()
+  "Copies a line without regard for cursor position."
+  (interactive)
+  (save-excursion
+    (kill-new
+     (buffer-substring
+      (point-at-bol)
+      (point-at-eol)))))
+(define-key edit-commands-map (kbd "l c") 'daedreth/copy-whole-line)
+
+(define-key edit-commands-map (kbd "l k") 'kill-whole-line)
 #+end_src
 
 * Misc
