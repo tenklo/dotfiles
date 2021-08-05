@@ -1601,6 +1601,15 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 * UI
 
+** Diminish
+:PROPERTIES:
+:ID:       a4000fc6-bcf0-4651-8253-50e3ab04d579
+:END:
+
+#+begin_src emacs-lisp
+(use-package diminish)
+#+end_src
+
 ** General
 :PROPERTIES:
 :ID:       20b847fc-991f-4607-9466-84453ddfd8ec
@@ -1689,6 +1698,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+begin_src emacs-lisp
 (use-package helm
+  :diminish helm-mode
   :config
   (require 'helm-config)
   :init
