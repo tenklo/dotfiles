@@ -1472,6 +1472,16 @@ Make code be replaced by its formatted result -- and periodically updated.
 (setq tramp-default-method "ssh")
 #+end_src
 
+** Buffers
+:PROPERTIES:
+:ID:       d86b950f-b780-49f1-a611-cf4c702a3673
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-x b") 'ibuffer)
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
@@ -1812,7 +1822,6 @@ Make code be replaced by its formatted result -- and periodically updated.
   (("M-x"     . helm-M-x) ;; run functions
    ("M-s s"   . helm-occur-from-isearch)
    ("C-x C-f" . helm-find-files) ;; open or create files
-   ("C-x b"   . helm-mini) ;; selct buffers
    ("C-x C-r" . helm-recentf) ;; select recently saved files
    ("C-c i"   . helm-imenu) ;; select heading
    ("M-y"     . helm-show-kill-ring) ;; show the kill ring
