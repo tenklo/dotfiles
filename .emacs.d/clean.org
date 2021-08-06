@@ -2014,6 +2014,15 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 (use-package bookmark+)
 #+end_src
 
+** Burly
+:PROPERTIES:
+:ID:       2bab5c54-c1a8-4e8d-8e0e-8c5c155f704e
+:END:
+
+#+begin_src emacs-lisp
+(use-package burly)
+#+end_src
+
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
