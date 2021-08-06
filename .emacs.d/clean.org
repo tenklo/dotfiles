@@ -525,6 +525,9 @@ as the default task."
 (setq org-agenda-persistent-filter t)
 
 (setq org-agenda-window-setup 'current-window)
+
+(add-hook 'auto-save-hook '(lambda ()
+			     (org-agenda-redo-all t)))
 #+end_src
 
 *** Custom Agenda Commands
