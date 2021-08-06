@@ -104,6 +104,8 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "l k") 'kill-whole-line)
 
 (define-key edit-commands-map (kbd "j") 'join-line)
+
+(define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
 #+end_src
 
 ** Tramp
@@ -634,8 +636,8 @@ as the default task."
 (setq org-agenda-custom-commands
       `(("A" agenda* ""
          ((org-agenda-start-on-weekday nil)
-	  (org-agenda-compact-blocks t)
-	  (org-agenda-use-time-grid kk/org-agenda-appointments-use-timegrid)))
+          (org-agenda-compact-blocks t)
+          (org-agenda-use-time-grid kk/org-agenda-appointments-use-timegrid)))
         ("d" "Deadlines"
          ((agenda ""
                   ((org-deadline-warning-days 365)
@@ -1574,11 +1576,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 ;; Install `plz' HTTP library (not on MELPA yet).
 (use-package plz
-  :straight (plz :fetcher github :repo "alphapapa/plz.el"))
+  :straight (plz :type git :host github :repo "alphapapa/plz.el"))
 
 ;; Install Ement.
 (use-package ement
-  :straight (ement :fetcher github :repo "alphapapa/ement.el")
+  :straight (ement :type git :host github :repo "alphapapa/ement.el")
   :custom
   (ement-room-prism 'both)
   (ement-save-session t))
@@ -2114,6 +2116,33 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c c") 'calendar)
+#+end_src
+
+*** Week Numbers
+:PROPERTIES:
+:ID:       fcfe3b39-2e53-4b05-ab09-38678127a5f2
+:END:
+
+[[https://www.emacswiki.org/emacs/CalendarWeekNumbers][Snippet taken from here]].
+
+#+begin_src emacs-lisp
+(copy-face font-lock-constant-face 'calendar-iso-week-face)
+(set-face-attribute 'calendar-iso-week-face nil
+                    :height 0.7)
+(setq calendar-intermonth-text
+      '(propertize
+        (format "%2d"
+                (car
+                 (calendar-iso-from-absolute
+                  (calendar-absolute-from-gregorian (list month day year)))))
+        'font-lock-face 'calendar-iso-week-face))
+
+(copy-face 'default 'calendar-iso-week-header-face)
+(set-face-attribute 'calendar-iso-week-header-face nil
+                    :height 0.7)
+(setq calendar-intermonth-header
+      (propertize "KW"                  ; or e.g. "KW" in Germany
+                  'font-lock-face 'calendar-iso-week-header-face))
 #+end_src
 
 ** Web
