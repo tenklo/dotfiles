@@ -630,7 +630,8 @@ as the default task."
                    (org-agenda-todo-ignore-scheduled))))
 
 (setq org-agenda-custom-commands
-      `(("A" agenda*)
+      `(("A" agenda* ""
+         ((org-agenda-start-on-weekday nil)))
         ("d" "Deadlines"
          ((agenda ""
                   ((org-deadline-warning-days 365)
