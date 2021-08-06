@@ -62,6 +62,69 @@ the individual device needs.
 (global-auto-revert-mode)
 #+end_src
 
+** New Prefix Key
+:PROPERTIES:
+:ID:       135229a4-8c75-45a6-a0ba-19f19b7d0c3a
+:END:
+
+For editing commands I guess.
+
+#+begin_src emacs-lisp
+(define-prefix-command 'edit-commands-map)
+(global-set-key (kbd "C-z") 'edit-commands-map)
+(define-key edit-commands-map (kbd "t") 'kk/tidy-buffer)
+
+(defun daedreth/kill-inner-word ()
+  "Kills the entire word your cursor is in. Equivalent to 'ciw' in vim."
+  (interactive)
+  (forward-char 1)
+  (backward-word)
+  (kill-word 1))
+(define-key edit-commands-map (kbd "w k") 'daedreth/kill-inner-word)
+
+(defun daedreth/copy-whole-word ()
+  (interactive)
+  (save-excursion
+    (forward-char 1)
+    (backward-word)
+    (kill-word 1)
+    (yank)))
+(define-key edit-commands-map (kbd "w c") 'daedreth/copy-whole-word)
+
+(defun daedreth/copy-whole-line ()
+  "Copies a line without regard for cursor position."
+  (interactive)
+  (save-excursion
+    (kill-new
+     (buffer-substring
+      (point-at-bol)
+      (point-at-eol)))))
+(define-key edit-commands-map (kbd "l c") 'daedreth/copy-whole-line)
+
+(define-key edit-commands-map (kbd "l k") 'kill-whole-line)
+
+(define-key edit-commands-map (kbd "j") 'join-line)
+#+end_src
+
+** Tramp
+:PROPERTIES:
+:ID:       5f1f8ed1-3651-490d-8aca-cc6ca384d758
+:END:
+
+#+begin_src emacs-lisp
+(setq tramp-default-method "ssh")
+#+end_src
+
+** Buffers
+:PROPERTIES:
+:ID:       d86b950f-b780-49f1-a611-cf4c702a3673
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+
 ** Movement
 
 *** Move Where I Mean Package
@@ -89,6 +152,27 @@ the individual device needs.
   (delete-selection-mode 1))
 #+end_src
 
+*** Subwords
+:PROPERTIES:
+:ID:       a6e339f7-cdbe-4b32-aadf-ed43aabc8098
+:END:
+
+#+begin_src emacs-lisp
+(global-subword-mode 1)
+#+end_src
+
+*** Avy
+:PROPERTIES:
+:ID:       2d3a19eb-7480-40ae-858f-3611a321a8aa
+:END:
+
+#+begin_src emacs-lisp
+(use-package avy
+  :bind
+  ("M-s M-s" . avy-goto-char)
+  ("M-g M-g" . avy-goto-line))
+#+end_src
+
 * System Specific
 
 ** Declarations
@@ -109,6 +193,7 @@ the individual device needs.
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/organization-task-id "")
 (defvar kk/mu4e-contexts '())
+(defvar kk/emms-source-file-default-directory "")
 #+end_src
 
 ** Allocations
@@ -142,7 +227,8 @@ the individual device needs.
                             ,kk/mu4e-context-name-kloess.xyz-info
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
-   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")))
+   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
+   (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")))
 #+end_src
 
 * Org
@@ -527,7 +613,7 @@ as the default task."
 (setq org-agenda-window-setup 'current-window)
 
 (add-hook 'auto-save-hook '(lambda ()
-			     (org-agenda-redo-all t)))
+                             (org-agenda-redo-all t)))
 #+end_src
 
 *** Custom Agenda Commands
@@ -1251,283 +1337,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
     (call-process "xdg-open" nil 0 nil file)))
 #+end_src
 
-* Misc
-:PROPERTIES:
-:ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
-:END:
-
-** Tidy Buffer
-:PROPERTIES:
-:ID:       9e07d209-3745-4c07-9c10-f1c02cffa3c0
-:END:
-#+begin_src emacs-lisp
-(defun kk/tidy-buffer ()
-  "Indent and tidy up the current buffer.
-Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
-  (interactive)
-  (save-excursion
-    (indent-region (point-min) (point-max) nil)
-    (untabify (point-min) (point-max))
-    (delete-trailing-whitespace)))
-(global-set-key (kbd "<f9> t") 'kk/tidy-buffer)
-#+end_src
-
-** Calendar
-
-*** German
-
-**** Weekday
-:PROPERTIES:
-:ID:       20b45f13-97ac-4ba5-bdf5-c179dbf45675
-:END:
-
-#+begin_src emacs-lisp
-(setq calendar-week-start-day 1)
-#+end_src
-
-**** Holidays
-:PROPERTIES:
-:ID:       510db8be-f33a-4d18-8b6e-8e9751b71f0b
-:END:
-
-This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#h5o-32][this]] entry in the emacs wiki.
-
-#+begin_src emacs-lisp
-(setq holiday-hebrew-holidays nil)
-(setq holiday-islamic-holidays nil)
-(setq holiday-bahai-holidays nil)
-(setq holiday-oriental-holidays nil)
-
-(setq solar-n-hemi-seasons
-      '("Frühlingsanfang" "Sommeranfang" "Herbstanfang" "Winteranfang"))
-
-(setq holiday-general-holidays
-      '((holiday-fixed 1 1 "Neujahr")
-        (holiday-fixed 5 1 "Tag der Arbeit")
-        (holiday-fixed 10 3 "Tag der Deutschen Einheit")))
-
-;; Feiertage für Baden-Württemberg, weitere auskommentiert
-(setq holiday-christian-holidays
-      '((holiday-float 12 0 -4 "1. Advent" 24)
-        (holiday-float 12 0 -3 "2. Advent" 24)
-        (holiday-float 12 0 -2 "3. Advent" 24)
-        (holiday-float 12 0 -1 "4. Advent" 24)
-        (holiday-fixed 12 25 "1. Weihnachtstag")
-        (holiday-fixed 12 26 "2. Weihnachtstag")
-        (holiday-fixed 1 6 "Heilige Drei Könige")
-        ;; (holiday-easter-etc -48 "Rosenmontag")
-        ;; (holiday-easter-etc -3 "Gründonnerstag")
-        (holiday-easter-etc  -2 "Karfreitag")
-        (holiday-easter-etc   0 "Ostersonntag")
-        (holiday-easter-etc  +1 "Ostermontag")
-        (holiday-easter-etc +39 "Christi Himmelfahrt")
-        (holiday-easter-etc +49 "Pfingstsonntag")
-        (holiday-easter-etc +50 "Pfingstmontag")
-        (holiday-easter-etc +60 "Fronleichnam")
-        ;; (holiday-fixed 8 15 "Mariae Himmelfahrt")
-        (holiday-fixed 11 1 "Allerheiligen")
-        ;; (holiday-float 11 3 1 "Buss- und Bettag" 16)
-        (holiday-float 11 0 1 "Totensonntag" 20)))
-#+end_src
-
-*** Keybinding
-:PROPERTIES:
-:ID:       9ad991c8-4388-4ff3-9026-a554f5481f77
-:END:
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-c c") 'calendar)
-#+end_src
-
-** Calc
-:PROPERTIES:
-:ID:       8fac9050-dce0-4ea8-a39e-ea37b28b2bfb
-:END:
-
-#+begin_src emacs-lisp
-(defun calc-eval-region (arg beg end)
-  "Calculate the region and display the result in the echo area.
-With prefix ARG non-nil, insert the result at the end of region."
-  (interactive "P\nr")
-  (let* ((expr (buffer-substring-no-properties beg end))
-         (result (calc-eval expr)))
-    (if (null arg)
-        (message "%s = %s" expr result)
-      (goto-char end)
-      (save-excursion
-        (insert result)))))
-#+end_src
-
-** Web
-
-*** Eww
-:PROPERTIES:
-:ID:       2c375c8d-6c40-40d0-a623-f264292e7467
-:END:
-
-#+begin_src emacs-lisp
-(use-package eww
-  :config (setq browse-url-browser-function 'eww
-                shr-width 80))
-#+end_src
-
-*** Search Logic
-:PROPERTIES:
-:ID:       5e5846c9-ca66-4500-9276-b69bb8191bc2
-:END:
-
-#+begin_src emacs-lisp
-(defun kk/pick-search-engine ()
-  (interactive)
-  (cdr (assoc (completing-read "Engine: " kk/search-engines nil t) kk/search-engines)))
-
-(defun kk/search-web-via-search-engine (search-string)
-  (interactive "sSearch for: ")
-  (eww (concat (kk/pick-search-engine) search-string)))
-
-(defun kk/search-web-via-search-engine-dwim ()
-  (interactive)
-  (if (use-region-p)
-      (let ((region-string (buffer-substring (region-beginning) (region-end))))
-        (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
-            (kk/search-web-via-search-engine region-string)
-          (call-interactively 'kk/search-web-via-search-engine)))
-    (call-interactively 'kk/search-web-via-search-engine)))
-
-(global-set-key (kbd "M-s M-w") 'kk/search-web-via-search-engine-dwim)
-#+end_src
-
-*** Search Engines
-:PROPERTIES:
-:ID:       e62c6bc0-d0e2-4eca-8ab2-261446c419ea
-:END:
-
-#+begin_src emacs-lisp
-(setq kk/search-engines '(("amazon.de" . "https://www.amazon.de/s?k=")
-                          ("arch aur" . "https://aur.archlinux.org/packages/?&K=")
-                          ("archwiki" . "https://wiki.archlinux.org/index.php?search=")
-                          ("check ssl for (sub)domain" . "https://www.ssllabs.com/ssltest/analyze.html?d=")
-                          ("dhl sendungsverfolgung" . "https://mailing.dhl.de/go/8/4A36IYXV-2DENCMYS-2PTLXTFO-CHW19XT.html?piececode=")
-                          ("dict.cc" . "https://www.dict.cc/?s=")
-                          ("dns check" . "https://intodns.com/")
-                          ("dpd sendungsverfolgung" . "https://tracking.dpd.de/parcelstatus?query=")
-                          ("duckduckgo searchengine" . "https://html.duckduckgo.com/html?q=")
-                          ("duden.de" . "https://www.duden.de/suchen/dudenonline/")
-                          ("ebay.de" . "https://www.ebay.de/sch/i.html?&_nkw=")
-                          ("english oxford dictionary" . "https://www.oxfordlearnersdictionaries.com/spellcheck/english/?q=")
-                          ("gemini searchengine gus.guru" . "gemini://gus.guru/search?")
-                          ("github" . "https://github.com/search?q=")
-                          ("gls sendungsverfolgung" . "https://www.gls-pakete.de/en/parcel-tracking#?trackingNumber=")
-                          ("google" . "https://www.google.de/search?q=")
-                          ("hermes sendungsverfolgung" . "https://www.myhermes.de/empfangen/sendungsverfolgung/sendungsinformation/#")
-                          ("imdb" . "https://www.imdb.com/find?q=")
-                          ("microsoft docs" . "https://support.microsoft.com/en-us/Search/results?query=")
-                          ("mydealz" . "https://www.mydealz.de/search?q=")
-                          ("openstreetmap karte" . "https://www.openstreetmap.org/search?query=")
-                          ("ps wiki wiki.kloess.xyz" . "https://wiki.kloess.xyz/doku.php?do=search&q=")
-                          ("reddit.com" . "https://duckduckgo.com/?q=site:reddit.com+")
-                          ("searx" . "https://searx.pofilo.fr/?q=")
-                          ("thefreedictionary" . "https://www.thefreedictionary.com/")
-                          ("thepiratebay" . "https://thepiratebay.org/search.php?q=")
-                          ("vollebak" . "https://www.vollebak.com/?s=")
-                          ("w3schools.com" . "https://duckduckgo.com/?q=site:w3schools.com+")
-                          ("wikipedia" . "https://de.wikipedia.org/wiki/")
-                          ("wolframalpha" . "https://www.wolframalpha.com/?i=")
-                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")))
-#+end_src
-
-** Searching (In) Files
-:PROPERTIES:
-:ID:       70585f37-0e72-495e-9612-1d242900c684
-:END:
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
-
-(global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
-#+end_src
-
-** Ledger Mode
-:PROPERTIES:
-:ID:       ca7bc576-ea1e-4c85-93d0-8d723f60d99e
-:END:
-
-#+begin_src emacs-lisp
-(use-package ledger-mode
-  :custom
-  (ledger-reconcile-default-commodity "€")
-  (ledger-clear-whole-transactions t))
-#+end_src
-
-** Flyspell
-:PROPERTIES:
-:ID:       f80a76f0-45a3-4234-94e1-c952e4fb7f55
-:END:
-
-#+begin_src emacs-lisp
-(use-package flyspell
-  :straight nil
-  :config
-  (setq flyspell-default-dictionary "german")
-  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
-#+end_src
-
-** Lively
-:PROPERTIES:
-:ID:       60315a45-4edf-40c2-ac2d-5447e199dbdc
-:END:
-
-Make code be replaced by its formatted result -- and periodically updated.
-
-#+begin_src emacs-lisp
-(use-package lively
-  :config
-  (setq lively-interval 0.5))
-#+end_src
-
-** Tramp
-:PROPERTIES:
-:ID:       5f1f8ed1-3651-490d-8aca-cc6ca384d758
-:END:
-
-#+begin_src emacs-lisp
-(setq tramp-default-method "ssh")
-#+end_src
-
-** Buffers
-:PROPERTIES:
-:ID:       d86b950f-b780-49f1-a611-cf4c702a3673
-:END:
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-#+end_src
-
-** Media
-
-*** EMMS
-:PROPERTIES:
-:ID:       1bd9c937-52a1-4619-b373-2fee5c2784cc
-:END:
-
-#+begin_src emacs-lisp
-(use-package emms
-  :config
-  (require 'emms-setup)
-  (emms-standard)
-  (emms-default-players))
-#+end_src
-
-*** Mpv
-:PROPERTIES:
-:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
-:END:
-
-#+begin_src emacs-lisp
-(use-package mpv)
-#+end_src
-
 * Communication
 
 ** Mail (mu4e)
@@ -1772,6 +1581,15 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 * UI
 
+** Diminish
+:PROPERTIES:
+:ID:       a4000fc6-bcf0-4651-8253-50e3ab04d579
+:END:
+
+#+begin_src emacs-lisp
+(use-package diminish)
+#+end_src
+
 ** General
 :PROPERTIES:
 :ID:       20b847fc-991f-4607-9466-84453ddfd8ec
@@ -1860,6 +1678,7 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 #+begin_src emacs-lisp
 (use-package helm
+  :diminish helm-mode
   :config
   (require 'helm-config)
   :init
@@ -2193,6 +2012,255 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 
 #+begin_src emacs-lisp
 (use-package bookmark+)
+#+end_src
+
+* Misc
+:PROPERTIES:
+:ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
+:END:
+
+** Tidy Buffer
+:PROPERTIES:
+:ID:       9e07d209-3745-4c07-9c10-f1c02cffa3c0
+:END:
+#+begin_src emacs-lisp
+(defun kk/tidy-buffer ()
+  "Indent and tidy up the current buffer.
+Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max) nil)
+    (untabify (point-min) (point-max))
+    (delete-trailing-whitespace)))
+(global-set-key (kbd "<f9> t") 'kk/tidy-buffer)
+#+end_src
+
+** Calendar
+
+*** German
+
+**** Weekday
+:PROPERTIES:
+:ID:       20b45f13-97ac-4ba5-bdf5-c179dbf45675
+:END:
+
+#+begin_src emacs-lisp
+(setq calendar-week-start-day 1)
+#+end_src
+
+**** Holidays
+:PROPERTIES:
+:ID:       510db8be-f33a-4d18-8b6e-8e9751b71f0b
+:END:
+
+This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#h5o-32][this]] entry in the emacs wiki.
+
+#+begin_src emacs-lisp
+(setq holiday-hebrew-holidays nil)
+(setq holiday-islamic-holidays nil)
+(setq holiday-bahai-holidays nil)
+(setq holiday-oriental-holidays nil)
+
+(setq solar-n-hemi-seasons
+      '("Frühlingsanfang" "Sommeranfang" "Herbstanfang" "Winteranfang"))
+
+(setq holiday-general-holidays
+      '((holiday-fixed 1 1 "Neujahr")
+        (holiday-fixed 5 1 "Tag der Arbeit")
+        (holiday-fixed 10 3 "Tag der Deutschen Einheit")))
+
+;; Feiertage für Baden-Württemberg, weitere auskommentiert
+(setq holiday-christian-holidays
+      '((holiday-float 12 0 -4 "1. Advent" 24)
+        (holiday-float 12 0 -3 "2. Advent" 24)
+        (holiday-float 12 0 -2 "3. Advent" 24)
+        (holiday-float 12 0 -1 "4. Advent" 24)
+        (holiday-fixed 12 25 "1. Weihnachtstag")
+        (holiday-fixed 12 26 "2. Weihnachtstag")
+        (holiday-fixed 1 6 "Heilige Drei Könige")
+        ;; (holiday-easter-etc -48 "Rosenmontag")
+        ;; (holiday-easter-etc -3 "Gründonnerstag")
+        (holiday-easter-etc  -2 "Karfreitag")
+        (holiday-easter-etc   0 "Ostersonntag")
+        (holiday-easter-etc  +1 "Ostermontag")
+        (holiday-easter-etc +39 "Christi Himmelfahrt")
+        (holiday-easter-etc +49 "Pfingstsonntag")
+        (holiday-easter-etc +50 "Pfingstmontag")
+        (holiday-easter-etc +60 "Fronleichnam")
+        ;; (holiday-fixed 8 15 "Mariae Himmelfahrt")
+        (holiday-fixed 11 1 "Allerheiligen")
+        ;; (holiday-float 11 3 1 "Buss- und Bettag" 16)
+        (holiday-float 11 0 1 "Totensonntag" 20)))
+#+end_src
+
+*** Keybinding
+:PROPERTIES:
+:ID:       9ad991c8-4388-4ff3-9026-a554f5481f77
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c c") 'calendar)
+#+end_src
+
+** Web
+
+*** Eww
+:PROPERTIES:
+:ID:       2c375c8d-6c40-40d0-a623-f264292e7467
+:END:
+
+#+begin_src emacs-lisp
+(use-package eww
+  :config (setq browse-url-browser-function 'eww
+                shr-width 80))
+#+end_src
+
+*** Search Logic
+:PROPERTIES:
+:ID:       5e5846c9-ca66-4500-9276-b69bb8191bc2
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/pick-search-engine ()
+  (interactive)
+  (cdr (assoc (completing-read "Engine: " kk/search-engines nil t) kk/search-engines)))
+
+(defun kk/search-web-via-search-engine (search-string)
+  (interactive "sSearch for: ")
+  (eww (concat (kk/pick-search-engine) search-string)))
+
+(defun kk/search-web-via-search-engine-dwim ()
+  (interactive)
+  (if (use-region-p)
+      (let ((region-string (buffer-substring (region-beginning) (region-end))))
+        (if (not (string-match-p "\\`[ \n\t\r\v\f]*\\'" region-string))
+            (kk/search-web-via-search-engine region-string)
+          (call-interactively 'kk/search-web-via-search-engine)))
+    (call-interactively 'kk/search-web-via-search-engine)))
+
+(global-set-key (kbd "M-s M-w") 'kk/search-web-via-search-engine-dwim)
+#+end_src
+
+*** Search Engines
+:PROPERTIES:
+:ID:       e62c6bc0-d0e2-4eca-8ab2-261446c419ea
+:END:
+
+#+begin_src emacs-lisp
+(setq kk/search-engines '(("amazon.de" . "https://www.amazon.de/s?k=")
+                          ("arch aur" . "https://aur.archlinux.org/packages/?&K=")
+                          ("archwiki" . "https://wiki.archlinux.org/index.php?search=")
+                          ("check ssl for (sub)domain" . "https://www.ssllabs.com/ssltest/analyze.html?d=")
+                          ("dhl sendungsverfolgung" . "https://mailing.dhl.de/go/8/4A36IYXV-2DENCMYS-2PTLXTFO-CHW19XT.html?piececode=")
+                          ("dict.cc" . "https://www.dict.cc/?s=")
+                          ("dns check" . "https://intodns.com/")
+                          ("dpd sendungsverfolgung" . "https://tracking.dpd.de/parcelstatus?query=")
+                          ("duckduckgo searchengine" . "https://html.duckduckgo.com/html?q=")
+                          ("duden.de" . "https://www.duden.de/suchen/dudenonline/")
+                          ("ebay.de" . "https://www.ebay.de/sch/i.html?&_nkw=")
+                          ("english oxford dictionary" . "https://www.oxfordlearnersdictionaries.com/spellcheck/english/?q=")
+                          ("gemini searchengine gus.guru" . "gemini://gus.guru/search?")
+                          ("github" . "https://github.com/search?q=")
+                          ("gls sendungsverfolgung" . "https://www.gls-pakete.de/en/parcel-tracking#?trackingNumber=")
+                          ("google" . "https://www.google.de/search?q=")
+                          ("hermes sendungsverfolgung" . "https://www.myhermes.de/empfangen/sendungsverfolgung/sendungsinformation/#")
+                          ("imdb" . "https://www.imdb.com/find?q=")
+                          ("microsoft docs" . "https://support.microsoft.com/en-us/Search/results?query=")
+                          ("mydealz" . "https://www.mydealz.de/search?q=")
+                          ("openstreetmap karte" . "https://www.openstreetmap.org/search?query=")
+                          ("ps wiki wiki.kloess.xyz" . "https://wiki.kloess.xyz/doku.php?do=search&q=")
+                          ("reddit.com" . "https://duckduckgo.com/?q=site:reddit.com+")
+                          ("searx" . "https://searx.pofilo.fr/?q=")
+                          ("thefreedictionary" . "https://www.thefreedictionary.com/")
+                          ("thepiratebay" . "https://thepiratebay.org/search.php?q=")
+                          ("vollebak" . "https://www.vollebak.com/?s=")
+                          ("w3schools.com" . "https://duckduckgo.com/?q=site:w3schools.com+")
+                          ("wikipedia" . "https://de.wikipedia.org/wiki/")
+                          ("wolframalpha" . "https://www.wolframalpha.com/?i=")
+                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")))
+#+end_src
+
+** Searching (In) Files
+:PROPERTIES:
+:ID:       70585f37-0e72-495e-9612-1d242900c684
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-s i") 'rgrep) ;; search the *I*nside of files with grep recursively
+
+(global-set-key (kbd "M-s d") 'find-name-dired) ;; search the *D*irectories for filenames recursively
+#+end_src
+
+** Ledger Mode
+:PROPERTIES:
+:ID:       ca7bc576-ea1e-4c85-93d0-8d723f60d99e
+:END:
+
+#+begin_src emacs-lisp
+(use-package ledger-mode
+  :custom
+  (ledger-reconcile-default-commodity "€")
+  (ledger-clear-whole-transactions t))
+#+end_src
+
+** Flyspell
+:PROPERTIES:
+:ID:       f80a76f0-45a3-4234-94e1-c952e4fb7f55
+:END:
+
+#+begin_src emacs-lisp
+(use-package flyspell
+  :straight nil
+  :config
+  (setq flyspell-default-dictionary "german")
+  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
+#+end_src
+
+** Lively
+:PROPERTIES:
+:ID:       60315a45-4edf-40c2-ac2d-5447e199dbdc
+:END:
+
+Make code be replaced by its formatted result -- and periodically updated.
+
+#+begin_src emacs-lisp
+(use-package lively
+  :config
+  (setq lively-interval 0.5))
+#+end_src
+
+** Sudo Edit
+:PROPERTIES:
+:ID:       41788b8b-8a6f-4db9-8330-daf138b01523
+:END:
+
+#+begin_src emacs-lisp
+(use-package sudo-edit)
+#+end_src
+
+** Media
+
+*** EMMS
+:PROPERTIES:
+:ID:       1bd9c937-52a1-4619-b373-2fee5c2784cc
+:END:
+
+#+begin_src emacs-lisp
+(use-package emms
+  :config
+  (require 'emms-setup)
+  (emms-standard)
+  (emms-default-players)
+  (setq emms-source-file-default-directory kk/emms-source-file-default-directory))
+#+end_src
+
+*** Mpv
+:PROPERTIES:
+:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
+:END:
+
+#+begin_src emacs-lisp
+(use-package mpv)
 #+end_src
 
 * Terminals And Shells
