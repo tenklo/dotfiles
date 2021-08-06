@@ -192,6 +192,7 @@ For editing commands I guess.
 (defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/organization-task-id "")
+(defvar kk/org-agenda-appointments-use-timegrid nil)
 (defvar kk/mu4e-contexts '())
 (defvar kk/emms-source-file-default-directory "")
 #+end_src
@@ -211,7 +212,8 @@ For editing commands I guess.
    (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
-   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2"))
+   (setq kk/organization-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
+   (setq kk/org-agenda-appointments-use-timegrid t))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
@@ -631,7 +633,9 @@ as the default task."
 
 (setq org-agenda-custom-commands
       `(("A" agenda* ""
-         ((org-agenda-start-on-weekday nil)))
+         ((org-agenda-start-on-weekday nil)
+          (org-agenda-compact-blocks t)
+          (org-agenda-use-time-grid kk/org-agenda-appointments-use-timegrid)))
         ("d" "Deadlines"
          ((agenda ""
                   ((org-deadline-warning-days 365)
