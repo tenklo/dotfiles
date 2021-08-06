@@ -104,6 +104,8 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "l k") 'kill-whole-line)
 
 (define-key edit-commands-map (kbd "j") 'join-line)
+
+(define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
 #+end_src
 
 ** Tramp
