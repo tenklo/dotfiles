@@ -1576,11 +1576,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 ;; Install `plz' HTTP library (not on MELPA yet).
 (use-package plz
-  :straight (plz :fetcher github :repo "alphapapa/plz.el"))
+  :straight (plz :type git :host github :repo "alphapapa/plz.el"))
 
 ;; Install Ement.
 (use-package ement
-  :straight (ement :fetcher github :repo "alphapapa/ement.el")
+  :straight (ement :type git :host github :repo "alphapapa/ement.el")
   :custom
   (ement-room-prism 'both)
   (ement-save-session t))
