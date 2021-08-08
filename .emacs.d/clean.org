@@ -2308,6 +2308,30 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 * Terminals And Shells
 
+** Settings
+
+*** Pager
+:PROPERTIES:
+:ID:       81b26c54-6cf0-4d23-a8af-cfc5456b0467
+:END:
+
+#+begin_src emacs-lisp
+(setenv "PAGER" "cat")
+#+end_src
+
+*** Fish Completion
+:PROPERTIES:
+:ID:       a4a251b7-cc17-4b56-9460-b2fbc429e956
+:END:
+
+#+begin_src emacs-lisp
+(use-package fish-completion
+  :config
+  (when (and (executable-find "fish")
+             (require 'fish-completion nil t))
+    (global-fish-completion-mode)))
+#+end_src
+
 ** Term-Mode
 :PROPERTIES:
 :ID:       9345b651-2156-4bfa-8082-6462c99900fb
