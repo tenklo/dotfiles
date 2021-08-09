@@ -2322,6 +2322,15 @@ Make code be replaced by its formatted result -- and periodically updated.
 (use-package mpv)
 #+end_src
 
+** s.el
+:PROPERTIES:
+:ID:       8f95969f-9611-4369-9ea0-df783eae0af6
+:END:
+
+#+begin_src emacs-lisp
+(use-package s)
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
