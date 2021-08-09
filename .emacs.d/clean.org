@@ -2144,7 +2144,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+begin_src emacs-lisp
 (copy-face font-lock-constant-face 'calendar-iso-week-face)
 (set-face-attribute 'calendar-iso-week-face nil
-                    :height 0.7)
+                    :height 1.0 :foreground "salmon")
 (setq calendar-intermonth-text
       '(propertize
         (format "%2d"
@@ -2155,7 +2155,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 (copy-face 'default 'calendar-iso-week-header-face)
 (set-face-attribute 'calendar-iso-week-header-face nil
-                    :height 0.7)
+                    :height 1.0 :foreground "salmon")
 (setq calendar-intermonth-header
       (propertize "KW"                  ; or e.g. "KW" in Germany
                   'font-lock-face 'calendar-iso-week-header-face))
