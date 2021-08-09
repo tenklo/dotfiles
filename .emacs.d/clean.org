@@ -2259,7 +2259,8 @@ With prefix ARG non-nil, insert the result at the end of region."
                           ("w3schools.com" . "https://duckduckgo.com/?q=site:w3schools.com+")
                           ("wikipedia" . "https://de.wikipedia.org/wiki/")
                           ("wolframalpha" . "https://www.wolframalpha.com/?i=")
-                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")))
+                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")
+			  ("emacs wiki" . "https://duckduckgo.com/?q=site:emacswiki.org+")))
 #+end_src
 
 ** Searching (In) Files
