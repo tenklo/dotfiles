@@ -2161,6 +2161,29 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                   'font-lock-face 'calendar-iso-week-header-face))
 #+end_src
 
+** Calculating
+:PROPERTIES:
+:ID:       a3778e3c-c048-42b4-9fdd-9297700cbc8a
+:END:
+
+Modified version of [[https://www.emacswiki.org/emacs/Calc][this]].
+
+#+begin_src emacs-lisp
+(defun kk/calc-eval-region (arg beg end)
+  "Calculate the region and display the result in the echo area.
+With prefix ARG non-nil, insert the result at the end of region."
+  (interactive "P\nr")
+  (let* ((expr (s-chop-suffix "=" (s-trim (buffer-substring-no-properties beg end))))
+         (result (calc-eval expr)))
+    (if (null arg)
+        (message "%s = %s" expr result)
+      (goto-char end)
+      (save-excursion
+        (insert result)))))
+
+(define-key edit-commands-map (kbd "q") 'kk/calc-eval-region)
+#+end_src
+
 ** Web
 
 *** Eww
