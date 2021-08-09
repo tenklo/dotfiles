@@ -2451,6 +2451,17 @@ Make =M-x customize= persistent.
  '(sentence-end-double-space nil))
 #+end_src
 
+* Disabled Commands
+:PROPERTIES:
+:ID:       4d356102-360e-44b4-ae92-01ef453a6997
+:END:
+
+#+begin_src emacs-lisp
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+#+end_src
+
 * Keyboard Macros
 :PROPERTIES:
 :ID:       bd676a93-d7f4-4fd6-9e3d-eca0e24dad28
