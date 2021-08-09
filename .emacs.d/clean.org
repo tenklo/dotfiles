@@ -1292,6 +1292,22 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (require 'smartparens-config))
 #+end_src
 
+*** Projectile
+:PROPERTIES:
+:ID:       e9c288b9-7e9e-415a-922e-e5940da3b5f3
+:END:
+
+#+begin_src emacs-lisp
+(use-package projectile
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'helm))
+  :bind-keymap
+  ("C-x p" . projectile-command-map)
+  :init
+  (setq projectile-switch-project-action #'projectile-dired))
+#+end_src
+
 ** SQL
 :PROPERTIES:
 :ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
@@ -2128,7 +2144,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+begin_src emacs-lisp
 (copy-face font-lock-constant-face 'calendar-iso-week-face)
 (set-face-attribute 'calendar-iso-week-face nil
-                    :height 0.7)
+                    :height 1.0 :foreground "salmon")
 (setq calendar-intermonth-text
       '(propertize
         (format "%2d"
@@ -2139,10 +2155,33 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 (copy-face 'default 'calendar-iso-week-header-face)
 (set-face-attribute 'calendar-iso-week-header-face nil
-                    :height 0.7)
+                    :height 1.0 :foreground "salmon")
 (setq calendar-intermonth-header
       (propertize "KW"                  ; or e.g. "KW" in Germany
                   'font-lock-face 'calendar-iso-week-header-face))
+#+end_src
+
+** Calculating
+:PROPERTIES:
+:ID:       a3778e3c-c048-42b4-9fdd-9297700cbc8a
+:END:
+
+Modified version of [[https://www.emacswiki.org/emacs/Calc][this]].
+
+#+begin_src emacs-lisp
+(defun kk/calc-eval-region (arg beg end)
+  "Calculate the region and display the result in the echo area.
+With prefix ARG non-nil, insert the result at the end of region."
+  (interactive "P\nr")
+  (let* ((expr (s-chop-suffix "=" (s-trim (buffer-substring-no-properties beg end))))
+         (result (calc-eval expr)))
+    (if (null arg)
+        (message "%s = %s" expr result)
+      (goto-char end)
+      (save-excursion
+        (insert result)))))
+
+(define-key edit-commands-map (kbd "q") 'kk/calc-eval-region)
 #+end_src
 
 ** Web
@@ -2220,7 +2259,8 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                           ("w3schools.com" . "https://duckduckgo.com/?q=site:w3schools.com+")
                           ("wikipedia" . "https://de.wikipedia.org/wiki/")
                           ("wolframalpha" . "https://www.wolframalpha.com/?i=")
-                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")))
+                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")
+			  ("emacs wiki" . "https://duckduckgo.com/?q=site:emacswiki.org+")))
 #+end_src
 
 ** Searching (In) Files
@@ -2304,6 +2344,15 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 #+begin_src emacs-lisp
 (use-package mpv)
+#+end_src
+
+** s.el
+:PROPERTIES:
+:ID:       8f95969f-9611-4369-9ea0-df783eae0af6
+:END:
+
+#+begin_src emacs-lisp
+(use-package s)
 #+end_src
 
 * Terminals And Shells
@@ -2401,6 +2450,17 @@ Make =M-x customize= persistent.
    '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(org-tags-exclude-from-inheritance '("ATTACH"))
  '(sentence-end-double-space nil))
+#+end_src
+
+* Disabled Commands
+:PROPERTIES:
+:ID:       4d356102-360e-44b4-ae92-01ef453a6997
+:END:
+
+#+begin_src emacs-lisp
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
 #+end_src
 
 * Keyboard Macros
