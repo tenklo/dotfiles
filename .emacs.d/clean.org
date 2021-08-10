@@ -1318,6 +1318,35 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (use-package sqlformat)
 #+end_src
 
+** Web
+
+*** Web-Mode
+:PROPERTIES:
+:ID:       c1b28e7a-a861-4c68-8d2f-f1cfafb6cd35
+:END:
+
+#+begin_src emacs-lisp
+(use-package web-mode
+  :config
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
+#+end_src
+
+*** Emmet
+:PROPERTIES:
+:ID:       c179bdcb-6226-4428-851b-549aaae21477
+:END:
+
+#+begin_src emacs-lisp
+(use-package emmet-mode)
+#+end_src
+
 * File Management
 
 ** Dired
