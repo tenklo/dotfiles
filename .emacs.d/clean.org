@@ -2329,6 +2329,15 @@ With prefix ARG non-nil, insert the result at the end of region."
   (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
 #+end_src
 
+** Abbrev Mode
+:PROPERTIES:
+:ID:       2638221e-8533-4dc5-bcb1-d3166d0645cc
+:END:
+
+#+begin_src emacs-lisp
+(setq-default abbrev-mode t)
+#+end_src
+
 ** Lively
 :PROPERTIES:
 :ID:       60315a45-4edf-40c2-ac2d-5447e199dbdc
