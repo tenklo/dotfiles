@@ -52,7 +52,7 @@ the individual device needs.
 (define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
 #+end_src
 
-** Auto Reverting
+** Auto Reverting/Saving
 :PROPERTIES:
 :ID:       01cb8b21-9528-4a0e-b1da-c5f06e5598fe
 :END:
@@ -60,6 +60,7 @@ the individual device needs.
 #+begin_src emacs-lisp
 (setq global-auto-revert-non-file-buffers t)
 (global-auto-revert-mode)
+(auto-save-visited-mode)
 #+end_src
 
 ** New Prefix Key
