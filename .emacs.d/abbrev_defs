@@ -2,20 +2,16 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("KK" "Karsten Klöss" nil :count 8)
-    ("becuase" "because" nil :count 1)
+    ("becuase" "because" nil :count 2)
     ("dein" "Dein" nil :count 2)
     ("deine" "Deine" nil :count 2)
     ("dir" "Dir" nil :count 1)
-    ("du" "Du" nil :count 7)
+    ("du" "Du" nil :count 9)
+    ("gettign" "getting" nil :count 1)
     ("lg" "Liebe Grüße" nil :count 2)
     ("mfg" "Mit freundlichen Grüßen" nil :count 2)
     ("schriebtisch" "Schreibtisch" nil :count 1)
     ("tehmen" "Themen" nil :count 1)
     ("vg" "Viele Grüße" nil :count 3)
-   ))
-
-(define-abbrev-table 'org-mode-abbrev-table
-  '(
-    ("gettign" "getting" nil :count 1)
    ))
 
