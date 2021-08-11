@@ -1726,10 +1726,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 :END:
 
 #+begin_src emacs-lisp
-(column-number-mode)
-
-(global-display-line-numbers-mode t)
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'absolute)
 
 (dolist (mode '(calendar-mode-hook
                 ledger-report-mode-hook
