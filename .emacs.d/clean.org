@@ -551,7 +551,16 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(use-package org-pomodoro)
+(use-package org-pomodoro
+  :custom
+  (org-pomodoro-clock-break t)
+  (org-pomodoro-keep-killed-pomodoro-time t)
+  (org-pomodoro-manual-break t)
+  (org-pomodoro-format "Pom~%s")
+  (org-pomodoro-short-break-format "Short Br~%s")
+  (org-pomodoro-long-break-format "Long Br~%s")
+  :config
+  (global-set-key (kbd "<f9> p") 'org-pomodoro))
 #+end_src
 
 *** Babel
