@@ -70,18 +70,30 @@ the individual device needs.
 
 For editing commands I guess.
 
+*** Definition
+:PROPERTIES:
+:ID:       fd425158-2e4d-4987-8488-cf6543b5e334
+:END:
+
 #+begin_src emacs-lisp
 (define-prefix-command 'edit-commands-map)
 (global-set-key (kbd "C-z") 'edit-commands-map)
 (define-key edit-commands-map (kbd "t") 'kk/tidy-buffer)
+#+end_src
 
+*** Editing
+:PROPERTIES:
+:ID:       25af5b78-c1bb-4378-9c96-48b1aef7e97a
+:END:
+
+#+begin_src emacs-lisp
 (defun daedreth/kill-inner-word ()
   "Kills the entire word your cursor is in. Equivalent to 'ciw' in vim."
   (interactive)
   (forward-char 1)
   (backward-word)
   (kill-word 1))
-(define-key edit-commands-map (kbd "w k") 'daedreth/kill-inner-word)
+(define-key edit-commands-map (kbd "w") 'daedreth/kill-inner-word)
 
 (defun daedreth/copy-whole-word ()
   (interactive)
@@ -90,7 +102,7 @@ For editing commands I guess.
     (backward-word)
     (kill-word 1)
     (yank)))
-(define-key edit-commands-map (kbd "w c") 'daedreth/copy-whole-word)
+(define-key edit-commands-map (kbd "W") 'daedreth/copy-whole-word)
 
 (defun daedreth/copy-whole-line ()
   "Copies a line without regard for cursor position."
@@ -100,13 +112,28 @@ For editing commands I guess.
      (buffer-substring
       (point-at-bol)
       (point-at-eol)))))
-(define-key edit-commands-map (kbd "l c") 'daedreth/copy-whole-line)
+(define-key edit-commands-map (kbd "l") 'daedreth/copy-whole-line)
 
-(define-key edit-commands-map (kbd "l k") 'kill-whole-line)
+(define-key edit-commands-map (kbd "L") 'kill-whole-line)
 
-(define-key edit-commands-map (kbd "l j") 'join-line)
+(define-key edit-commands-map (kbd "j") 'join-line)
 
 (define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
+#+end_src
+
+*** Toggle Modes
+:PROPERTIES:
+:ID:       c9c86c86-fd85-46d5-8bae-fc491230a7cc
+:END:
+
+#+begin_src emacs-lisp
+(define-key edit-commands-map (kbd "C") 'column-number-mode)
+(define-key edit-commands-map (kbd "L") 'display-line-numbers-mode)t
+(define-key edit-commands-map (kbd "S") 'subword-mode)
+(define-key edit-commands-map (kbd "F") 'flyspell-mode)
+(define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
+(define-key edit-commands-map (kbd "B") 'abbrev-mode)
+(define-key edit-commands-map (kbd "V") 'visual-line-mode)
 #+end_src
 
 ** Tramp
@@ -508,8 +535,14 @@ as the default task."
 
 (add-hook 'org-clock-out-hook 'bh/clock-out-maybe 'append)
 
+(defun kk/org-clock-in-list ()
+  (interactive)
+  (org-clock-in '(4)))
+
 (global-set-key (kbd "<f9> i") 'bh/punch-in)
 (global-set-key (kbd "<f9> o") 'bh/punch-out)
+(global-set-key (kbd "<f11>") 'kk/org-clock-in-list)
+(global-set-key (kbd "C-<f11>") 'org-clock-goto)
 #+end_src
 
 **** Pomodoro
@@ -518,7 +551,16 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(use-package org-pomodoro)
+(use-package org-pomodoro
+  :custom
+  (org-pomodoro-clock-break t)
+  (org-pomodoro-keep-killed-pomodoro-time t)
+  (org-pomodoro-manual-break t)
+  (org-pomodoro-format "Pom~%s")
+  (org-pomodoro-short-break-format "Short Br~%s")
+  (org-pomodoro-long-break-format "Long Br~%s")
+  :config
+  (global-set-key (kbd "<f9> p") 'org-pomodoro))
 #+end_src
 
 *** Babel
@@ -1699,10 +1741,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 :END:
 
 #+begin_src emacs-lisp
-(column-number-mode)
-
-(global-display-line-numbers-mode t)
-(setq display-line-numbers-type 'relative)
+(setq display-line-numbers-type 'absolute)
 
 (dolist (mode '(calendar-mode-hook
                 ledger-report-mode-hook
@@ -2094,7 +2133,6 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
     (indent-region (point-min) (point-max) nil)
     (untabify (point-min) (point-max))
     (delete-trailing-whitespace)))
-(global-set-key (kbd "<f9> t") 'kk/tidy-buffer)
 #+end_src
 
 ** Calendar
