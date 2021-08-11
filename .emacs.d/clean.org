@@ -102,7 +102,7 @@ For editing commands I guess.
     (backward-word)
     (kill-word 1)
     (yank)))
-(define-key edit-commands-map (kbd "W") 'daedreth/copy-whole-word)
+(define-key edit-commands-map (kbd "C-w") 'daedreth/copy-whole-word)
 
 (defun daedreth/copy-whole-line ()
   "Copies a line without regard for cursor position."
@@ -114,7 +114,7 @@ For editing commands I guess.
       (point-at-eol)))))
 (define-key edit-commands-map (kbd "l") 'daedreth/copy-whole-line)
 
-(define-key edit-commands-map (kbd "L") 'kill-whole-line)
+(define-key edit-commands-map (kbd "C-l") 'kill-whole-line)
 
 (define-key edit-commands-map (kbd "j") 'join-line)
 
