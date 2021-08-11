@@ -2124,7 +2124,6 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
     (indent-region (point-min) (point-max) nil)
     (untabify (point-min) (point-max))
     (delete-trailing-whitespace)))
-(global-set-key (kbd "<f9> t") 'kk/tidy-buffer)
 #+end_src
 
 ** Calendar
