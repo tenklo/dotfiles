@@ -70,11 +70,23 @@ the individual device needs.
 
 For editing commands I guess.
 
+*** Definition
+:PROPERTIES:
+:ID:       fd425158-2e4d-4987-8488-cf6543b5e334
+:END:
+
 #+begin_src emacs-lisp
 (define-prefix-command 'edit-commands-map)
 (global-set-key (kbd "C-z") 'edit-commands-map)
 (define-key edit-commands-map (kbd "t") 'kk/tidy-buffer)
+#+end_src
 
+*** Editing
+:PROPERTIES:
+:ID:       25af5b78-c1bb-4378-9c96-48b1aef7e97a
+:END:
+
+#+begin_src emacs-lisp
 (defun daedreth/kill-inner-word ()
   "Kills the entire word your cursor is in. Equivalent to 'ciw' in vim."
   (interactive)
@@ -107,6 +119,21 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "l j") 'join-line)
 
 (define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
+#+end_src
+
+*** Toggle Modes
+:PROPERTIES:
+:ID:       c9c86c86-fd85-46d5-8bae-fc491230a7cc
+:END:
+
+#+begin_src emacs-lisp
+(define-key edit-commands-map (kbd "C") 'column-number-mode)
+(define-key edit-commands-map (kbd "L") 'display-line-numbers-mode)t
+(define-key edit-commands-map (kbd "S") 'subword-mode)
+(define-key edit-commands-map (kbd "F") 'flyspell-mode)
+(define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
+(define-key edit-commands-map (kbd "B") 'abbrev-mode)
+(define-key edit-commands-map (kbd "V") 'visual-line-mode)
 #+end_src
 
 ** Tramp
