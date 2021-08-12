@@ -2501,7 +2501,7 @@ Make code be replaced by its formatted result -- and periodically updated.
 (use-package eshell
   :hook (eshell-first-time-mode . kk/eshell-configure)
   :config
-  (global-set-key (kbd "C-c <return>") 'eshell))
+  (global-set-key (kbd "C-c C-<return>") 'eshell))
 #+end_src
 
 * Customization Through Emacs
