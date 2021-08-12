@@ -2348,16 +2348,16 @@ With prefix ARG non-nil, insert the result at the end of region."
                           ("mydealz" . "https://www.mydealz.de/search?q=")
                           ("openstreetmap karte" . "https://www.openstreetmap.org/search?query=")
                           ("ps wiki wiki.kloess.xyz" . "https://wiki.kloess.xyz/doku.php?do=search&q=")
-                          ("reddit.com" . "https://duckduckgo.com/?q=site:reddit.com+")
+                          ("reddit.com" . "https://html.duckduckgo.com/html?q=site:reddit.com+")
                           ("searx" . "https://searx.pofilo.fr/?q=")
                           ("thefreedictionary" . "https://www.thefreedictionary.com/")
                           ("thepiratebay" . "https://thepiratebay.org/search.php?q=")
                           ("vollebak" . "https://www.vollebak.com/?s=")
-                          ("w3schools.com" . "https://duckduckgo.com/?q=site:w3schools.com+")
+                          ("w3schools.com" . "https://html.duckduckgo.com/html?q=site:w3schools.com+")
                           ("wikipedia" . "https://de.wikipedia.org/wiki/")
                           ("wolframalpha" . "https://www.wolframalpha.com/?i=")
-                          ("youtube" . "https://duckduckgo.com/?q=site:youtube.com+")
-                          ("emacs wiki" . "https://duckduckgo.com/?q=site:emacswiki.org+")))
+                          ("youtube" . "https://html.duckduckgo.com/html?q=site:youtube.com+")
+                          ("emacs wiki" . "https://html.duckduckgo.com/html?q=site:emacswiki.org+")))
 #+end_src
 
 ** Searching (In) Files
