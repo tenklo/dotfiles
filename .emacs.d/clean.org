@@ -230,6 +230,7 @@ For editing commands I guess.
 (defvar kk/org-agenda-appointments-use-timegrid nil)
 (defvar kk/mu4e-contexts '())
 (defvar kk/emms-source-file-default-directory "")
+(defun kk/org-agenda-auto-exclude-function (tag) nil)
 #+end_src
 
 ** Allocations
@@ -258,6 +259,9 @@ For editing commands I guess.
                             ,kk/org-roam-directory))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
+   (defun kk/org-agenda-auto-exclude-function (tag)
+     (when (cond ((string= tag "WORK")))
+       (concat "-" tag)))
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its
@@ -690,6 +694,8 @@ as the default task."
 
 (add-hook 'auto-save-hook '(lambda ()
                              (org-agenda-redo-all t)))
+
+(setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
 #+end_src
 
 *** Custom Agenda Commands
