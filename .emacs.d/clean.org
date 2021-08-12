@@ -226,6 +226,7 @@ For editing commands I guess.
 (defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/organization-task-id "")
+(defvar kk/default-pomodoro-break-task-id "5abae356-1e4f-4130-9520-037b24a18822")
 (defvar kk/org-agenda-appointments-use-timegrid nil)
 (defvar kk/mu4e-contexts '())
 (defvar kk/emms-source-file-default-directory "")
@@ -558,14 +559,26 @@ as the default task."
 #+begin_src emacs-lisp
 (use-package org-pomodoro
   :custom
-  (org-pomodoro-clock-break t)
+  (org-pomodoro-clock-break nil)
   (org-pomodoro-keep-killed-pomodoro-time t)
   (org-pomodoro-manual-break t)
   (org-pomodoro-format "Pom~%s")
   (org-pomodoro-short-break-format "Short Br~%s")
   (org-pomodoro-long-break-format "Long Br~%s")
+
   :config
-  (global-set-key (kbd "<f9> p") 'org-pomodoro))
+  (global-set-key (kbd "<f9> p") 'org-pomodoro)
+
+  (defun kk/clock-in-pomodoro-break-task ()
+    (interactive)
+    (org-with-point-at (org-id-find kk/default-pomodoro-break-task-id 'marker)
+      (org-clock-in)))
+
+  (defun kk/clock-in-pomodoro-break-task-maybe ()
+    (when (or (eq org-pomodoro-state :short-break)
+              (eq org-pomodoro-state :long-break))
+      (kk/clock-in-pomodoro-break-task)))
+  (add-hook 'org-pomodoro-finished-hook 'kk/clock-in-pomodoro-break-task-maybe))
 #+end_src
 
 *** Babel
