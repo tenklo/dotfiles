@@ -637,6 +637,17 @@ as the default task."
 (use-package toc-org)
 #+end_src
 
+*** Timer
+:PROPERTIES:
+:ID:       4dce1e4f-347e-4117-ad01-f7bb62821eed
+:END:
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "<f9> t") 'org-timer-set-timer)
+(global-set-key (kbd "<f9> T") 'org-timer-stop)
+(global-set-key (kbd "<f9> C-t") 'org-timer-pause-or-continue)
+#+end_src
+
 ** Agenda
 
 *** Settings
