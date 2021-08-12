@@ -200,7 +200,11 @@ For editing commands I guess.
 (use-package avy
   :bind
   ("M-s M-s" . avy-goto-char)
-  ("M-g M-g" . avy-goto-line))
+  ("M-g M-c" . avy-goto-char)
+  ("M-g M-w" . avy-goto-word-0)
+  ("M-g M-g" . avy-goto-line)
+  ("M-g M-l" . avy-goto-line))
+#+end_src
 #+end_src
 
 * System Specific
