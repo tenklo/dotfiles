@@ -677,7 +677,9 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(setq org-agenda-dim-blocked-tasks 't)
+(setq org-agenda-dim-blocked-tasks nil)
+(setq org-agenda-inhibit-startup t)
+
 (setq org-sort-agenda-noeffort-is-high t)
 
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
