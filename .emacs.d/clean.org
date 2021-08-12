@@ -381,6 +381,7 @@ Intended to be used in an `org-mode-hook'."
               (org-save-all-org-buffers)))
 
 (setq org-clone-delete-id t)
+(global-set-key (kbd "<f9> r") 'org-refile-goto-last-stored)
 #+end_src
 
 *** Logging
