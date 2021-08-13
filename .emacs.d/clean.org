@@ -134,6 +134,7 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
 (define-key edit-commands-map (kbd "B") 'abbrev-mode)
 (define-key edit-commands-map (kbd "V") 'visual-line-mode)
+(define-key edit-commands-map (kbd "C") 'company-mode)
 #+end_src
 
 ** Tramp
@@ -1388,6 +1389,23 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   ("C-x p" . projectile-command-map)
   :init
   (setq projectile-switch-project-action #'projectile-dired))
+#+end_src
+
+*** Company
+:PROPERTIES:
+:ID:       ea9d93d1-d262-4d5a-911a-b2e10163c328
+:END:
+
+#+begin_src emacs-lisp
+(use-package company
+  :defer t
+  :custom
+  (company-backends
+   '(company-bbdb company-semantic company-cmake company-capf company-clang company-files
+                  (company-dabbrev-code company-gtags company-etags company-keywords)
+                  company-oddmuse company-dabbrev company-abbrev company-ispell))
+  (company-selection-wrap-around t)
+  (company-show-quick-access t))
 #+end_src
 
 ** SQL
