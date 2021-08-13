@@ -245,6 +245,9 @@ For editing commands I guess.
    (setq org-agenda-files '("~/nextcloud_work/Documents/org"
                             "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
+   (defun kk/org-agenda-auto-exclude-function (tag)
+     (when (cond ((string= tag "HOLD")))
+       (concat "-" tag)))
    (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
