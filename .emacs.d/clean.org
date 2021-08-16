@@ -1328,6 +1328,43 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (require 'org-contacts)
 #+end_src
 
+** Org-Protocol
+:PROPERTIES:
+:ID:       be2f09b8-74d9-4aa9-968d-d5e179c9f196
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-protocol
+  :straight nil
+  :config
+  (defun kk/org-protocol-set-done-with-point-at-id (id)
+    (org-with-point-at (org-id-find id 'marker)
+      (org-todo "DONE"))
+    nil)
+  (defun kk/org-protocol-clock-in-with-point-at-id (id)
+    (org-with-point-at (org-id-find id 'marker)
+      (org-clock-in))
+    nil)
+  (defun kk/org-protocol-clock-out (id)
+    (org-clock-out)
+    nil)
+  (add-to-list 'org-protocol-protocol-alist
+               '("Set Done"
+                 :protocol "org-done"
+                 :function kk/org-protocol-set-done-with-point-at-id
+                 :kill-client t))
+  (add-to-list 'org-protocol-protocol-alist
+               '("Clock Out"
+                 :protocol "clock-out"
+                 :function kk/org-protocol-clock-out
+                 :kill-client t))
+  (add-to-list 'org-protocol-protocol-alist
+               '("Clock In"
+                 :protocol "clock-in"
+                 :function kk/org-protocol-clock-in-with-point-at-id
+                 :kill-client t)))
+#+end_src
+
 * Development
 
 ** General
@@ -1792,6 +1829,24 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (setq calendar-longitude 9.2)
   :config
   (change-theme 'modus-operandi 'modus-vivendi))
+#+end_src
+
+*** Theme Magic
+:PROPERTIES:
+:ID:       49d6ba95-4ca0-4840-a54e-db36bb0b9337
+:END:
+
+[[https://github.com/jcaw/theme-magic][Theme Magic]]. Apply your Emacs theme to the rest of Linux, using magic.
+
+#+begin_src emacs-lisp
+(use-package theme-magic
+  :diminish theme-magic-export-theme-mode
+  :config
+  (theme-magic-export-theme-mode)
+  (defun kk/reload-dwm-color-scheme ()
+    (interactive)
+    (start-process "reload dwm color scheme" nil "xdotool" "key" "Super_L+control+F5"))
+  (advice-add 'theme-magic-from-emacs :after 'kk/reload-dwm-color-scheme))
 #+end_src
 
 ** Columns And Line Numbers

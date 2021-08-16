@@ -5,6 +5,7 @@
 DAY=$(date +%A)
 remote="root@homepi"
 hostname=$(hostname)
+test -n "$hostname" || echo "Problem mit dem Hostname."
 test -n "$hostname" || exit 1
 backuppath="/home/storage/share/backups/$hostname"
 pathstobackup=("/")
