@@ -1808,6 +1808,24 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (change-theme 'modus-operandi 'modus-vivendi))
 #+end_src
 
+*** Theme Magic
+:PROPERTIES:
+:ID:       49d6ba95-4ca0-4840-a54e-db36bb0b9337
+:END:
+
+[[https://github.com/jcaw/theme-magic][Theme Magic]]. Apply your Emacs theme to the rest of Linux, using magic.
+
+#+begin_src emacs-lisp
+(use-package theme-magic
+  :diminish theme-magic-export-theme-mode
+  :config
+  (theme-magic-export-theme-mode)
+  (defun kk/reload-dwm-color-scheme ()
+    (interactive)
+    (start-process "reload dwm color scheme" nil "xdotool" "key" "Super_L+control+F5"))
+  (advice-add 'theme-magic-from-emacs :after 'kk/reload-dwm-color-scheme))
+#+end_src
+
 ** Columns And Line Numbers
 :PROPERTIES:
 :ID:       5f4d3123-a3a6-423a-aee0-752c1fe060a1

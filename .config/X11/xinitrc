@@ -4,7 +4,7 @@ sxhkd &
 (sleep 10s && dunst) &
 calcurse --daemon &
 
-(autorandr -c; makescheme) &
+autorandr -c &
 xsetroot -cursor_name left_ptr &
 toggleredshift &
 togglelocker &
