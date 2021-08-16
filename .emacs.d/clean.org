@@ -556,8 +556,9 @@ as the default task."
 
 (global-set-key (kbd "<f9> i") 'bh/punch-in)
 (global-set-key (kbd "<f9> o") 'bh/punch-out)
-(global-set-key (kbd "<f11>") 'kk/org-clock-in-list)
-(global-set-key (kbd "C-<f11>") 'org-clock-goto)
+(global-set-key (kbd "<f9> j") 'org-clock-goto)
+(global-set-key (kbd "<f11>") 'org-pomodoro)
+(global-set-key (kbd "C-<f11>") 'kk/org-clock-in-list)
 #+end_src
 
 **** Pomodoro
