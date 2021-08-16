@@ -134,7 +134,7 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
 (define-key edit-commands-map (kbd "B") 'abbrev-mode)
 (define-key edit-commands-map (kbd "V") 'visual-line-mode)
-(define-key edit-commands-map (kbd "C") 'company-mode)
+(define-key edit-commands-map (kbd "TAB") 'company-mode)
 #+end_src
 
 ** Tramp
