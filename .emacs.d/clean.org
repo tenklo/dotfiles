@@ -2553,6 +2553,29 @@ Make code be replaced by its formatted result -- and periodically updated.
 (use-package mpv)
 #+end_src
 
+*** Ytel
+:PROPERTIES:
+:ID:       a5ad1506-a35d-4059-976b-6f44ef557cd5
+:END:
+
+#+begin_src emacs-lisp
+(use-package ytel
+  :config
+  (setq ytel-invidious-api-url "https://invidious.namazso.eu"))
+
+(defun ytel-watch ()
+  "Stream video at point in mpv."
+  (interactive)
+  (let* ((video (ytel-get-current-video))
+         (id    (ytel-video-id video)))
+    (start-process "ytel mpv" nil
+                   "mpv"
+                   (concat "https://www.youtube.com/watch?v=" id))
+    "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
+  (message "Starting streaming...")
+  (define-key ytel-mode-map "y" #'ytel-watch))
+#+end_src
+
 ** s.el
 :PROPERTIES:
 :ID:       8f95969f-9611-4369-9ea0-df783eae0af6
