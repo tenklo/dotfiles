@@ -244,13 +244,14 @@ For editing commands I guess.
 (pcase system-name
   ("dwhpd"
    (setq kk/default-font-size 140)
-   (setq org-agenda-files '("~/nextcloud_work/Documents/org"
+   (setq org-agenda-files '("~/documents/org"
                             "~/nextcloud_work/schule/schule.org"))
-   (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
+   (setq kk/org-refile-target "~/documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
-     (when (cond ((string= tag "HOLD")))
+     (when (cond ((string= tag "HOLD"))
+                 ((string= tag "PERSONAL")))
        (concat "-" tag)))
-   (setq kk/journal-file "~/nextcloud_work/Documents/org/journal.org")
+   (setq kk/journal-file "~/documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
    (setq kk/default-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
@@ -258,12 +259,11 @@ For editing commands I guess.
   ("T490s"
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
-   (setq org-agenda-files `("~/nextcloud_work/Documents/org"
-                            "~/Nextcloud/Documents/org"
+   (setq org-agenda-files `("~/Nextcloud/Documents/org"
                             "~/nextcloud_work/schule/schule.org"
                             ,kk/org-roam-directory))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
-   (setq kk/org-refile-target "~/nextcloud_work/Documents/org/refile.org")
+   (setq kk/org-refile-target "~/documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
      (when (cond ((string= tag "WORK")))
        (concat "-" tag)))
