@@ -688,6 +688,7 @@ as the default task."
 (global-set-key (kbd "<f9> t") 'org-timer-set-timer)
 (global-set-key (kbd "<f9> T") 'org-timer-stop)
 (global-set-key (kbd "<f9> C-t") 'org-timer-pause-or-continue)
+(setq org-clock-sound "~/.emacs.d/straight/build/org-pomodoro/resources/bell.wav")
 #+end_src
 
 ** Agenda
