@@ -583,6 +583,13 @@ as the default task."
                                    (org-clock-in))))
 (global-set-key (kbd "<f11>") 'org-pomodoro)
 (global-set-key (kbd "C-<f11>") 'kk/org-clock-in-list)
+
+(defun kk/reset-org-default-task ()
+  (interactive)
+  (org-with-point-at (org-id-find kk/default-task-id 'marker)
+    (set-marker org-clock-default-task (point))))
+
+(kk/reset-org-default-task)
 #+end_src
 
 **** Pomodoro
