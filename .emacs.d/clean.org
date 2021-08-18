@@ -414,6 +414,15 @@ Intended to be used in an `org-mode-hook'."
 (setq org-agenda-log-mode-items (quote (closed state)))
 
 (use-package htmlize)
+
+(defun kk/org-agenda-log-mode-include-clocking-toggle ()
+  (interactive)
+  (if (member 'clock org-agenda-log-mode-items)
+      (setq org-agenda-log-mode-items (delete 'clock org-agenda-log-mode-items))
+    (add-to-list 'org-agenda-log-mode-items 'clock))
+  (when  (equal major-mode 'org-agenda-mode)
+    (org-agenda-redo))
+  org-agenda-log-mode-items)
 #+end_src
 
 *** Clocking
