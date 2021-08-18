@@ -468,7 +468,7 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-clock-clocked-in-display 'mode-line)
 
-(setq bh/keep-clock-running nil)
+(setq bh/keep-clock-running t)
 
 (defun bh/clock-in-to-next (kw)
   "Switch a task from TODO to NEXT when clocking in.
@@ -499,7 +499,6 @@ Switch projects and subprojects from NEXT back to TODO"
 selected task.  If no task is selected set the Organization task
 as the default task."
   (interactive "p")
-  (setq bh/keep-clock-running t)
   (if (equal major-mode 'org-agenda-mode)
       ;;
       ;; We're in the agenda
@@ -521,7 +520,7 @@ as the default task."
 
 (defun bh/punch-out ()
   (interactive)
-  (setq bh/keep-clock-running nil)
+  (kk/reset-org-default-task)
   (when (org-clock-is-active)
     (org-clock-out))
   (org-agenda-remove-restriction-lock))
@@ -546,7 +545,7 @@ as the default task."
           (when bh/keep-clock-running
             (bh/clock-in-default-task)))))))
 
-(setq bh/organization-task-id kk/default-task-id)
+(setq bh/organization-task-id kk/work-default-task-id)
 
 (defun bh/clock-in-organization-task-as-default ()
   (interactive)
