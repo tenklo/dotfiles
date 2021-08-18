@@ -589,6 +589,11 @@ as the default task."
                                      (call-interactively
                                       (org-pomodoro '(4)))))
 
+(defun kk/clock-in-with-point-at-id (id)
+  (let ((org-clock-auto-clock-resolution nil))
+    (org-with-point-at (org-id-find id 'marker)
+      (org-clock-in))))
+
 (defun kk/reset-org-default-task ()
   (interactive)
   (org-with-point-at (org-id-find kk/default-task-id 'marker)
