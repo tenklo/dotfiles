@@ -2227,7 +2227,18 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
     ("b" emms-playlist-mode-go :exit t)
     ("q" nil :exit t)
     ("SPC" emms-pause))
-  (global-set-key (kbd "C-c e") 'emms-hydra/body))
+  (global-set-key (kbd "C-c e") 'emms-hydra/body)
+
+  (defhydra org-agenda-hydra (:hint nil)
+    "
+Toggles
+^^^^^^^^-----------------------------------------------------------------
+_w_: include wait+sched.
+_c_: include clocking
+"
+    ("w" bh/toggle-next-task-display)
+    ("c" kk/org-agenda-log-mode-include-clocking-toggle))
+  (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map))
 #+end_src
 
 ** Winner Mode
