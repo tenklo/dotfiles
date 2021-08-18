@@ -93,7 +93,7 @@ For editing commands I guess.
   (forward-char 1)
   (backward-word)
   (kill-word 1))
-(define-key edit-commands-map (kbd "w") 'daedreth/kill-inner-word)
+(define-key edit-commands-map (kbd "C-w") 'daedreth/kill-inner-word)
 
 (defun daedreth/copy-whole-word ()
   (interactive)
@@ -102,7 +102,7 @@ For editing commands I guess.
     (backward-word)
     (kill-word 1)
     (yank)))
-(define-key edit-commands-map (kbd "C-w") 'daedreth/copy-whole-word)
+(define-key edit-commands-map (kbd "w") 'daedreth/copy-whole-word)
 
 (defun daedreth/copy-whole-line ()
   "Copies a line without regard for cursor position."
@@ -226,7 +226,8 @@ For editing commands I guess.
 (defvar kk/mu4e-context-name-kloess.xyz-info "1info")
 (defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
-(defvar kk/default-task-id "")
+(defvar kk/default-task-id "e740c514-60b7-4a32-a8f9-efe15ebca7a0")
+(defvar kk/work-default-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
 (defvar kk/default-pomodoro-break-task-id "5abae356-1e4f-4130-9520-037b24a18822")
 (defvar kk/org-agenda-appointments-use-timegrid nil)
 (defvar kk/mu4e-contexts '())
@@ -254,7 +255,6 @@ For editing commands I guess.
    (setq kk/journal-file "~/documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
-   (setq kk/default-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
    (setq kk/org-agenda-appointments-use-timegrid t))
   ("T490s"
    (setq kk/default-font-size 180)
@@ -273,7 +273,6 @@ For editing commands I guess.
                             ,kk/mu4e-context-name-kloess.xyz-info
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
-   (setq kk/default-task-id "e740c514-60b7-4a32-a8f9-efe15ebca7a0")
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
    (setq kk/clock-in-parent-tasks nil)))
 #+end_src
@@ -414,6 +413,15 @@ Intended to be used in an `org-mode-hook'."
 (setq org-agenda-log-mode-items (quote (closed state)))
 
 (use-package htmlize)
+
+(defun kk/org-agenda-log-mode-include-clocking-toggle ()
+  (interactive)
+  (if (member 'clock org-agenda-log-mode-items)
+      (setq org-agenda-log-mode-items (delete 'clock org-agenda-log-mode-items))
+    (add-to-list 'org-agenda-log-mode-items 'clock))
+  (when  (equal major-mode 'org-agenda-mode)
+    (org-agenda-redo))
+  org-agenda-log-mode-items)
 #+end_src
 
 *** Clocking
@@ -460,7 +468,7 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-clock-clocked-in-display 'mode-line)
 
-(setq bh/keep-clock-running nil)
+(setq bh/keep-clock-running t)
 
 (defun bh/clock-in-to-next (kw)
   "Switch a task from TODO to NEXT when clocking in.
@@ -491,7 +499,6 @@ Switch projects and subprojects from NEXT back to TODO"
 selected task.  If no task is selected set the Organization task
 as the default task."
   (interactive "p")
-  (setq bh/keep-clock-running t)
   (if (equal major-mode 'org-agenda-mode)
       ;;
       ;; We're in the agenda
@@ -513,7 +520,7 @@ as the default task."
 
 (defun bh/punch-out ()
   (interactive)
-  (setq bh/keep-clock-running nil)
+  (kk/reset-org-default-task)
   (when (org-clock-is-active)
     (org-clock-out))
   (org-agenda-remove-restriction-lock))
@@ -538,7 +545,7 @@ as the default task."
           (when bh/keep-clock-running
             (bh/clock-in-default-task)))))))
 
-(setq bh/organization-task-id kk/default-task-id)
+(setq bh/organization-task-id kk/work-default-task-id)
 
 (defun bh/clock-in-organization-task-as-default ()
   (interactive)
@@ -568,13 +575,31 @@ as the default task."
 (global-set-key (kbd "<f9> o") 'bh/punch-out)
 (global-set-key (kbd "<f9> j") 'org-clock-goto)
 (global-set-key (kbd "<f9> d") 'kk/org-clock-in-parent-tasks-toggle)
-(global-set-key (kbd "<f10>") 'org-clock-out)
-(global-set-key (kbd "<f10>") '(lambda ()
-                                 (interactive)
-                                 (org-with-point-at (org-id-find kk/default-task-id 'marker)
-                                   (org-clock-in))))
+(global-set-key (kbd "<f9> a") 'org-show-all)
+(global-set-key (kbd "<f10>") 'org-clock-goto)
+(global-set-key (kbd "C-<f10>") 'org-clock-out)
+(global-set-key (kbd "C-S-<f10>") '(lambda ()
+                                     (interactive)
+                                     (call-interactively
+                                      (org-clock-goto '(4)))))
 (global-set-key (kbd "<f11>") 'org-pomodoro)
-(global-set-key (kbd "C-<f11>") 'kk/org-clock-in-list)
+(global-set-key (kbd "C-<f11>") 'org-clock-in)
+(global-set-key (kbd "C-S-<f11>") '(lambda ()
+                                     (interactive)
+                                     (call-interactively
+                                      (org-pomodoro '(4)))))
+
+(defun kk/clock-in-with-point-at-id (id)
+  (let ((org-clock-auto-clock-resolution nil))
+    (org-with-point-at (org-id-find id 'marker)
+      (org-clock-in))))
+
+(defun kk/reset-org-default-task ()
+  (interactive)
+  (org-with-point-at (org-id-find kk/default-task-id 'marker)
+    (set-marker org-clock-default-task (point))))
+
+(kk/reset-org-default-task)
 #+end_src
 
 **** Pomodoro
@@ -702,7 +727,7 @@ as the default task."
 
 #+begin_src emacs-lisp
 (setq org-agenda-dim-blocked-tasks nil)
-(setq org-agenda-inhibit-startup t)
+(setq org-agenda-inhibit-startup nil)
 
 (setq org-sort-agenda-noeffort-is-high t)
 
@@ -806,19 +831,6 @@ as the default task."
                       (org-agenda-sorting-strategy
                        '(todo-state-down effort-up category-keep))))
           (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
-                     ((org-agenda-overriding-header (concat "Standalone Tasks"
-                                                            (if bh/hide-scheduled-and-waiting-next-tasks
-                                                                ""
-                                                              " (including WAITING and SCHEDULED tasks)")))
-                      (org-agenda-tags-todo-honor-ignore-options t)
-                      (org-agenda-skip-function 'bh/skip-project-tasks)
-                      (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                      (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                      (org-agenda-sorting-strategy
-                       '(todo-state-down category-keep))))
-
-          (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
                      ((org-agenda-overriding-header (concat "Project Subtasks"
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
                                                                 ""
@@ -830,6 +842,18 @@ as the default task."
                       (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                       (org-agenda-sorting-strategy
                        '(category-keep))))
+          (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                     ((org-agenda-overriding-header (concat "Standalone Tasks"
+                                                            (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                ""
+                                                              " (including WAITING and SCHEDULED tasks)")))
+                      (org-agenda-tags-todo-honor-ignore-options t)
+                      (org-agenda-skip-function 'bh/skip-project-tasks)
+                      (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                      (org-agenda-sorting-strategy
+                       '(todo-state-down category-keep))))
           (tags-todo "-CANCELLED&+HOLD|-CANCELLED&+WAITING/!"
                      ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
                                                             (if bh/hide-scheduled-and-waiting-next-tasks
@@ -2218,7 +2242,18 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
     ("b" emms-playlist-mode-go :exit t)
     ("q" nil :exit t)
     ("SPC" emms-pause))
-  (global-set-key (kbd "C-c e") 'emms-hydra/body))
+  (global-set-key (kbd "C-c e") 'emms-hydra/body)
+
+  (defhydra org-agenda-hydra (:hint nil)
+    "
+Toggles
+^^^^^^^^-----------------------------------------------------------------
+_w_: include wait+sched.
+_c_: include clocking
+"
+    ("w" bh/toggle-next-task-display)
+    ("c" kk/org-agenda-log-mode-include-clocking-toggle))
+  (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map))
 #+end_src
 
 ** Winner Mode
