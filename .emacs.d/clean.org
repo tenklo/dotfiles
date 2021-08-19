@@ -1408,6 +1408,21 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                  :kill-client t)))
 #+end_src
 
+** Org Recent Headings
+:PROPERTIES:
+:ID:       74adf8cb-6507-44e8-8fdc-c7a22938d69b
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-recent-headings
+  :config (org-recent-headings-mode))
+
+(use-package helm-org-recent-headings
+  :config
+  (global-set-key (kbd "M-s r") 'helm-org-recent-headings)
+  (add-to-list 'org-recent-headings-advise-functions 'org-clock-in))
+#+end_src
+
 * Development
 
 ** General
