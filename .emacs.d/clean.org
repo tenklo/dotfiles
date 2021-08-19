@@ -735,6 +735,8 @@ as the default task."
 
 (setq org-agenda-text-search-extra-files nil)
 
+(setq org-agenda-span 'day)
+
 ;; Use sticky agenda's so they persist
 (setq org-agenda-sticky t)
 
@@ -765,6 +767,7 @@ as the default task."
       `(("A" agenda* ""
          ((org-agenda-start-on-weekday nil)
           (org-agenda-compact-blocks t)
+	  (org-agenda-span 'week)
           (org-agenda-use-time-grid kk/org-agenda-appointments-use-timegrid)))
         ("d" "Deadlines"
          ((agenda ""
