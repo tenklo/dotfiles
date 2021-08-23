@@ -582,12 +582,12 @@ as the default task."
                                      (interactive)
                                      (call-interactively
                                       (org-clock-goto '(4)))))
-(global-set-key (kbd "<f11>") 'org-pomodoro)
-(global-set-key (kbd "C-<f11>") 'org-clock-in)
+(global-set-key (kbd "<f11>") 'org-clock-in)
+(global-set-key (kbd "C-<f11>") 'org-pomodoro)
 (global-set-key (kbd "C-S-<f11>") '(lambda ()
                                      (interactive)
                                      (call-interactively
-                                      (org-pomodoro '(4)))))
+                                      (org-clock-in '(4)))))
 
 (defun kk/clock-in-with-point-at-id (id)
   (let ((org-clock-auto-clock-resolution nil))
@@ -767,7 +767,7 @@ as the default task."
       `(("A" agenda* ""
          ((org-agenda-start-on-weekday nil)
           (org-agenda-compact-blocks t)
-	  (org-agenda-span 'week)
+          (org-agenda-span 'week)
           (org-agenda-use-time-grid kk/org-agenda-appointments-use-timegrid)))
         ("d" "Deadlines"
          ((agenda ""
