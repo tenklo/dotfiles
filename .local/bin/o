@@ -46,6 +46,8 @@ case "$(echo "$1" | tr '[:upper:]' '[:lower:]')" in
     *.nsd)
         interm="";
         opener=structorizer;;
+    *.kdbx)
+	opener=keepassxc;;
     *.odt)
         (LANG=de_DE.utf8 setsid -f libreoffice "$@" &) && exit;;
 esac
