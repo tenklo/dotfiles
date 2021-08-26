@@ -119,6 +119,9 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "j") 'join-line)
 
 (define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
+
+(define-key edit-commands-map (kbd "r") 'replace-string)
+(define-key edit-commands-map (kbd "C-r") 'replace-regexp)
 #+end_src
 
 *** Toggle Modes
