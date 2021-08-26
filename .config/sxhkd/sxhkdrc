@@ -40,8 +40,8 @@ super + s
 super + shift + s
 	o "$(searchweb $(xsel -o))"
 
-super + y ; {o,p,u}
-	{typeargs "$(passmenu2 otp)",typeargs "$(passmenu2 password)",typeargs "$(passmenu2 username)"}
+super + y
+      keepmenu
 
 super + shift + y
 	typeargs "$(passmenu2)"
