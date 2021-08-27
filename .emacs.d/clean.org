@@ -253,9 +253,11 @@ For editing commands I guess.
                             "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
-     (when (cond ((string= tag "HOLD"))
-                 ((string= tag "PERSONAL")))
-       (concat "-" tag)))
+     (pcase tag
+       ("HOLD"
+        (concat "-" tag))
+       ("WORK"
+        (concat "+" tag))))
    (setq kk/journal-file "~/documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
@@ -270,8 +272,11 @@ For editing commands I guess.
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
-     (when (cond ((string= tag "WORK")))
-       (concat "-" tag)))
+     (pcase tag
+       ("HOLD"
+        (concat "-" tag))
+       ("PERSONAL"
+        (concat "+" tag))))
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its
