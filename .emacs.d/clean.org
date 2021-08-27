@@ -237,6 +237,7 @@ For editing commands I guess.
 (defvar kk/emms-source-file-default-directory "")
 (defun kk/org-agenda-auto-exclude-function (tag) nil)
 (defvar kk/clock-in-parent-tasks t)
+(defvar kk/contacts-file "")
 #+end_src
 
 ** Allocations
@@ -258,7 +259,8 @@ For editing commands I guess.
    (setq kk/journal-file "~/documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
-   (setq kk/org-agenda-appointments-use-timegrid t))
+   (setq kk/org-agenda-appointments-use-timegrid t)
+   (setq kk/contacts-file "~/documents/org/contacts.org"))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
@@ -277,7 +279,8 @@ For editing commands I guess.
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
-   (setq kk/clock-in-parent-tasks nil)))
+   (setq kk/clock-in-parent-tasks nil)
+   (setq kk/contacts-file "~/Nextcloud/Documents/org/contacts.org")))
 #+end_src
 
 * Org
@@ -1374,6 +1377,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+begin_src emacs-lisp
 (require 'org-contacts)
+(setq org-contacts-files kk/contacts-file)
 #+end_src
 
 ** Org-Protocol
