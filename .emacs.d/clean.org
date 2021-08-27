@@ -1649,6 +1649,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (setq mu4e-view-show-addresses 't)
   (setq mu4e-headers-include-related nil)
 
+  (setq mail-user-agent 'mu4e-user-agent)
+
   (dolist (map '(mu4e-main-mode-map
                  mu4e-view-mode-map
                  mu4e-headers-mode-map))
