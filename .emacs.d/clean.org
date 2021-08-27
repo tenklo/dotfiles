@@ -1717,6 +1717,19 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (global-set-key (kbd "C-c m") 'mu4e))
 #+end_src
 
+*** Contacts
+:PROPERTIES:
+:ID:       bd023c75-ef83-4940-ba60-111d830abb33
+:END:
+
+#+begin_src emacs-lisp
+(setq mu4e-org-contacts-file kk/org-refile-target)
+(add-to-list 'mu4e-headers-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+(add-to-list 'mu4e-view-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+#+end_src
+
 *** Context Macro
 :PROPERTIES:
 :ID:       45186652-daff-4bd2-8142-b3d02cf48c5c
