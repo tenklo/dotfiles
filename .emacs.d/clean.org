@@ -890,6 +890,13 @@ as the default task."
 (define-key global-map (kbd "C-c j")
   (lambda () (interactive) (org-capture nil)))
 
+(defvar my/org-contacts-template "* %(org-contacts-template-name)
+:PROPERTIES:
+:ADDRESS: %^{Address}
+:BIRTHDAY: %^{Birthday}
+:EMAIL: %(org-contacts-template-email)
+:END:" "Template for org-contacts.")
+
 (setq org-capture-templates
       `(("t" "Task" entry (file kk/org-refile-target)
          "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
@@ -929,7 +936,10 @@ as the default task."
          (file kk/org-refile-target)
          "* TODO %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:" :clock-in t :clock-resume t)
 
-        ("M" "Media")))
+        ("M" "Media")
+        ("c" "Contact" entry (file kk/org-refile-target),
+         my/org-contacts-template
+         :empty-lines 1)))
 #+end_src
 
 ** Structure Templates
