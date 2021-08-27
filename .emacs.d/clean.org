@@ -237,7 +237,7 @@ For editing commands I guess.
 (defvar kk/emms-source-file-default-directory "")
 (defun kk/org-agenda-auto-exclude-function (tag) nil)
 (defvar kk/clock-in-parent-tasks t)
-(defvar kk/contacts-file "")
+(defvar kk/contacts-files '())
 #+end_src
 
 ** Allocations
@@ -260,7 +260,7 @@ For editing commands I guess.
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
    (setq kk/org-agenda-appointments-use-timegrid t)
-   (setq kk/contacts-file "~/documents/org/contacts.org"))
+   (setq kk/contacts-files '("~/documents/org/contacts.org")))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
@@ -280,7 +280,7 @@ For editing commands I guess.
                             ,kk/mu4e-context-name-kloess.xyz-k))
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
    (setq kk/clock-in-parent-tasks nil)
-   (setq kk/contacts-file "~/Nextcloud/Documents/org/contacts.org")))
+   (setq kk/contacts-files '("~/Nextcloud/Documents/org/contacts.org"))))
 #+end_src
 
 * Org
@@ -1377,7 +1377,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+begin_src emacs-lisp
 (require 'org-contacts)
-(setq org-contacts-files kk/contacts-file)
+(setq org-contacts-files kk/contacts-files)
 #+end_src
 
 ** Org-Protocol
@@ -1816,6 +1816,19 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (defun kk/mail-block-by-subject (subject)
   (interactive "sSubject: ")
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
+*** Storing Queries
+:PROPERTIES:
+:ID:       70a59cd1-5937-4906-8d9d-7b22aaf23241
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/store-link-to-mu4e-query ()
+  (interactive)
+  (let ((mu4e-org-link-query-in-headers-mode t))
+    (call-interactively 'org-store-link)))
+(bind-key "C-c l" #'kk/store-link-to-mu4e-query mu4e-headers-mode-map)
 #+end_src
 
 ** Matrix
