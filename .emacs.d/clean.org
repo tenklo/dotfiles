@@ -761,6 +761,24 @@ as the default task."
 (setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
 #+end_src
 
+*** Bulk
+
+**** Advice
+:PROPERTIES:
+:ID:       4fb16c9b-7743-4ca1-8c2a-3bbb57215308
+:END:
+
+When =org-log-reschedule= is set to note, it breaks the scatter function when prompting for the note.
+
+#+begin_src emacs-lisp
+(advice-add 'org-agenda-bulk-action :around 'kk/org-agenda-bulk-action)
+
+(defun kk/org-agenda-bulk-action (original &optional arg)
+  (let ((org-log-reschedule 'time))
+    (funcall original arg)))
+
+#+end_src
+
 *** Custom Agenda Commands
 :PROPERTIES:
 :ID:       7aecd838-676f-4250-812e-2a80cbfcaf99
