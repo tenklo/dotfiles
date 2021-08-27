@@ -1388,6 +1388,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 (require 'org-contacts)
 (setq org-contacts-files kk/contacts-files)
+(global-set-key (kbd "<f9> c") 'org-contacts)
+(global-set-key (kbd "<f9> C") 'org-contacts-view-send-email)
 (setq org-contacts-birthday-format "%l (%Y)")
 #+end_src
 
