@@ -119,6 +119,9 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "j") 'join-line)
 
 (define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
+
+(define-key edit-commands-map (kbd "r") 'replace-string)
+(define-key edit-commands-map (kbd "C-r") 'replace-regexp)
 #+end_src
 
 *** Toggle Modes
@@ -234,6 +237,7 @@ For editing commands I guess.
 (defvar kk/emms-source-file-default-directory "")
 (defun kk/org-agenda-auto-exclude-function (tag) nil)
 (defvar kk/clock-in-parent-tasks t)
+(defvar kk/contacts-files '())
 #+end_src
 
 ** Allocations
@@ -249,13 +253,16 @@ For editing commands I guess.
                             "~/nextcloud_work/schule/schule.org"))
    (setq kk/org-refile-target "~/documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
-     (when (cond ((string= tag "HOLD"))
-                 ((string= tag "PERSONAL")))
-       (concat "-" tag)))
+     (pcase tag
+       ("HOLD"
+        (concat "-" tag))
+       ("WORK"
+        (concat "+" tag))))
    (setq kk/journal-file "~/documents/org/journal.org")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
-   (setq kk/org-agenda-appointments-use-timegrid t))
+   (setq kk/org-agenda-appointments-use-timegrid t)
+   (setq kk/contacts-files '("~/documents/org/contacts.org")))
   ("T490s"
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
@@ -265,8 +272,11 @@ For editing commands I guess.
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
-     (when (cond ((string= tag "WORK")))
-       (concat "-" tag)))
+     (pcase tag
+       ("HOLD"
+        (concat "-" tag))
+       ("PERSONAL"
+        (concat "+" tag))))
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its
@@ -274,7 +284,8 @@ For editing commands I guess.
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
-   (setq kk/clock-in-parent-tasks nil)))
+   (setq kk/clock-in-parent-tasks nil)
+   (setq kk/contacts-files '("~/Nextcloud/Documents/org/contacts.org"))))
 #+end_src
 
 * Org
@@ -884,6 +895,13 @@ as the default task."
 (define-key global-map (kbd "C-c j")
   (lambda () (interactive) (org-capture nil)))
 
+(defvar my/org-contacts-template "* %(org-contacts-template-name)
+:PROPERTIES:
+:ADDRESS: %^{Address}
+:BIRTHDAY: %^{Birthday}
+:EMAIL: %(org-contacts-template-email)
+:END:" "Template for org-contacts.")
+
 (setq org-capture-templates
       `(("t" "Task" entry (file kk/org-refile-target)
          "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
@@ -923,7 +941,10 @@ as the default task."
          (file kk/org-refile-target)
          "* TODO %^{Description}\n:PROPERTIES:\n:SEASONS: %^{Seasons}\n:GENRE: %^{Genre}\n:RECOMMENDED: %^{Recommended By}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:" :clock-in t :clock-resume t)
 
-        ("M" "Media")))
+        ("M" "Media")
+        ("c" "Contact" entry (file kk/org-refile-target),
+         my/org-contacts-template
+         :empty-lines 1)))
 #+end_src
 
 ** Structure Templates
@@ -1371,6 +1392,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+begin_src emacs-lisp
 (require 'org-contacts)
+(setq org-contacts-files kk/contacts-files)
+(global-set-key (kbd "<f9> c") 'org-contacts)
+(global-set-key (kbd "<f9> C") 'org-contacts-view-send-email)
+(setq org-contacts-birthday-format "%l (%Y)")
 #+end_src
 
 ** Org-Protocol
@@ -1424,6 +1449,25 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   :config
   (global-set-key (kbd "M-s r") 'helm-org-recent-headings)
   (add-to-list 'org-recent-headings-advise-functions 'org-clock-in))
+#+end_src
+
+** Org-mime
+:PROPERTIES:
+:ID:       2bb5cb92-6329-4b11-882c-4b9a3411c40f
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-mime
+  :config
+  (setq org-mime-export-options '(:section-numbers nil
+                                                   :with-author nil
+                                                   :with-toc nil))
+  (add-hook 'message-send-hook 'org-mime-confirm-when-no-multipart)
+  (add-hook 'org-mime-html-hook
+            (lambda nil
+              (org-mime-change-element-style
+               "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
+                             "#f6f6f6" "#2f3337")))))
 #+end_src
 
 * Development
@@ -1646,6 +1690,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (setq mu4e-view-show-addresses 't)
   (setq mu4e-headers-include-related nil)
 
+  (setq mail-user-agent 'mu4e-user-agent)
+
   (dolist (map '(mu4e-main-mode-map
                  mu4e-view-mode-map
                  mu4e-headers-mode-map))
@@ -1674,6 +1720,19 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (bind-key "C-c C-w" #'kk/mu4e-choose-signature mu4e-compose-mode-map)
   (bind-key "C-c h" #'hydra-mail-compose/body mu4e-compose-mode-map)
   (global-set-key (kbd "C-c m") 'mu4e))
+#+end_src
+
+*** Contacts
+:PROPERTIES:
+:ID:       bd023c75-ef83-4940-ba60-111d830abb33
+:END:
+
+#+begin_src emacs-lisp
+(setq mu4e-org-contacts-file kk/org-refile-target)
+(add-to-list 'mu4e-headers-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
+(add-to-list 'mu4e-view-actions
+             '("org-contact-add" . mu4e-action-add-org-contact) t)
 #+end_src
 
 *** Context Macro
@@ -1807,6 +1866,19 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (defun kk/mail-block-by-subject (subject)
   (interactive "sSubject: ")
   (kk/mail-block-by-regex (format "^Subject:.*%s.*" subject)))
+#+end_src
+
+*** Storing Queries
+:PROPERTIES:
+:ID:       70a59cd1-5937-4906-8d9d-7b22aaf23241
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/store-link-to-mu4e-query ()
+  (interactive)
+  (let ((mu4e-org-link-query-in-headers-mode t))
+    (call-interactively 'org-store-link)))
+(bind-key "C-c l" #'kk/store-link-to-mu4e-query mu4e-headers-mode-map)
 #+end_src
 
 ** Matrix
