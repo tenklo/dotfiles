@@ -262,6 +262,7 @@ For editing commands I guess.
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
    (setq kk/org-agenda-appointments-use-timegrid t)
+   (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
    (setq kk/contacts-files '("~/documents/org/contacts.org")))
   ("T490s"
    (setq kk/default-font-size 180)
