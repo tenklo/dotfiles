@@ -2790,6 +2790,17 @@ Make code be replaced by its formatted result -- and periodically updated.
   (global-set-key (kbd "C-c r") 'elfeed))
 #+end_src
 
+** Pdf-Tools
+:PROPERTIES:
+:ID:       30c52271-1215-4b4f-801e-038447cf0485
+:END:
+
+#+begin_src emacs-lisp
+(use-package pdf-tools
+  :config
+  (pdf-loader-install))
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
