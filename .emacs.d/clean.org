@@ -285,7 +285,6 @@ For editing commands I guess.
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
-   (setq kk/clock-in-parent-tasks nil)
    (setq kk/contacts-files '("~/Nextcloud/Documents/org/contacts.org"))))
 #+end_src
 
