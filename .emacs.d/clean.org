@@ -2046,6 +2046,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
    ("C-x C-f" . helm-find-files) ;; open or create files
    ("C-x C-r" . helm-recentf) ;; select recently saved files
    ("C-c i"   . helm-imenu) ;; select heading
+   ("C-x b"   . helm-mini)
    ("M-y"     . helm-show-kill-ring) ;; show the kill ring
    :map helm-map
    ("C-z" . helm-select-action)
