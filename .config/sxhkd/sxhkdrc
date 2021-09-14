@@ -52,8 +52,6 @@ super + shift + F1
 	clipmenu && xdotool key ctrl+v
 super + F2
     dmenu-emoji.sh
-super + y ; {p,s,n,c}
-	{mpc prev,mpc toggle,mpc next,notify-send "now playing" "$(mpc current || echo "nothing playing")"}
 
 super + F5
     o "$(editconfigs)"
