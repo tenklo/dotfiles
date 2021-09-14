@@ -6,6 +6,7 @@
     ("dein" "Dein" nil :count 2)
     ("deine" "Deine" nil :count 2)
     ("dir" "Dir" nil :count 1)
+    ("dne" "den" nil :count 4)
     ("du" "Du" nil :count 9)
     ("gettign" "getting" nil :count 1)
     ("lg" "Liebe Grüße" nil :count 2)
