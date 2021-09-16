@@ -918,31 +918,35 @@ When =org-log-reschedule= is set to note, it breaks the scatter function when pr
 :ADDRESS: %^{Address}
 :BIRTHDAY: %^{Birthday}
 :EMAIL: %(org-contacts-template-email)
+:END:
+:LOGBOOK:
+- Added: %U
+- Added From: %a
 :END:" "Template for org-contacts.")
 
 (setq org-capture-templates
       `(("t" "Task" entry (file kk/org-refile-target)
-         "* TODO %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %?\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("u" "Urgent Task" entry (file kk/org-refile-target)
-         "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
         ("ft" "to track" entry (file kk/org-refile-target)
-         "* TODO Expense: %?\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* TODO Expense: %?\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("fp" "to pay" entry (file kk/org-refile-target)
-         "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("fw" "awaiting payment" entry (file kk/org-refile-target)
-         "* WAIT %?\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n:END:\n  %a\n  %i"
+         "* WAIT %?\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("m" "Meeting" entry (file kk/org-refile-target)
-         "* MEETING with %? :MEETING:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
+         "* MEETING with %? :MEETING:\n:LOGBOOK:\n- Started: %U\n- Started From: %a\n:END:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
         ("p" "Phone call" entry (file kk/org-refile-target)
-         "* PHONE %? :PHONE:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
+         "* PHONE %? :PHONE:\n:LOGBOOK:\n- Started: %U\n- Started From: %a\n:END:\n%U\n\n- \n\n\n** TODO Nacharbeit :REWORK:\n" :clock-in t :clock-resume t)
 
         ("j" "Journal" entry
          (file+olp+datetree kk/journal-file)
