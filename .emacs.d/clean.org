@@ -2804,6 +2804,7 @@ Make code be replaced by its formatted result -- and periodically updated.
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC5QwYlOxcT1higtcJVGzCCg" videos)
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UClcE-kVhqyiHCcjYwcpfj9w" videos)
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" videos)
+	  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCeRbfFkBo6wJIyq87Rxg7EA" videos outdoor bushcraft)
 
           ("https://videos.lukesmith.xyz/feeds/videos.xml?accountId=3" videos)
 
