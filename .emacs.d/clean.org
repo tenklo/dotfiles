@@ -976,6 +976,7 @@ When =org-log-reschedule= is set to note, it breaks the scatter function when pr
 (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
 (add-to-list 'org-structure-template-alist '("py" . "src python"))
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("c#" . "src csharp"))
 #+end_src
 
 ** Keybindings
@@ -1619,6 +1620,15 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+begin_src emacs-lisp
 (use-package emmet-mode)
+#+end_src
+
+** C#
+:PROPERTIES:
+:ID:       019c9562-c793-4a74-a688-2e18a1184514
+:END:
+
+#+begin_src emacs-lisp
+(use-package csharp-mode)
 #+end_src
 
 * File Management
