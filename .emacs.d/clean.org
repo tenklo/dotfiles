@@ -1491,6 +1491,19 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                              "#f6f6f6" "#2f3337")))))
 #+end_src
 
+** Skeletons
+:PROPERTIES:
+:ID:       382043dd-32e3-4682-8ecd-f997a727ba25
+:END:
+
+#+begin_src emacs-lisp
+(define-skeleton kk/org-table-pros-cons
+  "Insert a table with pro and con heads" nil
+  "| pro | con |\n"
+  "|-----+-----|\n"
+  "|     |     |\n")
+#+end_src
+
 ** Org-download
 :PROPERTIES:
 :ID:       6caffca1-101a-4c8e-ba31-94715747ef12
