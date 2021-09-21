@@ -1490,6 +1490,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                              "#f6f6f6" "#2f3337")))))
 #+end_src
 
+** Org-download
+:PROPERTIES:
+:ID:       6caffca1-101a-4c8e-ba31-94715747ef12
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-download
+  :custom
+  (org-download-method 'attach))
+#+end_src
+
 * Development
 
 ** General
