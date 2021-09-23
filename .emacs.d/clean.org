@@ -789,6 +789,8 @@ When =org-log-reschedule= is set to note, it breaks the scatter function when pr
 (advice-add 'org-agenda-bulk-action :around 'kk/org-agenda-bulk-action)
 
 (defun kk/org-agenda-bulk-action (original &optional arg)
+  "Call `org-agenda-bulk-action' with `org-log-reschedule' set to 'time.
+When set to 'note, rescheduling or scattering breaks."
   (let ((org-log-reschedule 'time))
     (funcall original arg)))
 
