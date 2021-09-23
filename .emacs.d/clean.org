@@ -258,7 +258,7 @@ For editing commands I guess.
         (concat "-" tag))
        ("WORK"
         (concat "+" tag))))
-   (setq kk/journal-file "~/documents/org/journal.org")
+   (setq kk/journal-file "~/documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
    (setq kk/org-agenda-appointments-use-timegrid t)
