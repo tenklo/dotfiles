@@ -814,18 +814,19 @@ When set to 'note, rescheduling or scattering breaks."
          ((org-agenda-start-on-weekday nil)
           (org-agenda-compact-blocks t)
           (org-agenda-span 'week)
+          (org-super-agenda-groups nil)
           (org-agenda-use-time-grid kk/org-agenda-appointments-use-timegrid)))
         ("d" "Deadlines"
          ((agenda ""
                   ((org-deadline-warning-days 365)
                    (org-agenda-span 1)
-
                    (org-agenda-sorting-strategy
                     '((agenda habit-down deadline-up time-up
                               category-up todo-state-up)))
                    (org-agenda-show-all-dates nil)))
           (agenda ""
                   ((org-agenda-span 'year)
+                   (org-super-agenda-groups nil)
                    (org-deadline-warning-days 0))))
          ((org-agenda-start-with-log-mode nil)
           (org-agenda-include-diary nil)
@@ -834,14 +835,17 @@ When set to 'note, rescheduling or scattering breaks."
         ("f" . "Finances")
         ("ft" "to track"
          ((tags-todo "financetotrack"
-                     ((org-agenda-overriding-header "Track these payments")))))
+                     ((org-super-agenda-groups nil)
+                      (org-agenda-overriding-header "Track these payments")))))
         ("fp" "to pay"
          ((tags-todo "financetopay"
-                     ((org-agenda-overriding-header "Pay these"))))
+                     ((org-super-agenda-groups nil)
+                      (org-agenda-overriding-header "Pay these"))))
          ((org-agenda-view-columns-initially t)))
         ("fw" "wait for payment"
          ((tags-todo "financeawaiting"
-                     ((org-agenda-overriding-header "Waiting for these payments"))))
+                     ((org-super-agenda-groups nil)
+                      (org-agenda-overriding-header "Waiting for these payments"))))
          ((org-agenda-view-columns-initially t)))
 
         (" " "Agenda"
@@ -852,7 +856,8 @@ When set to 'note, rescheduling or scattering breaks."
                    (org-agenda-skip-scheduled-if-done t)))
           (tags "refile"
                 ((org-agenda-overriding-header "Tasks to Refile")
-                 (org-tags-match-list-sublevels nil)))
+                 (org-tags-match-list-sublevels nil)
+                 (org-super-agenda-groups nil)))
           (tags-todo "REWORK-refile"
                      ((org-agenda-overriding-header "Meetings and Calls to post process")))
           (tags-todo "+TODO=\"WAIT\""
@@ -919,6 +924,50 @@ When set to 'note, rescheduling or scattering breaks."
                  (org-tags-match-list-sublevels nil))))
          ((org-agenda-compact-blocks t)
           (org-agenda-dim-blocked-tasks nil)))))
+#+end_src
+
+*** Org-Super-Agenda
+:PROPERTIES:
+:ID:       83c799db-88d6-4573-bfa9-8252f2042c2b
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-super-agenda
+  :custom
+  (org-super-agenda-header-separator "")
+  (org-super-agenda-mode t)
+  (org-super-agenda-unmatched-name "")
+  (org-super-agenda-groups
+   '((:name "Urgent"
+            :tag "urgent")
+     (:name "Important"
+            :tag "important")
+     (:name "Refile"
+            :tag "refile")
+     (:name "Pets"
+            :tag "pets")
+     (:name "Personal"
+            :time-grid t
+            :and (:not (:habit t)
+                       :tag "PERSONAL"))
+     (:name "Personal Habits"
+            :time-grid t
+            :and (:habit t :tag "PERSONAL"))
+     (:name "Work"
+            :time-grid t
+            :and (:not (:habit t)
+                       :tag "WORK"))
+     (:name "Work Habits"
+            :time-grid t
+            :and (:habit t :tag "WORK"))
+     (:name "School"
+            :time-grid t
+            :and (:not (:habit t)
+                       :tag "SCHOOL"))
+     (:name "School Habits"
+            :time-grid t
+            :and (:habit t :tag "SCHOOL"))))
+  )
 #+end_src
 
 ** Capture Templates
@@ -2416,9 +2465,12 @@ Toggles
 ^^^^^^^^-----------------------------------------------------------------
 _w_: include wait+sched.
 _c_: include clocking
+_s_: super agenda mode
 "
     ("w" bh/toggle-next-task-display)
-    ("c" kk/org-agenda-log-mode-include-clocking-toggle))
+    ("c" kk/org-agenda-log-mode-include-clocking-toggle)
+    ("s" org-super-agenda-mode))
+
   (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map))
 #+end_src
 
@@ -2825,7 +2877,7 @@ Make code be replaced by its formatted result -- and periodically updated.
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UC5QwYlOxcT1higtcJVGzCCg" videos)
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UClcE-kVhqyiHCcjYwcpfj9w" videos)
           ("https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" videos)
-	  ("https://www.youtube.com/feeds/videos.xml?channel_id=UCeRbfFkBo6wJIyq87Rxg7EA" videos outdoor bushcraft)
+          ("https://www.youtube.com/feeds/videos.xml?channel_id=UCeRbfFkBo6wJIyq87Rxg7EA" videos outdoor bushcraft)
 
           ("https://videos.lukesmith.xyz/feeds/videos.xml?accountId=3" videos)
 
