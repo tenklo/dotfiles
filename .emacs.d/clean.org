@@ -943,32 +943,25 @@ When set to 'note, rescheduling or scattering breaks."
             :tag "urgent")
      (:name "Important"
             :tag "important")
-     (:name "Refile"
-            :tag "refile")
+     (:name "Due today"
+            :deadline today)
+     (:name "Overdue"
+            :deadline past)
+     (:name "Due soon"
+            :deadline future)
      (:name "Pets"
             :tag "pets")
-     (:name "Personal"
-            :time-grid t
-            :and (:not (:habit t)
-                       :tag "PERSONAL"))
-     (:name "Personal Habits"
-            :time-grid t
-            :and (:habit t :tag "PERSONAL"))
-     (:name "Work"
-            :time-grid t
-            :and (:not (:habit t)
-                       :tag "WORK"))
-     (:name "Work Habits"
-            :time-grid t
-            :and (:habit t :tag "WORK"))
-     (:name "School"
-            :time-grid t
-            :and (:not (:habit t)
-                       :tag "SCHOOL"))
-     (:name "School Habits"
-            :time-grid t
-            :and (:habit t :tag "SCHOOL"))))
-  )
+     (:name "Habits"
+            :habit t
+            :order 150)
+     (:name "Quick Picks"
+            :and (:effort< "0:16" :not (:pred kk/org-hour-specification-p)))
+     (:name "Scheduled earlier"
+            :scheduled past
+            :order 120)))
+  :config
+  (defun kk/org-hour-specification-p (item)
+    (s-matches? "[0-9][0-9]?:[0-9][0-9]" item)))
 #+end_src
 
 ** Capture Templates
