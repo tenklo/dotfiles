@@ -2916,6 +2916,19 @@ Make code be replaced by its formatted result -- and periodically updated.
   (pdf-loader-install))
 #+end_src
 
+** Open In Vim
+
+#+begin_src emacs-lisp
+(defun kk/open-in-vim ()
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if file-name
+        (if (file-exists-p file-name)
+            (async-shell-command (format "setsid -f $TERMINAL -e vim +%s %s" (line-number-at-pos) file-name))
+          (message (format "The file %s does not exist." file-name)))
+      (message "Sum Thing Wong."))))
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
