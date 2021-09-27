@@ -212,6 +212,18 @@ For editing commands I guess.
 #+end_src
 #+end_src
 
+** Customization Through Emacs
+:PROPERTIES:
+:ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
+:END:
+
+Make =M-x customize= persistent.
+
+#+begin_src emacs-lisp
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file t)
+#+end_src
+
 * System Specific
 
 ** Declarations
@@ -2975,18 +2987,6 @@ Make code be replaced by its formatted result -- and periodically updated.
   :hook (eshell-first-time-mode . kk/eshell-configure)
   :config
   (global-set-key (kbd "C-c C-<return>") 'eshell))
-#+end_src
-
-* Customization Through Emacs
-:PROPERTIES:
-:ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
-:END:
-
-Make =M-x customize= persistent.
-
-#+begin_src emacs-lisp
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file t)
 #+end_src
 
 * Disabled Commands
