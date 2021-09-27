@@ -937,7 +937,7 @@ When set to 'note, rescheduling or scattering breaks."
   :custom
   (org-super-agenda-header-separator "")
   (org-super-agenda-mode t)
-  (org-super-agenda-unmatched-name "")
+  (org-super-agenda-unmatched-name "General")
   (org-super-agenda-groups
    '((:name "Urgent"
             :tag "urgent")
