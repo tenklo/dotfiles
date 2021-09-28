@@ -1669,7 +1669,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                   (company-dabbrev-code company-gtags company-etags company-keywords)
                   company-oddmuse company-dabbrev company-abbrev company-ispell))
   (company-selection-wrap-around t)
-  (company-show-quick-access t))
+  (company-show-quick-access t)
+  (company-minimum-prefix-length 2))
 #+end_src
 
 ** SQL
