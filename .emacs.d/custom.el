@@ -8,7 +8,7 @@
  '(browse-url-generic-program "o")
  '(browse-url-secondary-browser-function 'browse-url-generic)
  '(calendar-date-style 'iso)
- '(debug-on-error t)
+ '(debug-on-error nil)
  '(grep-find-template
    "find <D> <X> -type f <F> -exec grep <C> -n -I --null -e <R> /dev/null \\{\\} +")
  '(grep-template "grep <X> <C> -n -I --null -e <R> <F>")
