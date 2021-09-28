@@ -2316,7 +2316,7 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
     "
       ^Time                           ^Agenda
       ^^^^^^^^-----------------------------------------------------------------
-      _p_: pomodoro                   _s_: search
+      _p_: pomodoro                   _s_: search                _t_: tables
       _e_: extend clock to now        _S_: search todo only
       _i_: clock in                   _m_: match
       _o_: clock out                  _M_: match todo only
@@ -2328,7 +2328,8 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
     ("s" org-search-view :exit t)
     ("S" (org-search-view t) :exit t)
     ("m" org-tags-view :exit t)
-    ("M" (org-tags-view t) :exit t))
+    ("M" (org-tags-view t) :exit t)
+    ("t" kk/org-table-hydra/body :exit t))
   (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
   (defhydra hydra-straight-helper (:hint nil)
@@ -2478,6 +2479,35 @@ _s_: super agenda mode
     ("s" org-super-agenda-mode))
 
   (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map))
+
+(defhydra kk/org-table-hydra (:hint nil)
+  "
+  ^Org Tables^
+  ^^^^^^^^-----------------------------------------------------------------
+  _p_: prev       _P_: move up      _h_: hline & next line    _F_, _B_: move cols
+  _n_: next       _N_: move down    _H_: insert hline below   _N_, _P_: move rows
+  _f_: forward    _r_: insert row   _c_: insert column        _w_: toggle width
+  _b_: back       _R_: kill row     _C_: kill column
+  "
+  ("n" next-line)
+  ("p" previous-line)
+  ("N" org-metadown)
+  ("P" org-metaup)
+  ("h" org-table-hline-and-move)
+  ("H" org-table-insert-hline)
+  ("f" org-cycle)
+  ("TAB" org-cycle)
+  ("b" org-shifttab)
+  ("<backtab>" org-shifttab)
+  ("r" org-table-insert-row)
+  ("R" org-table-kill-row)
+  ("F" org-table-move-column-right)
+  ("B" org-table-move-column-left)
+  ("c" org-table-insert-column)
+  ("C" org-table-delete-column)
+  ("u" undo)
+  ("q" nil)
+  ("w" org-table-toggle-column-width))
 #+end_src
 
 ** Winner Mode
