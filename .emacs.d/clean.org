@@ -2967,6 +2967,9 @@ Make code be replaced by its formatted result -- and periodically updated.
 #+end_src
 
 ** Open In Vim
+:PROPERTIES:
+:ID:       ac02879d-a33a-4a61-9b5d-eb525c52b97f
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/open-in-vim ()
