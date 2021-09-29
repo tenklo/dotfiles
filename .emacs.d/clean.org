@@ -1593,6 +1593,21 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (org-download-method 'attach))
 #+end_src
 
+** Org-ql
+:PROPERTIES:
+:ID:       8d5d71e7-5be7-470f-a5bb-4d8ffd4e2ccb
+:END:
+
+#+begin_src emacs-lisp
+(use-package org-ql
+  :config
+  (use-package helm-org-ql
+    :config
+    (global-set-key (kbd "<f9> v") 'org-ql-view)
+    (global-set-key (kbd "<f9> s") 'helm-org-ql-agenda-files)
+    (global-set-key (kbd "<f9> S") 'org-ql-search)))
+#+end_src
+
 * Development
 
 ** General
