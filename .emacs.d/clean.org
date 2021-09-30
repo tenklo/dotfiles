@@ -53,6 +53,18 @@ the individual device needs.
 (define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
 #+end_src
 
+** Yasnippet
+:PROPERTIES:
+:ID:       0443b84d-c816-42a8-9b5c-1a085ae702ca
+:END:
+
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :config
+  (yas-reload-all)
+  (add-hook 'org-mode-hook #'yas-minor-mode))
+#+end_src
+
 ** Auto Reverting/Saving
 :PROPERTIES:
 :ID:       01cb8b21-9528-4a0e-b1da-c5f06e5598fe

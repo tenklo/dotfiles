@@ -1,0 +1,10 @@
+# key: newproject
+# name: newproject
+# --
+** ${1:Projektname}
+:PROPERTIES:
+:CATEGORY:  ${2:Kategorie}
+:END:
+*** Infos, Urls, ...
+*** Kommunikation
+*** Tasks
