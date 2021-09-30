@@ -960,11 +960,13 @@ When set to 'note, rescheduling or scattering breaks."
             :deadline past)
      (:name "Due soon"
             :deadline future)
+     (:name "Birthdays"
+            :category "birthday")
      (:name "Pets"
             :tag "pets")
      (:name "Emacs"
             :category "emacs"
-	    :tag "emacs")
+            :tag "emacs")
      (:name "Habits"
             :habit t
             :order 150)
