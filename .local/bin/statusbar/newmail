@@ -2,6 +2,6 @@
 
 new=""
 newmailtext=" "
-mu find flag:unread > /dev/null 2>&1 && new="$newmailtext"
+mu find flag:unread > /dev/null 2>&1 && new="$newmailtext $(mu find flag:unread | wc -l)"
 
 echo "$new"
