@@ -431,7 +431,6 @@ Intended to be used in an `org-mode-hook'."
               (org-save-all-org-buffers)))
 
 (setq org-clone-delete-id t)
-(global-set-key (kbd "<f9> r") 'org-refile-goto-last-stored)
 #+end_src
 
 *** Logging
@@ -606,11 +605,6 @@ as the default task."
   (message (concat "Clocking in to parent task instead of default task is "
                    (if kk/clock-in-parent-tasks "ACTIVE" "INACTIVE"))))
 
-(global-set-key (kbd "<f9> i") 'bh/punch-in)
-(global-set-key (kbd "<f9> o") 'bh/punch-out)
-(global-set-key (kbd "<f9> j") 'org-clock-goto)
-(global-set-key (kbd "<f9> d") 'kk/org-clock-in-parent-tasks-toggle)
-(global-set-key (kbd "<f9> a") 'org-show-all)
 (global-set-key (kbd "<f10>") 'org-clock-goto)
 (global-set-key (kbd "C-<f10>") 'org-clock-out)
 (global-set-key (kbd "C-S-<f10>") '(lambda ()
@@ -643,13 +637,11 @@ as the default task."
       (let ((marker (org-get-at-bol 'org-hd-marker)))
         (org-clock-in nil (org-read-date t t)))
     (org-clock-in nil (org-read-date t t))))
-(global-set-key (kbd "<f9> I") 'kk/clock-in-at-time)
 
 (defun kk/clock-out-at-time ()
   "Call `org-clock-out' and specify `AT-TIME'"
   (interactive)
   (org-clock-out nil nil (org-read-date t t)))
-(global-set-key (kbd "<f9> O") 'kk/clock-out-at-time)
 #+end_src
 
 **** Pomodoro
@@ -668,8 +660,6 @@ as the default task."
   (org-pomodoro-long-break-format "Long Br~%s")
 
   :config
-  (global-set-key (kbd "<f9> p") 'org-pomodoro)
-
   (defun kk/clock-in-pomodoro-break-task ()
     (interactive)
     (org-with-point-at (org-id-find kk/default-pomodoro-break-task-id 'marker)
@@ -762,9 +752,6 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "<f9> t") 'org-timer-set-timer)
-(global-set-key (kbd "<f9> T") 'org-timer-stop)
-(global-set-key (kbd "<f9> C-t") 'org-timer-pause-or-continue)
 (setq org-clock-sound "~/.emacs.d/straight/build/org-pomodoro/resources/bell.wav")
 #+end_src
 
@@ -976,7 +963,7 @@ When set to 'note, rescheduling or scattering breaks."
             :tag "pets")
      (:name "Emacs"
             :category "emacs"
-	    :tag "emacs")
+            :tag "emacs")
      (:name "Habits"
             :habit t
             :order 150)
@@ -1437,7 +1424,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
     (org-cycle)
     (org-cycle)
     (org-cycle)))
-(global-set-key (kbd "<f9> h") 'bh/hide-other)
 #+end_src
 
 ** Habits
@@ -1504,8 +1490,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 (require 'org-contacts)
 (setq org-contacts-files kk/contacts-files)
-(global-set-key (kbd "<f9> c") 'org-contacts)
-(global-set-key (kbd "<f9> C") 'org-contacts-view-send-email)
 (setq org-contacts-birthday-format "%l (%Y)")
 #+end_src
 
@@ -1613,11 +1597,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 (use-package org-ql
   :config
-  (use-package helm-org-ql
-    :config
-    (global-set-key (kbd "<f9> v") 'org-ql-view)
-    (global-set-key (kbd "<f9> s") 'helm-org-ql-agenda-files)
-    (global-set-key (kbd "<f9> S") 'org-ql-search)))
+  (use-package helm-org-ql))
 #+end_src
 
 * Development
@@ -2456,6 +2436,37 @@ _s_: super agenda mode
   ("u" undo)
   ("q" nil)
   ("w" org-table-toggle-column-width))
+
+(defhydra kk/hydra-org-things (:hint nil)
+  "
+^Clocking^                   ^Timer^                  ^Contacts^      ^Query^
+^^^^^^^^------------------------------------------------------------------------------------
+_i_: punch in                _t_: set                 _c_: search     _s_: helm agenda files
+_o_: punch out               _T_: stop                _C_: send mail  _S_: ql-search
+_I_: clock in at time        _C-t_: pause or continue ^ ^             _v_: view
+_O_: clock out at time
+_d_: toggle clock in parent
+"
+  ("r" org-refile-goto-last-stored)
+  ("i" bh/punch-in)
+  ("o" bh/punch-out)
+  ("d" kk/org-clock-in-parent-tasks-toggle)
+  ("a" org-show-all)
+  ("I" kk/clock-in-at-time)
+  ("O" kk/clock-out-at-time)
+  ("t" org-timer-set-timer)
+  ("T" org-timer-stop)
+  ("C-t" org-timer-pause-or-continue)
+  ("h" bh/hide-other)
+  ("c" org-contacts)
+  ("C" org-contacts-view-send-email)
+  ("v" org-ql-view)
+  ("s" helm-org-ql-agenda-files)
+  ("S" org-ql-search)
+  ("q" nil))
+(global-set-key (kbd "<f9>") 'kk/hydra-org-things/body)
+#+end_src
+
 *** Straight
 :PROPERTIES:
 :ID:       eddaa5d6-1ffc-46a8-a756-04718b1ad00e
