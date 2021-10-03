@@ -2257,11 +2257,36 @@ in case Emacs daemon is used."
 
 #+begin_src emacs-lisp
 (use-package hydra
-  :defer t
-  :config
+  :defer t)
+#+end_src
 
-  (defhydra hydra-development (:hint nil)
-    "
+*** Global
+:PROPERTIES:
+:ID:       c4be63eb-6f37-4490-aa00-b47dd43e70cb
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-global (:hint nil)
+  "
+^Org                   ^Text
+^^^^^^^^-----------------------------------------------------------------
+_i_: punch in          _t_: tidy
+_o_: punch out
+"
+  ("i" bh/punch-in :exit t)
+  ("o" bh/punch-out :exit t)
+  ("t" kk/tidy-buffer :exit t))
+(global-set-key (kbd "C-c g") 'hydra-global/body)
+#+end_src
+
+*** Development
+:PROPERTIES:
+:ID:       570b7e26-4d86-4323-8cc0-8f323d398962
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-development (:hint nil)
+  "
 ^Development^          ^LSP
 ^^^^^^^^-----------------------------------------------------------------
 ^ ^                    _l_: lsp
@@ -2269,81 +2294,108 @@ _c_: recompile         _L_: lsp-server
 _C_: compile           _t_: tree
 _s_: smartparens       _d_: dap
 "
-    ("c" recompile :exit t)
-    ("C" compile :exit t)
-    ("f" kk/tidy-buffer :exit t)
-    ("l" hydra-lsp/body :exit t)
-    ("L" lsp :exit t)
-    ("t" treemacs :exit t)
-    ("d" dap-hydra :exit t)
-    ("s" hydra-smartparens/body :exit t))
-  (bind-key "C-c h" #'hydra-development/body prog-mode-map)
+  ("c" recompile :exit t)
+  ("C" compile :exit t)
+  ("f" kk/tidy-buffer :exit t)
+  ("l" hydra-lsp/body :exit t)
+  ("L" lsp :exit t)
+  ("t" treemacs :exit t)
+  ("d" dap-hydra :exit t)
+  ("s" hydra-smartparens/body :exit t))
+(bind-key "C-c h" #'hydra-development/body prog-mode-map)
+#+end_src
 
-  (defhydra hydra-mail (:hint nil)
-    "
+*** Mail
+:PROPERTIES:
+:ID:       29721939-f439-4637-921c-5216f18112d7
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-mail (:hint nil)
+  "
 ^Blocking^              ^Misc
 ^^^^^^^^-----------------------------------------------------------------
 _r_: by regex           _d_: new mail dir
 _f_: by sender          _c_: switch context
 _s_: by subject         _h_: toggle html view
 "
-    ("r" kk/mail-block-by-regex :exit t)
-    ("f" kk/mail-block-by-sender :exit t)
-    ("s" kk/mail-block-by-subject :exit t)
-    ("d" kk/mu4e-create-new-mail-folder :exit t)
-    ("c" mu4e-context-switch)
-    ("h" mu4e-view-toggle-html))
+  ("r" kk/mail-block-by-regex :exit t)
+  ("f" kk/mail-block-by-sender :exit t)
+  ("s" kk/mail-block-by-subject :exit t)
+  ("d" kk/mu4e-create-new-mail-folder :exit t)
+  ("c" mu4e-context-switch)
+  ("h" mu4e-view-toggle-html))
 
-  (defhydra hydra-mail-compose (:hint nil)
-    "
+(defhydra hydra-mail-compose (:hint nil)
+  "
 ^Add^                   ^Org
 ^^^^^^^^-----------------------------------------------------------------
 _s_: signature          _e_: edit
 _a_: attachment         _h_: htmlize
 "
-    ("s" kk/mu4e-choose-signature :exit t)
-    ("a" mail-add-attachment :exit t)
-    ("h" org-mime-htmlize :exit t)
-    ("e" org-mime-edit-mail-in-org-mode :exit t))
+  ("s" kk/mu4e-choose-signature :exit t)
+  ("a" mail-add-attachment :exit t)
+  ("h" org-mime-htmlize :exit t)
+  ("e" org-mime-edit-mail-in-org-mode :exit t))
+#+end_src
 
-  (defhydra hydra-ediff (:color blue :hint nil)
-    "
+*** Ediff
+:PROPERTIES:
+:ID:       859ce15a-8380-4882-ad0e-489b7f59b39a
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-ediff (:color blue :hint nil)
+  "
 ^Buffers^              ^Files^                ^VC^               ^Ediff regions
 ^^^^^^^^-----------------------------------------------------------------
 _b_: buffers           _f_: files             _r_: revisions     _l_: linewise
 _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 ^ ^                    _c_: current file
 "
-    ("b" ediff-buffers)
-    ("B" ediff-buffers3)
-    ("=" ediff-files)
-    ("f" ediff-files)
-    ("F" ediff-files3)
-    ("c" ediff-current-file)
-    ("r" ediff-revision)
-    ("l" ediff-regions-linewise)
-    ("w" ediff-regions-wordwise))
-  (global-set-key (kbd "C-c d") 'hydra-ediff/body)
+  ("b" ediff-buffers)
+  ("B" ediff-buffers3)
+  ("=" ediff-files)
+  ("f" ediff-files)
+  ("F" ediff-files3)
+  ("c" ediff-current-file)
+  ("r" ediff-revision)
+  ("l" ediff-regions-linewise)
+  ("w" ediff-regions-wordwise))
+(global-set-key (kbd "C-c d") 'hydra-ediff/body)
+#+end_src
 
-  ;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
-  ;; focus on the *Occur* window and hides upon request in case needed later.
-  (defhydra hydra-occur-dwim (:hint nil)
-    "
+*** Occur
+:PROPERTIES:
+:ID:       fe767c08-089c-42c1-941d-f5f62fdbf25d
+:END:
+
+#+begin_src emacs-lisp
+;; Used in conjunction with occur-mode-goto-occurrence-advice this helps keep
+;; focus on the *Occur* window and hides upon request in case needed later.
+(defhydra hydra-occur-dwim (:hint nil)
+  "
   ^Occur^             ^Navigation^     ^Visibility
   ^^^^^^^^-----------------------------------------------------------------
   _o_: occur-dwim     _j_: next        _h_: hide
   ^ ^                 _k_: prev        _r_: re-attach
   "
-    ("o" occur-dwim "occur-dwim" :color red)
-    ("j" occur-next "Next" :color red)
-    ("k" occur-prev "Prev":color red)
-    ("h" delete-window "Hide" :color blue)
-    ("r" (reattach-occur) "Re-attach" :color red))
+  ("o" occur-dwim "occur-dwim" :color red)
+  ("j" occur-next "Next" :color red)
+  ("k" occur-prev "Prev":color red)
+  ("h" delete-window "Hide" :color blue)
+  ("r" (reattach-occur) "Re-attach" :color red))
 
-  (global-set-key (kbd "M-s O") 'hydra-occur-dwim/body)
+(global-set-key (kbd "M-s O") 'hydra-occur-dwim/body)
+#+end_src
 
-  (defhydra hydra-org-mode (:hint nil)
-    "
+*** Org-Mode
+:PROPERTIES:
+:ID:       464def6e-db43-4135-9091-20c741768584
+:END:
+#+begin_src emacs-lisp
+(defhydra hydra-org-mode (:hint nil)
+  "
       ^Time                           ^Agenda
       ^^^^^^^^-----------------------------------------------------------------
       _p_: pomodoro                   _s_: search                _t_: tables
@@ -2351,165 +2403,30 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
       _i_: clock in                   _m_: match
       _o_: clock out                  _M_: match todo only
       "
-    ("p" org-pomodoro :exit t)
-    ("e" org-pomodoro-extend-last-clock :exit t)
-    ("i" org-clock-in :exit t)
-    ("o" org-clock-out :exit t)
-    ("s" org-search-view :exit t)
-    ("S" (org-search-view t) :exit t)
-    ("m" org-tags-view :exit t)
-    ("M" (org-tags-view t) :exit t)
-    ("t" kk/org-table-hydra/body :exit t))
-  (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
+  ("p" org-pomodoro :exit t)
+  ("e" org-pomodoro-extend-last-clock :exit t)
+  ("i" org-clock-in :exit t)
+  ("o" org-clock-out :exit t)
+  ("s" org-search-view :exit t)
+  ("S" (org-search-view t) :exit t)
+  ("m" org-tags-view :exit t)
+  ("M" (org-tags-view t) :exit t)
+  ("t" kk/org-table-hydra/body :exit t))
+(bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
-  (defhydra hydra-straight-helper (:hint nil)
-    "
-      _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
-      _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
-      ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
-      _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
-      _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
-    ("c" straight-check-all)
-    ("C" straight-check-package)
-    ("r" straight-rebuild-all)
-    ("R" straight-rebuild-package)
-    ("f" straight-fetch-all)
-    ("F" straight-fetch-package)
-    ("p" straight-pull-all)
-    ("P" straight-pull-package)
-    ("m" straight-merge-all)
-    ("M" straight-merge-package)
-    ("n" straight-normalize-all)
-    ("N" straight-normalize-package)
-    ("u" straight-push-all)
-    ("U" straight-push-package)
-    ("v" straight-freeze-versions)
-    ("V" straight-thaw-versions)
-    ("w" straight-watcher-start)
-    ("W" straight-watcher-quit)
-    ("g" straight-get-recipe)
-    ("e" straight-prune-build)
-    ("q" nil))
-
-  (defhydra hydra-anki-mode (:hint nil)
-    "
-      ^Anki
-      ^^^^^^^^-----------------------------------------------------------------
-      _i_: insert note         _s_: export subtree to html
-      _c_: cloze region        _C_: convert region to html
-      _p_: push notes
-      "
-    ("p" anki-editor-push-notes :exit t)
-    ("i" anki-editor-insert-note :exit t)
-    ("c" anki-editor-cloze-region :exit t)
-    ("s" anki-editor-export-subtree-to-html :exit t)
-    ("C" anki-editor-convert-region-to-html :exit t))
-  (add-hook 'anki-editor-mode-hook
-            (lambda () (local-set-key (kbd "C-c h") #'hydra-anki-mode/body)))
-
-  (defhydra hydra-smartparens (:hint nil)
-    "
-      Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
-      ------------------------------------------------------------------------------------------------------------------------
-      [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
-      [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
-      [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
-      [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit   [_TAB_] toggle smartparens mode"
-    ;; Moving
-    ("a" sp-beginning-of-sexp)
-    ("e" sp-end-of-sexp)
-    ("f" sp-forward-sexp)
-    ("b" sp-backward-sexp)
-    ("n" sp-down-sexp)
-    ("N" sp-backward-down-sexp)
-    ("p" sp-up-sexp)
-    ("P" sp-backward-up-sexp)
-
-    ;; Slurping & barfing
-    ("h" sp-backward-slurp-sexp)
-    ("H" sp-backward-barf-sexp)
-    ("l" sp-forward-slurp-sexp)
-    ("L" sp-forward-barf-sexp)
-
-    ;; Wrapping
-    ("R" sp-rewrap-sexp)
-    ("u" sp-unwrap-sexp)
-    ("U" sp-backward-unwrap-sexp)
-    ("(" sp-wrap-round)
-    ("{" sp-wrap-curly)
-    ("[" sp-wrap-square)
-
-    ;; Sexp juggling
-    ("S" sp-split-sexp)
-    ("s" sp-splice-sexp)
-    ("r" sp-raise-sexp)
-    ("j" sp-join-sexp)
-    ("t" sp-transpose-sexp)
-    ("A" sp-absorb-sexp)
-    ("E" sp-emit-sexp)
-    ("o" sp-convolute-sexp)
-
-    ;; Destructive editing
-    ("c" sp-change-inner :exit t)
-    ("C" sp-change-enclosing :exit t)
-    ("k" sp-kill-sexp)
-    ("K" sp-backward-kill-sexp)
-    ("w" sp-copy-sexp)
-
-    ("TAB" smartparens-mode :exit t)
-    ("q" nil)
-    ("g" nil))
-
-  (defhydra hydra-global (:hint nil)
-    "
-^Org                   ^Text
-^^^^^^^^-----------------------------------------------------------------
-_i_: punch in          _t_: tidy
-_o_: punch out
-"
-    ("i" bh/punch-in :exit t)
-    ("o" bh/punch-out :exit t)
-    ("t" kk/tidy-buffer :exit t))
-  (global-set-key (kbd "C-c g") 'hydra-global/body)
-
-  (defhydra emms-hydra (:hint nil)
-    "
-^Control^             ^^              ^^               ^Sources
-^^^^^^^^-----------------------------------------------------------------
-_s_: start            _n_: next       _>_: forward     _F_: file
-_h_: stop             _p_: prev       _<_: backward    _D_: dir
-_c_: show current     _f_: shuffle    ^ ^              _T_: dir tree
-_SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
-"
-    ("s" emms-start)
-    ("h" emms-stop)
-    ("n" emms-next)
-    ("p" emms-previous)
-    ("f" emms-shuffle)
-    ("c" emms-show)
-    ("F" emms-play-file)
-    ("D" emms-play-directory)
-    ("T" emms-play-directory-tree)
-    (">" emms-seek-forward)
-    ("<" emms-seek-backward)
-    ("b" emms-playlist-mode-go :exit t)
-    ("q" nil :exit t)
-    ("SPC" emms-pause))
-  (global-set-key (kbd "C-c e") 'emms-hydra/body)
-
-  (defhydra org-agenda-hydra (:hint nil)
-    "
+(defhydra org-agenda-hydra (:hint nil)
+  "
 Toggles
 ^^^^^^^^-----------------------------------------------------------------
 _w_: include wait+sched.
 _c_: include clocking
 _s_: super agenda mode
 "
-    ("w" bh/toggle-next-task-display)
-    ("c" kk/org-agenda-log-mode-include-clocking-toggle)
-    ("s" org-super-agenda-mode))
+  ("w" bh/toggle-next-task-display)
+  ("c" kk/org-agenda-log-mode-include-clocking-toggle)
+  ("s" org-super-agenda-mode))
 
-  (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map))
+(bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map)
 
 (defhydra kk/org-table-hydra (:hint nil)
   "
@@ -2539,6 +2456,155 @@ _s_: super agenda mode
   ("u" undo)
   ("q" nil)
   ("w" org-table-toggle-column-width))
+*** Straight
+:PROPERTIES:
+:ID:       eddaa5d6-1ffc-46a8-a756-04718b1ad00e
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-straight-helper (:hint nil)
+  "
+      _c_heck all       |_f_etch all     |_m_erge all      |_n_ormalize all   |p_u_sh all
+      _C_heck package   |_F_etch package |_M_erge package  |_N_ormlize package|p_U_sh package
+      ----------------^^+--------------^^+---------------^^+----------------^^+------------||_q_uit||
+      _r_ebuild all     |_p_ull all      |_v_ersions freeze|_w_atcher start   |_g_et recipe
+      _R_ebuild package |_P_ull package  |_V_ersions thaw  |_W_atcher quit    |prun_e_ build"
+  ("c" straight-check-all)
+  ("C" straight-check-package)
+  ("r" straight-rebuild-all)
+  ("R" straight-rebuild-package)
+  ("f" straight-fetch-all)
+  ("F" straight-fetch-package)
+  ("p" straight-pull-all)
+  ("P" straight-pull-package)
+  ("m" straight-merge-all)
+  ("M" straight-merge-package)
+  ("n" straight-normalize-all)
+  ("N" straight-normalize-package)
+  ("u" straight-push-all)
+  ("U" straight-push-package)
+  ("v" straight-freeze-versions)
+  ("V" straight-thaw-versions)
+  ("w" straight-watcher-start)
+  ("W" straight-watcher-quit)
+  ("g" straight-get-recipe)
+  ("e" straight-prune-build)
+  ("q" nil))
+#+end_src
+
+*** Anki
+:PROPERTIES:
+:ID:       a97c4628-d8a0-42c6-86ff-a9873dc9fe76
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-anki-mode (:hint nil)
+  "
+      ^Anki
+      ^^^^^^^^-----------------------------------------------------------------
+      _i_: insert note         _s_: export subtree to html
+      _c_: cloze region        _C_: convert region to html
+      _p_: push notes
+      "
+  ("p" anki-editor-push-notes :exit t)
+  ("i" anki-editor-insert-note :exit t)
+  ("c" anki-editor-cloze-region :exit t)
+  ("s" anki-editor-export-subtree-to-html :exit t)
+  ("C" anki-editor-convert-region-to-html :exit t))
+(add-hook 'anki-editor-mode-hook
+          (lambda () (local-set-key (kbd "C-c h") #'hydra-anki-mode/body)))
+#+end_src
+
+*** Smartparens
+:PROPERTIES:
+:ID:       762d2501-002b-4bbc-8166-367e0432b782
+:END:
+
+#+begin_src emacs-lisp
+(defhydra hydra-smartparens (:hint nil)
+  "
+      Moving^^^^                       Slurp & Barf^^   Wrapping^^            Sexp juggling^^^^               Destructive
+      ------------------------------------------------------------------------------------------------------------------------
+      [_a_] beginning  [_n_] down      [_h_] bw slurp   [_R_]   rewrap        [_S_] split   [_t_] transpose   [_c_] change inner  [_w_] copy
+      [_e_] end        [_N_] bw down   [_H_] bw barf    [_u_]   unwrap        [_s_] splice  [_A_] absorb      [_C_] change outer
+      [_f_] forward    [_p_] up        [_l_] slurp      [_U_]   bw unwrap     [_r_] raise   [_E_] emit        [_k_] kill          [_g_] quit
+      [_b_] backward   [_P_] bw up     [_L_] barf       [_(__{__[_] wrap (){}[]   [_j_] join    [_o_] convolute   [_K_] bw kill       [_q_] quit   [_TAB_] toggle smartparens mode"
+  ;; Moving
+  ("a" sp-beginning-of-sexp)
+  ("e" sp-end-of-sexp)
+  ("f" sp-forward-sexp)
+  ("b" sp-backward-sexp)
+  ("n" sp-down-sexp)
+  ("N" sp-backward-down-sexp)
+  ("p" sp-up-sexp)
+  ("P" sp-backward-up-sexp)
+
+  ;; Slurping & barfing
+  ("h" sp-backward-slurp-sexp)
+  ("H" sp-backward-barf-sexp)
+  ("l" sp-forward-slurp-sexp)
+  ("L" sp-forward-barf-sexp)
+
+  ;; Wrapping
+  ("R" sp-rewrap-sexp)
+  ("u" sp-unwrap-sexp)
+  ("U" sp-backward-unwrap-sexp)
+  ("(" sp-wrap-round)
+  ("{" sp-wrap-curly)
+  ("[" sp-wrap-square)
+
+  ;; Sexp juggling
+  ("S" sp-split-sexp)
+  ("s" sp-splice-sexp)
+  ("r" sp-raise-sexp)
+  ("j" sp-join-sexp)
+  ("t" sp-transpose-sexp)
+  ("A" sp-absorb-sexp)
+  ("E" sp-emit-sexp)
+  ("o" sp-convolute-sexp)
+
+  ;; Destructive editing
+  ("c" sp-change-inner :exit t)
+  ("C" sp-change-enclosing :exit t)
+  ("k" sp-kill-sexp)
+  ("K" sp-backward-kill-sexp)
+  ("w" sp-copy-sexp)
+
+  ("TAB" smartparens-mode :exit t)
+  ("q" nil)
+  ("g" nil))
+#+end_src
+
+*** Emms
+:PROPERTIES:
+:ID:       90fa4518-1860-423d-928c-c22f9d2e186a
+:END:
+
+#+begin_src emacs-lisp
+(defhydra emms-hydra (:hint nil)
+  "
+^Control^             ^^              ^^               ^Sources
+^^^^^^^^-----------------------------------------------------------------
+_s_: start            _n_: next       _>_: forward     _F_: file
+_h_: stop             _p_: prev       _<_: backward    _D_: dir
+_c_: show current     _f_: shuffle    ^ ^              _T_: dir tree
+_SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
+"
+  ("s" emms-start)
+  ("h" emms-stop)
+  ("n" emms-next)
+  ("p" emms-previous)
+  ("f" emms-shuffle)
+  ("c" emms-show)
+  ("F" emms-play-file)
+  ("D" emms-play-directory)
+  ("T" emms-play-directory-tree)
+  (">" emms-seek-forward)
+  ("<" emms-seek-backward)
+  ("b" emms-playlist-mode-go :exit t)
+  ("q" nil :exit t)
+  ("SPC" emms-pause))
+(global-set-key (kbd "C-c e") 'emms-hydra/body)
 #+end_src
 
 ** Winner Mode
