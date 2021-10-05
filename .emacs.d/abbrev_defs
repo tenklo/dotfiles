@@ -2,6 +2,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("KK" "Karsten Klöss" nil :count 8)
+    ("bc" "because" nil :count 1)
     ("becuase" "because" nil :count 2)
     ("dein" "Dein" nil :count 2)
     ("deine" "Deine" nil :count 2)
