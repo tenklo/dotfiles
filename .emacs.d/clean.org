@@ -447,15 +447,6 @@ Intended to be used in an `org-mode-hook'."
 (setq org-agenda-log-mode-items (quote (closed state)))
 
 (use-package htmlize)
-
-(defun kk/org-agenda-log-mode-include-clocking-toggle ()
-  (interactive)
-  (if (member 'clock org-agenda-log-mode-items)
-      (setq org-agenda-log-mode-items (delete 'clock org-agenda-log-mode-items))
-    (add-to-list 'org-agenda-log-mode-items 'clock))
-  (when  (equal major-mode 'org-agenda-mode)
-    (org-agenda-redo))
-  org-agenda-log-mode-items)
 #+end_src
 
 *** Clocking
@@ -2401,11 +2392,9 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
 Toggles
 ^^^^^^^^-----------------------------------------------------------------
 _w_: include wait+sched.
-_c_: include clocking
 _s_: super agenda mode
 "
   ("w" bh/toggle-next-task-display)
-  ("c" kk/org-agenda-log-mode-include-clocking-toggle)
   ("s" org-super-agenda-mode))
 
 (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map)
