@@ -571,7 +571,7 @@ as the default task."
       (save-restriction
         (widen)
         (while (and (not parent-task) (org-up-heading-safe))
-          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
+          (when (member (nth 2 (org-heading-components)) org-not-done-keywords)
             (setq parent-task (point))))
         (if (and parent-task kk/clock-in-parent-tasks)
             (org-with-point-at parent-task
