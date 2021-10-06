@@ -3032,7 +3032,6 @@ Make code be replaced by its formatted result -- and periodically updated.
           ("https://old.reddit.com/r/linux.rss" linux reddit)
           ("https://old.reddit.com/r/archlinux.rss" linux reddit)
           ("https://old.reddit.com/r/suckless.rss" reddit)
-          ("https://old.reddit.com/r/wallstreetbets.rss" investing reddit money)
           ("https://old.reddit.com/r/emacs/.rss" reddit)
 
           ;; Podcasts
