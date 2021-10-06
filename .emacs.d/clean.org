@@ -1714,6 +1714,16 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (use-package emmet-mode)
 #+end_src
 
+*** Know Your HTTP Well
+:PROPERTIES:
+:ID:       de4ab145-94e0-4d39-a583-38e11e93f092
+:END:
+
+#+begin_src emacs-lisp
+(use-package know-your-http-well
+  :defer t)
+#+end_src
+
 ** C#
 :PROPERTIES:
 :ID:       019c9562-c793-4a74-a688-2e18a1184514
