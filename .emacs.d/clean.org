@@ -1640,9 +1640,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 (use-package smartparens
   :defer t
+  :custom
+  (smartparens-global-mode t)
   :config
-  (require 'smartparens-config)
-  (smartparens-global-mode))
+  (require 'smartparens-config))
 #+end_src
 
 *** Projectile
