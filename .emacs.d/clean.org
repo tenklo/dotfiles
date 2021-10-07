@@ -300,7 +300,9 @@ Make =M-x customize= persistent.
      (pcase tag
        ("HOLD"
         (concat "-" tag))
-       ("PERSONAL"
+       ("lernthemen"
+        (concat "-" tag))
+       ("WORK"
         (concat "+" tag))))
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
