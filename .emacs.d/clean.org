@@ -1037,6 +1037,28 @@ When set to 'note, rescheduling or scattering breaks."
          :empty-lines 1)))
 #+end_src
 
+*** Hooks
+:PROPERTIES:
+:ID:       8b137f24-3a90-4dfa-b731-379c9d10b598
+:END:
+
+#+begin_src emacs-lisp
+(defun kk/org-set-done-task-if-buffer-name-equal (task-id buffer)
+  (interactive)
+  (when (equal (expand-file-name (buffer-name))
+               (expand-file-name buffer))
+    (kk/org-set-done-with-point-at-id task-id)))
+
+(defun kk/org-set-done-with-point-at-id (id)
+  (org-with-point-at (org-id-find id 'marker)
+    (org-todo 'done)))
+
+(add-hook 'org-capture-before-finalize-hook `(lambda ()
+                                               (kk/org-set-done-task-if-buffer-name-equal "5a47ad5a-627c-4af1-a1c6-08b5fcee04f8"
+                                                                                          ,(concat "CAPTURE-"
+												   (file-name-nondirectory kk/journal-file)))) 'append)
+#+end_src
+
 ** Structure Templates
 :PROPERTIES:
 :ID:       7ce3f595-e2d7-4fe3-915c-e425069e751f
