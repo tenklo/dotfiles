@@ -21,6 +21,8 @@
    '(ol-bbdb ol-bibtex ol-docview ol-eww ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
  '(org-super-agenda-mode t nil nil "Customized with use-package org-super-agenda")
  '(org-tags-exclude-from-inheritance '("ATTACH"))
+ '(read-buffer-completion-ignore-case t)
+ '(read-file-name-completion-ignore-case t)
  '(sentence-end-double-space t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
