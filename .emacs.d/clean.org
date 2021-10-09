@@ -1743,6 +1743,12 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (use-package csharp-mode)
 #+end_src
 
+** Markdown
+
+#+begin_src emacs-lisp
+(use-package markdown-mode)
+#+end_src
+
 * File Management
 
 ** Dired
