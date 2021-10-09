@@ -1668,22 +1668,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (require 'smartparens-config))
 #+end_src
 
-*** Projectile
-:PROPERTIES:
-:ID:       e9c288b9-7e9e-415a-922e-e5940da3b5f3
-:END:
-
-#+begin_src emacs-lisp
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :custom ((projectile-completion-system 'helm))
-  :bind-keymap
-  ("C-x p" . projectile-command-map)
-  :init
-  (setq projectile-switch-project-action #'projectile-dired))
-#+end_src
-
 *** Company
 :PROPERTIES:
 :ID:       ea9d93d1-d262-4d5a-911a-b2e10163c328
