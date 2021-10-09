@@ -2612,6 +2612,28 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 (use-package burly)
 #+end_src
 
+** Vertico
+
+#+begin_src emacs-lisp
+(use-package vertico
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode)
+  :bind (:map minibuffer-local-map
+              ("C-l" . kk/minibuffer-backward-kill))
+  :config
+  (defun kk/minibuffer-backward-kill (arg)
+    "When minibuffer is completing a file name delete up to parent
+folder, otherwise delete a character backward.
+This is a modified version of David Wilsons solution, which he in turn took from
+https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
+    (interactive "p")
+    (when minibuffer-completing-file-name
+      (if (string-match-p "/." (minibuffer-contents))
+          (zap-up-to-char (- arg) ?/)
+        (delete-minibuffer-contents)))))
+#+end_src
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
