@@ -2651,6 +2651,16 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
   :init
   (marginalia-mode))
 #+end_src
+
+** Orderless
+
+#+begin_src emacs-lisp
+(use-package orderless
+  :after vertico
+  :custom (completion-styles '(orderless))
+  :config
+  (setq completion-ignore-case t))
+#+end_src
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
