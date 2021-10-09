@@ -1557,11 +1557,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 #+begin_src emacs-lisp
 (use-package org-recent-headings
   :config (org-recent-headings-mode))
-
-(use-package helm-org-recent-headings
-  :config
-  (global-set-key (kbd "M-s r") 'helm-org-recent-headings)
-  (add-to-list 'org-recent-headings-advise-functions 'org-clock-in))
 #+end_src
 
 ** Org-mime
@@ -1613,9 +1608,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 :END:
 
 #+begin_src emacs-lisp
-(use-package org-ql
-  :config
-  (use-package helm-org-ql))
+(use-package org-ql)
 #+end_src
 
 * Development
@@ -2169,31 +2162,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (use-package all-the-icons)
 #+end_src
 
-** Helm
-:PROPERTIES:
-:ID:       435befc9-85d3-4c08-8f89-b2356a88eeca
-:END:
-
-#+begin_src emacs-lisp
-(use-package helm
-  :diminish helm-mode
-  :config
-  (require 'helm-config)
-  :init
-  (helm-mode 1)
-  :bind
-  (("M-x"     . helm-M-x) ;; run functions
-   ("M-s s"   . helm-occur-from-isearch)
-   ("C-x C-f" . helm-find-files) ;; open or create files
-   ("C-x C-r" . helm-recentf) ;; select recently saved files
-   ("C-c i"   . helm-imenu) ;; select heading
-   ("C-x b"   . helm-mini)
-   ("M-y"     . helm-show-kill-ring) ;; show the kill ring
-   :map helm-map
-   ("C-z" . helm-select-action)
-   ("<tab>" . helm-execute-persistent-action)))
-#+end_src
-
 ** Helpful
 :PROPERTIES:
 :ID:       204dc542-3e93-4077-8a47-acc90f8510e8
@@ -2458,9 +2426,9 @@ _s_: super agenda mode
   "
 ^Clocking^                   ^Timer^                  ^Contacts^      ^Query^
 ^^^^^^^^------------------------------------------------------------------------------------
-_i_: punch in                _t_: set                 _c_: search     _s_: helm agenda files
-_o_: punch out               _T_: stop                _C_: send mail  _S_: ql-search
-_I_: clock in at time        _C-t_: pause or continue ^ ^             _v_: view
+_i_: punch in                _t_: set                 _c_: search     _S_: ql-search
+_o_: punch out               _T_: stop                _C_: send mail  _v_: view
+_I_: clock in at time        _C-t_: pause or continue ^ ^
 _O_: clock out at time
 _d_: toggle clock in parent
 "
@@ -2478,7 +2446,6 @@ _d_: toggle clock in parent
   ("c" org-contacts :exit t)
   ("C" org-contacts-view-send-email :exit t)
   ("v" org-ql-view :exit t)
-  ("s" helm-org-ql-agenda-files :exit t)
   ("S" org-ql-search :exit t)
   ("q" nil))
 (global-set-key (kbd "<f9>") 'kk/hydra-org-things/body)
