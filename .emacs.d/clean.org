@@ -2642,6 +2642,15 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
   :init
   (savehist-mode))
 #+end_src
+
+** Marginalia
+
+#+begin_src emacs-lisp
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode))
+#+end_src
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
