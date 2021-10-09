@@ -2634,6 +2634,14 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
           (zap-up-to-char (- arg) ?/)
         (delete-minibuffer-contents)))))
 #+end_src
+
+** Savehist
+
+#+begin_src emacs-lisp
+(use-package savehist
+  :init
+  (savehist-mode))
+#+end_src
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
