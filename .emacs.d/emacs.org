@@ -1614,7 +1614,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 ** General
 
-*** Magit
+*** Version Control
+
+**** Magit
 :PROPERTIES:
 :ID:       a9ef789b-24c9-4caf-a4bb-3152b073becd
 :END:
