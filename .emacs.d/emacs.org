@@ -1616,6 +1616,43 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 *** Version Control
 
+**** General
+
+#+begin_src emacs-lisp
+(defun kk/vc--log-edit-files-prompt ()
+  "Helper completion for `kk/vc-extract-file-name'."
+  (let ((files (or (log-edit-files)
+                   (magit-staged-files))))
+    (completing-read
+     "Derive shortname from: " files nil nil)))
+
+(defun kk/vc-git-log-edit-extract-file-name ()
+  "Insert at point shortname from file in log edit buffers.
+If multiple files are part of the log, a minibuffer completion
+prompt will be produced: it can be used to narrow down to an
+existing item or input an arbitrary string of characters.
+
+This is taken from
+https://protesilaos.com/dotemacs/#h:31deeff4-dfae-48d9-a906-1f3272f29bc9
+and slightly modified to work with Magit as well."
+  (interactive)
+  (unless (or (derived-mode-p 'log-edit-mode)
+              (equal (buffer-name) "COMMIT_EDITMSG"))
+    (user-error "Only try this in Log Edit mode or a Magit commit buffer."))
+  (let* ((files (or (log-edit-files)
+                    (magit-staged-files)))
+         (file (if (> (length files) 1)
+                   (kk/vc--log-edit-files-prompt)
+                 (car files)))
+         (name (file-name-sans-extension
+                (file-name-nondirectory
+                 file))))
+    (insert (concat name ": "))))
+
+(define-key vc-git-log-edit-mode-map (kbd "C-C C-n") #'kk/vc-git-log-edit-extract-file-name)
+(define-key text-mode-map (kbd "C-C C-n") #'kk/vc-git-log-edit-extract-file-name)
+#+end_src
+
 **** Magit
 :PROPERTIES:
 :ID:       a9ef789b-24c9-4caf-a4bb-3152b073becd
