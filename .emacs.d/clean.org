@@ -1660,6 +1660,15 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (require 'smartparens-config))
 #+end_src
 
+*** Dumb Jump
+
+#+begin_src emacs-lisp
+(use-package dumb-jump
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
+#+end_src
+
 ** SQL
 :PROPERTIES:
 :ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
