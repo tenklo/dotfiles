@@ -1055,7 +1055,7 @@ When set to 'note, rescheduling or scattering breaks."
 (add-hook 'org-capture-before-finalize-hook `(lambda ()
                                                (kk/org-set-done-task-if-buffer-name-equal "5a47ad5a-627c-4af1-a1c6-08b5fcee04f8"
                                                                                           ,(concat "CAPTURE-"
-												   (file-name-nondirectory kk/journal-file)))) 'append)
+                                                                                                   (file-name-nondirectory kk/journal-file)))) 'append)
 #+end_src
 
 ** Structure Templates
