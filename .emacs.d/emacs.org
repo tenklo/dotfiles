@@ -2062,6 +2062,22 @@ and slightly modified to work with Magit as well."
 (bind-key "C-c l" #'kk/store-link-to-mu4e-query mu4e-headers-mode-map)
 #+end_src
 
+*** Query on empty Subject
+
+#+begin_src emacs-lisp
+(defun kk/mail-confirm-when-no-subject ()
+  "Prompts whether to send email if the Subject is empty."
+  (let ((found-subject (save-excursion
+                           (save-restriction
+                             (widen)
+                             (goto-char (point-min))
+                             (search-forward-regexp "^Subject: .+" nil t)))))
+    (when (and (not found-subject)
+               (not (y-or-n-p "It seems you forgot to add a subject; send anyway? ")))
+      (setq quit-flag t))))
+  (add-hook 'message-send-hook 'kk/mail-confirm-when-no-subject)
+#+end_src
+
 ** Matrix
 
 *** Ement.el
