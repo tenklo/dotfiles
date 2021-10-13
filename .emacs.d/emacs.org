@@ -2071,7 +2071,7 @@ and slightly modified to work with Magit as well."
                            (save-restriction
                              (widen)
                              (goto-char (point-min))
-                             (search-forward-regexp "^Subject: .+" nil t)))))
+                             (search-forward-regexp "^Subject: .+$" nil t)))))
     (when (and (not found-subject)
                (not (y-or-n-p "It seems you forgot to add a subject; send anyway? ")))
       (setq quit-flag t))))
