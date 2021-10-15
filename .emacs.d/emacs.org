@@ -2157,6 +2157,26 @@ and slightly modified to work with Magit as well."
   (popper-mode +1))
 #+end_src
 
+*** Window Placement
+
+#+begin_src emacs-lisp
+(setq display-buffer-alist nil)
+
+(setq display-buffer-alist
+      '(("\\*\\(Help\\|e?shell\\)\\*"
+         (display-buffer-reuse-window display-buffer-in-side-window)
+         (side . right)
+         (window-width . 0.4))
+        ("output\\*"
+	 (display-buffer-reuse-window display-buffer-in-side-window)
+         (side . bottom)
+         (window-height . 0.33))
+	("\\*\\(Messages\\)\\*"
+         (display-buffer-reuse-window display-buffer-in-side-window)
+         (side . bottom)
+         (window-height . 0.4))))
+#+end_src
+
 ** Bookmarks
 
 *** Bookmark+
