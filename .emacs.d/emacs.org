@@ -2137,6 +2137,26 @@ and slightly modified to work with Magit as well."
 (winner-mode)
 #+end_src
 
+*** Popper
+
+#+begin_src emacs-lisp
+(use-package popper
+  :bind (("C-ß"   . popper-toggle-latest)
+         ("M-ß"   . popper-cycle)
+         ("C-M-ß" . popper-toggle-type))
+  :init
+  (setq popper-reference-buffers
+        '("\\*Messages\\*"
+          "Output\\*$"
+          "\\*Async Shell Command\\*"
+          help-mode
+          compilation-mode
+          "^\\*eshell.*\\*$" eshell-mode
+          "^\\*shell.*\\*$"  shell-mode
+          "^\\*term.*\\*$"   term-mode))
+  (popper-mode +1))
+#+end_src
+
 ** Bookmarks
 
 *** Bookmark+
