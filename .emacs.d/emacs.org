@@ -2631,7 +2631,7 @@ _c_: show current     _f_: shuffle    ^ ^              _T_: dir tree
 _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 "
   ("s" emms-start)
-  ("h" emms-stop)
+  ("h" emms-stop :exit t)
   ("n" emms-next)
   ("p" emms-previous)
   ("f" emms-shuffle)
