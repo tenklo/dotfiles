@@ -3184,6 +3184,28 @@ Make code be replaced by its formatted result -- and periodically updated.
       (message "Sum Thing Wong."))))
 #+end_src
 
+** Daily Standups
+
+#+begin_src emacs-lisp
+(defun kk/daily-standup ()
+  "Set up everything for the daily standup.
+Opens the notes file for dailies, starts capturing the meeting and
+opens the meeting URL.
+
+Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
+  (interactive)
+  (find-file "~/nextcloud_work/Documents/standups.org")
+  (kk/daily-standup-capture)
+  (eww-browse-with-external-browser (org-file-contents "~/.local/share/data/standupurl")))
+
+(defun kk/daily-standup-capture ()
+  "Starts capturing a daily standup meeting."
+  (interactive)
+  (org-capture nil "m")
+  (insert "dx Daily Standup")
+  (next-line 7))
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
