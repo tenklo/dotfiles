@@ -2174,7 +2174,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
           compilation-mode
           "^\\*eshell.*\\*$" eshell-mode
           "^\\*shell.*\\*$"  shell-mode
-          "^\\*term.*\\*$"   term-mode))
+          "^\\*term.*\\*$"   term-mode
+	  "^\\**vc-git : .*\\*"))
   (popper-mode +1))
 #+end_src
 
