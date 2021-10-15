@@ -2137,6 +2137,26 @@ and slightly modified to work with Magit as well."
 (winner-mode)
 #+end_src
 
+** Bookmarks
+
+*** Bookmark+
+:PROPERTIES:
+:ID:       c778dfd0-9d6f-4e3e-901a-c62ca7915fb0
+:END:
+
+#+begin_src emacs-lisp
+(use-package bookmark+)
+#+end_src
+
+*** Burly
+:PROPERTIES:
+:ID:       2bab5c54-c1a8-4e8d-8e0e-8c5c155f704e
+:END:
+
+#+begin_src emacs-lisp
+(use-package burly)
+#+end_src
+
 ** Theme
 :PROPERTIES:
 :ID:       ffb701d8-a36e-4194-bd46-b8ae1777cdfe
@@ -2658,24 +2678,6 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
   ("+" emms-volume-raise)
   ("-" emms-volume-lower))
 (global-set-key (kbd "C-c e") 'emms-hydra/body)
-#+end_src
-
-** Bookmark+
-:PROPERTIES:
-:ID:       c778dfd0-9d6f-4e3e-901a-c62ca7915fb0
-:END:
-
-#+begin_src emacs-lisp
-(use-package bookmark+)
-#+end_src
-
-** Burly
-:PROPERTIES:
-:ID:       2bab5c54-c1a8-4e8d-8e0e-8c5c155f704e
-:END:
-
-#+begin_src emacs-lisp
-(use-package burly)
 #+end_src
 
 ** Vertico
