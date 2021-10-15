@@ -2126,6 +2126,17 @@ and slightly modified to work with Magit as well."
 (setq visible-bell t)
 #+end_src
 
+** Window Management
+
+*** Winner Mode
+:PROPERTIES:
+:ID:       0f10d50f-ac83-4794-9f86-a2fc682faaa0
+:END:
+
+#+begin_src emacs-lisp
+(winner-mode)
+#+end_src
+
 ** Theme
 :PROPERTIES:
 :ID:       ffb701d8-a36e-4194-bd46-b8ae1777cdfe
@@ -2647,15 +2658,6 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
   ("+" emms-volume-raise)
   ("-" emms-volume-lower))
 (global-set-key (kbd "C-c e") 'emms-hydra/body)
-#+end_src
-
-** Winner Mode
-:PROPERTIES:
-:ID:       0f10d50f-ac83-4794-9f86-a2fc682faaa0
-:END:
-
-#+begin_src emacs-lisp
-(winner-mode)
 #+end_src
 
 ** Bookmark+
