@@ -2825,6 +2825,14 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
   (corfu-global-mode))
 #+end_src
 
+** Embark
+
+#+begin_src emacs-lisp
+(use-package embark
+  :bind
+  (("C-." . embark-act)))
+#+end_src
+
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
