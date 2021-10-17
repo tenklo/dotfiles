@@ -2150,6 +2150,15 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (line-number-mode -1)
 #+end_src
 
+** Mode Line
+
+#+begin_src emacs-lisp
+(setq mode-line-compact 'long)
+
+(setq-default header-line-format mode-line-format)
+(setq-default mode-line-format nil)
+#+end_src
+
 ** Window Management
 
 *** Winner Mode
