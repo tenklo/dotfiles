@@ -2159,6 +2159,27 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (setq-default mode-line-format nil)
 #+end_src
 
+** Margins
+
+#+begin_src emacs-lisp
+(defvar kk/margins-active t)
+(defun kk/toggle-margins ()
+  (interactive)
+  (setq kk/margins-active (not kk/margins-active))
+  (message (format "Margins are %s" (if kk/margins-active
+                                        "active"
+                                      "inactive"))))
+(defun kk/set-margins-function ()
+  (when (not (or (overlayp (current-buffer))
+                 (popup-p (current-buffer))
+                 (popper-popup-p (current-buffer))))
+    (set-window-margins nil (if kk/margins-active 2 0)
+                        (if kk/margins-active 2 0))))
+
+(add-hook 'window-configuration-change-hook
+          #'kk/set-margins-function)
+#+end_src
+
 ** Window Management
 
 *** Winner Mode
