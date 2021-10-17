@@ -3149,18 +3149,17 @@ Make code be replaced by its formatted result -- and periodically updated.
 #+begin_src emacs-lisp
 (use-package ytel
   :config
-  (setq ytel-invidious-api-url "https://invidious.namazso.eu"))
-
-(defun ytel-watch ()
-  "Stream video at point in mpv."
-  (interactive)
-  (let* ((video (ytel-get-current-video))
-         (id    (ytel-video-id video)))
-    (start-process "ytel mpv" nil
-                   "mpv"
-                   (concat "https://www.youtube.com/watch?v=" id))
-    "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
-  (message "Starting streaming...")
+  (setq ytel-invidious-api-url "https://invidious.namazso.eu")
+  (defun ytel-watch ()
+    "Stream video at point in mpv."
+    (interactive)
+    (let* ((video (ytel-get-current-video))
+           (id    (ytel-video-id video)))
+      (start-process "ytel mpv" nil
+                     "mpv"
+                     (concat "https://www.youtube.com/watch?v=" id))
+      "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
+    (message "Starting streaming..."))
   (define-key ytel-mode-map "y" #'ytel-watch))
 #+end_src
 
