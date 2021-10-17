@@ -2188,18 +2188,16 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (setq split-height-threshold 100)
 
 (setq display-buffer-alist
-      '(("\\*\\(Help\\|e?shell\\)\\*"
-         (display-buffer-reuse-window display-buffer-in-side-window)
+      '(("\\*\\(Help\\|helpful.*\\)\\*"
+         (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-pop-up-window)
          (side . right)
+         (split . 0)
          (window-width . 0.4))
-        ("output\\*"
-         (display-buffer-reuse-window display-buffer-in-side-window)
-         (side . bottom)
-         (window-height . 0.33))
-        ("\\*\\(Messages\\)\\*"
-         (display-buffer-reuse-window display-buffer-in-side-window)
-         (side . bottom)
-         (window-height . 0.4))))
+        ("\\*\\(.*e?shell\\|vc-diff\\)\\*"
+         (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-pop-up-window)
+         (side . right)
+         (split . 1)
+         (window-width . 0.4))))
 #+end_src
 
 ** Bookmarks
