@@ -144,7 +144,7 @@ For editing commands I guess.
 
 #+begin_src emacs-lisp
 (define-key edit-commands-map (kbd "C") 'column-number-mode)
-(define-key edit-commands-map (kbd "L") 'display-line-numbers-mode)t
+(define-key edit-commands-map (kbd "L") 'display-line-numbers-mode)
 (define-key edit-commands-map (kbd "S") 'subword-mode)
 (define-key edit-commands-map (kbd "F") 'flyspell-mode)
 (define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
