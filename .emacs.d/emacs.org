@@ -2147,6 +2147,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (tooltip-mode -1)
 (menu-bar-mode -1)
 (setq visible-bell t)
+(line-number-mode -1)
 #+end_src
 
 ** Window Management
