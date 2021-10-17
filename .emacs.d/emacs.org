@@ -2172,6 +2172,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
         '("\\*Messages\\*"
           "Output\\*$"
           "\\*Async Shell Command\\*"
+          "\\*helpful.*"
           help-mode
           compilation-mode
           "^\\*.*eshell.*\\*$" eshell-mode
