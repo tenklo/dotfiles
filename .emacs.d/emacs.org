@@ -2242,17 +2242,6 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   ("<f5>" . modus-themes-toggle))
 #+end_src
 
-*** Themes And Sunrise/Sunset
-:PROPERTIES:
-:ID:       c5794de1-e4a3-454f-b43d-4ff6b1fb3550
-:END:
-
-#+begin_src emacs-lisp
-(use-package theme-changer
-  :config
-  (change-theme 'modus-operandi 'modus-vivendi))
-#+end_src
-
 *** Theme Magic
 :PROPERTIES:
 :ID:       49d6ba95-4ca0-4840-a54e-db36bb0b9337
