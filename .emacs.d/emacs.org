@@ -2129,7 +2129,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :END:
 
 #+begin_src emacs-lisp
-(use-package diminish)
+(use-package diminish
+  :config
+  (diminish 'org-indent-mode))
 #+end_src
 
 ** General
