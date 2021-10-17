@@ -2249,10 +2249,6 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package theme-changer
-  :init
-  (setq calendar-location-name "Dallas, TX")
-  (setq calendar-latitude 48.8)
-  (setq calendar-longitude 9.2)
   :config
   (change-theme 'modus-operandi 'modus-vivendi))
 #+end_src
@@ -2855,6 +2851,14 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 #+end_src
 
 ** Calendar
+
+*** General
+
+#+begin_src emacs-lisp
+(setq calendar-location-name "Stuttgart")
+(setq calendar-latitude 48.8)
+(setq calendar-longitude 9.2)
+#+end_src
 
 *** German
 
