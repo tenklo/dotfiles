@@ -3363,6 +3363,17 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (setq-default typo-language "German"))
 #+end_src
 
+** Proced
+:PROPERTIES:
+:ID:       ac70bc14-5ce8-45a0-9def-363baa653c9a
+:END:
+
+#+begin_src emacs-lisp
+(use-package proced
+  :custom
+  (proced-auto-update-flag t))
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
