@@ -2018,7 +2018,27 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
                 :c-name kk/mu4e-context-name-dx
                 :maildir "kloess@digital-worx.de"
                 :mail "kloess@digital-worx.de"
-                :smtp "") t))
+                :smtp ""
+                :sig (concat
+                      "-------------------------------------\n"
+                      "digital worx GmbH\n"
+                      "Schulze-Delitzsch-Str. 16\n"
+                      "70565 Stuttgart\n"
+                      "\n"
+                      "Tel. 0711 220 40 93 0\n"
+                      "Fax. 0711 220 40 93 44\n"
+                      "\n"
+                      "kloess@digital-worx.de\n"
+                      "\n"
+                      "http://www.digital-worx.de\n"
+                      "-------------------------------------\n"
+                      "Geschaeftsfuehrer:\n"
+                      "Sven Rahlfs\n"
+                      "Mirko Ross\n"
+                      "\n"
+                      "HRB 22 5281 Amtsgericht Stuttgart\n"
+                      "USt.-Id. Nr.: DE218401190\n"
+                      "-------------------------------------")) t))
 
 (when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-its)
   (add-to-list 'mu4e-contexts
@@ -2042,7 +2062,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
                 :c-name kk/mu4e-context-name-kloess.xyz-karsten
                 :maildir "karsten@kloess.xyz"
                 :mail "karsten@kloess.xyz"
-                :smtp "") t))
+                :smtp ""
+                :sig "Karsten") t))
 
 (when (kk/mu4e-context-should-be-available-p kk/mu4e-context-name-kloess.xyz-k)
   (add-to-list 'mu4e-contexts
@@ -2050,7 +2071,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
                 :c-name kk/mu4e-context-name-kloess.xyz-k
                 :maildir "k@kloess.xyz"
                 :mail "k@kloess.xyz"
-                :smtp "")t ))
+                :smtp ""
+                :sig "Karsten")t ))
 #+end_src
 
 *** Block Mail
