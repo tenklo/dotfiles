@@ -3302,7 +3302,8 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (interactive)
   (org-capture nil "m")
   (insert "dx Daily Standup")
-  (next-line 7))
+  (next-line 7)
+  (end-of-line))
 #+end_src
 
 * Terminals And Shells
