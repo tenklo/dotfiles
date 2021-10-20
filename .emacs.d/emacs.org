@@ -150,6 +150,7 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
 (define-key edit-commands-map (kbd "B") 'abbrev-mode)
 (define-key edit-commands-map (kbd "V") 'visual-line-mode)
+(define-key edit-commands-map (kbd "T") 'typo-mode)
 #+end_src
 
 ** Tramp
@@ -3326,6 +3327,17 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (insert "dx Daily Standup")
   (next-line 7)
   (end-of-line))
+#+end_src
+
+** Typo Mode
+:PROPERTIES:
+:ID:       d92c496e-89f0-4759-a60d-4445693ec323
+:END:
+
+#+begin_src emacs-lisp
+(use-package typo
+  :config
+  (setq-default typo-language "German"))
 #+end_src
 
 * Terminals And Shells
