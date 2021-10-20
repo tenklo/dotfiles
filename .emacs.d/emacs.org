@@ -288,6 +288,8 @@ Make =M-x customize= persistent.
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
    (setq kk/contacts-files '("~/documents/org/contacts.org")))
   ("T490s"
+   (setq split-width-threshold 90)
+   (setq split-height-threshold 100)
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
    (setq org-agenda-files `("~/Nextcloud/Documents/org"
@@ -2217,9 +2219,6 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 *** Window Placement
 
 #+begin_src emacs-lisp
-(setq split-width-threshold 90)
-(setq split-height-threshold 100)
-
 (setq display-buffer-alist
       '(("\\*\\(Help\\|helpful.*\\)\\*"
          (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-pop-up-window)
