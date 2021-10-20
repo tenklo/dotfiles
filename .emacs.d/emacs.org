@@ -2992,6 +2992,31 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
                   'font-lock-face 'calendar-iso-week-header-face))
 #+end_src
 
+*** Calfw
+:PROPERTIES:
+:ID:       2ca3ee75-26ee-4ea0-be0c-f43729a54fea
+:END:
+
+#+begin_src emacs-lisp
+(use-package calfw
+  :config
+
+  (use-package calfw-org
+    :config
+    (setq cfw:org-overwrite-default-keybinding t)
+    (setq cfw:org-agenda-schedule-args '(:timestamp)))
+
+  (global-set-key (kbd "C-c C") 'cfw:open-org-calendar)
+
+  (defun kk/open-calendar ()
+    "Open calendar calfw with additional sources."
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source "Green")))))
+#+end_src
+
 ** Calculating
 :PROPERTIES:
 :ID:       a3778e3c-c048-42b4-9fdd-9297700cbc8a
