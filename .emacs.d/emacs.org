@@ -3252,7 +3252,8 @@ Make code be replaced by its formatted result -- and periodically updated.
                      nil
                      "librewolf"
                      url)
-      (message "Video opened in librewolf."))))
+      (message "Video opened in librewolf.")))
+  (define-key ytel-mode-map "b" #'ytel-browse-librewolf))
 #+end_src
 
 ** s.el
