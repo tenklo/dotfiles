@@ -3221,17 +3221,38 @@ Make code be replaced by its formatted result -- and periodically updated.
 (use-package ytel
   :config
   (setq ytel-invidious-api-url "https://invidious.namazso.eu")
-  (defun ytel-watch ()
-    "Stream video at point in mpv."
+  (defun ytel-yt-url ()
+    "Return URL of video at point."
     (interactive)
     (let* ((video (ytel-get-current-video))
            (id    (ytel-video-id video)))
-      (start-process "ytel mpv" nil
-                     "mpv"
-                     (concat "https://www.youtube.com/watch?v=" id))
-      "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
+      (concat "https://www.youtube.com/watch?v=" id)))
+
+  (defun ytel-watch ()
+    "Stream video at point in mpv."
+    (interactive)
+    (start-process "ytel mpv" nil
+                   "mpv"
+                   (ytel-yt-url)
+                   "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
     (message "Starting streaming..."))
-  (define-key ytel-mode-map "y" #'ytel-watch))
+  (define-key ytel-mode-map "y" #'ytel-watch)
+
+  (defun ytel-yank-url ()
+    (interactive)
+    (let ((url (ytel-yt-url)))
+      (kill-new url)
+      (message "%s pushed to killring." url)))
+  (define-key ytel-mode-map "w" #'ytel-yank-url)
+
+  (defun ytel-browse-librewolf ()
+    (interactive)
+    (let ((url (ytel-yt-url)))
+      (start-process "ytel-librewolf"
+                     nil
+                     "librewolf"
+                     url)
+      (message "Video opened in librewolf."))))
 #+end_src
 
 ** s.el
