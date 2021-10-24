@@ -1016,6 +1016,9 @@ When set to 'note, rescheduling or scattering breaks."
         ("u" "Urgent Task" entry (file kk/org-refile-target)
          "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
+        ("n" "Note" entry (file kk/org-refile-target)
+         "* %?\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
+         :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
         ("ft" "to track" entry (file kk/org-refile-target)
@@ -3283,17 +3286,39 @@ Make code be replaced by its formatted result -- and periodically updated.
 (use-package ytel
   :config
   (setq ytel-invidious-api-url "https://invidious.namazso.eu")
-  (defun ytel-watch ()
-    "Stream video at point in mpv."
+  (defun ytel-yt-url ()
+    "Return URL of video at point."
     (interactive)
     (let* ((video (ytel-get-current-video))
            (id    (ytel-video-id video)))
-      (start-process "ytel mpv" nil
-                     "mpv"
-                     (concat "https://www.youtube.com/watch?v=" id))
-      "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
+      (concat "https://www.youtube.com/watch?v=" id)))
+
+  (defun ytel-watch ()
+    "Stream video at point in mpv."
+    (interactive)
+    (start-process "ytel mpv" nil
+                   "mpv"
+                   (ytel-yt-url)
+                   "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
     (message "Starting streaming..."))
-  (define-key ytel-mode-map "y" #'ytel-watch))
+  (define-key ytel-mode-map "y" #'ytel-watch)
+
+  (defun ytel-yank-url ()
+    (interactive)
+    (let ((url (ytel-yt-url)))
+      (kill-new url)
+      (message "%s pushed to killring." url)))
+  (define-key ytel-mode-map "w" #'ytel-yank-url)
+
+  (defun ytel-browse-librewolf ()
+    (interactive)
+    (let ((url (ytel-yt-url)))
+      (start-process "ytel-librewolf"
+                     nil
+                     "librewolf"
+                     url)
+      (message "Video opened in librewolf.")))
+  (define-key ytel-mode-map "b" #'ytel-browse-librewolf))
 #+end_src
 
 ** s.el
