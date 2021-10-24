@@ -345,6 +345,16 @@ Intended to be used in an `org-mode-hook'."
 (use-package org
   :hook
   (org-mode . kk/org-mode-setup)
+  :custom
+  (org-tag-persistent-alist
+   '(("impotant" . 105)
+     ("urgent" . 117)
+     ("FLAGGED" . 102)
+     ("MEETING" . 109)
+     ("PHONE" . 112)
+     ("computer" . 99)
+     ("delegated" . 100)
+     (:newline)))
   :config
   (setq initial-major-mode 'org-mode)
 
@@ -402,23 +412,6 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-use-fast-todo-selection t)
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-#+end_src
-
-*** Tags
-:PROPERTIES:
-:ID:       d606ad54-f825-46a2-b52b-bc009f73efaa
-:END:
-
-#+begin_src emacs-lisp
-(org-tag-persistent-alist
- '(("impotant" . 105)
-   ("urgent" . 117)
-   ("FLAGGED" . 102)
-   ("MEETING" . 109)
-   ("PHONE" . 112)
-   ("computer" . 99)
-   ("delegated" . 100)
-   (:newline)))
 #+end_src
 
 *** Indentation
