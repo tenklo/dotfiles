@@ -404,6 +404,20 @@ Intended to be used in an `org-mode-hook'."
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 #+end_src
 
+*** Tags
+
+#+begin_src emacs-lisp
+(org-tag-persistent-alist
+ '(("impotant" . 105)
+   ("urgent" . 117)
+   ("FLAGGED" . 102)
+   ("MEETING" . 109)
+   ("PHONE" . 112)
+   ("computer" . 99)
+   ("delegated" . 100)
+   (:newline)))
+#+end_src
+
 *** Indentation
 :PROPERTIES:
 :ID:       85461031-c9d3-4146-8847-191bd47f97bf
