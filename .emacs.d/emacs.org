@@ -999,6 +999,9 @@ When set to 'note, rescheduling or scattering breaks."
         ("u" "Urgent Task" entry (file kk/org-refile-target)
          "* TODO %? :urgent:\nSCHEDULED: %t\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
+        ("n" "Note" entry (file kk/org-refile-target)
+         "* %?\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
+         :empty-lines 0 :clock-in t :clock-resume t)
 
         ("f" "Finances")
         ("ft" "to track" entry (file kk/org-refile-target)
