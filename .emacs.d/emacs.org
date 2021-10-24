@@ -405,6 +405,9 @@ Intended to be used in an `org-mode-hook'."
 #+end_src
 
 *** Tags
+:PROPERTIES:
+:ID:       d606ad54-f825-46a2-b52b-bc009f73efaa
+:END:
 
 #+begin_src emacs-lisp
 (org-tag-persistent-alist
@@ -1632,6 +1635,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 *** Version Control
 
 **** General
+:PROPERTIES:
+:ID:       8d5d904c-3feb-4cc0-ab30-b8223bde038f
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/vc--log-edit-files-prompt ()
@@ -1736,6 +1742,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 *** Dumb Jump
+:PROPERTIES:
+:ID:       66b1e084-cdee-4183-aa59-68f39a0afbf8
+:END:
 
 #+begin_src emacs-lisp
 (use-package dumb-jump
@@ -1803,6 +1812,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 ** Markdown
+:PROPERTIES:
+:ID:       68753fa0-fc10-4279-97f1-9be801219a75
+:END:
 
 #+begin_src emacs-lisp
 (use-package markdown-mode)
@@ -2122,6 +2134,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 *** Query on empty Subject
+:PROPERTIES:
+:ID:       b4abbf08-d61e-4f2d-9e3a-094503ccbc62
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/mail-confirm-when-no-subject ()
@@ -2189,6 +2204,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 ** Mode Line
+:PROPERTIES:
+:ID:       4408b47a-2e40-4150-98a5-42d31945cef0
+:END:
 
 #+begin_src emacs-lisp
 (setq mode-line-compact 'long)
@@ -2198,6 +2216,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 ** Margins
+:PROPERTIES:
+:ID:       71fd18d2-1a4d-4acb-861f-4cfa9f11b7d4
+:END:
 
 #+begin_src emacs-lisp
 (defvar kk/margins-active t)
@@ -2230,6 +2251,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 *** Popper
+:PROPERTIES:
+:ID:       0d5c66c1-a416-41cb-acb9-48901e1b0383
+:END:
 
 #+begin_src emacs-lisp
 (use-package popper
@@ -2253,6 +2277,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+end_src
 
 *** Window Placement
+:PROPERTIES:
+:ID:       776c4d70-3876-4eca-8462-4d4284d91983
+:END:
 
 #+begin_src emacs-lisp
 (setq display-buffer-alist
@@ -2796,6 +2823,9 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
 #+end_src
 
 ** Vertico
+:PROPERTIES:
+:ID:       792aa457-e36e-443d-9283-f4ba28b74e11
+:END:
 
 #+begin_src emacs-lisp
 (use-package vertico
@@ -2820,6 +2850,9 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 #+end_src
 
 ** Savehist
+:PROPERTIES:
+:ID:       d270446d-9c94-4495-9625-6879bbcf6988
+:END:
 
 #+begin_src emacs-lisp
 (use-package savehist
@@ -2828,6 +2861,9 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 #+end_src
 
 ** Marginalia
+:PROPERTIES:
+:ID:       f3d3ed63-a67d-450d-8526-37fd1329c2cf
+:END:
 
 #+begin_src emacs-lisp
 (use-package marginalia
@@ -2837,6 +2873,9 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 #+end_src
 
 ** Orderless
+:PROPERTIES:
+:ID:       1d965767-0311-485a-803c-5391cacd8eea
+:END:
 
 #+begin_src emacs-lisp
 (use-package orderless
@@ -2847,6 +2886,9 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 #+end_src
 
 ** Corfu
+:PROPERTIES:
+:ID:       828ed0a1-a8e7-4437-9c1e-8617aff4fbd1
+:END:
 
 #+begin_src emacs-lisp
 (use-package corfu
@@ -2878,6 +2920,9 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 #+end_src
 
 ** Embark
+:PROPERTIES:
+:ID:       6dc2d0f5-5e29-4066-a008-2e9a728a436b
+:END:
 
 #+begin_src emacs-lisp
 (use-package embark
@@ -2908,6 +2953,9 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 ** Calendar
 
 *** General
+:PROPERTIES:
+:ID:       fab9eda7-3ed3-4322-9c70-8860fae16481
+:END:
 
 #+begin_src emacs-lisp
 (setq calendar-location-name "Stuttgart")
@@ -3345,6 +3393,9 @@ Make code be replaced by its formatted result -- and periodically updated.
 #+end_src
 
 ** Daily Standups
+:PROPERTIES:
+:ID:       8c524231-b270-4c5c-9e8e-3bf0fe309c2c
+:END:
 
 #+begin_src emacs-lisp
 (defun kk/daily-standup ()
