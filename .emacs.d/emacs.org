@@ -347,7 +347,7 @@ Intended to be used in an `org-mode-hook'."
   (org-mode . kk/org-mode-setup)
   :custom
   (org-tag-persistent-alist
-   '(("impotant" . 105)
+   '(("important" . 105)
      ("urgent" . 117)
      ("FLAGGED" . 102)
      ("MEETING" . 109)
