@@ -2264,6 +2264,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
           "\\*helpful.*"
           help-mode
           compilation-mode
+          dired-mode
           "^\\*.*eshell.*\\*$" eshell-mode
           "^\\*shell.*\\*$"  shell-mode
           "^\\*term.*\\*$"   term-mode
