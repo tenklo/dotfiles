@@ -788,6 +788,8 @@ as the default task."
 ;;                              (org-agenda-redo-all t)))
 
 (setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
+
+(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 #+end_src
 
 *** Bulk
