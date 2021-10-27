@@ -10,6 +10,14 @@
         ("https://serpentsec.com/feed/" security)
         ("https://based.cooking/rss.xml" cooking)
 
+        ("https://planet.emacslife.com/atom.xml" emacs tech)
+        ("https://karl-voit.at/feeds/lazyblorg-all.atom_1.0.links-and-content.xml" emacs tech)
+        ("https://oneofus.la/have-emacs-will-hack/feed.xml" emacs tech)
+        ("http://oremacs.com/atom.xml" emacs tech)
+        ("http://pragmaticemacs.com/feed/" emacs tech)
+        ("https://www.reddit.com/r/orgmode.rss" emacs tech)
+        ("https://blog.tecosaur.com/tmio/rss.xml" emacs tech)
+
         ;; YouTube
         ("https://www.youtube.com/feeds/videos.xml?channel_id=UCKqoiG45T1OkQkUEq5dEMzA" knifes victorinox yt videos)
         ("https://www.youtube.com/feeds/videos.xml?channel_id=UCsnGwSIHyoYN0kiINAGUKxg" yt tech linux videos)
@@ -35,7 +43,7 @@
         ("https://old.reddit.com/r/linux.rss" linux reddit)
         ("https://old.reddit.com/r/archlinux.rss" linux reddit)
         ("https://old.reddit.com/r/suckless.rss" reddit)
-        ("https://old.reddit.com/r/emacs/.rss" reddit)
+        ("https://old.reddit.com/r/emacs/.rss" reddit emacs)
 
         ;; Podcasts
         ("https://notrelated.xyz/rss" podcasts)
