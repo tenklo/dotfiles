@@ -235,6 +235,15 @@ Make =M-x customize= persistent.
 (load custom-file t)
 #+end_src
 
+** Private Stuff
+
+Stuff I do not want to be checked into a public git repo can go here.
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(require 'work-days)
+#+end_src
+
 * System Specific
 
 ** Declarations
