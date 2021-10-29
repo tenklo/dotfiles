@@ -218,7 +218,7 @@ For editing commands I guess.
   :bind
   ("M-s M-s" . avy-goto-char)
   ("M-g M-c" . avy-goto-char)
-  ("M-g M-w" . avy-goto-word-0)
+  ("C-M-g" . avy-goto-word-0)
   ("M-g M-g" . avy-goto-line)
   ("M-g M-l" . avy-goto-line))
 #+end_src
@@ -233,6 +233,15 @@ Make =M-x customize= persistent.
 #+begin_src emacs-lisp
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)
+#+end_src
+
+** Private Stuff
+
+Stuff I do not want to be checked into a public git repo can go here.
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/elisp")
+(require 'work-days)
 #+end_src
 
 * System Specific
