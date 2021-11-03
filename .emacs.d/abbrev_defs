@@ -12,6 +12,7 @@
     ("eigl" "eigentlich" nil :count 1)
     ("evntl" "eventuell" nil :count 3)
     ("gettign" "getting" nil :count 1)
+    ("i" "I" nil :count 4)
     ("inkl" "inklusive" nil :count 1)
     ("lehrzeichen" "Leerzeichen" nil :count 1)
     ("lg" "Liebe Grüße" nil :count 2)
