@@ -2831,7 +2831,7 @@ _d_: toggle clock in parent
 #+begin_src emacs-lisp
 (defhydra emms-hydra (:hint nil)
   "
-^Control^             ^^              ^^               ^Sources^      Volume
+^Control^             ^^              ^Seek^           ^Sources^      Volume
 ^^^^^^^^-----------------------------------------------------------------
 _s_: start            _n_: next       _>_: forward     _F_: file      _+_: raise
 _h_: stop             _p_: prev       _<_: backward    _D_: Dir       _-_: lower
