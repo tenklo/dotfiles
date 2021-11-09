@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: neueslernen
+# key: neueslernen
+# --
+* TODO $1$0 lernen
+** NEXT $1 einlesen & Übersicht erstellen
+SCHEDULED: `(let ((x (org-insert-time-stamp (current-time)))))`
+z.B. Mindmap
+** TODO $1 Karteikarten erstellen
+** TODO $1 Karten lernen
+** TODO $1 nochmals Material lesen
+mit erlerntem Grundwissen tieferes erkennen
+** TODO $1 weitere Karteikarten erstellen
+** TODO Entscheiden, ob weitere Runde nötig 
