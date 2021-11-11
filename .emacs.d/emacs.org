@@ -975,8 +975,8 @@ When set to 'note, rescheduling or scattering breaks."
             :deadline past)
      (:name "Due soon"
             :deadline future)
-     (:name "Birthdays"
-            :category "birthday")
+     (:name "Anniversarys"
+            :category ("birthday" "anniversary"))
      (:name "Pets"
             :tag "pets")
      (:name "Emacs"
