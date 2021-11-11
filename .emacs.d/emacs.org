@@ -979,6 +979,8 @@ When set to 'note, rescheduling or scattering breaks."
             :category ("birthday" "anniversary"))
      (:name "Pets"
             :tag "pets")
+     (:name "Learn"
+            :tag "learn")
      (:name "Emacs"
             :category "emacs"
             :tag "emacs"
