@@ -267,7 +267,7 @@ Stuff I do not want to be checked into a public git repo can go here.
 (defvar kk/default-task-id "e740c514-60b7-4a32-a8f9-efe15ebca7a0")
 (defvar kk/work-default-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
 (defvar kk/default-pomodoro-break-task-id "5abae356-1e4f-4130-9520-037b24a18822")
-(defvar kk/org-agenda-appointments-use-timegrid nil)
+(defvar kk/org-agenda-appointments-use-timegrid t)
 (defvar kk/mu4e-contexts '())
 (defvar kk/emms-source-file-default-directory "")
 (defun kk/org-agenda-auto-exclude-function (tag) nil)
@@ -296,7 +296,6 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq kk/journal-file "~/documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
-   (setq kk/org-agenda-appointments-use-timegrid t)
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
    (setq kk/contacts-files '("~/documents/org/contacts.org")))
   ("T490s"
