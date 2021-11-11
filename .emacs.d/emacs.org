@@ -62,7 +62,9 @@ the individual device needs.
 (use-package yasnippet
   :config
   (yas-reload-all)
-  (add-hook 'org-mode-hook #'yas-minor-mode))
+  (add-hook 'org-mode-hook #'yas-minor-mode)
+  (require 'warnings)
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
 #+end_src
 
 ** Auto Reverting/Saving
