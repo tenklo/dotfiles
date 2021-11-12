@@ -312,8 +312,6 @@ Stuff I do not want to be checked into a public git repo can go here.
      (pcase tag
        ("HOLD"
         (concat "-" tag))
-       ("lernthemen"
-        (concat "-" tag))
        ("WORK"
         (concat "+" tag))))
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
