@@ -975,7 +975,8 @@ When set to 'note, rescheduling or scattering breaks."
      (:name "Anniversarys"
             :category ("birthday" "anniversary"))
      (:name "Pets"
-            :tag "pets")
+            :tag "pets"
+            :order 107)
      (:name "Learn"
             :tag "learn"
             :order 115)
