@@ -998,7 +998,7 @@ When set to 'note, rescheduling or scattering breaks."
             :and (:effort< "0:16" :not (:pred kk/org-hour-specification-p)))
      (:name "Scheduled earlier"
             :scheduled past
-            :order 120)))
+            :order 101)))
   :config
   (defun kk/org-hour-specification-p (item)
     (s-matches? "[0-9][0-9]?:[0-9][0-9]" item)))
