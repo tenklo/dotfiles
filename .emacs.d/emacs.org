@@ -980,11 +980,14 @@ When set to 'note, rescheduling or scattering breaks."
             :tag "pets")
      (:name "Learn"
             :tag "learn"
-	    :order 115)
+            :order 115)
+     (:name "Vehicles"
+            :category "vehicle"
+            :order 120)
      (:name "Emacs"
             :category "emacs"
             :tag "emacs"
-	    :order 130)
+            :order 130)
      (:name "Habits"
             :habit t
             :order 150)
