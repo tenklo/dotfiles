@@ -2244,6 +2244,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (menu-bar-mode -1)
 (setq visible-bell t)
 (line-number-mode -1)
+
+(setq frame-resize-pixelwise t)
 #+end_src
 
 ** Mode Line
