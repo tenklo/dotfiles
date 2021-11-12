@@ -64,7 +64,9 @@ the individual device needs.
   (yas-reload-all)
   (add-hook 'org-mode-hook #'yas-minor-mode)
   (require 'warnings)
-  (add-to-list 'warning-suppress-types '(yasnippet backquote-change)))
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change))
+  (defun kk/yas-id-remove-spaces (text)
+    (s-replace " " "-" text)))
 #+end_src
 
 ** Auto Reverting/Saving

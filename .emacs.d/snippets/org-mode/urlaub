@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: urlaub
+# key: urlaub
+# --
+* TODO ${1:wann}$0
+:PROPERTIES:
+:DURATION: $2
+:END:
+** NEXT anfragen
+:PROPERTIES:
+:TRIGGER:  ${1:$(kk/yas-id-remove-spaces yas-text)}-reply(WAIT)
+:END:
+** TODO Bestätigung/Ablehnung abwarten
+:PROPERTIES:
+:ID:       ${1:$(kk/yas-id-remove-spaces yas-text)}-reply
+:TRIGGER:  chain-siblings(NEXT)
+:END:
+** TODO ggf. Eintrag in work-days.el
+** TODO Abwesenheitsbenachrichtigung Aktivierung schedulen
+** TODO Abwesenheitsbenachrichtigung aktivieren
