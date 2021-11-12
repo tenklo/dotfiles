@@ -781,6 +781,7 @@ as the default task."
 (setq org-agenda-inhibit-startup nil)
 
 (setq org-sort-agenda-noeffort-is-high t)
+(setq org-agenda-sort-notime-is-late nil)
 
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
