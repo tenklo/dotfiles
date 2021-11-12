@@ -66,6 +66,7 @@ the individual device needs.
   (require 'warnings)
   (add-to-list 'warning-suppress-types '(yasnippet backquote-change))
   (defun kk/yas-id-remove-spaces (text)
+    "Replace spaces in `TEXT' with '-'."
     (s-replace " " "-" text)))
 #+end_src
 
