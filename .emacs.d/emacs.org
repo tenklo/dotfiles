@@ -615,6 +615,10 @@ as the default task."
   (interactive)
   (org-clock-in '(4)))
 
+(defun kk/org-clock-goto-list ()
+  (interactive)
+  (org-clock-goto '(4)))
+
 (defun kk/org-clock-in-parent-tasks-toggle ()
   (interactive)
   (setq kk/clock-in-parent-tasks (not kk/clock-in-parent-tasks))
@@ -623,10 +627,7 @@ as the default task."
 
 (global-set-key (kbd "<f10>") 'org-clock-goto)
 (global-set-key (kbd "C-<f10>") 'org-clock-out)
-(global-set-key (kbd "C-S-<f10>") '(lambda ()
-                                     (interactive)
-                                     (call-interactively
-                                      (org-clock-goto '(4)))))
+(global-set-key (kbd "C-S-<f10>") 'kk/org-clock-goto-list)
 (global-set-key (kbd "<f11>") 'org-clock-in)
 (global-set-key (kbd "C-<f11>") 'org-pomodoro)
 (global-set-key (kbd "C-S-<f11>") 'kk/org-clock-in-list)
