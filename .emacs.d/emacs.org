@@ -887,7 +887,8 @@ When set to 'note, rescheduling or scattering breaks."
           (tags "refile"
                 ((org-agenda-overriding-header "Tasks to Refile")
                  (org-tags-match-list-sublevels nil)
-                 (org-super-agenda-groups nil)))
+                 (org-super-agenda-groups nil)
+                 (org-agenda-skip-function 'kk/skip-project-sub-tasks)))
           (tags-todo "REWORK-refile"
                      ((org-agenda-overriding-header "Meetings and Calls to post process")))
           (tags-todo "+TODO=\"WAIT\""
