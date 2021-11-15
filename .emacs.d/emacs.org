@@ -991,6 +991,9 @@ When set to 'note, rescheduling or scattering breaks."
             :category "emacs"
             :tag "emacs"
             :order 130)
+     (:name "other Maintenance"
+            :tag ("hygiene" "maintenance")
+            :order 111)
      (:name "Habits"
             :habit t
             :order 150)
