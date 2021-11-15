@@ -629,10 +629,7 @@ as the default task."
                                       (org-clock-goto '(4)))))
 (global-set-key (kbd "<f11>") 'org-clock-in)
 (global-set-key (kbd "C-<f11>") 'org-pomodoro)
-(global-set-key (kbd "C-S-<f11>") '(lambda ()
-                                     (interactive)
-                                     (call-interactively
-                                      (org-clock-in '(4)))))
+(global-set-key (kbd "C-S-<f11>") 'kk/org-clock-in-list)
 
 (defun kk/clock-in-with-point-at-id (id)
   (let ((org-clock-auto-clock-resolution nil))
