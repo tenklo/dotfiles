@@ -860,6 +860,11 @@ When set to 'note, rescheduling or scattering breaks."
           (org-agenda-include-diary nil)
           (org-agenda-entry-types '(:deadline))))
 
+        ("c" "Communication"
+         ((tags "+PHONE|+MEETING"
+                ((org-agenda-skip-function 'kk/skip-project-sub-tasks)
+                 (org-agenda-sorting-strategy '(timestamp-down))))))
+
         ("f" . "Finances")
         ("ft" "to track"
          ((tags-todo "financetotrack"
