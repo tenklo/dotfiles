@@ -1376,6 +1376,18 @@ Skip project and sub-project tasks, habits, and project related tasks."
        (t
         nil)))))
 
+(defun kk/skip-project-sub-tasks ()
+  "Show single and project tasks.
+Skip sub-project tasks."
+  (save-restriction
+    (widen)
+    (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
+      (cond
+       ((bh/is-project-subtree-p)
+        subtree-end)
+       (t
+        nil)))))
+
 (defun bh/skip-non-project-tasks ()
   "Show project tasks.
 Skip project and sub-project tasks, habits, and loose non-project tasks."
