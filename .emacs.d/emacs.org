@@ -1674,6 +1674,116 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (use-package org-ql)
 #+end_src
 
+** Weekly Review
+
+#+begin_src emacs-lisp
+(setq kk/weekly-review-personal-or-work 'personal)
+(defun kk/weekly-review-toggle-personal-work ()
+  (interactive)
+  (setq kk/weekly-review-personal-or-work
+        (if (eq kk/weekly-review-personal-or-work 'personal)
+            'work
+          'personal))
+  (kk/weekly-review-current-state-message))
+(defun kk/weekly-review-review-all ()
+  (interactive)
+  (setq kk/weekly-review-personal-or-work 'all)
+  (kk/weekly-review-current-state-message))
+
+(defun kk/weekly-review-current-state-message ()
+  (interactive)
+  (message (concat "Currently reviewing "
+                   (pcase kk/weekly-review-personal-or-work
+                     ('personal
+                      "personal")
+                     ('work
+                      "work")
+                     ('all
+                      "all")))))
+
+(defun kk/weekly-review-filter-string ()
+  (pcase kk/weekly-review-personal-or-work
+    ('personal
+     "+PERSONAL")
+    ('work
+     "+WORK")
+    (t
+     "")))
+
+(defun kk/weekly-review-agenda ()
+  (interactive)
+  (let ((org-agenda-sticky nil)
+        (org-habit-show-habits nil)
+        (org-agenda-span 'week)
+        (org-super-agenda-groups nil)
+        (org-agenda-tag-filter-preset
+         (list "-HOLD" (kk/weekly-review-filter-string))))
+    (org-agenda-list)))
+
+(defun kk/weekly-review-clock-report ()
+  (interactive)
+  (let ((org-agenda-sticky nil)
+        (org-habit-show-habits nil)
+        (org-agenda-span 'week)
+        (org-super-agenda-groups nil)
+        (org-agenda-start-with-clockreport-mode t)
+        (org-agenda-max-entries 0))
+    (org-agenda-list)))
+
+(defun kk/weekly-review-clocking-data ()
+  (interactive)
+  (org-super-agenda-mode -1)
+  (let ((org-agenda-sticky nil)
+        (org-habit-show-habits nil)
+        (org-agenda-span 'week)
+        (org-agenda-max-entries 0))
+    (org-agenda-list))
+  (message "Press v c!"))
+
+(defun kk/weekly-review-hold ()
+  (interactive)
+  (let ((org-agenda-sticky nil)
+        (org-agenda-tag-filter-preset
+         (list (kk/weekly-review-filter-string))))
+    (org-todo-list 5)))
+
+(defun kk/weekly-review-mail-inbox ()
+  (interactive)
+  (mu4e-headers-search (pcase kk/weekly-review-personal-or-work
+                         ('work
+                          "maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX")
+                         ('personal
+                          "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX")
+                         (t
+                          "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX"))))
+
+(defun kk/weekly-review-deadlines ()
+  (interactive)
+  (let ((org-agenda-sticky nil)
+        (org-super-agenda-groups nil)
+        (org-agenda-tag-filter-preset
+         (list "-HOLD" (kk/weekly-review-filter-string))))
+    (org-agenda nil "d")))
+
+(defun kk/weekly-review-standalone ()
+  (interactive)
+  (let ((org-agenda-sticky nil)
+        (org-super-agenda-groups nil)
+        (org-agenda-tag-filter-preset
+         (list "-HOLD" (kk/weekly-review-filter-string))))
+    (org-agenda nil "d")))
+#+end_src
+
+** Export
+
+*** Use Other Languages with LaTeX
+#+begin_src emacs-lisp
+(add-to-list 'org-latex-packages-alist
+             '("AUTO" "babel" t ("pdflatex")))
+(add-to-list 'org-latex-packages-alist
+             '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+#+end_src
+
 * Development
 
 ** General
@@ -2661,7 +2771,7 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
       _p_: pomodoro                   _s_: search                _t_: tables
       _e_: extend clock to now        _S_: search todo only
       _i_: clock in                   _m_: match
-      _o_: clock out                  _M_: match todo only
+      _o_: clock out                  _M_: match todo only       _w_: weekly review
       "
   ("p" org-pomodoro :exit t)
   ("e" org-pomodoro-extend-last-clock :exit t)
@@ -2671,7 +2781,8 @@ _B_: buffers (3-way)   _F_: files (3-way)     ^ ^                _w_: wordwise
   ("S" (org-search-view t) :exit t)
   ("m" org-tags-view :exit t)
   ("M" (org-tags-view t) :exit t)
-  ("t" kk/org-table-hydra/body :exit t))
+  ("t" kk/org-table-hydra/body :exit t)
+  ("w" hydra-weekly-review/body :exit t))
 (bind-key "C-c h" #'hydra-org-mode/body org-mode-map)
 
 (defhydra org-agenda-hydra (:hint nil)
@@ -2718,9 +2829,9 @@ _s_: super agenda mode
 
 (defhydra kk/hydra-org-things (:hint nil)
   "
-^Clocking^                   ^Timer^                  ^Contacts^      ^Query^
+^Clocking^                   ^Timer^                  ^Contacts^      ^Query^          ^Other^
 ^^^^^^^^------------------------------------------------------------------------------------
-_i_: punch in                _t_: set                 _c_: search     _S_: ql-search
+_i_: punch in                _t_: set                 _c_: search     _S_: ql-search   _w_: weekly review
 _o_: punch out               _T_: stop                _C_: send mail  _v_: view
 _I_: clock in at time        _C-t_: pause or continue ^ ^
 _O_: clock out at time
@@ -2741,6 +2852,7 @@ _d_: toggle clock in parent
   ("C" org-contacts-view-send-email :exit t)
   ("v" org-ql-view :exit t)
   ("S" org-ql-search :exit t)
+  ("w" hydra-weekly-review/body :exit t)
   ("q" nil))
 (global-set-key (kbd "<f9>") 'kk/hydra-org-things/body)
 #+end_src
@@ -2896,6 +3008,31 @@ _SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
   ("+" emms-volume-raise)
   ("-" emms-volume-lower))
 (global-set-key (kbd "C-c e") 'emms-hydra/body)
+#+end_src
+
+*** Weekly Review
+
+#+begin_src emacs-lisp
+(defhydra hydra-weekly-review (:hint nil)
+  "
+^Agenda^                 ^Mail^                   ^Toggle
+^^^^^^^^-----------------------------------------------------------------
+_d_: deadlines           _m_: mail                _t_: toggle personal/work
+_s_: standalone          ^ ^                      _a_: review all
+_h_: hold
+_w_: weekly
+_c_: clocking data
+_r_: report
+"
+  ("m" kk/weekly-review-mail-inbox :exit t)
+  ("t" kk/weekly-review-toggle-personal-work)
+  ("a" kk/weekly-review-review-all)
+  ("h" kk/weekly-review-hold :exit t)
+  ("d" kk/weekly-review-deadlines :exit t)
+  ("s" kk/weekly-review-standalone :exit t)
+  ("w" kk/weekly-review-agenda :exit t)
+  ("r" kk/weekly-review-clock-report :exit t)
+  ("c" kk/weekly-review-clocking-data :exit t))
 #+end_src
 
 ** Vertico
