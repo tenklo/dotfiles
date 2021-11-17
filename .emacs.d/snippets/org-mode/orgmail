@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: orgmail
+# key: orgmail
+# --
+* ${1:Salutation}
+
+$0
+
+* ${2:Closing}
+${3:Name}
