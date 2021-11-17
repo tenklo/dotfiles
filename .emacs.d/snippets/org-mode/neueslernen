@@ -13,4 +13,5 @@ SCHEDULED: `(let ((x (org-insert-time-stamp (current-time)))))`
 ** TODO $1 nochmals Material lesen
 mit erlerntem Grundwissen tieferes erkennen
 ** TODO $1 weitere Karteikarten erstellen
+** TODO $1 Karten lernen
 ** TODO Entscheiden, ob weitere Runde nötig 
