@@ -1010,7 +1010,14 @@ When set to 'note, rescheduling or scattering breaks."
             :order 101)))
   :config
   (defun kk/org-hour-specification-p (item)
-    (s-matches? "[0-9][0-9]?:[0-9][0-9]" item)))
+    (s-matches? "[0-9][0-9]?:[0-9][0-9]" item))
+
+  (defun kk/org-super-agenda-mode-toggle ()
+    (interactive)
+    (if org-super-agenda-mode
+	(org-super-agenda-mode -1)
+      (org-super-agenda-mode))
+    (org-agenda-redo-all)))
 #+end_src
 
 ** Capture Templates
@@ -2675,7 +2682,8 @@ _w_: include wait+sched.
 _s_: super agenda mode
 "
   ("w" bh/toggle-next-task-display)
-  ("s" org-super-agenda-mode))
+  ("s" kk/org-super-agenda-mode-toggle)
+  ("q" nil))
 
 (bind-key "C-c h" #'org-agenda-hydra/body org-agenda-mode-map)
 
