@@ -307,8 +307,7 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
    (setq org-agenda-files `("~/Nextcloud/Documents/org"
-                            "~/nextcloud_work/schule/schule.org"
-                            ,kk/org-roam-directory))
+                            "~/nextcloud_work/schule/schule.org"))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
