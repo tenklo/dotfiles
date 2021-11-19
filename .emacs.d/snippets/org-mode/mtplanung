@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: mtplanung
+# key: mtplanung
+# --
+* TODO MT für $1$0
+** TODO Termin haben
+DEADLINE: <`(let ((x (ts-format "%Y-%m-%d" (ts-adjust 'month +1 'day -1 (ts-apply :day 01 (ts-now))))))x)`>
+:PROPERTIES:
+:TRIGGER:  chain-siblings(NEXT)
+:END:
+*** NEXT Termin überlegen
+SCHEDULE: `(let ((x (org-insert-time-stamp (current-time)))))`
+:PROPERTIES:
+:TRIGGER:  chain-siblings(NEXT)
+:END:
+*** TODO Termin vorschlagen
+auf Bestätigung warten, dann schedulen
+** TODO Schedulen
+- [ ] "Vorbereitungen treffen" deadline setzen auf den ausgemachten Termin
+- [ ] "MT $1" Timestamp setzen auf ausgemachten Termin
+** TODO Programm definieren
+SCHEDULE: `(let ((x (org-insert-time-stamp (current-time)))))`
+** TODO Vorbereitungen treffen
+** TODO MT $1
