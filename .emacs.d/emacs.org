@@ -978,6 +978,8 @@ When set to 'note, rescheduling or scattering breaks."
             :tag "urgent")
      (:name "Important"
             :tag "important")
+     (:name "Flagged"
+            :tag "FLAGGED")
      (:name "Due today"
             :deadline today)
      (:name "Overdue"
