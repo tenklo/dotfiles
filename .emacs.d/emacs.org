@@ -3296,7 +3296,16 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
     (cfw:open-calendar-buffer
      :contents-sources
      (list
-      (cfw:org-create-source "Green")))))
+      (cfw:org-create-source "Green"))))
+
+  (defun kk/cfw:org-open-agenda-day (original)
+    "Call cfw:org-open-agenda-day with org-agenda-sticky set to nil."
+    (let ((org-agenda-sticky nil))
+      (funcall original)))
+
+  (advice-add 'cfw:org-open-agenda-day :around 'kk/cfw:org-open-agenda-day)
+
+  (setq cfw:org-capture-template '("Q" "calfw2org" entry (file kk/org-refile-target) "* %? %(cfw:org-capture-day)")))
 #+end_src
 
 ** Calculating
