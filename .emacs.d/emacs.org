@@ -366,7 +366,8 @@ Intended to be used in an `org-mode-hook'."
      ("delegated" . 100)
      ("learn" . 108)
      ("maintenance" . 119)
-     (:newline)))
+     ("read" . 114)
+     ("watch" . 115)))
   :config
   (setq initial-major-mode 'org-mode)
 
