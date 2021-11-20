@@ -1007,6 +1007,10 @@ When set to 'note, rescheduling or scattering breaks."
      (:name "Habits"
             :habit t
             :order 150)
+     (:name "Media"
+            :category "media"
+            :tag ("read" "watch")
+            :order 130)
      (:name "Quick Picks"
             :and (:effort< "0:16" :not (:pred kk/org-hour-specification-p)))
      (:name "Scheduled earlier"
