@@ -972,7 +972,7 @@ When set to 'note, rescheduling or scattering breaks."
   (org-super-agenda-mode t)
   (org-super-agenda-unmatched-name "General")
   (org-super-agenda-groups
-   '((:name "Today"
+   '((:name "Appointments"
             :pred kk/org-hour-specification-p
             :time-grid t)
      (:name "Urgent"
