@@ -2707,13 +2707,14 @@ _s_: by subject         _h_: toggle html view
   "
 ^Add^                   ^Org
 ^^^^^^^^-----------------------------------------------------------------
-_s_: signature          _e_: edit
+_s_: signature          _e_: edit       _r_: revert to plain
 _a_: attachment         _h_: htmlize
 "
   ("s" kk/mu4e-choose-signature :exit t)
   ("a" mail-add-attachment :exit t)
   ("h" org-mime-htmlize :exit t)
-  ("e" org-mime-edit-mail-in-org-mode :exit t))
+  ("e" org-mime-edit-mail-in-org-mode :exit t)
+  ("r" org-mime-revert-to-plain-text-mail :exit t))
 #+end_src
 
 *** Ediff
