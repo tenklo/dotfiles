@@ -572,7 +572,7 @@ as the default task."
   (interactive)
   (kk/reset-org-default-task)
   (when (org-clock-is-active)
-    (org-clock-out))
+    (bh/clock-in-default-task))
   (org-agenda-remove-restriction-lock))
 
 (defun bh/clock-in-default-task ()
