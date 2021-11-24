@@ -779,7 +779,7 @@ as the default task."
 
 #+begin_src emacs-lisp
 (setq org-agenda-dim-blocked-tasks nil)
-(setq org-agenda-inhibit-startup nil)
+(setq org-agenda-inhibit-startup t)
 
 (setq org-sort-agenda-noeffort-is-high t)
 (setq org-agenda-sort-notime-is-late nil)
