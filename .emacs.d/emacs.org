@@ -367,7 +367,8 @@ Intended to be used in an `org-mode-hook'."
      ("learn" . 108)
      ("maintenance" . 119)
      ("read" . 114)
-     ("watch" . 115)))
+     ("watch" . 115)
+     ("buy" . 98)))
   :config
   (setq initial-major-mode 'org-mode)
 
