@@ -3184,6 +3184,11 @@ Delete trailing whitespace via `delete-trailing-whitespace', apply indentation v
 (setq calendar-location-name "Stuttgart")
 (setq calendar-latitude 48.8)
 (setq calendar-longitude 9.2)
+
+(add-to-list 'display-buffer-alist
+             '("\\*Calendar\\*"
+               (display-buffer-in-side-window)
+               (side . bottom)))
 #+end_src
 
 *** German
