@@ -2816,9 +2816,9 @@ _s_: super agenda mode
 
 (defhydra kk/org-table-hydra (:hint nil)
   "
-  ^Org Tables^
-  ^^^^^^^^-----------------------------------------------------------------
-  _p_: prev       _P_: move up      _h_: hline & next line    _F_, _B_: move cols
+  ^Org Tables^                                                                      ^Formulas^
+  ^^^^^^^^-----------------------------------------------------------------------------------------
+  _p_: prev       _P_: move up      _h_: hline & next line    _F_, _B_: move cols   _a_: recalc all in buffer
   _n_: next       _N_: move down    _H_: insert hline below   _N_, _P_: move rows
   _f_: forward    _r_: insert row   _c_: insert column        _w_: toggle width
   _b_: back       _R_: kill row     _C_: kill column
@@ -2841,7 +2841,8 @@ _s_: super agenda mode
   ("C" org-table-delete-column)
   ("u" undo)
   ("q" nil)
-  ("w" org-table-toggle-column-width))
+  ("w" org-table-toggle-column-width)
+  ("a" org-table-recalculate-buffer-tables))
 
 (defhydra kk/hydra-org-things (:hint nil)
   "
