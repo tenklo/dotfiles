@@ -1984,6 +1984,12 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (use-package markdown-mode)
 #+end_src
 
+** YAML
+
+#+begin_src emacs-lisp
+(use-package yaml-mode)
+#+end_src
+
 * File Management
 
 ** Dired
