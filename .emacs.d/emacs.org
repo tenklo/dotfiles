@@ -1133,6 +1133,7 @@ When set to 'note, rescheduling or scattering breaks."
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("c#" . "src csharp"))
 (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
+(add-to-list 'org-structure-template-alist '("ym" . "src yaml"))
 #+end_src
 
 ** Keybindings
