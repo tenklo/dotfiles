@@ -3302,7 +3302,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (use-package calfw-org
     :config
     (setq cfw:org-overwrite-default-keybinding t)
-    (setq cfw:org-agenda-schedule-args '(:timestamp)))
+    (setq cfw:org-agenda-schedule-args '(:timestamp :deadline)))
 
   (global-set-key (kbd "C-c C") 'cfw:open-org-calendar)
 
