@@ -993,6 +993,9 @@ When set to 'note, rescheduling or scattering breaks."
      (:name "Pets"
             :tag "pets"
             :order 107)
+     (:name "Finances"
+            :tag "finance"
+            :order 107)
      (:name "Learn"
             :tag "learn"
             :order 115)
