@@ -821,7 +821,6 @@ When =org-log-reschedule= is set to note, it breaks the scatter function when pr
 When set to 'note, rescheduling or scattering breaks."
   (let ((org-log-reschedule 'time))
     (funcall original arg)))
-
 #+end_src
 
 *** Custom Agenda Commands
