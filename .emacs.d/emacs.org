@@ -896,7 +896,12 @@ When set to 'note, rescheduling or scattering breaks."
                  (org-super-agenda-groups nil)
                  (org-agenda-skip-function 'kk/skip-project-sub-tasks)))
           (tags-todo "REWORK-refile"
-                     ((org-agenda-overriding-header "Meetings and Calls to post process")))
+                     ((org-agenda-overriding-header "Meetings and Calls to post process")
+                      (org-agenda-sorting-strategy
+                       '(timestamp-up))
+                      (org-agenda-breadcrumbs-separator "/")
+                      (org-agenda-prefix-format
+                       '((tags . " %i %-12:c %(concat (kk/org-agenda-get-parent-task-string) \"->\")")))))
           (tags-todo "+TODO=\"WAIT\""
                      ((org-agenda-overriding-header "Unscheduled Waits")
                       (org-agenda-tags-todo-honor-ignore-options t)
@@ -961,6 +966,18 @@ When set to 'note, rescheduling or scattering breaks."
                  (org-tags-match-list-sublevels nil))))
          ((org-agenda-compact-blocks t)
           (org-agenda-dim-blocked-tasks nil)))))
+#+end_src
+
+*** Custom Functions
+
+#+begin_src emacs-lisp
+(defun kk/org-agenda-get-parent-task-string ()
+  (let ((parent-task))
+    (save-excursion
+      (save-restriction
+        (widen)
+        (org-up-heading-safe)
+        (org-entry-get nil "ITEM")))))
 #+end_src
 
 *** Org-Super-Agenda
