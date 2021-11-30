@@ -1078,7 +1078,7 @@ When set to 'note, rescheduling or scattering breaks."
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("m" "Meeting" entry (file kk/org-refile-target)
-         "* MEETING with %? :MEETING:\n:LOGBOOK:\n- Started: %U\n- Started From: %a\n:END:\n\n- \n\n\n** TODO Nacharbeit :REWORK:NOARCH:\n" :clock-in t :clock-resume t)
+         "* MEETING %? :MEETING:\n:LOGBOOK:\n- Started: %U\n- Started From: %a\n:END:\n\n- \n\n\n** TODO Nacharbeit :REWORK:NOARCH:\n" :clock-in t :clock-resume t)
         ("p" "Phone call" entry (file kk/org-refile-target)
          "* PHONE %? :PHONE:\n:LOGBOOK:\n- Started: %U\n- Started From: %a\n:END:\n\n- \n\n\n** TODO Nacharbeit :REWORK:NOARCH:\n" :clock-in t :clock-resume t)
 
