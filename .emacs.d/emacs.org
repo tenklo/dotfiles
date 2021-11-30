@@ -456,6 +456,10 @@ Intended to be used in an `org-mode-hook'."
               (org-save-all-org-buffers)))
 
 (setq org-clone-delete-id t)
+
+(defun kk/org-search ()
+  (interactive)
+  (org-refile '(4)))
 #+end_src
 
 *** Logging
@@ -2870,6 +2874,7 @@ _d_: toggle clock in parent
   ("c" org-contacts :exit t)
   ("C" org-contacts-view-send-email :exit t)
   ("v" org-ql-view :exit t)
+  ("s" kk/org-search :exit t)
   ("S" org-ql-search :exit t)
   ("w" hydra-weekly-review/body :exit t)
   ("q" nil))
