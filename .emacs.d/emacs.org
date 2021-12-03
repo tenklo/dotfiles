@@ -2014,6 +2014,12 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (use-package yaml-mode)
 #+end_src
 
+** JSON
+
+#+begin_src emacs-lisp
+(use-package json-mode)
+#+end_src
+
 * File Management
 
 ** Dired
