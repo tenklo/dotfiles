@@ -1594,13 +1594,24 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                                            (forward-line 1)
                                            (and (< (point) subtree-end)
                                                 (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
-                (if subtree-is-current
-                    subtree-end ; Has a date in this month or last month, skip it
-                  (if (member "NOARCH" (org-get-tags-at))
-                      subtree-end
-                    nil)))  ; available to archive
+                (if (or subtree-is-current
+                        (member "NOARCH" (org-get-tags-at))
+                        (kk/project-task-where-project-is-done-p))
+                    subtree-end ; Has a date in this month or last month or has NOARCH tag or it is a project task and that is done too, skip it
+                  nil))  ; available to archive
             (or subtree-end (point-max)))
         next-headline))))
+
+(defun kk/project-task-where-project-is-done-p ()
+  "A task that is a project sub task and that project is done."
+  (interactive)
+  (let ((task (save-excursion (org-back-to-heading 'invisible-ok)
+                              (point))))
+    (save-excursion
+      (bh/find-project-task)
+      (if (org-entry-is-done-p)
+          t
+        nil))))
 
 ;;;; Refile settings
 (defun bh/verify-refile-target ()
