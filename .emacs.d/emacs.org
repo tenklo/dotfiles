@@ -1917,6 +1917,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 **** General
 
 #+begin_src emacs-lisp
+(setq org-latex-caption-above nil)
 (add-to-list 'org-latex-packages-alist
              '("margin=2cm" "geometry"))
 #+end_src
