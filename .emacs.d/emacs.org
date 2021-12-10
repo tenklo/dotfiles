@@ -2055,6 +2055,14 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 #+end_src
 
+*** Editorconfig
+
+#+begin_src emacs-lisp
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+#+end_src
+
 ** SQL
 :PROPERTIES:
 :ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
