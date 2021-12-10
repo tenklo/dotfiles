@@ -291,7 +291,7 @@ For editing commands I guess.
       (avy-forward-item)
       (capitalize-region pt (point))) t)
 
-  (setf (alist-get ?\M-c avy-dispatch-alist) 'avy-action-capitalize)
+  (setf (alist-get ?c avy-dispatch-alist) 'avy-action-capitalize)
 
   (defun avy-action-upcase-item (pt)
     (save-excursion
@@ -299,7 +299,7 @@ For editing commands I guess.
       (avy-forward-item)
       (upcase-region pt (point))))
 
-  (setf (alist-get ?\M-u avy-dispatch-alist) 'avy-action-upcase-item)
+  (setf (alist-get ?u avy-dispatch-alist) 'avy-action-upcase-item)
 
   (defun avy-action-downcase-item (pt)
     (save-excursion
@@ -307,7 +307,7 @@ For editing commands I guess.
       (avy-forward-item)
       (downcase-region pt (point))))
 
-  (setf (alist-get ?\M-l avy-dispatch-alist) 'avy-action-downcase-item)
+  (setf (alist-get ?L avy-dispatch-alist) 'avy-action-downcase-item)
 
   (defun avy-action-helpful (pt)
     (save-excursion
