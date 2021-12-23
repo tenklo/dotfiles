@@ -139,6 +139,28 @@ For editing commands I guess.
 
 (define-key edit-commands-map (kbd "r") 'replace-string)
 (define-key edit-commands-map (kbd "C-r") 'replace-regexp)
+
+(defun kk/mark-word-backwards (&optional ARG)
+  (interactive)
+  (call-interactively 'set-mark-command)
+  (backward-word-strictly ARG))
+(defun kk/mark-word-forward (&optional ARG)
+  (interactive)
+  (call-interactively 'set-mark-command)
+  (forward-word-strictly ARG))
+(defun kk/mark-line-backwards (&optional ARG)
+  (interactive)
+  (call-interactively 'set-mark-command)
+  (beginning-of-line ARG))
+(defun kk/mark-line-forward (&optional ARG)
+  (interactive)
+  (call-interactively 'set-mark-command)
+  (end-of-line ARG))
+
+(define-key edit-commands-map (kbd "b") 'kk/mark-word-backwards)
+(define-key edit-commands-map (kbd "f") 'kk/mark-word-forward)
+(define-key edit-commands-map (kbd "B") 'kk/mark-line-backwards)
+(define-key edit-commands-map (kbd "F") 'kk/mark-line-forward)
 #+end_src
 
 ** Tramp
