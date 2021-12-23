@@ -940,7 +940,7 @@ When set to 'note, rescheduling or scattering breaks."
   (defun kk/org-super-agenda-mode-toggle ()
     (interactive)
     (if org-super-agenda-mode
-	(org-super-agenda-mode -1)
+        (org-super-agenda-mode -1)
       (org-super-agenda-mode))
     (org-agenda-redo-all)))
 #+end_src
@@ -952,7 +952,7 @@ When set to 'note, rescheduling or scattering breaks."
 
 #+begin_src emacs-lisp
 (define-key global-map (kbd "C-c j")
-  (lambda () (interactive) (org-capture nil)))
+            (lambda () (interactive) (org-capture nil)))
 
 (defvar my/org-contacts-template "* %(org-contacts-template-name)
 :PROPERTIES:
@@ -2300,7 +2300,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
       (dolist (buffer (buffer-list t))
         (set-buffer buffer)
         (when (and (derived-mode-p 'message-mode)
-                (null message-sent-message-via))
+                   (null message-sent-message-via))
           (push (buffer-name buffer) buffers))))
     (nreverse buffers)))
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
@@ -2442,7 +2442,7 @@ Activate margins if `ARG' is above 1 or disable when below."
           help-mode
           compilation-mode
           dired-mode
-	  org-agenda-mode
+          org-agenda-mode
           "^\\*.*eshell.*\\*$" eshell-mode
           "^\\*shell.*\\*$"  shell-mode
           "^\\*term.*\\*$"   term-mode
