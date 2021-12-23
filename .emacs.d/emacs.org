@@ -1646,7 +1646,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
     ('work
      "+WORK")
     (t
-     "")))
+     nil)))
 
 (defun kk/weekly-review-agenda ()
   (interactive)
@@ -1655,7 +1655,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
         (org-agenda-span 'week)
         (org-super-agenda-groups nil)
         (org-agenda-tag-filter-preset
-         (list "-HOLD" (kk/weekly-review-filter-string))))
+         (list "-HOLD"))
+        (additional-filters (kk/weekly-review-filter-string)))
+    (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
     (org-agenda-list)))
 
 (defun kk/weekly-review-clock-report ()
@@ -1678,8 +1680,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (defun kk/weekly-review-hold ()
   (interactive)
   (let ((org-agenda-sticky nil)
-        (org-agenda-tag-filter-preset
-         (list (kk/weekly-review-filter-string))))
+        (org-agenda-tag-filter-preset '())
+        (additional-filters (kk/weekly-review-filter-string)))
+    (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
     (org-todo-list 5)))
 
 (defun kk/weekly-review-mail-inbox ()
@@ -1698,16 +1701,21 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
         (org-super-agenda-groups nil)
         (org-agenda-use-time-grid nil)
         (org-agenda-tag-filter-preset
-         (list "-HOLD" (kk/weekly-review-filter-string))))
+         '("-HOLD"))
+        (additional-filters (kk/weekly-review-filter-string)))
+    (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
     (org-agenda nil "d")))
 
 (defun kk/weekly-review-standalone ()
   (interactive)
   (let ((org-agenda-sticky nil)
-        (org-super-agenda-groups nil)
         (org-agenda-tag-filter-preset
-         (list "-HOLD" (kk/weekly-review-filter-string))))
-    (org-agenda nil "d")))
+         '("-HOLD"))
+        (additional-filters (kk/weekly-review-filter-string)))
+    (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
+    (org-agenda nil " ")
+    (search-forward-regexp "^Standalone Tasks$")
+    (recenter-top-bottom 0)))
 #+end_src
 
 ** Export
