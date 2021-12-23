@@ -141,206 +141,6 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "C-r") 'replace-regexp)
 #+end_src
 
-*** Toggle Modes
-:PROPERTIES:
-:ID:       c9c86c86-fd85-46d5-8bae-fc491230a7cc
-:END:
-
-#+begin_src emacs-lisp
-(define-key edit-commands-map (kbd "C") 'column-number-mode)
-(define-key edit-commands-map (kbd "L") 'display-line-numbers-mode)
-(define-key edit-commands-map (kbd "S") 'subword-mode)
-(define-key edit-commands-map (kbd "F") 'flyspell-mode)
-(define-key edit-commands-map (kbd "A") 'auto-save-visited-mode)
-(define-key edit-commands-map (kbd "B") 'abbrev-mode)
-(define-key edit-commands-map (kbd "V") 'visual-line-mode)
-(define-key edit-commands-map (kbd "T") 'typo-mode)
-#+end_src
-
-** Tramp
-:PROPERTIES:
-:ID:       5f1f8ed1-3651-490d-8aca-cc6ca384d758
-:END:
-
-#+begin_src emacs-lisp
-(setq tramp-default-method "ssh")
-#+end_src
-
-** Buffers
-:PROPERTIES:
-:ID:       d86b950f-b780-49f1-a611-cf4c702a3673
-:END:
-
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-#+end_src
-
-** Movement
-
-*** Move Where I Mean Package
-:PROPERTIES:
-:ID:       df185c2f-c1cc-4921-840c-3c444ff07e46
-:END:
-
-#+begin_src emacs-lisp
-(use-package mwim
-  :config
-  (global-set-key (kbd "C-a") 'mwim-beginning)
-  (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
-#+end_src
-
-*** Expand Region
-:PROPERTIES:
-:ID:       e0917147-ef19-4ed3-8952-ec15cd7bdc3c
-:END:
-
-#+begin_src emacs-lisp
-(use-package expand-region
-  :bind
-  (("C-+" . 'er/expand-region))
-  :config
-  (delete-selection-mode 1))
-#+end_src
-
-*** Subwords
-:PROPERTIES:
-:ID:       a6e339f7-cdbe-4b32-aadf-ed43aabc8098
-:END:
-
-#+begin_src emacs-lisp
-(global-subword-mode 1)
-#+end_src
-
-*** Avy
-:PROPERTIES:
-:ID:       2d3a19eb-7480-40ae-858f-3611a321a8aa
-:END:
-
-#+begin_src emacs-lisp
-(use-package avy
-  :bind
-  ("M-s M-s" . avy-goto-char)
-  ("M-g M-c" . avy-goto-char)
-  ("C-M-g" . avy-goto-word-0)
-  ("M-g M-g" . avy-goto-line)
-  ("M-g M-l" . avy-goto-line)
-  ("M-j" . avy-goto-char-timer)
-  :config
-  (define-key isearch-mode-map (kbd "M-j") 'avy-isearch)
-
-  (defun avy-action-embark (pt)
-    (unwind-protect
-        (save-excursion
-          (goto-char pt)
-          (embark-act))
-      (select-window
-       (cdr (ring-ref avy-ring 0))))
-    t)
-
-  (setf (alist-get ?. avy-dispatch-alist) 'avy-action-embark)
-
-  (defun avy-action-kill-whole-line (pt)
-    (save-excursion
-      (goto-char pt)
-      (kill-whole-line))
-    (select-window
-     (cdr
-      (ring-ref avy-ring 0)))
-    t)
-  (setf (alist-get ?K avy-dispatch-alist) 'avy-action-kill-whole-line)
-
-  (defun avy-action-copy-whole-line (pt)
-    (save-excursion
-      (goto-char pt)
-      (cl-destructuring-bind (start . end)
-          (bounds-of-thing-at-point 'line)
-        (copy-region-as-kill start end)))
-    (select-window
-     (cdr
-      (ring-ref avy-ring 0)))
-    t)
-
-  (defun avy-action-yank-whole-line (pt)
-    (avy-action-copy-whole-line pt)
-    (save-excursion (yank))
-    t)
-
-  (setf (alist-get ?y avy-dispatch-alist) 'avy-action-yank
-        (alist-get ?w avy-dispatch-alist) 'avy-action-copy
-        (alist-get ?W avy-dispatch-alist) 'avy-action-copy-whole-line
-        (alist-get ?Y avy-dispatch-alist) 'avy-action-yank-whole-line)
-
-  (defun avy-action-teleport-whole-line (pt)
-    (avy-action-kill-whole-line pt)
-    (save-excursion (yank)) t)
-
-  (setf (alist-get ?t avy-dispatch-alist) 'avy-action-teleport
-        (alist-get ?T avy-dispatch-alist) 'avy-action-teleport-whole-line)
-
-  (defun avy-action-mark-to-char (pt)
-    (activate-mark)
-    (goto-char pt))
-
-  (setf (alist-get ?  avy-dispatch-alist) 'avy-action-mark-to-char)
-
-  (defun avy-action-capitalize (pt)
-    (interactive)
-    (save-excursion
-      (goto-char pt)
-      (avy-forward-item)
-      (capitalize-region pt (point))) t)
-
-  (setf (alist-get ?c avy-dispatch-alist) 'avy-action-capitalize)
-
-  (defun avy-action-upcase-item (pt)
-    (save-excursion
-      (goto-char pt)
-      (avy-forward-item)
-      (upcase-region pt (point))))
-
-  (setf (alist-get ?u avy-dispatch-alist) 'avy-action-upcase-item)
-
-  (defun avy-action-downcase-item (pt)
-    (save-excursion
-      (goto-char pt)
-      (avy-forward-item)
-      (downcase-region pt (point))))
-
-  (setf (alist-get ?L avy-dispatch-alist) 'avy-action-downcase-item)
-
-  (defun avy-action-helpful (pt)
-    (save-excursion
-      (goto-char pt)
-      (helpful-at-point))
-    (select-window
-     (cdr (ring-ref avy-ring 0)))
-    t)
-
-  (setf (alist-get ?H avy-dispatch-alist) 'avy-action-helpful))
-#+end_src
-
-** Customization Through Emacs
-:PROPERTIES:
-:ID:       fc347ba8-aa03-4cf1-93fd-511ae20b28d1
-:END:
-
-Make =M-x customize= persistent.
-
-#+begin_src emacs-lisp
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file t)
-#+end_src
-
-** Private Stuff
-
-Stuff I do not want to be checked into a public git repo can go here.
-
-#+begin_src emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/elisp")
-(require 'work-days)
-#+end_src
-
 * System Specific
 
 ** Declarations
@@ -2571,9 +2371,11 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (defvar kk/margins-active t)
-(defun kk/toggle-margins ()
+(defun kk/toggle-margins (&optional ARG)
+  "Toggle margins when no `ARG' specified or set explicitly.
+Activate margins if `ARG' is above 1 or disable when below."
   (interactive)
-  (setq kk/margins-active (not kk/margins-active))
+  (setq kk/margins-active (if ARG (if (< ARG 1) nil t) (not kk/margins-active)))
   (message (format "Margins are %s" (if kk/margins-active
                                         "active"
                                       "inactive"))))
@@ -2586,6 +2388,20 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 (add-hook 'window-configuration-change-hook
           #'kk/set-margins-function)
+
+(defun kk/display-line-numbers-mode (ARG)
+  "Change line numbers mode and margins at the same time.
+`ARG' beeing t enables line numbers and disables margins, nil disables line numbers and enables margins."
+  (display-line-numbers-mode (if ARG 1 -1))
+  (setq kk/margins-active (if ARG nil t))
+  (kk/set-margins-function)
+  (message "%s" ARG))
+
+(defun kk/toggle-display-line-numbers-mode ()
+  (interactive)
+  (if display-line-numbers-mode
+      (kk/display-line-numbers-mode nil)
+    (kk/display-line-numbers-mode t)))
 #+end_src
 
 ** Window Management
@@ -2814,6 +2630,27 @@ _o_: punch out
   ("o" bh/punch-out :exit t)
   ("t" kk/tidy-buffer :exit t))
 (global-set-key (kbd "C-c g") 'hydra-global/body)
+#+end_src
+
+*** Toggle Modes
+
+#+begin_src emacs-lisp
+(defhydra hydra-modes (:hint nil)
+  "
+_c_: column-numbers           _l_: line-numbers       _v_: visual-line-mode
+_s_: subwords                 _b_: abbrev-mode        _f_: flyspell-mode
+_a_: auto-save-visited-mode   _t_: typo-mode
+"
+  ("c" column-number-mode)
+  ("l" kk/toggle-display-line-numbers-mode)
+  ("s" subword-mode)
+  ("f" flyspell-mode)
+  ("a" auto-save-visited-mode)
+  ("b" abbrev-mode)
+  ("v" visual-line-mode)
+  ("t" typo-mode)
+  ("q" nil))
+(global-set-key (kbd "C-c M") 'hydra-modes/body)
 #+end_src
 
 *** Development
