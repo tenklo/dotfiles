@@ -1917,7 +1917,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 **** Use Other Languages with LaTeX
 #+begin_src emacs-lisp
 (add-to-list 'org-latex-packages-alist
-             '("AUTO" "babel" t ("pdflatex")))
+             '("ngerman" "babel" t ("pdflatex")))
 (add-to-list 'org-latex-packages-alist
              '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
 #+end_src
