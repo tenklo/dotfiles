@@ -1184,13 +1184,13 @@ When set to 'note, rescheduling or scattering breaks."
 
         ("f" "Finances")
         ("ft" "to track" entry (file kk/org-refile-target)
-         "* TODO Expense: %?\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
+         "* TODO Expense: %? :financetotrack:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("fp" "to pay" entry (file kk/org-refile-target)
-         "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
+         "* TODO %? :financetopay:\nSCHEDULED: %t\n:PROPERTIES:\n:PAYEE: %^{PAYEE}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
         ("fw" "awaiting payment" entry (file kk/org-refile-target)
-         "* WAIT %?\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
+         "* WAIT %? :financeawaiting:\n:PROPERTIES:\n:DEBTOR: %^{DEBTOR}\n:AMOUNT: %^{AMOUNT}\n:END:\n:LOGBOOK:\n- Added: %U\n- Added From: %a\n:END:\n%i"
          :empty-lines 0 :clock-in t :clock-resume t)
 
         ("m" "Meeting" entry (file kk/org-refile-target)
