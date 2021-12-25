@@ -3561,7 +3561,8 @@ With prefix ARG non-nil, insert the result at the end of region."
 #+begin_src emacs-lisp
 (use-package eww
   :config (setq browse-url-browser-function 'eww
-                shr-width 80))
+                shr-width 80
+		eww-auto-rename-buffer 'title))
 #+end_src
 
 *** Search Logic
