@@ -3980,6 +3980,8 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 ;; without this line tramp does not seem to work.
 (setq shell-prompt-pattern "\\(?:^\\|\r\\)[^]#$%>\n]*#?[]#$%>].* *\\(^[\\[[0-9;]*[a-zA-Z] *\\)*")
+
+(global-set-key (kbd "C-c C-<return>") 'shell)
 #+end_src
 
 ** Eshell
@@ -3994,9 +3996,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
           '("vim")))
 
 (use-package eshell
-  :hook (eshell-first-time-mode . kk/eshell-configure)
-  :config
-  (global-set-key (kbd "C-c C-<return>") 'eshell))
+  :hook (eshell-first-time-mode . kk/eshell-configure))
 #+end_src
 
 * Disabled Commands
