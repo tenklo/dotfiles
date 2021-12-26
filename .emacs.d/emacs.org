@@ -1093,6 +1093,7 @@ When set to 'note, rescheduling or scattering breaks."
   (org-super-agenda-groups
    '((:name "Events"
             :pred kk/org-hour-specification-p
+	    :category "Feiertag"
             :time-grid t)
      (:name "Urgent"
             :tag "urgent")
