@@ -13,7 +13,8 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
     brightnessctl set +5%
 
-
+super + j
+    emacsclient --eval "(emacs-everywhere)"
 # basic bindings
 super + Return
     $TERMINAL

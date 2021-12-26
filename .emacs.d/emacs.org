@@ -3928,6 +3928,12 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
     (define-key embark-file-map (kbd "U") '0x0-upload-file)))
 #+end_src
 
+** Emacs Everywhere
+
+#+begin_src emacs-lisp
+(use-package emacs-everywhere)emacsclient --eval "(emacs-everywhere)"
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
