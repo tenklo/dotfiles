@@ -1013,6 +1013,12 @@ When set to 'note, rescheduling or scattering breaks."
           ,kk/org-agenda-refileable
           ,kk/org-agenda-to-postprocess))
 
+        ("r" "Archivable"
+         ((tags "-REFILE-NOARCH"
+                ((org-agenda-overriding-header "Tasks to Archive")
+                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                 (org-tags-match-list-sublevels nil)))))
+
         ("p" "Projects"
          ((agenda ""
                   ((org-agenda-span 1)
@@ -1072,11 +1078,7 @@ When set to 'note, rescheduling or scattering breaks."
                       (org-agenda-skip-function 'bh/skip-non-tasks)
                       (org-tags-match-list-sublevels nil)
                       (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
-          (tags "-REFILE/"
-                ((org-agenda-overriding-header "Tasks to Archive")
-                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                 (org-tags-match-list-sublevels nil)))))))
+                      (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))))))
 #+end_src
 
 *** Custom Functions
@@ -1614,9 +1616,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                                            (and (< (point) subtree-end)
                                                 (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
                 (if (or subtree-is-current
-                        (member "NOARCH" (org-get-tags-at))
                         (kk/project-task-where-project-is-done-p))
-                    subtree-end ; Has a date in this month or last month or has NOARCH tag or it is a project task and that is done too, skip it
+                    subtree-end ; skip it
                   nil))  ; available to archive
             (or subtree-end (point-max)))
         next-headline))))
