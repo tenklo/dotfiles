@@ -938,6 +938,28 @@ When set to 'note, rescheduling or scattering breaks."
                    (org-agenda-overriding-header "Stuck Projects")
                    (org-agenda-todo-ignore-scheduled))))
 
+(setq kk/org-agenda-refileable
+      '(tags "refile"
+             ((org-agenda-overriding-header "Tasks to Refile")
+              (org-tags-match-list-sublevels nil)
+              (org-super-agenda-groups nil)
+              (org-agenda-skip-function 'kk/skip-project-sub-tasks))))
+
+(setq kk/org-agenda-to-postprocess
+      '(tags-todo "REWORK-refile"
+                  ((org-agenda-overriding-header "Meetings and Calls to post process")
+                   (org-agenda-sorting-strategy
+                    '(timestamp-up))
+                   (org-agenda-breadcrumbs-separator "/")
+                   (org-agenda-prefix-format
+                    '((tags . " %i %-12:c %(concat (kk/org-agenda-get-parent-task-string) \"->\")"))))))
+
+(setq kk/org-agenda-unscheduled-waits
+      '(tags-todo "+TODO=\"WAIT\""
+                  ((org-agenda-overriding-header "Unscheduled Waits")
+                   (org-agenda-tags-todo-honor-ignore-options t)
+                   (org-agenda-todo-ignore-scheduled 'all))))
+
 (setq org-agenda-custom-commands
       `(("A" agenda* ""
          ((org-agenda-start-on-weekday nil)
@@ -982,28 +1004,21 @@ When set to 'note, rescheduling or scattering breaks."
                       (org-agenda-overriding-header "Waiting for these payments"))))
          ((org-agenda-view-columns-initially t)))
 
-        (" " "Agenda"
+        (" " "Agenda (shorter)"
          ((agenda ""
                   ((org-agenda-span 1)
                    (org-agenda-skip-timestamp-if-done t)
                    (org-agenda-skip-deadline-if-done t)
                    (org-agenda-skip-scheduled-if-done t)))
-          (tags "refile"
-                ((org-agenda-overriding-header "Tasks to Refile")
-                 (org-tags-match-list-sublevels nil)
-                 (org-super-agenda-groups nil)
-                 (org-agenda-skip-function 'kk/skip-project-sub-tasks)))
-          (tags-todo "REWORK-refile"
-                     ((org-agenda-overriding-header "Meetings and Calls to post process")
-                      (org-agenda-sorting-strategy
-                       '(timestamp-up))
-                      (org-agenda-breadcrumbs-separator "/")
-                      (org-agenda-prefix-format
-                       '((tags . " %i %-12:c %(concat (kk/org-agenda-get-parent-task-string) \"->\")")))))
-          (tags-todo "+TODO=\"WAIT\""
-                     ((org-agenda-overriding-header "Unscheduled Waits")
-                      (org-agenda-tags-todo-honor-ignore-options t)
-                      (org-agenda-todo-ignore-scheduled 'all)))
+          ,kk/org-agenda-refileable
+          ,kk/org-agenda-to-postprocess))
+
+        ("p" "Projects"
+         ((agenda ""
+                  ((org-agenda-span 1)
+                   (org-agenda-skip-timestamp-if-done t)
+                   (org-agenda-skip-deadline-if-done t)
+                   (org-agenda-skip-scheduled-if-done t)))
           ,kk/org-agenda-stuck-projects
           (tags-todo "-HOLD-CANCELLED/!"
                      ((org-agenda-overriding-header "Projects")
@@ -1061,9 +1076,7 @@ When set to 'note, rescheduling or scattering breaks."
           (tags "-REFILE/"
                 ((org-agenda-overriding-header "Tasks to Archive")
                  (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                 (org-tags-match-list-sublevels nil))))
-         ((org-agenda-compact-blocks t)
-          (org-agenda-dim-blocked-tasks nil)))))
+                 (org-tags-match-list-sublevels nil)))))))
 #+end_src
 
 *** Custom Functions
