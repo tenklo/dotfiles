@@ -385,8 +385,7 @@ Stuff I do not want to be checked into a public git repo can go here.
 (pcase system-name
   ("dwhpd"
    (setq kk/default-font-size 140)
-   (setq org-agenda-files '("~/documents/org"
-                            "~/nextcloud_work/schule/schule.org"))
+   (setq org-agenda-files '("~/documents/org"))
    (setq kk/org-refile-target "~/documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
      (pcase tag
@@ -404,8 +403,7 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq split-height-threshold 100)
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
-   (setq org-agenda-files `("~/Nextcloud/Documents/org"
-                            "~/nextcloud_work/schule/schule.org"))
+   (setq org-agenda-files `("~/Nextcloud/Documents/org"))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
