@@ -3943,7 +3943,9 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 ** Emacs Everywhere
 
 #+begin_src emacs-lisp
-(use-package emacs-everywhere)
+(use-package emacs-everywhere
+  :custom
+  (emacs-everywhere-paste-p nil))
 #+end_src
 
 * Terminals And Shells
