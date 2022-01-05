@@ -3930,7 +3930,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 ** Emacs Everywhere
 
 #+begin_src emacs-lisp
-(use-package emacs-everywhere)emacsclient --eval "(emacs-everywhere)"
+(use-package emacs-everywhere)
 #+end_src
 
 * Terminals And Shells
