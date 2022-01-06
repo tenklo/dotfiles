@@ -487,7 +487,7 @@ Intended to be used in an `org-mode-hook'."
 
   (setq org-global-properties
         `(("Effort_ALL" .
-           ,(concat "0:10 0:20 0:30 0:45 1:00 1:30 2:00 3:00 "
+           ,(concat "0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 "
                     "6:00 0:00"))))
   (setq org-columns-default-format
         (concat "#+COLUMNS: %7CATEGORY(Cat.) %7TODO(Todo) %40ITEM(Task) %TAGS(Tag) "
@@ -1153,7 +1153,7 @@ When set to 'note, rescheduling or scattering breaks."
             :tag ("read" "watch")
             :order 130)
      (:name "Quick Picks"
-            :and (:effort< "0:16" :not (:pred kk/org-hour-specification-p)))
+            :and (:effort< "0:06" :not (:pred kk/org-hour-specification-p)))
      (:name "Scheduled earlier"
             :scheduled past
             :order 101)))
