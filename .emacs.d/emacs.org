@@ -875,40 +875,6 @@ as the default task."
 
 ** Agenda
 
-*** Settings
-:PROPERTIES:
-:ID:       7fa5111d-0a34-4f53-b45d-9ea5fe1340db
-:END:
-
-#+begin_src emacs-lisp
-(setq org-agenda-dim-blocked-tasks nil)
-(setq org-agenda-compact-blocks t)
-(setq org-agenda-inhibit-startup t)
-
-(setq org-sort-agenda-noeffort-is-high t)
-(setq org-agenda-sort-notime-is-late nil)
-
-(add-hook 'org-agenda-mode-hook 'hl-line-mode)
-
-(setq org-agenda-text-search-extra-files nil)
-
-(setq org-agenda-span 'day)
-
-;; Use sticky agenda's so they persist
-(setq org-agenda-sticky t)
-
-(setq org-agenda-persistent-filter t)
-
-(setq org-agenda-window-setup 'current-window)
-
-;; (add-hook 'auto-save-hook '(lambda ()
-;;                              (org-agenda-redo-all t)))
-
-(setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
-
-(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
-#+end_src
-
 *** Bulk
 
 **** Advice
@@ -1690,6 +1656,12 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 [[https://www.orgroam.com/manual.html#Org_002droam-Protocol][Information on how to set up org-roam-protocol.]]
 
+*** Basic
+:PROPERTIES:
+:ID:       2b459a48-4fad-4c31-86e6-afdd9e6381b0
+:END:
+:CLOCKING:
+:END:
 #+begin_src emacs-lisp
 (use-package org-roam
   :init
@@ -1704,6 +1676,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
          ("C-c n c" . org-roam-capture)
          ;; Dailies
          ("C-c n j" . org-roam-dailies-capture-today)
+         ("C-c n a" . org-roam-alias-add)
+         ("C-c n u" . org-roam-ui-open)
          :map org-mode-map
          ("C-M-i"    . completion-at-point))
   :config
@@ -1721,7 +1695,216 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                  (slot . 0)
                  (window-width . 0.33)
                  (window-parameters . ((no-other-window . t)
-                                       (no-delete-other-windows . t))))))
+                                       (no-delete-other-windows . t)))))
+
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?" :target
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n")
+           :unnarrowed t)
+          ("c" "person" plain "%?" :target
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: contacts\n#+category: %^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: %^{Address}\n:BIRTHDAY: %^{Birthday}\n:EMAIL: %^{Email}\n:END:\n"))))
+
+  (use-package org-roam-ui
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t)))
+#+end_src
+
+*** Agenda Optimization
+
+#+begin_src emacs-lisp
+(require 'org-roam-db)
+(with-eval-after-load 'org-roam-db
+  (defun vulpea-agenda-file-p ()
+    "Return non-nil if current buffer has any todo entry.
+TODO entries marked as done are ignored, meaning the this
+function returns nil if current buffer contains only completed
+tasks."
+    (org-element-map
+        (org-element-parse-buffer 'headline)
+        'headline
+      (lambda (h)
+        (let ((todo-type (org-element-property :todo-type h))
+              (scheduled (org-element-property :scheduled h))
+              (deadline (org-element-property :deadline h))
+              (timestamp (org-element-property :timestamp h)))
+          (or (eq todo-type 'todo)
+              scheduled
+              deadline
+              timestamp)))
+      nil 'first-match)))
+
+(defun vulpea-agenda-file-update-tag ()
+  "Update AGENDA-FILE tag in the current buffer."
+  (when (and (not (active-minibuffer-window))
+             (vulpea-buffer-p))
+    (save-excursion
+      (goto-char (point-min))
+      (let* ((tags (vulpea-buffer-tags-get))
+             (original-tags tags))
+        (if (vulpea-agenda-file-p)
+            (setq tags (cons "agenda-file" tags))
+          (setq tags (remove "agenda-file" tags)))
+
+        ;; cleanup duplicates
+        (setq tags (seq-uniq tags))
+
+        ;; update tags if changed
+        (when (or (seq-difference tags original-tags)
+                  (seq-difference original-tags tags))
+          (apply #'vulpea-buffer-tags-set tags))))))
+
+(defun vulpea-buffer-p ()
+  "Return non-nil if the currently visited buffer is a note."
+  (and buffer-file-name
+       (string-prefix-p
+        (expand-file-name (file-name-as-directory org-roam-directory))
+        (file-name-directory buffer-file-name))))
+
+
+(defun vulpea-agenda-file-files ()
+  "Return a list of note files containing 'agenda-file' tag." ;
+  (seq-uniq
+   (seq-map
+    #'car
+    (org-roam-db-query
+     [:select [nodes:file]
+              :from tags
+              :left-join nodes
+              :on (= tags:node-id nodes:id)
+              :where (like tag (quote "%\"agenda-file\"%"))]))))
+
+(defun vulpea-agenda-files-update (&rest _)
+  "Update the value of `org-agenda-files'."
+  (interactive)
+  (setq org-agenda-files (append kk/org-agenda-files (vulpea-agenda-file-files))))
+
+(add-hook 'find-file-hook #'vulpea-agenda-file-update-tag)
+(add-hook 'before-save-hook #'vulpea-agenda-file-update-tag)
+
+(advice-add 'org-agenda :before #'vulpea-agenda-files-update)
+
+;; functions borrowed from `vulpea' library
+;; https://github.com/d12frosted/vulpea/blob/6a735c34f1f64e1f70da77989e9ce8da7864e5ff/vulpea-buffer.el
+
+(defun vulpea-buffer-tags-get ()
+  "Return filetags value in current buffer."
+  (vulpea-buffer-prop-get-list "filetags" "[ :]"))
+
+(defun vulpea-buffer-tags-set (&rest tags)
+  "Set TAGS in current buffer.
+If filetags value is already set, replace it."
+  (if tags
+      (vulpea-buffer-prop-set
+       "filetags" (concat ":" (string-join tags ":") ":"))
+    (vulpea-buffer-prop-remove "filetags")))
+
+(defun vulpea-buffer-tags-add (tag)
+  "Add a TAG to filetags in current buffer."
+  (let* ((tags (vulpea-buffer-tags-get))
+         (tags (append tags (list tag))))
+    (apply #'vulpea-buffer-tags-set tags)))
+
+(defun vulpea-buffer-tags-remove (tag)
+  "Remove a TAG from filetags in current buffer."
+  (let* ((tags (vulpea-buffer-tags-get))
+         (tags (delete tag tags)))
+    (apply #'vulpea-buffer-tags-set tags)))
+
+(defun vulpea-buffer-prop-set (name value)
+  "Set a file property called NAME to VALUE in buffer file.
+If the property is already set, replace its value."
+  (setq name (downcase name))
+  (org-with-point-at 1
+    (let ((case-fold-search t))
+      (if (re-search-forward (concat "^#\\+" name ":\\(.*\\)")
+                             (point-max) t)
+          (replace-match (concat "#+" name ": " value) 'fixedcase)
+        (while (and (not (eobp))
+                    (looking-at "^[#:]"))
+          (if (save-excursion (end-of-line) (eobp))
+              (progn
+                (end-of-line)
+                (insert "\n"))
+            (forward-line)
+            (beginning-of-line)))
+        (insert "#+" name ": " value "\n")))))
+
+(defun vulpea-buffer-prop-set-list (name values &optional separators)
+  "Set a file property called NAME to VALUES in current buffer.
+VALUES are quoted and combined into single string using
+`combine-and-quote-strings'.
+If SEPARATORS is non-nil, it should be a regular expression
+matching text that separates, but is not part of, the substrings.
+If nil it defaults to `split-string-default-separators', normally
+\"[ \f\t\n\r\v]+\", and OMIT-NULLS is forced to t.
+If the property is already set, replace its value."
+  (vulpea-buffer-prop-set
+   name (combine-and-quote-strings values separators)))
+
+(defun vulpea-buffer-prop-get (name)
+  "Get a buffer property called NAME as a string."
+  (org-with-point-at 1
+    (when (re-search-forward (concat "^#\\+" name ": \\(.*\\)")
+                             (point-max) t)
+      (buffer-substring-no-properties
+       (match-beginning 1)
+       (match-end 1)))))
+
+(defun vulpea-buffer-prop-get-list (name &optional separators)
+  "Get a buffer property NAME as a list using SEPARATORS.
+If SEPARATORS is non-nil, it should be a regular expression
+matching text that separates, but is not part of, the substrings.
+If nil it defaults to `split-string-default-separators', normally
+\"[ \f\t\n\r\v]+\", and OMIT-NULLS is forced to t."
+  (let ((value (vulpea-buffer-prop-get name)))
+    (when (and value (not (string-empty-p value)))
+      (split-string-and-unquote value separators))))
+
+(defun vulpea-buffer-prop-remove (name)
+  "Remove a buffer property called NAME."
+  (org-with-point-at 1
+    (when (re-search-forward (concat "\\(^#\\+" name ":.*\n?\\)")
+                             (point-max) t)
+      (replace-match ""))))
+#+end_src
+
+*** Contacts Integration
+
+#+begin_src emacs-lisp
+(defun vulpea-contacts-update (&rest _)
+  "Update the value of `org-agenda-files'."
+  (interactive)
+  (setq org-contacts-files (append kk/contacts-files (vulpea-contacts-files))))
+
+(advice-add 'org-agenda :before #'vulpea-contacts-update)
+
+(defun vulpea-contacts-files ()
+  "Return a list of note files containing 'contacts' tag." ;
+  (seq-uniq
+   (seq-map
+    #'car
+    (org-roam-db-query
+     [:select [nodes:file]
+              :from tags
+              :left-join nodes
+              :on (= tags:node-id nodes:id)
+              :where (like tag (quote "%\"contacts\"%"))]))))
+
+(defun vulpea-contacts-file-p ()
+  "Return non-nil if current buffer has any todo entry.
+TODO entries marked as done are ignored, meaning the this
+function returns nil if current buffer contains only completed
+tasks."
+  (org-element-map
+      (org-element-parse-buffer 'headline)
+      'headline
+    (lambda (h)
+      (let ((tags (org-element-property :tags h)))
+        (member "contacts" tags))
+      nil 'first-match)))
 #+end_src
 
 ** Contacts
@@ -1960,6 +2143,40 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
              '("ngerman" "babel" t ("pdflatex")))
 (add-to-list 'org-latex-packages-alist
              '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+#+end_src
+
+** Settings
+:PROPERTIES:
+:ID:       7fa5111d-0a34-4f53-b45d-9ea5fe1340db
+:END:
+
+#+begin_src emacs-lisp
+(setq org-agenda-dim-blocked-tasks nil)
+(setq org-agenda-compact-blocks t)
+(setq org-agenda-inhibit-startup t)
+
+(setq org-sort-agenda-noeffort-is-high t)
+(setq org-agenda-sort-notime-is-late nil)
+
+(add-hook 'org-agenda-mode-hook 'hl-line-mode)
+
+(setq org-agenda-text-search-extra-files nil)
+
+(setq org-agenda-span 'day)
+
+;; Use sticky agenda's so they persist
+(setq org-agenda-sticky t)
+
+(setq org-agenda-persistent-filter t)
+
+(setq org-agenda-window-setup 'current-window)
+
+;; (add-hook 'auto-save-hook '(lambda ()
+;;                              (org-agenda-redo-all t)))
+
+(setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
+
+(setq org-agenda-skip-scheduled-if-deadline-is-shown t)
 #+end_src
 
 * Development
