@@ -374,6 +374,7 @@ Stuff I do not want to be checked into a public git repo can go here.
 (defun kk/org-agenda-auto-exclude-function (tag) nil)
 (defvar kk/clock-in-parent-tasks t)
 (defvar kk/contacts-files '())
+(defvar kk/bongo-default-directory "")
 #+end_src
 
 ** Allocations
@@ -397,7 +398,8 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
-   (setq kk/contacts-files '("~/documents/org/contacts.org")))
+   (setq kk/contacts-files '("~/documents/org/contacts.org"))
+   (setq kk/bongo-default-directory "~/music/"))
   ("T490s"
    (setq split-width-threshold 90)
    (setq split-height-threshold 100)
@@ -419,7 +421,8 @@ Stuff I do not want to be checked into a public git repo can go here.
                             ,kk/mu4e-context-name-kloess.xyz-karsten
                             ,kk/mu4e-context-name-kloess.xyz-k))
    (setq kk/emms-source-file-default-directory "/mnt/psnas/music/")
-   (setq kk/contacts-files '("~/Nextcloud/Documents/org/contacts.org"))))
+   (setq kk/contacts-files '("~/Nextcloud/Documents/org/contacts.org"))
+   (setq kk/bongo-default-directory "~/music/")))
 #+end_src
 
 * Org
@@ -3779,6 +3782,44 @@ Make code be replaced by its formatted result -- and periodically updated.
                      url)
       (message "Video opened in librewolf.")))
   (define-key ytel-mode-map "b" #'ytel-browse-librewolf))
+#+end_src
+
+*** Bongo
+
+#+begin_src emacs-lisp
+(use-package bongo
+  :config
+  (setq bongo-default-directory kk/bongo-default-directory)
+  (setq bongo-prefer-library-buffers nil)
+  (setq bongo-insert-whole-directory-trees t)
+  (setq bongo-logo nil)
+  (setq bongo-display-track-icons nil)
+  (setq bongo-display-track-lengths nil)
+  (setq bongo-display-header-icons nil)
+  (setq bongo-display-playback-mode-indicator t)
+  (setq bongo-display-inline-playback-progress t)
+  (setq bongo-join-inserted-tracks nil)
+  (setq bongo-field-separator (propertize " · " 'face 'shadow))
+  (setq bongo-mark-played-tracks t)
+  (setq bongo-mode-line-indicator-mode -1)
+  (setq bongo-header-line-mode -1)
+  (setq bongo-enabled-backends '(mpv))
+  (setq bongo-custom-backend-matchers
+        '((mpv
+           (local-file "file:" "http:" "https:" "ftp:")
+           "669" "aac" "asf" "au" "avi" "flac" "flv" "it" "m4a" "m4v" "mdz" "mid" "midi" "mka" "mkv" "mod" "mov" "mp2" "mp3" "mp4" "mpeg" "mpg" "mtm" "ogg" "ogm" "ra" "rm" "rmi"
+           "rmvb" "s3m" "stm" "ts" "umx" "vob" "vqf" "wav" "webm" "wma" "wmv" "xm")
+          (mpv
+           ("http:" "https:")
+           . t)))
+
+  :bind (:map bongo-playlist-mode-map
+              ("n" . bongo-next-object)
+              ("p" . bongo-previous-object)
+              ("R" . bongo-rename-line)
+              ("j" . bongo-dired-line)       ; Jump to dir of file at point
+              ("J" . dired-jump)             ; Jump to library buffer
+              ("I" . bongo-insert-special)))
 #+end_src
 
 ** s.el
