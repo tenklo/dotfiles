@@ -386,7 +386,7 @@ Stuff I do not want to be checked into a public git repo can go here.
 (pcase system-name
   ("dwhpd"
    (setq kk/default-font-size 140)
-   (setq org-agenda-files '("~/documents/org"))
+   (setq kk/org-agenda-files '("~/documents/org"))
    (setq kk/org-refile-target "~/documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
      (pcase tag
@@ -405,7 +405,7 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq split-height-threshold 100)
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
-   (setq org-agenda-files `("~/Nextcloud/Documents/org"))
+   (setq kk/org-agenda-files `("~/Nextcloud/Documents/org"))
    (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
    (defun kk/org-agenda-auto-exclude-function (tag)
@@ -1881,23 +1881,24 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
          (list "-HOLD"))
         (additional-filters (kk/weekly-review-filter-string)))
     (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
-    (org-agenda-list)))
+    (org-agenda nil "A")))
 
 (defun kk/weekly-review-clock-report ()
   (interactive)
   (let ((org-agenda-sticky nil)
         (org-agenda-span 'week)
-        (org-agenda-max-entries 0))
+        (org-agenda-max-entries 0)
+        (org-agenda-clockreport-mode t))
     (org-agenda-list))
   (message "Press R!"))
 
 (defun kk/weekly-review-clocking-data ()
   (interactive)
-  (org-super-agenda-mode -1)
   (let ((org-agenda-sticky nil)
         (org-agenda-span 'week)
         (org-agenda-max-entries 0))
-    (org-agenda-list))
+    (org-agenda-list)
+    (org-agenda-log-mode 'clockcheck))
   (message "Press v c!"))
 
 (defun kk/weekly-review-hold ()
@@ -1936,7 +1937,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
          '("-HOLD"))
         (additional-filters (kk/weekly-review-filter-string)))
     (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
-    (org-agenda nil " ")
+    (org-agenda nil "p")
     (search-forward-regexp "^Standalone Tasks$")
     (recenter-top-bottom 0)))
 #+end_src
