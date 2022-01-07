@@ -4232,6 +4232,14 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (emacs-everywhere-paste-p nil))
 #+end_src
 
+** Anki
+
+#+begin_src emacs-lisp
+(use-package anki-editor
+  :config
+  (setq anki-editor-org-tags-as-anki-tags t))
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
