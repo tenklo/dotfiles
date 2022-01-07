@@ -1697,12 +1697,21 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                  (window-parameters . ((no-other-window . t)
                                        (no-delete-other-windows . t)))))
 
+  (defun kk/org-roam-build-connection-string ()
+    (interactive)
+    (let* ((node (org-roam-node-read nil nil nil nil "Connected to: "))
+           (description (org-roam-node-formatted node))
+           (link (org-link-make-string
+                  (concat "id:" (org-roam-node-id node))
+                  description)))
+      (message link)))
+
   (setq org-roam-capture-templates
         '(("d" "default" plain "%?" :target
            (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n")
            :unnarrowed t)
           ("c" "person" plain "%?" :target
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: contacts\n#+category: %^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: %^{Address}\n:BIRTHDAY: %^{Birthday}\n:EMAIL: %^{Email}\n:END:\n"))))
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: contacts\n#+category: %^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: %^{Address}\n:BIRTHDAY: %^{Birthday}\n:EMAIL: %^{Email}\n:END:\n%(kk/org-roam-build-connection-string)"))))
 
   (use-package org-roam-ui
     :config
