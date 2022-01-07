@@ -1754,8 +1754,8 @@ tasks."
       (let* ((tags (vulpea-buffer-tags-get))
              (original-tags tags))
         (if (vulpea-agenda-file-p)
-            (setq tags (cons "agenda-file" tags))
-          (setq tags (remove "agenda-file" tags)))
+            (setq tags (cons "agenda-f" tags))
+          (setq tags (remove "agenda-f" tags)))
 
         ;; cleanup duplicates
         (setq tags (seq-uniq tags))
@@ -1774,7 +1774,7 @@ tasks."
 
 
 (defun vulpea-agenda-file-files ()
-  "Return a list of note files containing 'agenda-file' tag." ;
+  "Return a list of note files containing 'agenda-f' tag." ;
   (seq-uniq
    (seq-map
     #'car
@@ -1783,7 +1783,7 @@ tasks."
               :from tags
               :left-join nodes
               :on (= tags:node-id nodes:id)
-              :where (like tag (quote "%\"agenda-file\"%"))]))))
+              :where (like tag (quote "%\"agenda-f\"%"))]))))
 
 (defun vulpea-agenda-files-update (&rest _)
   "Update the value of `org-agenda-files'."
