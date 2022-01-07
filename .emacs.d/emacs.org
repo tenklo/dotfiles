@@ -2185,6 +2185,16 @@ tasks."
 
 (setq org-agenda-window-setup 'current-window)
 
+(mapcar (lambda (x)
+          (add-to-list 'org-default-properties x))
+        '("PHONE"
+          "BIRTHDAY"
+          "EMAIL"
+          "ADDRESS"
+          "ANKI_DECK"
+          "ANKI_NOTE_TYPE"
+          "ANKI_TAGS"))
+
 ;; (add-hook 'auto-save-hook '(lambda ()
 ;;                              (org-agenda-redo-all t)))
 
