@@ -546,7 +546,12 @@ Intended to be used in an `org-mode-hook'."
 :END:
 
 #+begin_src emacs-lisp
-(setq org-refile-targets '((org-agenda-files :maxlevel . 9)))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 9)
+                           (kk/org-roam-files :maxlevel . 3)))
+
+(defun kk/org-roam-files ()
+  (directory-files org-roam-directory t "\.org$"))
+
 
 (setq org-refile-use-outline-path t)
 (setq org-outline-path-complete-in-steps nil)
@@ -2169,7 +2174,7 @@ tasks."
 
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(setq org-agenda-text-search-extra-files nil)
+(setq org-agenda-text-search-extra-files (kk/org-roam-files))
 
 (setq org-agenda-span 'day)
 
