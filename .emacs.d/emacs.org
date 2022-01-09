@@ -2824,6 +2824,76 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   (ement-save-session t))
 #+end_src
 
+** Signal-CLI
+
+Requires working setup of [[https://github.com/AsamK/signal-cli][signal-cli]].
+
+#+begin_src emacs-lisp
+(use-package signal-msg
+  :straight (signal-msg :type git :host github :repo "mrkrd/signal-msg"))
+#+end_src
+
+** Send Region
+
+*** General
+
+#+begin_src emacs-lisp
+(setq kk/send-region-functions '(("Mail" . kk/send-region-per-mail)
+                                 ("Signal" . kk/send-region-per-signal)))
+
+(defun kk/send-region (&optional via)
+  "Send active region via a chosen method.
+Destinations are based on `org-contacts' information"
+  (interactive)
+  (if (region-active-p)
+      (let ((func (if via via
+                    (pcase (safe-length kk/send-region-functions)
+                      (0
+                       (error "No send functions specified. Add them to kk/send-region-functions."))
+                      (1
+                       (cdar kk/send-region-functions))
+                      (t
+                       (cdr (assoc (completing-read "Send via: " kk/send-region-functions nil t) kk/send-region-functions)))))))
+        (call-interactively func))
+    (message "No region active to send.")))
+#+end_src
+
+*** Mail
+#+begin_src emacs-lisp
+(defun kk/send-region-per-mail (&optional ASK)
+  "Send active region per mail.
+With prefix arg `ARG' don't ask for details beforehand."
+  (interactive "P")
+  (if (region-active-p)
+      (progn
+        (kill-ring-save nil nil t)
+        (compose-mail (when (not ASK) (kk/org-contacts-query-property nil org-contacts-email-property)) (when (not ASK) (read-string "Subject: ")))
+        (message-goto-body)
+        (yank)
+        (message-goto-to)
+        (message "Mail prepared."))
+    (message "No region active to send.")))
+#+end_src
+
+*** Signal
+
+#+begin_src emacs-lisp
+(defun kk/send-region-per-signal (&optional ASK)
+  (interactive "P")
+  (let* ((labels-and-numbers (when ASK (signal-msg--labels-and-numbers)))
+         (label (if (not ASK) (kk/org-contacts-query-property nil "ITEM") (completing-read "Signal Contact: " labels-and-numbers nil t)))
+         (number (if (not ASK) (kk/org-contacts-query-property t org-contacts-tel-property) (cdr (assoc-string label labels-and-numbers))))
+         (buf-name (format "*new signal msg to %s*" label))
+         (buffer (generate-new-buffer buf-name)))
+    (kill-ring-save nil nil t)
+    (switch-to-buffer buffer)
+    (signal-msg-mode)
+    (turn-off-auto-fill)
+    (visual-line-mode 1)
+    (setq-local signal-msg-dest-number number)
+    (yank)))
+#+end_src
+
 * UI
 
 ** Diminish
