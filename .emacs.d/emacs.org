@@ -1930,6 +1930,36 @@ tasks."
 (require 'org-contacts)
 (setq org-contacts-files kk/contacts-files)
 (setq org-contacts-birthday-format "%l (%Y)")
+
+(defun kk/org-contacts-query-property (&optional LAST prop)
+  "Return a property of a contact."
+  (let* ((contact (if LAST
+                      kk/query-org-contacts-last-contact
+                    (assoc (completing-read
+                            "Contact: "
+                            org-contacts-db
+                            nil
+                            t)
+                           org-contacts-db)))
+         (contact-data (caddr contact))
+         (prop (if prop prop
+                 (completing-read "Property: " contact-data))))
+    (setq kk/query-org-contacts-last-contact contact)
+    (cdr (assoc prop contact-data))))
+
+
+(defun kk/org-contacts-message-kill-property (&optional LAST prop)
+  "Output a property of some contact and add it to kill-ring."
+  (interactive "P")
+  (let ((val (kk/org-contacts-query-property LAST prop)))
+    (kill-new val)
+    (message val)))
+
+
+(defun kk/org-contacts-insert-property (&optional LAST prop)
+  "Insert a property of some contact."
+  (interactive "P")
+  (insert (kk/org-contacts-query-property LAST prop)))
 #+end_src
 
 ** Org-Protocol
