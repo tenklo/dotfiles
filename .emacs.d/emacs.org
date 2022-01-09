@@ -591,7 +591,6 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 (setq org-clock-into-drawer "CLOCKING")
 
-;; Show lot of clocking history so it's easy to pick items off the C-F11 list
 (setq org-clock-history-length 35)
 
 ;; Resume clocking task when emacs is restarted
@@ -737,9 +736,9 @@ as the default task."
 (global-set-key (kbd "<f10>") 'org-clock-goto)
 (global-set-key (kbd "C-<f10>") 'org-clock-out)
 (global-set-key (kbd "C-S-<f10>") 'kk/org-clock-goto-list)
-(global-set-key (kbd "<f11>") 'org-clock-in)
-(global-set-key (kbd "C-<f11>") 'org-pomodoro)
-(global-set-key (kbd "C-S-<f11>") 'kk/org-clock-in-list)
+(global-set-key (kbd "C-<f11>") 'org-clock-in)
+(global-set-key (kbd "C-S-<f11>") 'org-pomodoro)
+(global-set-key (kbd "<f11>") 'kk/org-clock-in-list)
 
 (defun kk/clock-in-with-point-at-id (id)
   (let ((org-clock-auto-clock-resolution nil))
