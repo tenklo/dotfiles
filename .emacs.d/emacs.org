@@ -1930,6 +1930,18 @@ tasks."
 (setq org-contacts-files kk/contacts-files)
 (setq org-contacts-birthday-format "%l (%Y)")
 
+(mapcar (lambda (x)
+          (add-to-list 'org-default-properties x))
+        `(,org-contacts-tel-property
+          ,org-contacts-birthday-property
+          ,org-contacts-email-property
+          ,org-contacts-address-property
+          ,org-contacts-alias-property
+          ,org-contacts-icon-property
+          ,org-contacts-note-property
+          ,org-contacts-nickname-property
+          ,org-contacts-ignore-property))
+
 (defun kk/org-contacts-query-property (&optional LAST prop)
   "Return a property of a contact."
   (let* ((contact (if LAST
@@ -2039,7 +2051,13 @@ But work with mu4e too."
             (lambda nil
               (org-mime-change-element-style
                "pre" (format "color: %s; background-color: %s; padding: 0.5em;"
-                             "#f6f6f6" "#2f3337")))))
+                             "#f6f6f6" "#2f3337"))))
+  (mapcar (lambda (x)
+            (add-to-list 'org-default-properties x))
+          `("MAIL_SUBJECT"
+            "MAIL_TO"
+            "MAIL_CC"
+            "MAIL_BCC")))
 #+end_src
 
 ** Skeletons
@@ -2227,25 +2245,6 @@ But work with mu4e too."
 (setq org-agenda-persistent-filter t)
 
 (setq org-agenda-window-setup 'current-window)
-
-(mapcar (lambda (x)
-          (add-to-list 'org-default-properties x))
-        `(,org-contacts-tel-property
-          ,org-contacts-birthday-property
-          ,org-contacts-email-property
-          ,org-contacts-address-property
-          ,org-contacts-alias-property
-          ,org-contacts-icon-property
-          ,org-contacts-note-property
-          ,org-contacts-nickname-property
-          ,org-contacts-ignore-property
-          ,anki-editor-prop-deck
-          ,anki-editor-prop-note-type
-          ,anki-editor-prop-tags
-          "MAIL_SUBJECT"
-          "MAIL_TO"
-          "MAIL_CC"
-          "MAIL_BCC"))
 
 ;; (add-hook 'auto-save-hook '(lambda ()
 ;;                              (org-agenda-redo-all t)))
@@ -4362,6 +4361,12 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (setq anki-editor-org-tags-as-anki-tags t)
 
   (add-to-list 'org-global-properties '("ANKI_DECK" . "All"))
+
+  (mapcar (lambda (x)
+            (add-to-list 'org-default-properties x))
+          `(,anki-editor-prop-deck
+            ,anki-editor-prop-note-type
+            ,anki-editor-prop-tags))
 
   (defun kk/anki-editor-push-roam-files ()
     (interactive)
