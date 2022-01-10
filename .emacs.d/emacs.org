@@ -2230,13 +2230,18 @@ But work with mu4e too."
 
 (mapcar (lambda (x)
           (add-to-list 'org-default-properties x))
-        '("PHONE"
-          "BIRTHDAY"
-          "EMAIL"
-          "ADDRESS"
-          "ANKI_DECK"
-          "ANKI_NOTE_TYPE"
-          "ANKI_TAGS"
+        `(,org-contacts-tel-property
+          ,org-contacts-birthday-property
+          ,org-contacts-email-property
+          ,org-contacts-address-property
+          ,org-contacts-alias-property
+          ,org-contacts-icon-property
+          ,org-contacts-note-property
+          ,org-contacts-nickname-property
+          ,org-contacts-ignore-property
+          ,anki-editor-prop-deck
+          ,anki-editor-prop-note-type
+          ,anki-editor-prop-tags
           "MAIL_SUBJECT"
           "MAIL_TO"
           "MAIL_CC"
