@@ -406,8 +406,8 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq kk/default-font-size 180)
    (setq kk/org-roam-directory "~/Nextcloud/Documents/roam")
    (setq kk/org-agenda-files `("~/Nextcloud/Documents/org"))
-   (setq org-agenda-diary-file "~/Nextcloud/Documents/org/diary.org")
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
+   (setq org-agenda-diary-file kk/org-refile-target)
    (defun kk/org-agenda-auto-exclude-function (tag)
      (pcase tag
        ("HOLD"
