@@ -2222,7 +2222,11 @@ tasks."
           "ADDRESS"
           "ANKI_DECK"
           "ANKI_NOTE_TYPE"
-          "ANKI_TAGS"))
+          "ANKI_TAGS"
+          "MAIL_SUBJECT"
+          "MAIL_TO"
+          "MAIL_CC"
+          "MAIL_BCC"))
 
 ;; (add-hook 'auto-save-hook '(lambda ()
 ;;                              (org-agenda-redo-all t)))
