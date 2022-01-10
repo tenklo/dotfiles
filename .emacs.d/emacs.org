@@ -1961,6 +1961,20 @@ tasks."
   (insert (kk/org-contacts-query-property LAST prop)))
 #+end_src
 
+*** Org-Contacts-Gnus functions
+
+#+begin_src emacs-lisp
+(with-eval-after-load 'org-contacts
+  (defun org-contacts-gnus-get-name-email ()
+    "Get name and email address from Gnus message.
+But work with mu4e too."
+    (if (or (gnus-alive-p)
+            (eq major-mode 'mu4e-view-mode))
+        (gnus-with-article-headers
+          (mail-extract-address-components
+           (or (mail-fetch-field "From") ""))))))
+#+end_src
+
 ** Org-Protocol
 :PROPERTIES:
 :ID:       be2f09b8-74d9-4aa9-968d-d5e179c9f196
