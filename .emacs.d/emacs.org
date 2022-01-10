@@ -4336,7 +4336,17 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 #+begin_src emacs-lisp
 (use-package anki-editor
   :config
-  (setq anki-editor-org-tags-as-anki-tags t))
+  (setq anki-editor-org-tags-as-anki-tags t)
+
+  (add-to-list 'org-global-properties '("ANKI_DECK" . "All"))
+
+  (defun kk/anki-editor-push-roam-files ()
+    (interactive)
+    (save-excursion
+      (mapcar (lambda (x)
+                (find-file x)
+                (anki-editor-push-notes nil nil 'file))
+              (kk/org-roam-files)))))
 #+end_src
 
 * Terminals And Shells
