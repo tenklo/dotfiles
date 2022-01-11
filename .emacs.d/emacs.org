@@ -347,6 +347,22 @@ Stuff I do not want to be checked into a public git repo can go here.
 (require 'work-days)
 #+end_src
 
+** Tab-Bar-Mode
+
+#+begin_src emacs-lisp
+(customize-set-variable 'tab-bar-show 1)
+(customize-set-variable 'tab-bar-format '(tab-bar-format-tabs tab-bar-separator))
+(customize-set-variable 'tab-bar-close-button-show nil)
+
+(defun kk/bookmark-jump-other-tab (bookmark &optional display-function flip-use-region-p)
+  (interactive (list (bookmark-completing-read "Jump to bookmark" (bmkp-default-bookmark-name))
+                     nil
+                     current-prefix-arg))
+  (switch-to-buffer-other-tab bookmark))
+
+(global-set-key (kbd "C-x t j") 'kk/bookmark-jump-other-tab)
+#+end_src
+
 * System Specific
 
 ** Declarations
