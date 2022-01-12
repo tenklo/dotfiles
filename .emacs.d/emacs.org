@@ -624,6 +624,47 @@ Intended to be used in an `org-mode-hook'."
 (defun kk/org-search ()
   (interactive)
   (org-refile '(4)))
+
+(defun kk/refile-to (file headline)
+  "Refile item at point to `headline' in `file'."
+  (save-excursion
+    (let ((pos (save-excursion
+                 (find-file file)
+                 (org-find-exact-headline-in-buffer headline (current-buffer)))))
+      (pcase major-mode
+        ('org-mode
+         (org-refile nil nil (list headline file nil pos)))
+        ('org-agenda-mode
+         (org-agenda-refile nil (list headline file nil pos)))))))
+
+(defun kk/refile-to-if-heading-equal (match file headline)
+  "Refile item at point to `headline' in `file' if it's heading is equal to `match'."
+  (save-excursion
+    (when (equal match (pcase major-mode
+                         ('org-mode
+                          (org-get-heading t nil t t))
+                         ('org-agenda-mode
+                          (kk/org-agenda-get-heading t nil t t))))
+      (kk/refile-to file headline))))
+
+(defun kk/org-agenda-get-heading (&optional NO-TAGS NO-TODO NO-PRIORITY NO-COMMENT)
+  "Return the heading of the current entry, without the stars.
+
+When NO-TAGS is non-nil, don't include tags.
+When NO-TODO is non-nil, don't include TODO keywords.
+When NO-PRIORITY is non-nil, don't include priority cookie.
+When NO-COMMENT is non-nil, don't include COMMENT string.
+Return nil before first heading."
+  (interactive)
+  (save-excursion
+    (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
+                         (org-agenda-error)))
+           (buffer (marker-buffer hdmarker))
+           (pos (marker-position hdmarker)))
+      (with-current-buffer buffer
+        (widen)
+        (goto-char pos)
+        (org-get-heading)))))
 #+end_src
 
 *** Logging
