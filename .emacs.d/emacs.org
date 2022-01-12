@@ -383,6 +383,29 @@ Stuff I do not want to be checked into a public git repo can go here.
   (add-hook 'after-make-frame-functions 'restore-desktop))
 #+end_src
 
+** Display-Time-Mode
+
+#+begin_src emacs-lisp
+(customize-set-variable 'display-time-24hr-format nil)
+(customize-set-variable 'display-time-format "  %a %d.%m.  %H:%M ")
+(customize-set-variable 'display-time-mode t)
+(customize-set-variable 'display-time-use-mail-icon nil)
+(customize-set-variable 'display-time-mail-string " ")
+
+(setq display-time-mail-face 'kk/display-time-mail-face)
+(defface kk/display-time-mail-face
+  '((default :inherit tab-bar :foreground "#FF0000"))
+  "Make `display-time-mail-string' stand out.")
+
+#+end_src
+
+** Display-Battery-Mode
+
+#+begin_src emacs-lisp
+(display-battery-mode 1)
+(customize-set-variable 'battery-mode-line-format " [%b%p%%]")
+#+end_src
+
 * System Specific
 
 ** Declarations
