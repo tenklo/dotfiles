@@ -1744,6 +1744,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
          ("C-c n u" . org-roam-ui-open)
          :map org-mode-map
          ("C-M-i"    . completion-at-point))
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
   :config
   (org-roam-setup)
   (require 'org-roam-graph)
