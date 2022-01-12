@@ -1776,6 +1776,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
           ("c" "person" plain "%?" :target
            (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: contacts\n#+category: %^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: %^{Address}\n:BIRTHDAY: %^{Birthday}\n:EMAIL: %^{Email}\n:END:\n%(kk/org-roam-build-connection-string)"))))
 
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry "* %<%H:%M>: %?" :target
+           (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
+
   (use-package org-roam-ui
     :config
     (setq org-roam-ui-sync-theme t
