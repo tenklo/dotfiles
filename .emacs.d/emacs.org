@@ -364,6 +364,25 @@ Stuff I do not want to be checked into a public git repo can go here.
 (global-set-key (kbd "C-x t j") 'kk/bookmark-jump-other-tab)
 #+end_src
 
+** Desktop-Mode
+
+#+begin_src emacs-lisp
+(require 'desktop)
+;; (setq desktop-restore-forces-onscreen nil)
+(customize-set-variable 'desktop-load-locked-desktop t)
+
+(if (not (daemonp))
+    (desktop-save-mode 1)
+  (defun restore-desktop (frame)
+    "Restores desktop and cancels hook after first frame opens.
+     So the daemon can run at startup and it'll still work"
+    (with-selected-frame frame
+      (desktop-save-mode 1)
+      (desktop-read)
+      (remove-hook 'after-make-frame-functions 'restore-desktop)))
+  (add-hook 'after-make-frame-functions 'restore-desktop))
+#+end_src
+
 * System Specific
 
 ** Declarations
