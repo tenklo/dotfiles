@@ -353,6 +353,7 @@ Stuff I do not want to be checked into a public git repo can go here.
 (customize-set-variable 'tab-bar-show t)
 (customize-set-variable 'tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
 (customize-set-variable 'tab-bar-close-button-show nil)
+(customize-set-variable 'tab-bar-mode 1)
 
 (defun kk/bookmark-jump-other-tab (bookmark &optional display-function flip-use-region-p)
   (interactive (list (bookmark-completing-read "Jump to bookmark" (bmkp-default-bookmark-name))
