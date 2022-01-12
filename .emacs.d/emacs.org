@@ -2886,6 +2886,17 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 #+end_src
 
+*** Display-Time-Mail-Function
+
+#+begin_src emacs-lisp
+(defun kk/mu4e-new-mail-p ()
+  (when
+      (equal "0" (shell-command-to-string "mu find flag:unread > /dev/null 2>&1 && printf 0 || printf 1"))
+    t))
+
+(setq display-time-mail-function #'kk/mu4e-new-mail-p)
+#+end_src
+
 ** Matrix
 
 *** Ement.el
