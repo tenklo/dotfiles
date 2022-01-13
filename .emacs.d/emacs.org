@@ -2968,9 +2968,10 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (setq mu4e-headers-visible-lines 5)
 
 (defun kk/mu4e-set-split ()
-  (let* ((horizontal (when (< (frame-text-height) (frame-text-width))))
-         (split (if horizontal 'vertical 'horizontal)))
-    (setq mu4e-split-view split)))
+  (let* ((screen-is-horizontal (< (frame-text-height (selected-frame)) (frame-text-width (selected-frame))))
+         (split (if screen-is-horizontal 'vertical 'horizontal)))
+    (setq mu4e-split-view split)
+    split))
 
 (add-hook 'mu4e-view-mode-hook #'kk/mu4e-set-split)
 #+end_src
