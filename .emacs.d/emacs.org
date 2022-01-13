@@ -2973,7 +2973,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
     (setq mu4e-split-view split)
     split))
 
-(add-hook 'mu4e-view-mode-hook #'kk/mu4e-set-split)
+(advice-add 'mu4e-headers-view-message :before #'kk/mu4e-set-split)
 #+end_src
 
 ** Matrix
