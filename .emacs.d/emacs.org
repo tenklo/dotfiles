@@ -1251,7 +1251,6 @@ When set to 'note, rescheduling or scattering breaks."
 (defvar my/org-contacts-template "* %(org-contacts-template-name)
 :PROPERTIES:
 :ADDRESS: %^{Address}
-:BIRTHDAY: %^{Birthday}
 :EMAIL: %(org-contacts-template-email)
 :END:
 :LOGBOOK:
@@ -1823,7 +1822,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
            (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+category: ${title}\n")
            :unnarrowed t)
           ("c" "person" plain "%?" :target
-           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: contacts\n#+category: %^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: %^{Address}\n:BIRTHDAY: %^{Birthday}\n:EMAIL: %^{Email}\n:END:\n%(kk/org-roam-build-connection-string)"))))
+           (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n#+filetags: CONTACTS\n#+CATEGORY: %^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: %^{Address}\n:EMAIL: %^{Email}\n:END:\n%(kk/org-roam-build-connection-string)"))))
 
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry "* %<%H:%M>: %?" :target
