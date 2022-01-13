@@ -3129,7 +3129,9 @@ Activate margins if `ARG' is above 1 or disable when below."
 (defun kk/set-margins-function ()
   (when (not (or (overlayp (current-buffer))
                  (popup-p (current-buffer))
-                 (popper-popup-p (current-buffer))))
+                 (popper-popup-p (current-buffer))
+                 (equal (buffer-name) "*mu4e-headers*")
+                 (frame-live-p corfu--frame)))
     (set-window-margins nil (if kk/margins-active 2 0)
                         (if kk/margins-active 2 0))))
 
