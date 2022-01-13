@@ -2726,6 +2726,17 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
              '("org-contact-add" . mu4e-action-add-org-contact) t)
 (add-to-list 'mu4e-view-actions
              '("org-contact-add" . mu4e-action-add-org-contact) t)
+(add-to-list 'mu4e-headers-actions
+             '("roam-contact-add" . kk/mu4e-action-add-org-roam-contact) t)
+(add-to-list 'mu4e-view-actions
+             '("roam-contact-add" . kk/mu4e-action-add-org-roam-contact) t)
+
+(defun kk/mu4e-action-add-org-roam-contact (msg)
+  (let* ((sender (car-safe (mu4e-message-field msg :from)))
+         (name (car-safe sender))
+         (email (cdr-safe sender)))
+    (org-roam-node-find nil name nil :templates `(("c" "person" plain "%?" :target
+                                                   (file+head "%<%Y%m%d%H%M%S>-${slug}.org" ,(format "#+title: ${title}\n#+filetags: CONTACTS\n#+CATEGORY: %%^{CATEGORY|friends|family|work|acqntance}\n* ${title}\n:PROPERTIES:\n:ADDRESS: \n:EMAIL: %s\n:END:\n%%(kk/org-roam-build-connection-string)" (or email ""))))))))
 #+end_src
 
 *** Context Macro
