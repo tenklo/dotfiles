@@ -206,7 +206,7 @@ For editing commands I guess.
   :bind
   (("C-+" . 'er/expand-region))
   :config
-  (delete-selection-mode 1))
+  (delete-selection-mode -1))
 #+end_src
 
 *** Subwords
