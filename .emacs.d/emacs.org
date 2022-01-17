@@ -4363,10 +4363,12 @@ Make code be replaced by its formatted result -- and periodically updated.
               ("e" . prot-elfeed-bongo-append-enqueue)
               ("E" . prot-elfeed-bongo-insert-enqueue)
               ("h" . prot-elfeed-bongo-switch-to-playlist)
+              ("o" . delete-other-windows)
               :map elfeed-show-mode-map
               ("e" . prot-elfeed-bongo-append-enqueue)
               ("E" . prot-elfeed-bongo-insert-enqueue)
-              ("h" . prot-elfeed-bongo-switch-to-playlist))
+              ("h" . prot-elfeed-bongo-switch-to-playlist)
+              ("o" . delete-other-windows))
   :config
   (require 'elfeed-feeds)
   (global-set-key (kbd "C-c r") 'elfeed))
