@@ -3933,7 +3933,25 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 #+begin_src emacs-lisp
 (use-package embark
   :bind
-  (("C-." . embark-act)))
+  (("C-." . embark-act)
+   ("M-." . embark-dwim)
+   ("C-h b" . embark-bindings)
+   ("C-h B" . describe-bindings))
+  :config
+  (define-key embark-become-help-map (kbd "v") 'helpful-variable)
+  (define-key embark-become-help-map (kbd "f") 'helpful-function)
+  (define-key embark-become-help-map (kbd "s") 'helpful-symbol)
+
+  (define-key embark-become-file+buffer-map (kbd "t b") 'find-buffer-other-tab)
+  (define-key embark-become-file+buffer-map (kbd "t f") 'find-file-other-tab)
+
+  (define-key embark-become-file+buffer-map (kbd "j") 'bookmark-jump)
+
+  (define-key embark-command-map (kbd "h") 'helpful-command)
+
+  (define-key embark-symbol-map (kbd "h") 'helpful-symbol)
+
+  (define-key embark-variable-map (kbd "h") 'helpful-variable))
 #+end_src
 
 * Misc
