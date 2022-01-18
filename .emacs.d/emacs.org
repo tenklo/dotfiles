@@ -2146,7 +2146,10 @@ But work with mu4e too."
 
 #+begin_src emacs-lisp
 (use-package org-mime
+  :after org
+  :defer 0
   :config
+  (setq org-mime-export-ascii 'ascii)
   (setq org-mime-export-options '(:section-numbers nil
                                                    :with-author nil
                                                    :with-toc nil))
@@ -2184,6 +2187,7 @@ But work with mu4e too."
 
 #+begin_src emacs-lisp
 (use-package org-download
+  :after org
   :custom
   (org-download-method 'attach))
 #+end_src
