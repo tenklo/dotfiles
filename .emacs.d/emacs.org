@@ -4251,19 +4251,6 @@ With prefix ARG non-nil, insert the result at the end of region."
 (setq-default abbrev-mode t)
 #+end_src
 
-** Lively
-:PROPERTIES:
-:ID:       60315a45-4edf-40c2-ac2d-5447e199dbdc
-:END:
-
-Make code be replaced by its formatted result -- and periodically updated.
-
-#+begin_src emacs-lisp
-(use-package lively
-  :config
-  (setq lively-interval 0.5))
-#+end_src
-
 ** Sudo Edit
 :PROPERTIES:
 :ID:       41788b8b-8a6f-4db9-8330-daf138b01523
