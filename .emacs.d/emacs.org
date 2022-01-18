@@ -52,23 +52,6 @@ the individual device needs.
 (define-obsolete-function-alias 'string-to-int 'string-to-number "22.1")
 #+end_src
 
-** Yasnippet
-:PROPERTIES:
-:ID:       0443b84d-c816-42a8-9b5c-1a085ae702ca
-:END:
-
-#+begin_src emacs-lisp
-(use-package yasnippet
-  :config
-  (yas-reload-all)
-  (add-hook 'org-mode-hook #'yas-minor-mode)
-  (require 'warnings)
-  (add-to-list 'warning-suppress-types '(yasnippet backquote-change))
-  (defun kk/yas-id-remove-spaces (text)
-    "Replace spaces in `TEXT' with '-'."
-    (s-replace " " "-" text)))
-#+end_src
-
 ** Auto Reverting/Saving
 :PROPERTIES:
 :ID:       01cb8b21-9528-4a0e-b1da-c5f06e5598fe
@@ -191,6 +174,7 @@ For editing commands I guess.
 
 #+begin_src emacs-lisp
 (use-package mwim
+  :defer 0
   :config
   (global-set-key (kbd "C-a") 'mwim-beginning)
   (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
@@ -367,20 +351,21 @@ Stuff I do not want to be checked into a public git repo can go here.
 ** Desktop-Mode
 
 #+begin_src emacs-lisp
-(require 'desktop)
-;; (setq desktop-restore-forces-onscreen nil)
-(customize-set-variable 'desktop-load-locked-desktop t)
+(use-package desktop
+  :demand t
+  :custom
+  (desktop-load-locked-desktop t)
 
-(if (not (daemonp))
-    (desktop-save-mode 1)
-  (defun restore-desktop (frame)
-    "Restores desktop and cancels hook after first frame opens.
-     So the daemon can run at startup and it'll still work"
-    (with-selected-frame frame
+  (if (not (daemonp))
       (desktop-save-mode 1)
-      (desktop-read)
-      (remove-hook 'after-make-frame-functions 'restore-desktop)))
-  (add-hook 'after-make-frame-functions 'restore-desktop))
+    (defun restore-desktop (frame)
+      "Restores desktop and cancels hook after first frame opens.
+     So the daemon can run at startup and it'll still work"
+      (with-selected-frame frame
+        (desktop-save-mode 1)
+        (desktop-read)
+        (remove-hook 'after-make-frame-functions 'restore-desktop)))
+    (add-hook 'after-make-frame-functions 'restore-desktop)))
 #+end_src
 
 ** Display-Time-Mode
@@ -513,6 +498,7 @@ Intended to be used in an `org-mode-hook'."
     (org-defkey org-mode-map "\C-c\C-x\C-q" 'undefined)))
 
 (use-package org
+  :defer 0
   :hook
   (org-mode . kk/org-mode-setup)
   :custom
@@ -610,8 +596,9 @@ Intended to be used in an `org-mode-hook'."
 (setq org-refile-targets '((org-agenda-files :maxlevel . 9)
                            (kk/org-roam-files :maxlevel . 3)))
 
-(defun kk/org-roam-files ()
-  (directory-files org-roam-directory t "\.org$"))
+(with-eval-after-load 'org-roam
+  (defun kk/org-roam-files ()
+    (directory-files org-roam-directory t "\.org$")))
 
 
 (setq org-refile-use-outline-path t)
@@ -682,7 +669,8 @@ Return nil before first heading."
 (setq org-agenda-skip-additional-timestamps-same-entry t)
 (setq org-agenda-log-mode-items (quote (closed state)))
 
-(use-package htmlize)
+(use-package htmlize
+  :defer 0)
 #+end_src
 
 *** Clocking
@@ -875,6 +863,8 @@ as the default task."
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
+  :after org
+  :defer 0
   :custom
   (org-pomodoro-clock-break nil)
   (org-pomodoro-keep-killed-pomodoro-time t)
@@ -911,8 +901,11 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(require 'org-id)
-(setq org-id-link-to-org-use-id t)
+(use-package org-id
+  :after org
+  :straight nil
+  :custom
+  (org-id-link-to-org-use-id t))
 #+end_src
 
 *** Contrib
@@ -921,7 +914,8 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(use-package org-contrib)
+(use-package org-contrib
+  :after org)
 #+end_src
 
 **** Org Checklist
@@ -930,7 +924,8 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(require 'org-checklist)
+(use-package org-checklist
+  :after org)
 #+end_src
 
 *** URL Retrieving
@@ -958,7 +953,8 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(require 'org-depend)
+(use-package org-depend
+  :after org)
 #+end_src
 
 *** Toc-Org
@@ -967,7 +963,8 @@ as the default task."
 :END:
 
 #+begin_src emacs-lisp
-(use-package toc-org)
+(use-package toc-org
+  :after org)
 #+end_src
 
 *** Timer
@@ -1175,6 +1172,7 @@ When set to 'note, rescheduling or scattering breaks."
 
 #+begin_src emacs-lisp
 (use-package org-super-agenda
+  :after org
   :custom
   (org-super-agenda-header-separator "")
   (org-super-agenda-mode t)
@@ -1182,7 +1180,7 @@ When set to 'note, rescheduling or scattering breaks."
   (org-super-agenda-groups
    '((:name "Events"
             :pred kk/org-hour-specification-p
-	    :category "Feiertag"
+            :category "Feiertag"
             :time-grid t)
      (:name "Urgent"
             :tag "urgent")
@@ -1336,15 +1334,17 @@ When set to 'note, rescheduling or scattering breaks."
 :END:
 
 #+begin_src emacs-lisp
-(require 'org-tempo)
-
-(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-(add-to-list 'org-structure-template-alist '("py" . "src python"))
-(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("c#" . "src csharp"))
-(add-to-list 'org-structure-template-alist '("js" . "src javascript"))
-(add-to-list 'org-structure-template-alist '("ym" . "src yaml"))
-(add-to-list 'org-structure-template-alist '("php" . "src php"))
+(use-package org-tempo
+  :after org
+  :straight nil
+  :config
+  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
+  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("c#" . "src csharp"))
+  (add-to-list 'org-structure-template-alist '("js" . "src javascript"))
+  (add-to-list 'org-structure-template-alist '("ym" . "src yaml"))
+  (add-to-list 'org-structure-template-alist '("php" . "src php")))
 #+end_src
 
 ** Keybindings
@@ -1751,7 +1751,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (setq org-habit-graph-column 53)
 
                                         ; When deactivating habit display via 'K', pull them up again on the next day
-(run-at-time "06:00" 86400 '(lambda () (setq org-habit-show-habits t)))
+(run-at-time "06:00" 86400 #'(lambda () (setq org-habit-show-habits t)))
 #+end_src
 
 ** Roam
@@ -1765,10 +1765,9 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 :PROPERTIES:
 :ID:       2b459a48-4fad-4c31-86e6-afdd9e6381b0
 :END:
-:CLOCKING:
-:END:
 #+begin_src emacs-lisp
 (use-package org-roam
+  :after org
   :init
   (setq org-roam-v2-ack t)
   :custom
@@ -1791,8 +1790,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   ("C-c n d" . org-roam-dailies-map)
   :config
   (org-roam-setup)
-  (require 'org-roam-graph)
-  (require 'org-roam-protocol)
   (setq org-roam-mode-section-functions
         (list #'org-roam-backlinks-section
               #'org-roam-reflinks-section
@@ -1831,6 +1828,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
            (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))))
 
   (use-package org-roam-ui
+    :after org-roam
     :config
     (setq org-roam-ui-sync-theme t
           org-roam-ui-follow t
@@ -1842,25 +1840,25 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 #+begin_src emacs-lisp
 (require 'org-roam-db)
-(with-eval-after-load 'org-roam-db
-  (defun vulpea-agenda-file-p ()
-    "Return non-nil if current buffer has any todo entry.
+
+(defun vulpea-agenda-file-p ()
+  "Return non-nil if current buffer has any todo entry.
 TODO entries marked as done are ignored, meaning the this
 function returns nil if current buffer contains only completed
 tasks."
-    (org-element-map
-        (org-element-parse-buffer 'headline)
-        'headline
-      (lambda (h)
-        (let ((todo-type (org-element-property :todo-type h))
-              (scheduled (org-element-property :scheduled h))
-              (deadline (org-element-property :deadline h))
-              (timestamp (org-element-property :timestamp h)))
-          (or (eq todo-type 'todo)
-              scheduled
-              deadline
-              timestamp)))
-      nil 'first-match)))
+  (org-element-map
+      (org-element-parse-buffer 'headline)
+      'headline
+    (lambda (h)
+      (let ((todo-type (org-element-property :todo-type h))
+            (scheduled (org-element-property :scheduled h))
+            (deadline (org-element-property :deadline h))
+            (timestamp (org-element-property :timestamp h)))
+        (or (eq todo-type 'todo)
+            scheduled
+            deadline
+            timestamp)))
+    nil 'first-match))
 
 (defun vulpea-agenda-file-update-tag ()
   "Update AGENDA-FILE tag in the current buffer."
@@ -2039,51 +2037,53 @@ tasks."
 :END:
 
 #+begin_src emacs-lisp
-(require 'org-contacts)
-(setq org-contacts-files kk/contacts-files)
-(setq org-contacts-birthday-format "%l (%Y)")
+(use-package org-contacts
+  :after org
+  :config
+  (setq org-contacts-files kk/contacts-files)
+  (setq org-contacts-birthday-format "%l (%Y)")
 
-(mapcar (lambda (x)
-          (add-to-list 'org-default-properties x))
-        `(,org-contacts-tel-property
-          ,org-contacts-birthday-property
-          ,org-contacts-email-property
-          ,org-contacts-address-property
-          ,org-contacts-alias-property
-          ,org-contacts-icon-property
-          ,org-contacts-note-property
-          ,org-contacts-nickname-property
-          ,org-contacts-ignore-property))
+  (mapcar (lambda (x)
+            (add-to-list 'org-default-properties x))
+          `(,org-contacts-tel-property
+            ,org-contacts-birthday-property
+            ,org-contacts-email-property
+            ,org-contacts-address-property
+            ,org-contacts-alias-property
+            ,org-contacts-icon-property
+            ,org-contacts-note-property
+            ,org-contacts-nickname-property
+            ,org-contacts-ignore-property))
 
-(defun kk/org-contacts-query-property (&optional LAST prop)
-  "Return a property of a contact."
-  (let* ((contact (if LAST
-                      kk/query-org-contacts-last-contact
-                    (assoc (completing-read
-                            "Contact: "
-                            org-contacts-db
-                            nil
-                            t)
-                           org-contacts-db)))
-         (contact-data (caddr contact))
-         (prop (if prop prop
-                 (completing-read "Property: " contact-data))))
-    (setq kk/query-org-contacts-last-contact contact)
-    (cdr (assoc prop contact-data))))
-
-
-(defun kk/org-contacts-message-kill-property (&optional LAST prop)
-  "Output a property of some contact and add it to kill-ring."
-  (interactive "P")
-  (let ((val (kk/org-contacts-query-property LAST prop)))
-    (kill-new val)
-    (message val)))
+  (defun kk/org-contacts-query-property (&optional LAST prop)
+    "Return a property of a contact."
+    (let* ((contact (if LAST
+                        kk/query-org-contacts-last-contact
+                      (assoc (completing-read
+                              "Contact: "
+                              org-contacts-db
+                              nil
+                              t)
+                             org-contacts-db)))
+           (contact-data (caddr contact))
+           (prop (if prop prop
+                   (completing-read "Property: " contact-data))))
+      (setq kk/query-org-contacts-last-contact contact)
+      (cdr (assoc prop contact-data))))
 
 
-(defun kk/org-contacts-insert-property (&optional LAST prop)
-  "Insert a property of some contact."
-  (interactive "P")
-  (insert (kk/org-contacts-query-property LAST prop)))
+  (defun kk/org-contacts-message-kill-property (&optional LAST prop)
+    "Output a property of some contact and add it to kill-ring."
+    (interactive "P")
+    (let ((val (kk/org-contacts-query-property LAST prop)))
+      (kill-new val)
+      (message val)))
+
+
+  (defun kk/org-contacts-insert-property (&optional LAST prop)
+    "Insert a property of some contact."
+    (interactive "P")
+    (insert (kk/org-contacts-query-property LAST prop))))
 #+end_src
 
 *** Org-Contacts-Gnus functions
@@ -2107,6 +2107,7 @@ But work with mu4e too."
 
 #+begin_src emacs-lisp
 (use-package org-protocol
+  :after org
   :straight nil
   :config
   (defun kk/org-protocol-set-done-with-point-at-id (id)
@@ -2136,16 +2137,6 @@ But work with mu4e too."
                  :protocol "clock-in"
                  :function kk/org-protocol-clock-in-with-point-at-id
                  :kill-client t)))
-#+end_src
-
-** Org Recent Headings
-:PROPERTIES:
-:ID:       74adf8cb-6507-44e8-8fdc-c7a22938d69b
-:END:
-
-#+begin_src emacs-lisp
-(use-package org-recent-headings
-  :config (org-recent-headings-mode))
 #+end_src
 
 ** Org-mime
@@ -2203,7 +2194,8 @@ But work with mu4e too."
 :END:
 
 #+begin_src emacs-lisp
-(use-package org-ql)
+(use-package org-ql
+  :after org)
 #+end_src
 
 ** Weekly Review
@@ -2327,10 +2319,11 @@ But work with mu4e too."
 
 **** Use Other Languages with LaTeX
 #+begin_src emacs-lisp
-(add-to-list 'org-latex-packages-alist
-             '("ngerman" "babel" t ("pdflatex")))
-(add-to-list 'org-latex-packages-alist
-             '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+(with-eval-after-load 'org
+  (add-to-list 'org-latex-packages-alist
+               '("ngerman" "babel" t ("pdflatex")))
+  (add-to-list 'org-latex-packages-alist
+               '("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
 #+end_src
 
 ** Settings
@@ -2348,7 +2341,8 @@ But work with mu4e too."
 
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)
 
-(setq org-agenda-text-search-extra-files (kk/org-roam-files))
+(with-eval-after-load 'kk/org-roam-files
+  (setq org-agenda-text-search-extra-files (kk/org-roam-files)))
 
 (setq org-agenda-span 'day)
 
@@ -2455,7 +2449,6 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package rainbow-delimiters
-  :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 
@@ -2487,15 +2480,20 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package dumb-jump
+  :defer 0
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
 #+end_src
 
 *** Editorconfig
+:PROPERTIES:
+:ID:       85f79ca0-813b-45a1-b89d-a6e00ef56e8e
+:END:
 
 #+begin_src emacs-lisp
 (use-package editorconfig
+  :defer t
   :config
   (editorconfig-mode 1))
 #+end_src
@@ -2506,7 +2504,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :END:
 
 #+begin_src emacs-lisp
-(use-package sqlformat)
+(use-package sqlformat
+  :defer 0)
 #+end_src
 
 ** Web
@@ -2518,6 +2517,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package web-mode
+  :commands web-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tpl\\'" . web-mode))
@@ -2536,7 +2536,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :END:
 
 #+begin_src emacs-lisp
-(use-package emmet-mode)
+(use-package emmet-mode
+  :defer 0)
 #+end_src
 
 *** Know Your HTTP Well
@@ -2546,7 +2547,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package know-your-http-well
-  :defer t)
+  :defer 0)
 #+end_src
 
 ** C#
@@ -2555,7 +2556,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :END:
 
 #+begin_src emacs-lisp
-(use-package csharp-mode)
+(use-package csharp-mode
+  :defer 0)
 #+end_src
 
 ** Markdown
@@ -2564,19 +2566,22 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :END:
 
 #+begin_src emacs-lisp
-(use-package markdown-mode)
+(use-package markdown-mode
+  :defer 0)
 #+end_src
 
 ** YAML
 
 #+begin_src emacs-lisp
-(use-package yaml-mode)
+(use-package yaml-mode
+  :defer 0)
 #+end_src
 
 ** JSON
 
 #+begin_src emacs-lisp
-(use-package json-mode)
+(use-package json-mode
+  :defer 0)
 #+end_src
 
 * File Management
@@ -2935,21 +2940,24 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 ==C-c C-m C-a= adds attachment to existing message or creates a new one.
 
 #+begin_src emacs-lisp
-(require 'gnus-dired)
-;; make the `gnus-dired-mail-buffers' function also work on
-;; message-mode derived modes, such as mu4e-compose-mode
-(defun gnus-dired-mail-buffers ()
-  "Return a list of active message buffers."
-  (let (buffers)
-    (save-current-buffer
-      (dolist (buffer (buffer-list t))
-        (set-buffer buffer)
-        (when (and (derived-mode-p 'message-mode)
-                   (null message-sent-message-via))
-          (push (buffer-name buffer) buffers))))
-    (nreverse buffers)))
-(setq gnus-dired-mail-mode 'mu4e-user-agent)
-(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+(use-package gnus-dired
+  :defer 0
+  :straight nil
+  :config
+  ;; make the `gnus-dired-mail-buffers' function also work on
+  ;; message-mode derived modes, such as mu4e-compose-mode
+  (defun gnus-dired-mail-buffers ()
+    "Return a list of active message buffers."
+    (let (buffers)
+      (save-current-buffer
+        (dolist (buffer (buffer-list t))
+          (set-buffer buffer)
+          (when (and (derived-mode-p 'message-mode)
+                     (null message-sent-message-via))
+            (push (buffer-name buffer) buffers))))
+      (nreverse buffers)))
+  (setq gnus-dired-mail-mode 'mu4e-user-agent)
+  (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
 #+end_src
 
 *** Display-Time-Mail-Function
@@ -2990,10 +2998,12 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+begin_src emacs-lisp
 ;; Install `plz' HTTP library (not on MELPA yet).
 (use-package plz
+  :defer t
   :straight (plz :type git :host github :repo "alphapapa/plz.el"))
 
 ;; Install Ement.
 (use-package ement
+  :defer t
   :straight (ement :type git :host github :repo "alphapapa/ement.el")
   :custom
   (ement-room-prism 'both)
@@ -3006,6 +3016,7 @@ Requires working setup of [[https://github.com/AsamK/signal-cli][signal-cli]].
 
 #+begin_src emacs-lisp
 (use-package signal-msg
+  :defer 0
   :straight (signal-msg :type git :host github :repo "mrkrd/signal-msg"))
 #+end_src
 
@@ -3113,12 +3124,48 @@ With prefix arg `ARG' don't ask for details beforehand."
 (setq-default mode-line-format nil)
 #+end_src
 
+** Corfu
+:PROPERTIES:
+:ID:       828ed0a1-a8e7-4437-9c1e-8617aff4fbd1
+:END:
+
+#+begin_src emacs-lisp
+(use-package corfu
+  ;; Optional customizations
+  :custom
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
+  (corfu-quit-at-boundary t)     ;; Automatically quit at word boundary
+  ;; (corfu-quit-no-match t)        ;; Automatically quit if there is no match
+  ;; (corfu-echo-documentation nil) ;; Do not show documentation in the echo area
+
+  ;; Optionally use TAB for cycling, default is `corfu-complete'.
+  ;; :bind (:map corfu-map
+  ;;        ("TAB" . corfu-next)
+  ;;        ([tab] . corfu-next)
+  ;;        ("S-TAB" . corfu-previous)
+  ;;        ([backtab] . corfu-previous))
+
+  ;; You may want to enable Corfu only for certain modes.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
+
+  ;; Recommended: Enable Corfu globally.
+  ;; This is recommended since dabbrev can be used globally (M-/).
+  :init
+  (corfu-global-mode))
+#+end_src
+
 ** Margins
 :PROPERTIES:
 :ID:       71fd18d2-1a4d-4acb-861f-4cfa9f11b7d4
 :END:
 
 #+begin_src emacs-lisp
+(require 'popup)
+
 (defvar kk/margins-active t)
 (defun kk/toggle-margins (&optional ARG)
   "Toggle margins when no `ARG' specified or set explicitly.
@@ -3128,6 +3175,7 @@ Activate margins if `ARG' is above 1 or disable when below."
   (message (format "Margins are %s" (if kk/margins-active
                                         "active"
                                       "inactive"))))
+
 (defun kk/set-margins-function ()
   (when (not (or (overlayp (current-buffer))
                  (popup-p (current-buffer))
@@ -3222,7 +3270,8 @@ Activate margins if `ARG' is above 1 or disable when below."
 :END:
 
 #+begin_src emacs-lisp
-(use-package bookmark+)
+(use-package bookmark+
+  :defer 0)
 #+end_src
 
 *** Burly
@@ -3231,7 +3280,8 @@ Activate margins if `ARG' is above 1 or disable when below."
 :END:
 
 #+begin_src emacs-lisp
-(use-package burly)
+(use-package burly
+  :defer 0)
 #+end_src
 
 ** Theme
@@ -3361,7 +3411,7 @@ in case Emacs daemon is used."
 
 #+begin_src emacs-lisp
 (use-package hydra
-  :defer t)
+  :defer 0)
 #+end_src
 
 *** Global
@@ -3800,6 +3850,7 @@ _r_: report
 
 #+begin_src emacs-lisp
 (use-package vertico
+  :demand t
   :custom
   (vertico-cycle t)
   :init
@@ -3827,6 +3878,7 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 
 #+begin_src emacs-lisp
 (use-package savehist
+  :defer t
   :init
   (savehist-mode))
 #+end_src
@@ -3856,40 +3908,6 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
   (setq completion-ignore-case t))
 #+end_src
 
-** Corfu
-:PROPERTIES:
-:ID:       828ed0a1-a8e7-4437-9c1e-8617aff4fbd1
-:END:
-
-#+begin_src emacs-lisp
-(use-package corfu
-  ;; Optional customizations
-  :custom
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
-  (corfu-quit-at-boundary t)     ;; Automatically quit at word boundary
-  ;; (corfu-quit-no-match t)        ;; Automatically quit if there is no match
-  ;; (corfu-echo-documentation nil) ;; Do not show documentation in the echo area
-
-  ;; Optionally use TAB for cycling, default is `corfu-complete'.
-  ;; :bind (:map corfu-map
-  ;;        ("TAB" . corfu-next)
-  ;;        ([tab] . corfu-next)
-  ;;        ("S-TAB" . corfu-previous)
-  ;;        ([backtab] . corfu-previous))
-
-  ;; You may want to enable Corfu only for certain modes.
-  ;; :hook ((prog-mode . corfu-mode)
-  ;;        (shell-mode . corfu-mode)
-  ;;        (eshell-mode . corfu-mode))
-
-  ;; Recommended: Enable Corfu globally.
-  ;; This is recommended since dabbrev can be used globally (M-/).
-  :init
-  (corfu-global-mode))
-#+end_src
-
 ** Embark
 :PROPERTIES:
 :ID:       6dc2d0f5-5e29-4066-a008-2e9a728a436b
@@ -3905,6 +3923,24 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
 :END:
+
+** Yasnippet
+:PROPERTIES:
+:ID:       0443b84d-c816-42a8-9b5c-1a085ae702ca
+:END:
+
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :defer 0
+  :after warnings
+  :config
+  (yas-reload-all)
+  (add-hook 'org-mode-hook #'yas-minor-mode)
+  (add-to-list 'warning-suppress-types '(yasnippet backquote-change))
+  (defun kk/yas-id-remove-spaces (text)
+    "Replace spaces in `TEXT' with '-'."
+    (s-replace " " "-" text)))
+#+end_src
 
 ** Tidy Buffer
 :PROPERTIES:
@@ -4039,14 +4075,6 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 #+begin_src emacs-lisp
 (use-package calfw
   :config
-
-  (use-package calfw-org
-    :config
-    (setq cfw:org-overwrite-default-keybinding t)
-    (setq cfw:org-agenda-schedule-args '(:timestamp :deadline)))
-
-  (global-set-key (kbd "C-c C") 'cfw:open-org-calendar)
-
   (defun kk/open-calendar ()
     "Open calendar calfw with additional sources."
     (interactive)
@@ -4063,6 +4091,13 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (advice-add 'cfw:org-open-agenda-day :around 'kk/cfw:org-open-agenda-day)
 
   (setq cfw:org-capture-template '("Q" "calfw2org" entry (file kk/org-refile-target) "* %? %(cfw:org-capture-day)")))
+
+(use-package calfw-org
+  :bind
+  (("C-c C" . 'cfw:open-org-calendar))
+  :config
+  (setq cfw:org-overwrite-default-keybinding t)
+  (setq cfw:org-agenda-schedule-args '(:timestamp :deadline)))
 #+end_src
 
 ** Calculating
@@ -4097,9 +4132,10 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package eww
+  :defer t
   :config (setq browse-url-browser-function 'eww
                 shr-width 80
-		eww-auto-rename-buffer 'title))
+                eww-auto-rename-buffer 'title))
 #+end_src
 
 *** Search Logic
@@ -4186,6 +4222,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package ledger-mode
+  :defer t
   :custom
   (ledger-reconcile-default-commodity "€")
   (ledger-clear-whole-transactions t))
@@ -4198,6 +4235,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package flyspell
+  :defer 0
   :straight nil
   :config
   (setq flyspell-default-dictionary "german")
@@ -4232,7 +4270,8 @@ Make code be replaced by its formatted result -- and periodically updated.
 :END:
 
 #+begin_src emacs-lisp
-(use-package sudo-edit)
+(use-package sudo-edit
+  :defer 0)
 #+end_src
 
 ** Media
@@ -4243,7 +4282,8 @@ Make code be replaced by its formatted result -- and periodically updated.
 :END:
 
 #+begin_src emacs-lisp
-(use-package mpv)
+(use-package mpv
+  :defer 0)
 #+end_src
 
 *** Ytel
@@ -4253,6 +4293,8 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 #+begin_src emacs-lisp
 (use-package ytel
+  :commands
+  (ytel ytel-get-current-video)
   :config
   (setq ytel-invidious-api-url "https://invidious.namazso.eu")
   (defun ytel-yt-url ()
@@ -4294,6 +4336,7 @@ Make code be replaced by its formatted result -- and periodically updated.
 
 #+begin_src emacs-lisp
 (use-package bongo
+  :defer 0
   :config
   (setq bongo-default-directory kk/bongo-default-directory)
   (setq bongo-prefer-library-buffers nil)
@@ -4334,7 +4377,8 @@ Make code be replaced by its formatted result -- and periodically updated.
 :END:
 
 #+begin_src emacs-lisp
-(use-package s)
+(use-package s
+  :defer t)
 #+end_src
 
 ** Elfeed
@@ -4454,6 +4498,7 @@ interfere with the default variable `bongo-playlist-buffer'."
 
 #+begin_src emacs-lisp
 (use-package pdf-tools
+  :defer 0
   :config
   (pdf-loader-install))
 #+end_src
@@ -4560,6 +4605,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package typo
+  :defer 0
   :config
   (setq-default typo-language "German"))
 #+end_src
@@ -4571,6 +4617,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package proced
+  :defer t
   :custom
   (proced-auto-update-flag t))
 #+end_src
@@ -4579,6 +4626,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package 0x0
+  :defer 0
   :config
   (with-eval-after-load 'embark
     (define-key embark-region-map (kbd "U") '0x0-upload-text)
@@ -4589,6 +4637,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package emacs-everywhere
+  :defer t
   :custom
   (emacs-everywhere-paste-p nil))
 #+end_src
@@ -4597,6 +4646,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package anki-editor
+  :defer 0
   :config
   (setq anki-editor-org-tags-as-anki-tags t)
 
@@ -4637,6 +4687,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package fish-completion
+  :defer 0
   :config
   (when (and (executable-find "fish")
              (require 'fish-completion nil t))
@@ -4650,6 +4701,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package term
+  :defer 0
   :hook
   (term-mode . (lambda ()
                  (display-line-numbers-mode 0)))
@@ -4710,6 +4762,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
           '("vim")))
 
 (use-package eshell
+  :defer 0
   :hook (eshell-first-time-mode . kk/eshell-configure))
 #+end_src
 
