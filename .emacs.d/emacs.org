@@ -174,7 +174,7 @@ For editing commands I guess.
 
 #+begin_src emacs-lisp
 (use-package mwim
-  :defer 0
+  :defer 2
   :config
   (global-set-key (kbd "C-a") 'mwim-beginning)
   (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
@@ -670,7 +670,7 @@ Return nil before first heading."
 (setq org-agenda-log-mode-items (quote (closed state)))
 
 (use-package htmlize
-  :defer 0)
+  :defer 2)
 #+end_src
 
 *** Clocking
@@ -864,7 +864,7 @@ as the default task."
 #+begin_src emacs-lisp
 (use-package org-pomodoro
   :after org
-  :defer 0
+  :defer 2
   :custom
   (org-pomodoro-clock-break nil)
   (org-pomodoro-keep-killed-pomodoro-time t)
@@ -2147,7 +2147,7 @@ But work with mu4e too."
 #+begin_src emacs-lisp
 (use-package org-mime
   :after org
-  :defer 0
+  :defer 2
   :config
   (setq org-mime-export-ascii 'ascii)
   (setq org-mime-export-options '(:section-numbers nil
@@ -2484,7 +2484,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package dumb-jump
-  :defer 0
+  :defer 2
   :config
   (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
   (setq xref-show-definitions-function #'xref-show-definitions-completing-read))
@@ -2509,7 +2509,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package sqlformat
-  :defer 0)
+  :defer 5)
 #+end_src
 
 ** Web
@@ -2541,7 +2541,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package emmet-mode
-  :defer 0)
+  :defer 3)
 #+end_src
 
 *** Know Your HTTP Well
@@ -2551,7 +2551,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package know-your-http-well
-  :defer 0)
+  :defer 5)
 #+end_src
 
 ** C#
@@ -2561,7 +2561,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package csharp-mode
-  :defer 0)
+  :defer 3)
 #+end_src
 
 ** Markdown
@@ -2571,21 +2571,21 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package markdown-mode
-  :defer 0)
+  :defer 3)
 #+end_src
 
 ** YAML
 
 #+begin_src emacs-lisp
 (use-package yaml-mode
-  :defer 0)
+  :defer 3)
 #+end_src
 
 ** JSON
 
 #+begin_src emacs-lisp
 (use-package json-mode
-  :defer 0)
+  :defer 3)
 #+end_src
 
 * File Management
@@ -2945,7 +2945,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package gnus-dired
-  :defer 0
+  :defer 2
   :straight nil
   :config
   ;; make the `gnus-dired-mail-buffers' function also work on
@@ -3020,7 +3020,7 @@ Requires working setup of [[https://github.com/AsamK/signal-cli][signal-cli]].
 
 #+begin_src emacs-lisp
 (use-package signal-msg
-  :defer 0
+  :defer 2
   :straight (signal-msg :type git :host github :repo "mrkrd/signal-msg"))
 #+end_src
 
@@ -3364,7 +3364,7 @@ Unicode-Fonts is currently disabled since it was annoying me with errors.
 
 ;;   (add-hook 'after-make-frame-functions 'my-hook-unicode-fonts-setup nil))
 (use-package all-the-icons
-  :defer 0)
+  :defer 1)
 #+end_src
 
 ** Helpful
@@ -3966,7 +3966,7 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 
 #+begin_src emacs-lisp
 (use-package yasnippet
-  :defer 0
+  :defer 2
   :after warnings
   :config
   (yas-reload-all)
@@ -4293,7 +4293,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package sudo-edit
-  :defer 0)
+  :defer 1)
 #+end_src
 
 ** Media
@@ -4305,7 +4305,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package mpv
-  :defer 0)
+  :defer 2)
 #+end_src
 
 *** Ytel
@@ -4358,7 +4358,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package bongo
-  :defer 0
+  :defer 1
   :config
   (setq bongo-default-directory kk/bongo-default-directory)
   (setq bongo-prefer-library-buffers nil)
@@ -4410,7 +4410,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package elfeed
-  :defer 0
+  :defer 1
   :bind (:map elfeed-search-mode-map
               ("e" . prot-elfeed-bongo-append-enqueue)
               ("E" . prot-elfeed-bongo-insert-enqueue)
@@ -4520,7 +4520,7 @@ interfere with the default variable `bongo-playlist-buffer'."
 
 #+begin_src emacs-lisp
 (use-package pdf-tools
-  :defer 0
+  :defer 1
   :config
   (pdf-loader-install))
 #+end_src
@@ -4627,7 +4627,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package typo
-  :defer 0
+  :defer 2
   :config
   (setq-default typo-language "German"))
 #+end_src
@@ -4648,7 +4648,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package 0x0
-  :defer 0
+  :defer 2
   :config
   (with-eval-after-load 'embark
     (define-key embark-region-map (kbd "U") '0x0-upload-text)
@@ -4668,7 +4668,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package anki-editor
-  :defer 0
+  :defer 2
   :config
   (setq anki-editor-org-tags-as-anki-tags t)
 
