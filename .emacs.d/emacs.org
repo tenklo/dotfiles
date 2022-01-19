@@ -2235,7 +2235,7 @@ But work with mu4e too."
      "+PERSONAL")
     ('work
      "+WORK")
-    (t
+    (_
      nil)))
 
 (defun kk/weekly-review-agenda ()
@@ -2283,7 +2283,7 @@ But work with mu4e too."
                           "maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX")
                          ('personal
                           "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX")
-                         (t
+                         (_
                           "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX"))))
 
 (defun kk/weekly-review-deadlines ()
@@ -3043,7 +3043,7 @@ Destinations are based on `org-contacts' information"
                        (error "No send functions specified. Add them to kk/send-region-functions."))
                       (1
                        (cdar kk/send-region-functions))
-                      (t
+                      (_
                        (cdr (assoc (completing-read "Send via: " kk/send-region-functions nil t) kk/send-region-functions)))))))
         (call-interactively func))
     (message "No region active to send.")))
