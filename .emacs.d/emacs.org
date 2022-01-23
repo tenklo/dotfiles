@@ -3949,10 +3949,16 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 
   (define-key embark-become-file+buffer-map (kbd "t b") 'find-buffer-other-tab)
   (define-key embark-become-file+buffer-map (kbd "t f") 'find-file-other-tab)
-
   (define-key embark-become-file+buffer-map (kbd "j") 'bookmark-jump)
 
+  (define-prefix-command 'embark-become-file+buffer-project-map)
+  (define-key embark-become-file+buffer-map (kbd "p") 'embark-become-file+buffer-project-map)
+  (define-key embark-become-file+buffer-project-map (kbd "b") 'project-switch-to-buffer)
+  (define-key embark-become-file+buffer-project-map (kbd "f") 'project-find-file)
+  (define-key embark-become-file+buffer-project-map (kbd "p") 'project-switch-project)
+
   (define-key embark-command-map (kbd "h") 'helpful-command)
+  (define-key embark-command-map (kbd "x") 'execute-extended-command)
 
   (define-key embark-symbol-map (kbd "h") 'helpful-symbol)
 
