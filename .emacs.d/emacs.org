@@ -2680,6 +2680,11 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   :straight nil
   :custom
   (mu4e-confirm-quit nil)
+  :bind
+  (:map mu4e-view-mode-map
+        ("o" . delete-other-windows)
+        :map mu4e-headers-mode-map
+        ("o" . delete-other-windows))
   :config
   (setq mu4e-context-policy 'pick-first)
   (setq mu4e-compose-context-policy 'always-ask)
