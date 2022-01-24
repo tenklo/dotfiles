@@ -527,7 +527,8 @@ Intended to be used in an `org-mode-hook'."
      ("maintenance" . 119)
      ("read" . 114)
      ("watch" . 115)
-     ("buy" . 98)))
+     ("buy" . 98)
+     ("checkback" . 66)))
   :config
   (setq initial-major-mode 'org-mode)
 
