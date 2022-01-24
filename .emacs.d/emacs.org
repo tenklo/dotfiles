@@ -2454,8 +2454,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+begin_src emacs-lisp
 (use-package magit
   :commands magit-status
-  :config
-  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
 #+end_src
 
 *** Parenthesis
@@ -2475,7 +2475,11 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :ID:       3cdc25e8-501b-465c-8f8a-96d3009f09b0
 :END:
 #+begin_src emacs-lisp
-(show-paren-mode 1)
+(use-package paren
+  :defer 5
+  :straight nil
+  :custom
+  ((show-paren-mode t)))
 #+end_src
 
 **** Smartparens
@@ -2484,7 +2488,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 :END:
 #+begin_src emacs-lisp
 (use-package smartparens
-  :defer t
+  :defer 5
   :custom
   (smartparens-global-mode t)
   :config
@@ -2511,9 +2515,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package editorconfig
-  :defer t
-  :config
-  (editorconfig-mode 1))
+  :custom
+  ((editorconfig-mode t)))
 #+end_src
 
 ** SQL
@@ -2523,7 +2526,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package sqlformat
-  :defer 5)
+  :commands sqlformat)
 #+end_src
 
 ** Web
@@ -2555,7 +2558,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package emmet-mode
-  :defer 3)
+  :commands emmet-mode)
 #+end_src
 
 *** Know Your HTTP Well
@@ -2565,7 +2568,8 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package know-your-http-well
-  :defer 5)
+  :commands
+  (http-header http-method http-relation http-status-code))
 #+end_src
 
 ** C#
@@ -2575,7 +2579,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package csharp-mode
-  :defer 3)
+  :commands csharp-mode)
 #+end_src
 
 ** Markdown
@@ -2585,21 +2589,21 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package markdown-mode
-  :defer 3)
+  :commands markdown-mode)
 #+end_src
 
 ** YAML
 
 #+begin_src emacs-lisp
 (use-package yaml-mode
-  :defer 3)
+  :commands yaml-mode)
 #+end_src
 
 ** JSON
 
 #+begin_src emacs-lisp
 (use-package json-mode
-  :defer 3)
+  :commands json-mode)
 #+end_src
 
 * File Management
