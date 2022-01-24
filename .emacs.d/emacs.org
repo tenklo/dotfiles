@@ -334,18 +334,26 @@ Stuff I do not want to be checked into a public git repo can go here.
 ** Tab-Bar-Mode
 
 #+begin_src emacs-lisp
-(customize-set-variable 'tab-bar-show t)
-(customize-set-variable 'tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
-(customize-set-variable 'tab-bar-close-button-show nil)
-(customize-set-variable 'tab-bar-mode 1)
+(use-package tab-bar
+  :straight nil
+  :custom
+  ((tab-bar-show t)
+   (tab-bar-format '(kk/tab-bar-format-menu-bar tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+   (tab-bar-close-button-show nil)
+   (tab-bar-mode 1))
+  :config
+  (defun kk/tab-bar-format-menu-bar ()
+    "Produce the Menu button for the tab bar that shows the menu bar."
+    `((menu-bar menu-item (propertize "🦄" 'face 'tab-bar-tab-inactive)
+                tab-bar-menu-bar :help "Menu Bar")))
 
-(defun kk/bookmark-jump-other-tab (bookmark &optional display-function flip-use-region-p)
-  (interactive (list (bookmark-completing-read "Jump to bookmark" (bmkp-default-bookmark-name))
-                     nil
-                     current-prefix-arg))
-  (switch-to-buffer-other-tab bookmark))
+  (defun kk/bookmark-jump-other-tab (bookmark &optional display-function flip-use-region-p)
+    (interactive (list (bookmark-completing-read "Jump to bookmark" (bmkp-default-bookmark-name))
+                       nil
+                       current-prefix-arg))
+    (switch-to-buffer-other-tab bookmark))
 
-(global-set-key (kbd "C-x t j") 'kk/bookmark-jump-other-tab)
+  (global-set-key (kbd "C-x t j") 'kk/bookmark-jump-other-tab))
 #+end_src
 
 ** Desktop-Mode
@@ -371,24 +379,29 @@ Stuff I do not want to be checked into a public git repo can go here.
 ** Display-Time-Mode
 
 #+begin_src emacs-lisp
-(customize-set-variable 'display-time-24hr-format nil)
-(customize-set-variable 'display-time-format "  %a %d.%m.  %H:%M ")
-(customize-set-variable 'display-time-mode t)
-(customize-set-variable 'display-time-use-mail-icon nil)
-(customize-set-variable 'display-time-mail-string " ")
-
-(setq display-time-mail-face 'kk/display-time-mail-face)
-(defface kk/display-time-mail-face
-  '((default :inherit tab-bar :foreground "#FF0000"))
-  "Make `display-time-mail-string' stand out.")
-
+(use-package timer
+  :straight nil
+  :custom
+  ((display-time-24hr-format nil)
+   (display-time-format "  %a %d.%m.  %H:%M ")
+   (display-time-mode t)
+   (display-time-use-mail-icon nil)
+   (display-time-mail-string " ")
+   (display-time-mail-face 'kk/display-time-mail-face))
+  :config
+  (defface kk/display-time-mail-face
+    '((default :inherit tab-bar :foreground "#FF0000"))
+    "Make `display-time-mail-string' stand out."))
 #+end_src
 
 ** Display-Battery-Mode
 
 #+begin_src emacs-lisp
-(display-battery-mode 1)
-(customize-set-variable 'battery-mode-line-format " [%b%p%%]")
+(use-package battery
+  :straight nil
+  :custom
+  (display-battery-mode t)
+  (battery-mode-line-format " [%b%p%%]"))
 #+end_src
 
 * System Specific
