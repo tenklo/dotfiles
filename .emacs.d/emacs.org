@@ -3420,9 +3420,9 @@ in case Emacs daemon is used."
 (use-package which-key
   :defer 0
   :diminish which-key-mode
-  :config
-  (which-key-mode)
-  (setq which-key-idle-delay 2))
+  :custom
+  ((which-key-idle-delay 0.5)
+   (which-key-mode t)))
 #+end_src
 
 ** Hydra
