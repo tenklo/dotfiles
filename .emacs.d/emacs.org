@@ -2691,6 +2691,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package mu4e
+  :demand t
   :straight nil
   :custom
   (mu4e-confirm-quit nil)
