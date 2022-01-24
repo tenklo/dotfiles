@@ -4421,19 +4421,19 @@ With prefix ARG non-nil, insert the result at the end of region."
 #+begin_src emacs-lisp
 (use-package elfeed
   :defer 1
-  :bind (:map elfeed-search-mode-map
-              ("e" . prot-elfeed-bongo-append-enqueue)
-              ("E" . prot-elfeed-bongo-insert-enqueue)
-              ("h" . prot-elfeed-bongo-switch-to-playlist)
-              ("o" . delete-other-windows)
-              :map elfeed-show-mode-map
-              ("e" . prot-elfeed-bongo-append-enqueue)
-              ("E" . prot-elfeed-bongo-insert-enqueue)
-              ("h" . prot-elfeed-bongo-switch-to-playlist)
-              ("o" . delete-other-windows))
+  :bind (("C-c r" . elfeed)
+         :map elfeed-search-mode-map
+         ("e" . prot-elfeed-bongo-append-enqueue)
+         ("E" . prot-elfeed-bongo-insert-enqueue)
+         ("h" . prot-elfeed-bongo-switch-to-playlist)
+         ("o" . delete-other-windows)
+         :map elfeed-show-mode-map
+         ("e" . prot-elfeed-bongo-append-enqueue)
+         ("E" . prot-elfeed-bongo-insert-enqueue)
+         ("h" . prot-elfeed-bongo-switch-to-playlist)
+         ("o" . delete-other-windows))
   :config
   (require 'elfeed-feeds)
-  (global-set-key (kbd "C-c r") 'elfeed))
 #+end_src
 
 ** Elfeed-Bongo
