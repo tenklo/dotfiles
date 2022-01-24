@@ -3368,20 +3368,7 @@ Activate margins if `ARG' is above 1 or disable when below."
 :ID:       293f1ee7-6737-4e9b-866b-11e59829e2bb
 :END:
 
-Unicode-Fonts is currently disabled since it was annoying me with errors.
-
 #+begin_src emacs-lisp
-;; (use-package unicode-fonts
-;;   :config
-;;   (defun my-hook-unicode-fonts-setup (frame)
-;;     "Run unicode-fonts-setup, then remove the hook."
-;;     (progn
-;;       (select-frame frame)
-;;       (unicode-fonts-setup)
-;;       (message "Removing unicode-fonts-setup to after-make-frame-functions hook")
-;;       (remove-hook 'after-make-frame-functions 'my-hook-unicode-fonts-setup)))
-
-;;   (add-hook 'after-make-frame-functions 'my-hook-unicode-fonts-setup nil))
 (use-package all-the-icons
   :defer 1)
 #+end_src
@@ -3419,11 +3406,9 @@ in case Emacs daemon is used."
                 (setq doom-modeline-icon t)
                 (with-selected-frame frame
                   (kk/set-font-faces)
-                  (kk/org-font-setup)
-                  (unicode-fonts-setup))))
+                  (kk/org-font-setup))))
   (kk/set-font-faces)
-  (kk/org-font-setup)
-  (unicode-fonts-setup))
+  (kk/org-font-setup))
 #+end_src
 
 ** Which Key
