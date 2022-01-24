@@ -4434,6 +4434,13 @@ With prefix ARG non-nil, insert the result at the end of region."
          ("o" . delete-other-windows))
   :config
   (require 'elfeed-feeds)
+
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url "youtube\\.com"
+                                :add '(videos youtube)))
+  (add-hook 'elfeed-new-entry-hook
+            (elfeed-make-tagger :feed-url "reddit\\.com"
+                                :add '(reddit))))
 #+end_src
 
 ** Elfeed-Bongo
