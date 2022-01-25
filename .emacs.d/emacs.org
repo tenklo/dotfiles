@@ -4699,10 +4699,11 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package anki-editor
-  :defer 2
+  :commands
+  (anki-editor-insert-note anki-editor-push-notes)
+  :custom
+  (anki-editor-org-tags-as-anki-tags t)
   :config
-  (setq anki-editor-org-tags-as-anki-tags t)
-
   (add-to-list 'org-global-properties '("ANKI_DECK" . "All"))
 
   (mapcar (lambda (x)
