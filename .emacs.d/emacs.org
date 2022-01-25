@@ -4315,7 +4315,8 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package sudo-edit
-  :defer 1)
+  :commands
+  (sudo-edit sudo-edit-find-file sudo-edit-current-file))
 #+end_src
 
 ** Media
