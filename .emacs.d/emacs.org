@@ -3345,9 +3345,9 @@ Activate margins if `ARG' is above 1 or disable when below."
 
 #+begin_src emacs-lisp
 (use-package theme-magic
+  :commands theme-magic-from-emacs
   :diminish theme-magic-export-theme-mode
   :config
-  (theme-magic-export-theme-mode)
   (defun kk/reload-dwm-color-scheme ()
     (interactive)
     (start-process "reload dwm color scheme" nil "xdotool" "key" "Super_L+control+F5"))
