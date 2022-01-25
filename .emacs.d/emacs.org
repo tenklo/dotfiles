@@ -4381,32 +4381,32 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package bongo
-  :defer 1
-  :config
-  (setq bongo-default-directory kk/bongo-default-directory)
-  (setq bongo-prefer-library-buffers nil)
-  (setq bongo-insert-whole-directory-trees t)
-  (setq bongo-logo nil)
-  (setq bongo-display-track-icons nil)
-  (setq bongo-display-track-lengths nil)
-  (setq bongo-display-header-icons nil)
-  (setq bongo-display-playback-mode-indicator t)
-  (setq bongo-display-inline-playback-progress t)
-  (setq bongo-join-inserted-tracks nil)
-  (setq bongo-field-separator (propertize " · " 'face 'shadow))
-  (setq bongo-mark-played-tracks t)
-  (setq bongo-mode-line-indicator-mode -1)
-  (setq bongo-header-line-mode -1)
-  (setq bongo-enabled-backends '(mpv))
-  (setq bongo-custom-backend-matchers
-        '((mpv
-           (local-file "file:" "http:" "https:" "ftp:")
-           "669" "aac" "asf" "au" "avi" "flac" "flv" "it" "m4a" "m4v" "mdz" "mid" "midi" "mka" "mkv" "mod" "mov" "mp2" "mp3" "mp4" "mpeg" "mpg" "mtm" "ogg" "ogm" "ra" "rm" "rmi"
-           "rmvb" "s3m" "stm" "ts" "umx" "vob" "vqf" "wav" "webm" "wma" "wmv" "xm")
-          (mpv
-           ("http:" "https:")
-           . t)))
-
+  :commands
+  (bongo bongo-dired-library-mode)
+  :custom
+  (bongo-default-directory kk/bongo-default-directory)
+  (bongo-prefer-library-buffers nil)
+  (bongo-insert-whole-directory-trees t)
+  (bongo-logo nil)
+  (bongo-display-track-icons nil)
+  (bongo-display-track-lengths nil)
+  (bongo-display-header-icons nil)
+  (bongo-display-playback-mode-indicator t)
+  (bongo-display-inline-playback-progress t)
+  (bongo-join-inserted-tracks nil)
+  (bongo-field-separator (propertize " · " 'face 'shadow))
+  (bongo-mark-played-tracks t)
+  (bongo-mode-line-indicator-mode -1)
+  (bongo-header-line-mode -1)
+  (bongo-enabled-backends '(mpv))
+  (bongo-custom-backend-matchers
+   '((mpv
+      (local-file "file:" "http:" "https:" "ftp:")
+      "669" "aac" "asf" "au" "avi" "flac" "flv" "it" "m4a" "m4v" "mdz" "mid" "midi" "mka" "mkv" "mod" "mov" "mp2" "mp3" "mp4" "mpeg" "mpg" "mtm" "ogg" "ogm" "ra" "rm" "rmi"
+      "rmvb" "s3m" "stm" "ts" "umx" "vob" "vqf" "wav" "webm" "wma" "wmv" "xm")
+     (mpv
+      ("http:" "https:")
+      . t)))
   :bind (:map bongo-playlist-mode-map
               ("n" . bongo-next-object)
               ("p" . bongo-previous-object)
