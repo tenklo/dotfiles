@@ -4690,7 +4690,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package emacs-everywhere
-  :defer t
+  :commands emacs-everywhere
   :custom
   (emacs-everywhere-paste-p nil))
 #+end_src
