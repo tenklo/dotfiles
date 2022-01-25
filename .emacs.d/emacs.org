@@ -4186,7 +4186,10 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package eww
-  :defer t
+  :commands eww
+  :bind
+  (:map eww-mode-map
+        ("o" . delete-other-windows))
   :config (setq browse-url-browser-function 'eww
                 shr-width 80
                 eww-auto-rename-buffer 'title))
