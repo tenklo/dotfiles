@@ -3312,7 +3312,8 @@ Activate margins if `ARG' is above 1 or disable when below."
 
 #+begin_src emacs-lisp
 (use-package burly
-  :defer 0)
+  :commands
+  (burly-open-url burly-open-bookmark burly-bookmark-frames burly-bookmark-windows))
 #+end_src
 
 ** Theme
