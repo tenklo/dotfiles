@@ -4279,7 +4279,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package ledger-mode
-  :defer t
+  :commands ledger-mode
   :custom
   (ledger-reconcile-default-commodity "€")
   (ledger-clear-whole-transactions t))
