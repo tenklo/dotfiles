@@ -4657,7 +4657,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package typo
-  :defer 2
+  :commands typo-mode
   :config
   (setq-default typo-language "German"))
 #+end_src
