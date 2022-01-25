@@ -4669,7 +4669,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package proced
-  :defer t
+  :commands proced
   :custom
   (proced-auto-update-flag t))
 #+end_src
