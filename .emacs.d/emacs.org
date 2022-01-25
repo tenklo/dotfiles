@@ -187,9 +187,7 @@ For editing commands I guess.
 #+begin_src emacs-lisp
 (use-package expand-region
   :bind
-  (("C-+" . 'er/expand-region))
-  :config
-  (delete-selection-mode -1))
+  (("C-+" . 'er/expand-region)))
 #+end_src
 
 *** Subwords
