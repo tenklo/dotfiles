@@ -4678,7 +4678,8 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package 0x0
-  :defer 2
+  :commands
+  (0x0-upload-text 0x0-upload-file)
   :config
   (with-eval-after-load 'embark
     (define-key embark-region-map (kbd "U") '0x0-upload-text)
