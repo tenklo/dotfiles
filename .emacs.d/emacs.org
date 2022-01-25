@@ -3167,6 +3167,8 @@ With prefix arg `ARG' don't ask for details beforehand."
 (use-package corfu
   ;; Optional customizations
   :custom
+  (corfu-bar-width 0.6)
+  (corfu-min-width 20)
   (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   (corfu-auto t)                 ;; Enable auto completion
   (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
