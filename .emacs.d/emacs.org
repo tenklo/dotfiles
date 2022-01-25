@@ -864,8 +864,7 @@ as the default task."
 
 #+begin_src emacs-lisp
 (use-package org-pomodoro
-  :after org
-  :defer 2
+  :commands org-pomodoro
   :custom
   (org-pomodoro-clock-break nil)
   (org-pomodoro-keep-killed-pomodoro-time t)
