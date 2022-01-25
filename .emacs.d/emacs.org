@@ -4816,7 +4816,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
           '("vim")))
 
 (use-package eshell
-  :defer 0
+  :commands eshell
   :hook (eshell-first-time-mode . kk/eshell-configure))
 #+end_src
 
