@@ -2506,6 +2506,23 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   ((editorconfig-mode t)))
 #+end_src
 
+*** Project.el
+
+#+begin_src emacs-lisp
+(use-package project
+  :straight nil
+  :custom
+  ((project-switch-commands                   ; M-x man RET ascii RET
+    '((project-find-file "Find file" nil)
+      (project-switch-to-buffer "buffer" nil)
+      (project-find-regexp "Find regexp" 71)
+      (project-find-dir "Find directory" nil)
+      (project-vc-dir "VC-Dir" nil)
+      (project-eshell "Eshell" nil)
+      (project-shell "Shell" nil)
+      (magit-project-status "Magit" 103)))))
+#+end_src
+
 ** SQL
 :PROPERTIES:
 :ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
