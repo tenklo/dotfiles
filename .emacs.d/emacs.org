@@ -174,10 +174,9 @@ For editing commands I guess.
 
 #+begin_src emacs-lisp
 (use-package mwim
-  :defer 2
-  :config
-  (global-set-key (kbd "C-a") 'mwim-beginning)
-  (global-set-key (kbd "C-e") 'mwim-end-of-line-or-code))   ; lala
+  :bind
+  (("C-a" . mwim-beginning)
+   ("C-e" . mwim-end-of-line-or-code)))
 #+end_src
 
 *** Expand Region
