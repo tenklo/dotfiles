@@ -2187,7 +2187,8 @@ But work with mu4e too."
 
 #+begin_src emacs-lisp
 (use-package org-download
-  :after org
+  :commands
+  (org-download-edit org-download-yank org-download-image org-download-delete org-download-clipboard)
   :custom
   (org-download-method 'attach))
 #+end_src
