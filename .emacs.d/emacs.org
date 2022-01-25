@@ -671,7 +671,7 @@ Return nil before first heading."
 (setq org-agenda-log-mode-items (quote (closed state)))
 
 (use-package htmlize
-  :defer 2)
+  :defer t)
 #+end_src
 
 *** Clocking
@@ -964,6 +964,7 @@ as the default task."
 
 #+begin_src emacs-lisp
 (use-package toc-org
+  :defer 5
   :after org)
 #+end_src
 
@@ -2147,7 +2148,7 @@ But work with mu4e too."
 #+begin_src emacs-lisp
 (use-package org-mime
   :after org
-  :defer 2
+  :defer 5
   :config
   (setq org-mime-export-ascii 'ascii)
   (setq org-mime-export-options '(:section-numbers nil
@@ -2200,6 +2201,7 @@ But work with mu4e too."
 
 #+begin_src emacs-lisp
 (use-package org-ql
+  :defer 5
   :after org)
 #+end_src
 
@@ -3121,6 +3123,7 @@ With prefix arg `ARG' don't ask for details beforehand."
 
 #+begin_src emacs-lisp
 (use-package diminish
+  :defer 5
   :config
   (diminish 'org-indent-mode))
 #+end_src
@@ -3255,6 +3258,9 @@ Activate margins if `ARG' is above 1 or disable when below."
   :bind (("C-ß"   . popper-toggle-latest)
          ("M-ß"   . popper-cycle)
          ("C-M-ß" . popper-toggle-type))
+  :custom
+  ((popper-display-control nil)
+   (popper-group-function 'popper-group-by-directory))
   :init
   (setq popper-reference-buffers
         '("\\*Messages\\*"
@@ -3379,7 +3385,7 @@ Activate margins if `ARG' is above 1 or disable when below."
 
 #+begin_src emacs-lisp
 (use-package all-the-icons
-  :defer 1)
+  :defer 5)
 #+end_src
 
 ** Helpful
@@ -3427,7 +3433,7 @@ in case Emacs daemon is used."
 
 #+begin_src emacs-lisp
 (use-package which-key
-  :defer 0
+  :defer 5
   :diminish which-key-mode
   :custom
   ((which-key-idle-delay 0.5)
@@ -3908,7 +3914,6 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 
 #+begin_src emacs-lisp
 (use-package savehist
-  :defer t
   :init
   (savehist-mode))
 #+end_src
@@ -3985,7 +3990,6 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 
 #+begin_src emacs-lisp
 (use-package yasnippet
-  :defer 2
   :after warnings
   :config
   (yas-reload-all)
@@ -4147,6 +4151,7 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   (setq cfw:org-capture-template '("Q" "calfw2org" entry (file kk/org-refile-target) "* %? %(cfw:org-capture-day)")))
 
 (use-package calfw-org
+  :after calfw
   :bind
   (("C-c C" . 'cfw:open-org-calendar))
   :config
@@ -4292,11 +4297,13 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package flyspell
-  :defer 0
+  :defer 5
   :straight nil
-  :config
-  (setq flyspell-default-dictionary "german")
-  (define-key flyspell-mode-map (kbd "C-M-i") 'completion-at-point))
+  :custom
+  ((flyspell-default-dictionary "german"))
+  :bind
+  (:map flyspell-mode-map
+        ("C-M-i" . completion-at-point)))
 #+end_src
 
 ** Abbrev Mode
@@ -4305,7 +4312,11 @@ With prefix ARG non-nil, insert the result at the end of region."
 :END:
 
 #+begin_src emacs-lisp
-(setq-default abbrev-mode t)
+(use-package abbrev
+  :defer 5
+  :straight nil
+  :config
+  (setq-default abbrev-mode t))
 #+end_src
 
 ** Sudo Edit
@@ -4328,7 +4339,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 #+begin_src emacs-lisp
 (use-package mpv
-  :defer 2)
+  :defer 5)
 #+end_src
 
 *** Ytel
