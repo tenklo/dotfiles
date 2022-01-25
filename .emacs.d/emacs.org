@@ -4755,7 +4755,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 
 #+begin_src emacs-lisp
 (use-package term
-  :defer 0
+  :commands term
   :hook
   (term-mode . (lambda ()
                  (display-line-numbers-mode 0)))
