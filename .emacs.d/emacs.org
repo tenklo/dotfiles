@@ -3029,6 +3029,35 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (advice-add 'mu4e-headers-view-message :before #'kk/mu4e-set-split)
 #+end_src
 
+*** Create Meeting Capture
+
+#+begin_src emacs-lisp
+(defun kk/mu4e-zoom-invitation-capture-event ()
+  (interactive)
+  (let ((summary (kk/mu4e-zoom-invitation-get-element "Summary:"))
+        (location (kk/mu4e-zoom-invitation-get-element "Location:"))
+        (time (kk/mu4e-zoom-invitation-get-element "Time:")))
+    (org-capture nil "n")
+    (insert summary)
+    (org-return)
+    (insert time)
+    (end-of-buffer)
+    (insert location)))
+
+(defun kk/mu4e-zoom-invitation-get-element (string)
+  "Return what follows `string' when in `mu4e-view-mode'."
+  (when (equal major-mode 'mu4e-view-mode)
+    (kk/get-what-follows string)))
+
+(defun kk/get-what-follows (start)
+  "Search for first occurence of `start' and return what follows on that line.
+Whitespace gets trimmed."
+  (save-excursion
+    (beginning-of-buffer)
+    (search-forward-regexp (concat "^" start) nil t)
+    (s-trim (s-chop-prefix start (thing-at-point 'line t)))))
+#+end_src
+
 ** Matrix
 
 *** Ement.el
