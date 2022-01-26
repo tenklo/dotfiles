@@ -4365,62 +4365,6 @@ With prefix ARG non-nil, insert the result at the end of region."
 
 ** Media
 
-*** Mpv
-:PROPERTIES:
-:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
-:END:
-
-#+begin_src emacs-lisp
-(use-package mpv
-  :defer 5)
-#+end_src
-
-*** Ytel
-:PROPERTIES:
-:ID:       a5ad1506-a35d-4059-976b-6f44ef557cd5
-:END:
-
-#+begin_src emacs-lisp
-(use-package ytel
-  :commands
-  (ytel ytel-get-current-video)
-  :config
-  (setq ytel-invidious-api-url "https://invidious.namazso.eu")
-  (defun ytel-yt-url ()
-    "Return URL of video at point."
-    (interactive)
-    (let* ((video (ytel-get-current-video))
-           (id    (ytel-video-id video)))
-      (concat "https://www.youtube.com/watch?v=" id)))
-
-  (defun ytel-watch ()
-    "Stream video at point in mpv."
-    (interactive)
-    (start-process "ytel mpv" nil
-                   "mpv"
-                   (ytel-yt-url)
-                   "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
-    (message "Starting streaming..."))
-  (define-key ytel-mode-map "y" #'ytel-watch)
-
-  (defun ytel-yank-url ()
-    (interactive)
-    (let ((url (ytel-yt-url)))
-      (kill-new url)
-      (message "%s pushed to killring." url)))
-  (define-key ytel-mode-map "w" #'ytel-yank-url)
-
-  (defun ytel-browse-librewolf ()
-    (interactive)
-    (let ((url (ytel-yt-url)))
-      (start-process "ytel-librewolf"
-                     nil
-                     "librewolf"
-                     url)
-      (message "Video opened in librewolf.")))
-  (define-key ytel-mode-map "b" #'ytel-browse-librewolf))
-#+end_src
-
 *** Bongo
 
 #+begin_src emacs-lisp
@@ -4457,20 +4401,138 @@ With prefix ARG non-nil, insert the result at the end of region."
               ("R" . bongo-rename-line)
               ("j" . bongo-dired-line)       ; Jump to dir of file at point
               ("J" . dired-jump)             ; Jump to library buffer
-              ("I" . bongo-insert-special)))
+              ("I" . bongo-insert-special))
+  :config
+  (defun kk/bongo-enqueue-uri (MODE url title)
+    "Insert or append multimedia links in `bongo' playlist buffer.
+
+If MODE is `insert', insert TEXT just below the current track.
+If MODE is `append', append TEXT to the end of the playlist.
+
+The playlist buffer has a unique name so that it will never
+interfere with the default variable `bongo-playlist-buffer'."
+    (interactive)
+    (let* ((bongo-pl (prot-elfeed-bongo-playlist))
+           (buffer (get-buffer-create bongo-pl))
+           (prev-buffer (current-buffer)))
+      (unless (bongo-playlist-buffer)
+        (bongo-playlist-buffer))
+      (when bongo-display-playlist-after-enqueue (display-buffer buffer))
+      (with-current-buffer buffer
+        (when (not (bongo-playlist-buffer-p))
+          (bongo-playlist-mode)
+          (setq-local bongo-library-buffer (get-buffer prev-buffer))
+          (setq-local bongo-enabled-backends '(vlc mpv))
+          (bongo-progressive-playback-mode))
+        (pcase MODE
+          ('append
+           (goto-char (point-max)))
+          ('insert
+           (goto-char (or (and (bongo-point-at-current-track-line)
+                               (bongo-point-after-line
+                                (bongo-point-at-current-track-line)))
+                          (bongo-point-at-first-track-line)
+                          (point-max)))))
+        (bongo-insert-uri url title)
+        (bongo-insert-comment-text (format "     ==> %s\n" url))
+        (let ((inhibit-read-only t))
+          (delete-duplicate-lines (point-min) (point-max)))
+        (bongo-recenter))
+      (message "Enqueued “%s” in %s"
+               (propertize title 'face 'italic)
+               (propertize bongo-pl 'face 'bold)))))
 #+end_src
 
-** s.el
+*** Mpv
 :PROPERTIES:
-:ID:       8f95969f-9611-4369-9ea0-df783eae0af6
+:ID:       27bb2d68-58ac-493b-a89f-b687164de4a0
 :END:
 
 #+begin_src emacs-lisp
-(use-package s
-  :defer t)
+(use-package mpv
+  :defer 5)
 #+end_src
 
-** Elfeed
+*** Ytel
+:PROPERTIES:
+:ID:       a5ad1506-a35d-4059-976b-6f44ef557cd5
+:END:
+
+#+begin_src emacs-lisp
+(use-package ytel
+  :commands
+  (ytel ytel-get-current-video)
+  :bind
+  (:map ytel-mode-map
+        ("e" . kk/ytel-bongo-append-enqueue)
+        ("E" . kk/ytel-bongo-insert-enqueue)
+        ("h" . prot-elfeed-bongo-switch-to-playlist))
+  :config
+  (setq ytel-invidious-api-url "https://invidious.namazso.eu")
+  (setq ytel-title-video-reserved-space 60)
+  (defun ytel-yt-url ()
+    "Return URL of video at point."
+    (interactive)
+    (let* ((video (ytel-get-current-video))
+           (id    (ytel-video-id video)))
+      (concat "https://www.youtube.com/watch?v=" id)))
+
+  (defun ytel-watch ()
+    "Stream video at point in mpv."
+    (interactive)
+    (start-process "ytel mpv" nil
+                   "mpv"
+                   (ytel-yt-url)
+                   "--ytdl-format=bestvideo[height<=?720]+bestaudio/best")
+    (message "Starting streaming..."))
+  (define-key ytel-mode-map "y" #'ytel-watch)
+
+  (defun ytel-yank-url ()
+    (interactive)
+    (let ((url (ytel-yt-url)))
+      (kill-new url)
+      (message "%s pushed to killring." url)))
+  (define-key ytel-mode-map "w" #'ytel-yank-url)
+
+  (defun ytel-browse-librewolf ()
+    (interactive)
+    (let ((url (ytel-yt-url)))
+      (start-process "ytel-librewolf"
+                     nil
+                     "librewolf"
+                     url)
+      (message "Video opened in librewolf.")))
+  (define-key ytel-mode-map "b" #'ytel-browse-librewolf)
+
+  (defun kk/ytel-bongo-enqueue (MODE)
+    (interactive)
+    (let* ((video (ytel-get-current-video))
+           (id    (ytel-video-id video))
+           (url (concat "https://www.youtube.com/watch?v=" id))
+           (title (ytel-video-title video)))
+      (kk/bongo-enqueue-uri MODE url title)))
+
+  (defun kk/ytel-bongo-insert-enqueue (&optional ARG)
+    "Insert `elfeed' multimedia links in `bongo' playlist buffer.
+
+The playlist buffer has a unique name so that it will never
+interfere with the default variable `bongo-playlist-buffer'."
+    (interactive "P")
+    (let ((bongo-display-playlist-after-enqueue (if ARG t nil)))
+      (kk/ytel-bongo-enqueue 'insert)))
+
+  (defun kk/ytel-bongo-append-enqueue (&optional ARG)
+    "Insert `elfeed' multimedia links in `bongo' playlist buffer.
+
+The playlist buffer has a unique name so that it will never
+interfere with the default variable `bongo-playlist-buffer'."
+    (interactive "P")
+    (let ((bongo-display-playlist-after-enqueue (if ARG t nil)))
+      (kk/ytel-bongo-enqueue 'append))))
+
+#+end_src
+
+*** Elfeed
 :PROPERTIES:
 :ID:       17af1efe-f9a0-4213-a951-3709121c4893
 :END:
@@ -4501,7 +4563,7 @@ With prefix ARG non-nil, insert the result at the end of region."
                                 :add '(reddit))))
 #+end_src
 
-** Elfeed-Bongo
+*** Elfeed-Bongo
 :PROPERTIES:
 :ID:       483c1611-f9d9-4573-a8be-db6dedcf1512
 :END:
@@ -4532,33 +4594,7 @@ interfere with the default variable `bongo-playlist-buffer'."
          (title (elfeed-entry-title entry))
          (bongo-pl (prot-elfeed-bongo-playlist))
          (buffer (get-buffer-create bongo-pl)))
-    (unless (bongo-playlist-buffer)
-      (bongo-playlist-buffer))
-    (when bongo-display-playlist-after-enqueue (display-buffer buffer))
-    (with-current-buffer buffer
-      (when (not (bongo-playlist-buffer-p))
-        (bongo-playlist-mode)
-        (setq-local bongo-library-buffer (get-buffer "*elfeed-search*"))
-        (setq-local bongo-enabled-backends '(vlc mpv))
-        (bongo-progressive-playback-mode))
-      (pcase MODE
-        ('append
-         (goto-char (point-max)))
-        ('insert
-         (goto-char (or (and (bongo-point-at-current-track-line)
-                             (bongo-point-after-line
-                              (bongo-point-at-current-track-line)))
-                        (bongo-point-at-first-track-line)
-                        (point-max)))))
-      (bongo-insert-uri url title)
-      (bongo-insert-comment-text (format "     ==> %s\n" url))
-      (let ((inhibit-read-only t))
-        (delete-duplicate-lines (point-min) (point-max)))
-      (bongo-recenter))
-    (message "Enqueued %s “%s” in %s"
-             (if enclosure "podcast" "video")
-             (propertize title 'face 'italic)
-             (propertize bongo-pl 'face 'bold))))
+    (kk/bongo-enqueue-uri MODE url title)))
 
 (defun prot-elfeed-bongo-append-enqueue (&optional ARG)
   "Insert `elfeed' multimedia links in `bongo' playlist buffer.
@@ -4586,6 +4622,16 @@ interfere with the default variable `bongo-playlist-buffer'."
     (if buffer
         (switch-to-buffer buffer)
       (message "No `bongo' playlist is associated with `elfeed'."))))
+#+end_src
+
+** s.el
+:PROPERTIES:
+:ID:       8f95969f-9611-4369-9ea0-df783eae0af6
+:END:
+
+#+begin_src emacs-lisp
+(use-package s
+  :defer t)
 #+end_src
 
 ** Pdf-Tools
