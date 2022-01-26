@@ -4002,7 +4002,12 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 
   (define-key embark-symbol-map (kbd "h") 'helpful-symbol)
 
-  (define-key embark-variable-map (kbd "h") 'helpful-variable))
+  (define-key embark-variable-map (kbd "h") 'helpful-variable)
+
+
+  (define-key embark-identifier-map (kbd "c") 'capitalize-dwim)
+  (define-key embark-identifier-map (kbd "u") 'upcase-dwim)
+  (define-key embark-identifier-map (kbd "l") 'downcase-dwim))
 #+end_src
 
 * Misc
