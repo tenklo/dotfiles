@@ -8,6 +8,7 @@ SCHEDULED: `(let ((x (org-insert-time-stamp (current-time)))))`
 :PROPERTIES:
 :TRIGGER:  chain-siblings(NEXT)
 :END:
+** TODO $1 Roam Nodes erstellen
 ** TODO $1 Karteikarten erstellen
 ** TODO $1 Karten lernen
 ** TODO $1 nochmals Material lesen
