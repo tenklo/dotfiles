@@ -3861,38 +3861,24 @@ _d_: toggle clock in parent
   ("g" nil))
 #+end_src
 
-*** Emms
-:PROPERTIES:
-:ID:       90fa4518-1860-423d-928c-c22f9d2e186a
-:END:
+*** Bongo
 
 #+begin_src emacs-lisp
-(defhydra emms-hydra (:hint nil)
+(defhydra bongo-hydra (:hint nil)
   "
-^Control^             ^^              ^Seek^           ^Sources^      Volume
+Bongo-Control
 ^^^^^^^^-----------------------------------------------------------------
-_s_: start            _n_: next       _>_: forward     _F_: file      _+_: raise
-_h_: stop             _p_: prev       _<_: backward    _D_: Dir       _-_: lower
-_c_: show current     _f_: shuffle    ^ ^              _T_: dir tree
-_SPC_: toggle pause   _b_: playlist buffer^ ^          _q_: quit
+_SPC_: pause/resume       _n_: next           _S_: seek
+_s_:   start/stop         _p_: previous
 "
-  ("s" emms-start)
-  ("h" emms-stop :exit t)
-  ("n" emms-next)
-  ("p" emms-previous)
-  ("f" emms-shuffle)
-  ("c" emms-show)
-  ("F" emms-play-file)
-  ("D" emms-play-directory)
-  ("T" emms-play-directory-tree)
-  (">" emms-seek-forward)
-  ("<" emms-seek-backward)
-  ("b" emms-playlist-mode-go :exit t)
-  ("q" nil :exit t)
-  ("SPC" emms-pause)
-  ("+" emms-volume-raise)
-  ("-" emms-volume-lower))
-(global-set-key (kbd "C-c e") 'emms-hydra/body)
+  ("SPC" bongo-pause/resume)
+  ("s" bongo-start/stop)
+  ("n" bongo-play-next)
+  ("p" bongo-play-previous)
+  ("S" bongo-seek)
+  ("b" bongo :exit t)
+  ("q" nil :exit t))
+(global-set-key (kbd "C-c e") 'bongo-hydra/body)
 #+end_src
 
 *** Weekly Review
