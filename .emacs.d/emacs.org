@@ -4488,6 +4488,8 @@ With prefix ARG non-nil, insert the result at the end of region."
          ("E" . prot-elfeed-bongo-insert-enqueue)
          ("h" . prot-elfeed-bongo-switch-to-playlist)
          ("o" . delete-other-windows))
+  :custom
+  ((elfeed-search-filter "@2-weeks-ago +unread"))
   :config
   (require 'elfeed-feeds)
 
