@@ -391,6 +391,16 @@ Stuff I do not want to be checked into a public git repo can go here.
   (battery-mode-line-format " [%b%p%%]"))
 #+end_src
 
+** Context-Menu-Mode
+
+#+begin_src emacs-lisp
+(use-package mouse
+  :defer 5
+  :straight nil
+  :custom
+  ((context-menu-mode t)))
+#+end_src
+
 * System Specific
 
 ** Declarations
