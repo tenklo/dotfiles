@@ -4799,6 +4799,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (anki-editor-insert-note anki-editor-push-notes)
   :custom
   (anki-editor-org-tags-as-anki-tags t)
+  (anki-editor-ignored-org-tags '("export" "noexport" "agenda-f" "learn"))
   :config
   (add-to-list 'org-global-properties '("ANKI_DECK" . "All"))
 
