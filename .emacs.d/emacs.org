@@ -2727,11 +2727,6 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   :straight nil
   :custom
   (mu4e-confirm-quit nil)
-  :bind
-  (:map mu4e-view-mode-map
-        ("o" . delete-other-windows)
-        :map mu4e-headers-mode-map
-        ("o" . delete-other-windows))
   :config
   (setq mu4e-context-policy 'pick-first)
   (setq mu4e-compose-context-policy 'always-ask)
@@ -3357,6 +3352,20 @@ Activate margins if `ARG' is above 1 or disable when below."
                (window-width . 0.4)))
 #+end_src
 
+*** Bind Delete-Other-Windows
+
+A common operation for me is to delete other windows, to focus on the current one.  The following snippet binds =delete-other-windows= to =o=, whenever the key is not used otherwise.
+
+#+begin_src emacs-lisp
+(defun kk/set-delete-other-windows-binding ()
+  (interactive)
+  (when (equal (keymap-lookup nil "o") 'undefined)
+    (local-set-key "o" #'delete-other-windows)))
+(add-hook 'after-change-major-mode-hook #'kk/set-delete-other-windows-binding)
+
+(keymap-set messages-buffer-mode-map "o" #'delete-other-windows)
+#+end_src
+
 ** Bookmarks
 
 *** Bookmark+
@@ -3454,10 +3463,10 @@ Activate margins if `ARG' is above 1 or disable when below."
 #+begin_src emacs-lisp
 (use-package helpful
   :bind
-  ([remap describe-command] . helpful-command)
-  ([remap describe-key] . helpful-key)
-  ([remap describe-variable] . helpful-variable)
-  ([remap describe-function] . helpful-function))
+  (([remap describe-command] . helpful-command)
+   ([remap describe-key] . helpful-key)
+   ([remap describe-variable] . helpful-variable)
+   ([remap describe-function] . helpful-function)))
 #+end_src
 
 ** Font Configuration
@@ -4241,9 +4250,6 @@ With prefix ARG non-nil, insert the result at the end of region."
 #+begin_src emacs-lisp
 (use-package eww
   :commands eww
-  :bind
-  (:map eww-mode-map
-        ("o" . delete-other-windows))
   :config (setq browse-url-browser-function 'eww
                 shr-width 80
                 eww-auto-rename-buffer 'title))
@@ -4561,12 +4567,10 @@ interfere with the default variable `bongo-playlist-buffer'."
          ("e" . prot-elfeed-bongo-append-enqueue)
          ("E" . prot-elfeed-bongo-insert-enqueue)
          ("h" . prot-elfeed-bongo-switch-to-playlist)
-         ("o" . delete-other-windows)
          :map elfeed-show-mode-map
          ("e" . prot-elfeed-bongo-append-enqueue)
          ("E" . prot-elfeed-bongo-insert-enqueue)
-         ("h" . prot-elfeed-bongo-switch-to-playlist)
-         ("o" . delete-other-windows))
+         ("h" . prot-elfeed-bongo-switch-to-playlist))
   :custom
   ((elfeed-search-filter "@2-weeks-ago +unread"))
   :config
