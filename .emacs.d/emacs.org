@@ -4190,6 +4190,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 
 #+begin_src emacs-lisp
 (use-package calfw
+  :bind
+  (:map cfw:calendar-mode-map
+        ("o" . 'delete-other-windows))
   :config
   (defun kk/open-calendar ()
     "Open calendar calfw with additional sources."
