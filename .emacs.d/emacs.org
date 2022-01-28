@@ -896,6 +896,18 @@ as the default task."
   (add-hook 'org-pomodoro-finished-hook 'kk/clock-in-pomodoro-break-task-maybe))
 #+end_src
 
+**** Org-Clock-Convenience
+
+#+begin_src emacs-lisp
+(use-package org-clock-convenience
+  :after org
+  :bind (:map org-agenda-mode-map
+              ("<S-up>" . org-clock-convenience-timestamp-up)
+              ("<S-down>" . org-clock-convenience-timestamp-down)
+              ("ö" . org-clock-convenience-fill-gap)
+              ("Ö" . org-clock-convenience-fill-gap-both)))
+#+end_src
+
 *** Babel
 :PROPERTIES:
 :ID:       f3f22b11-bb68-4b6f-a84f-be1f24788fc2
