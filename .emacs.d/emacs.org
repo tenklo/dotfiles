@@ -2721,6 +2721,30 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   :init (global-flycheck-mode))
 #+end_src
 
+** Docker
+
+*** General Control
+
+#+begin_src emacs-lisp
+(use-package docker
+  :defer 5
+  :bind ("C-M-S-s-d". docker))
+#+end_src
+
+*** Dockerfile-Mode
+
+#+begin_src emacs-lisp
+(use-package dockerfile-mode
+  :defer 5)
+#+end_src
+
+*** Docker-Tramp
+
+#+begin_src emacs-lisp
+(use-package docker-tramp
+  :defer 5)
+#+end_src
+
 #+end_src
 
 * File Management
