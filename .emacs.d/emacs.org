@@ -4693,7 +4693,7 @@ interfere with the default variable `bongo-playlist-buffer'."
 
 #+begin_src emacs-lisp
 (use-package elfeed
-  :bind (("C-c r" . elfeed)
+  :bind (("C-M-S-s-r" . elfeed)
          :map elfeed-search-mode-map
          ("e" . prot-elfeed-bongo-append-enqueue)
          ("E" . prot-elfeed-bongo-insert-enqueue)
