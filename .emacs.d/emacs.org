@@ -4796,6 +4796,10 @@ interfere with the default variable `bongo-playlist-buffer'."
   :defer 5
   :config
   (pdf-loader-install))
+
+(use-package pdfgrep
+  :commands
+  (pdfgrep pdfgrep-mode))
 #+end_src
 
 *** Hack to rotate Pages
