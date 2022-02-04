@@ -4149,6 +4149,12 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
   (define-key embark-identifier-map (kbd "l") 'downcase-dwim))
 #+end_src
 
+** So Long Mode
+
+#+begin_src emacs-lisp
+(global-so-long-mode 1)
+#+end_src
+
 * Misc
 :PROPERTIES:
 :ID:       47749c3b-b6dd-4f7e-a698-89940e464b91
