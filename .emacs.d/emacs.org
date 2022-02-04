@@ -4617,10 +4617,11 @@ interfere with the default variable `bongo-playlist-buffer'."
   :commands
   (ytel ytel-get-current-video)
   :bind
-  (:map ytel-mode-map
-        ("e" . kk/ytel-bongo-append-enqueue)
-        ("E" . kk/ytel-bongo-insert-enqueue)
-        ("h" . prot-elfeed-bongo-switch-to-playlist))
+  (("C-M-S-s-y" . ytel)
+   :map ytel-mode-map
+   ("e" . kk/ytel-bongo-append-enqueue)
+   ("E" . kk/ytel-bongo-insert-enqueue)
+   ("h" . prot-elfeed-bongo-switch-to-playlist))
   :config
   (setq ytel-invidious-api-url "https://invidious.namazso.eu")
   (setq ytel-title-video-reserved-space 60)
