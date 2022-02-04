@@ -4793,7 +4793,7 @@ interfere with the default variable `bongo-playlist-buffer'."
 
 #+begin_src emacs-lisp
 (use-package pdf-tools
-  :commands pdf-view-mode
+  :defer 5
   :config
   (pdf-loader-install))
 #+end_src
