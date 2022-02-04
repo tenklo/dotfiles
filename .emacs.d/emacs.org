@@ -1861,7 +1861,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
   (defun kk/org-roam-build-connection-string ()
     (interactive)
-    (let* ((node (org-roam-node-read nil nil nil nil "Connected to: "))
+
+    (let* ((node (org-roam-node-read nil nil nil t "Connected to: "))
            (description (org-roam-node-formatted node))
            (link (org-link-make-string
                   (concat "id:" (org-roam-node-id node))
