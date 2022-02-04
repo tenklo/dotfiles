@@ -4918,7 +4918,8 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 (use-package proced
   :commands proced
   :custom
-  (proced-auto-update-flag t))
+  (proced-auto-update-flag t)
+  :bind ("C-M-S-s-p" . proced))
 #+end_src
 
 ** 0x0.st
