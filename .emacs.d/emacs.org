@@ -2669,6 +2669,14 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   (http-header http-method http-relation http-status-code))
 #+end_src
 
+** Php
+
+#+begin_src emacs-lisp
+(use-package php-mode
+  :commands php-mode
+  :hook (php-mode . flymake-php-load))
+#+end_src
+
 ** C#
 :PROPERTIES:
 :ID:       019c9562-c793-4a74-a688-2e18a1184514
