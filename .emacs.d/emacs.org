@@ -153,6 +153,8 @@ For editing commands I guess.
 
 #+begin_src emacs-lisp
 (setq tramp-default-method "ssh")
+(with-eval-after-load 'tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 #+end_src
 
 ** Buffers
