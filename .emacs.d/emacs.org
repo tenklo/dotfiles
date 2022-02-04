@@ -4684,7 +4684,6 @@ interfere with the default variable `bongo-playlist-buffer'."
     (interactive "P")
     (let ((bongo-display-playlist-after-enqueue (if ARG t nil)))
       (kk/ytel-bongo-enqueue 'append))))
-
 #+end_src
 
 *** Elfeed
