@@ -2709,6 +2709,10 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 #+begin_src emacs-lisp
 (use-package json-mode
   :commands json-mode)
+
+(use-package jq-mode)
+#+end_src
+
 #+end_src
 
 * File Management
