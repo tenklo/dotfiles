@@ -3195,12 +3195,12 @@ Whitespace gets trimmed."
 #+begin_src emacs-lisp
 ;; Install `plz' HTTP library (not on MELPA yet).
 (use-package plz
-  :defer t
+  :commands plz
   :straight (plz :type git :host github :repo "alphapapa/plz.el"))
 
 ;; Install Ement.
 (use-package ement
-  :defer t
+  :commands ement-connect
   :straight (ement :type git :host github :repo "alphapapa/ement.el")
   :custom
   (ement-room-prism 'both)
