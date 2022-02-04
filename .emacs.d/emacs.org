@@ -2577,6 +2577,45 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
       (magit-project-status "Magit" 103)))))
 #+end_src
 
+*** Restclient.el
+:PROPERTIES:
+:ID:       821e7ca2-43d7-462d-a5ba-929b66ddbd9f
+:END:
+
+#+begin_src emacs-lisp
+(use-package restclient
+  :commands restclient-mode)
+(use-package restclient-jq
+  :straight (restclient-jq :type git :host github :repo "pashky/restclient.el")
+  :after restclient)
+#+end_src
+
+*** Impostman
+
+#+begin_src emacs-lisp
+(use-package impostman
+  :commands
+  (impostman-import-file impostman-import-string))
+#+end_src
+
+*** LSP-Mode
+
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none) ;; we use Corfu!
+  (lsp-headerline-breadcrumb-segments '(symbols))
+  :init
+  (setq lsp-keymap-prefix "C-z k")
+  (defun my/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure flex
+  :hook (;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration)
+         (lsp-completion-mode . my/lsp-mode-setup-completion))
+  :commands lsp)
+#+end_src
+
 ** SQL
 :PROPERTIES:
 :ID:       53abfe7e-0638-4388-bb7e-9d26d2e3d19e
