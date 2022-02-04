@@ -4586,7 +4586,15 @@ interfere with the default variable `bongo-playlist-buffer'."
         (bongo-recenter))
       (message "Enqueued “%s” in %s"
                (propertize title 'face 'italic)
-               (propertize bongo-pl 'face 'bold)))))
+               (propertize bongo-pl 'face 'bold))))
+
+  (defun kk/bongo-append-enqueue (url title)
+    (interactive "sUrl: \nsTitle: ")
+    (kk/bongo-enqueue-uri 'append url title))
+
+  (defun kk/bongo-insert-enqueue (url title)
+    (interactive "sUrl: \nsTitle: ")
+    (kk/bongo-enqueue-uri 'insert url title)))
 #+end_src
 
 *** Mpv
