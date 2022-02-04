@@ -4540,13 +4540,14 @@ With prefix ARG non-nil, insert the result at the end of region."
      (mpv
       ("http:" "https:")
       . t)))
-  :bind (:map bongo-playlist-mode-map
-              ("n" . bongo-next-object)
-              ("p" . bongo-previous-object)
-              ("R" . bongo-rename-line)
-              ("j" . bongo-dired-line)       ; Jump to dir of file at point
-              ("J" . dired-jump)             ; Jump to library buffer
-              ("I" . bongo-insert-special))
+  :bind (("C-M-S-s-b" . bongo)
+         :map bongo-playlist-mode-map
+         ("n" . bongo-next-object)
+         ("p" . bongo-previous-object)
+         ("R" . bongo-rename-line)
+         ("j" . bongo-dired-line)       ; Jump to dir of file at point
+         ("J" . dired-jump)             ; Jump to library buffer
+         ("I" . bongo-insert-special))
   :config
   (defun kk/bongo-enqueue-uri (MODE url title)
     "Insert or append multimedia links in `bongo' playlist buffer.
