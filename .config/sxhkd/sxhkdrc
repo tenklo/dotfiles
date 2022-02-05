@@ -26,8 +26,8 @@ super + e
 super + q
     bookmarks | xsel -ib
 
-super + o ; {a,b,e,E,f,h,m,p,t,z,c,v,1,2}
-    {authy,$GUIBROWSER,emacsclient -cn -a "",emacs,openfilemanager,$TERMINAL -e htop,startthunderbird,keepassxc,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
+super + o ; {a,b,B,e,E,f,h,m,p,t,z,c,v,1,2}
+    {authy,$GUIBROWSER,chromium,emacsclient -cn -a "",emacs,openfilemanager,$TERMINAL -e htop,startthunderbird,keepassxc,tor-browser,zoom,opencalc,openvimwiki,berichtshefte,anki}
 
 super + c ; {c,d,f,h,m,o,r,s,v,y,1,3}
     {opencalc,dailystandups,openlf,$TERMINAL -e htop,openneomutt,cliptc o,opennewsboat,sshconnections,openvimwiki,openytfzf,opencalcurse,openncmpcpp}
