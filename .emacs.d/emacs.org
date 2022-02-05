@@ -4122,6 +4122,8 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
    ("C-h b" . embark-bindings)
    ("C-h B" . describe-bindings))
   :config
+  (setq prefix-help-command #'embark-prefix-help-command)
+
   (define-key embark-become-help-map (kbd "v") 'helpful-variable)
   (define-key embark-become-help-map (kbd "f") 'helpful-function)
   (define-key embark-become-help-map (kbd "s") 'helpful-symbol)
