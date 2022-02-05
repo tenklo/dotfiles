@@ -4755,7 +4755,8 @@ The playlist buffer has a unique name so that it will never
 interfere with the default variable `bongo-playlist-buffer'."
   (interactive "P")
   (let ((bongo-display-playlist-after-enqueue (if ARG t nil)))
-    (kk/elfeed-bongo-enqueue 'append)))
+    (kk/elfeed-bongo-enqueue 'append)
+    (elfeed-search-untag-all-unread)))
 
 (defun prot-elfeed-bongo-insert-enqueue (&optional ARG)
   "Insert `elfeed' multimedia links in `bongo' playlist buffer.
@@ -4764,7 +4765,8 @@ The playlist buffer has a unique name so that it will never
 interfere with the default variable `bongo-playlist-buffer'."
   (interactive "P")
   (let ((bongo-display-playlist-after-enqueue (if ARG t nil)))
-    (kk/elfeed-bongo-enqueue 'insert)))
+    (kk/elfeed-bongo-enqueue 'insert)
+    (elfeed-search-untag-all-unread)))
 
 (defun prot-elfeed-bongo-switch-to-playlist ()
   "Switch to `prot-elfeed-bongo-playlist'."
