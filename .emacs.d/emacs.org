@@ -602,6 +602,21 @@ Intended to be used in an `org-mode-hook'."
 
 (setq org-use-fast-todo-selection t)
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+(defun kk/org-cancel-project ()
+  (interactive)
+  (let ((org-enforce-todo-dependencies nil))
+    (org-map-tree (lambda () (unless (org-entry-is-done-p)
+                               (org-todo "CANC")))))
+  (org-add-note))
+
+(defun kk/org-done-project ()
+  (interactive)
+  (let ((org-enforce-todo-dependencies nil))
+    (org-map-tree (lambda () (unless (org-entry-is-done-p)
+                               (org-todo "CANC")))))
+  (org-todo "DONE")
+  (org-add-note))
 #+end_src
 
 *** Indentation
