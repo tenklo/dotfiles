@@ -1218,6 +1218,7 @@ When set to 'note, rescheduling or scattering breaks."
          (,kk/org-agenda-prefered-agenda-view
           ,kk/org-agenda-refileable
           ,kk/org-agenda-to-postprocess
+          ,kk/org-agenda-unscheduled-waits
           ,kk/org-agenda-stuck-projects
           ,kk/org-agenda-projects
           ,kk/org-agenda-project-next-tasks
