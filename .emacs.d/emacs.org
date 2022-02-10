@@ -4563,7 +4563,7 @@ With prefix ARG non-nil, insert the result at the end of region."
 #+begin_src emacs-lisp
 (use-package bongo
   :commands
-  (bongo bongo-playlist-buffer bongo-dired-library-mode)
+  (bongo bongo-playlist-buffer bongo-dired-library-mode kk/bongo-enqueue-uri)
   :custom
   (bongo-default-directory kk/bongo-default-directory)
   (bongo-prefer-library-buffers nil)
