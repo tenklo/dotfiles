@@ -1313,6 +1313,31 @@ When set to 'note, rescheduling or scattering breaks."
     (org-agenda-redo-all)))
 #+end_src
 
+*** Appointment Reminders
+:PROPERTIES:
+:ID:       2552e2bc-091c-452b-b0fd-bc0c9cab910a
+:END:
+
+#+begin_src emacs-lisp
+(use-package appt
+  :straight nil
+  :defer 5
+  :custom
+  (appt-message-warning-time 30)
+  (appt-disp-window-function
+   (lambda (nmins curtime msg)
+     (notifications-notify :title (car (s-split "  " msg))
+                           :body (format "In %d minutes." (string-to-number nmins))
+                           :app-name "Emacs: Org"
+                           :sound-name "alarm-clock-elapsed")))
+  :config
+  (run-with-timer 5 1200 (lambda() (org-agenda-to-appt t))))
+
+(use-package notifications
+  :straight nil
+  :commands notifications-notify)
+#+end_src
+
 ** Capture Templates
 :PROPERTIES:
 :ID:       50b809d1-3266-49a1-8e99-b5a874f84339
