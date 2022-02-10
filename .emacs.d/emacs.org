@@ -414,6 +414,12 @@ Stuff I do not want to be checked into a public git repo can go here.
       version-control t)
 #+end_src
 
+** Auth
+
+#+begin_src emacs-lisp
+(setq auth-sources '("~/.authinfo.gpg"))
+#+end_src
+
 * System Specific
 
 ** Declarations
