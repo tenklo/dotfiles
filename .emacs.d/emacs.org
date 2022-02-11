@@ -2715,6 +2715,14 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
   (http-header http-method http-relation http-status-code))
 #+end_src
 
+*** Twig-Mode
+
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.twig\\'" . twig-mode))
+(use-package twig-mode
+  :commands twig-mode)
+#+end_src
+
 ** Php
 
 #+begin_src emacs-lisp
