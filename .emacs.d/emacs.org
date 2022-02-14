@@ -3984,7 +3984,7 @@ _d_: toggle clock in parent
   ("s" kk/org-search :exit t)
   ("S" org-ql-search :exit t)
   ("w" hydra-weekly-review/body :exit t)
-  ("q" nil))
+  ("q" kk/org-set-person-tags :exit t))
 (global-set-key (kbd "<f9>") 'kk/hydra-org-things/body)
 #+end_src
 
