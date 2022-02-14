@@ -4635,9 +4635,12 @@ With prefix ARG non-nil, insert the result at the end of region."
 *** Bongo
 
 #+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.bongo-playlist$" . bongo-playlist-mode))
+(add-to-list 'auto-mode-alist '("\\.bongo-library$" . bongo-library-mode))
+(add-to-list 'auto-mode-alist '("\\.bongo$" . bongo-playlist-mode))
 (use-package bongo
   :commands
-  (bongo bongo-playlist-buffer bongo-dired-library-mode kk/bongo-enqueue-uri)
+  (bongo bongo-playlist-mode bongo-dired-library-mode kk/bongo-enqueue-uri)
   :custom
   (bongo-default-directory kk/bongo-default-directory)
   (bongo-prefer-library-buffers nil)
