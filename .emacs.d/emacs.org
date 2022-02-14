@@ -4378,11 +4378,9 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
      ;; (holiday-float 11 3 1 "Buss- und Bettag" 16)
      (holiday-float 11 0 1 "Totensonntag" 20)))
   (holiday-other-holidays
-   '((holiday-fixed 2 14 "Valentine's Day")
-     (holiday-fixed 3 17 "St. Patrick's Day")
+   '((holiday-fixed 2 14 "Valentinstag")
      (holiday-fixed 4 1 "April Fools' Day")
      (holiday-easter-etc +49 "Muttertag")
-     (holiday-float 5 1 -1 "Memorial Day")
      (holiday-easter-etc +39 "Vatertag")
      (holiday-fixed 10 31 "Halloween")
      (holiday-float 11 4 4 "Thanksgiving"))))
