@@ -5106,6 +5106,15 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   :commands crontab-e)
 #+end_src
 
+** Umlaut Removal
+
+#+begin_src emacs-lisp
+(defun kk/remove-umlauts-from (s)
+  (s-replace-all '(("ä" . "ae")
+                   ("ö" . "oe")
+                   ("ü" . "ue")) s))
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
