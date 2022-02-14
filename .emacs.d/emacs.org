@@ -2186,7 +2186,23 @@ tasks."
   (defun kk/org-contacts-insert-property (&optional LAST prop)
     "Insert a property of some contact."
     (interactive "P")
-    (insert (kk/org-contacts-query-property LAST prop))))
+    (insert (kk/org-contacts-query-property LAST prop)))
+
+  (defun kk/org-set-person-tags (&optional ARG)
+    "Set name of ARG contacts as tags for the current visible entry.
+
+ARG defaults to 1."
+    (interactive "P")
+    (save-excursion
+      (org-back-to-heading)
+      (let ((repetitions (if ARG ARG 1)))
+        (while (< 0 repetitions)
+          (let* ((old-tags (org-get-tags nil 'only-local))
+                 (person (car (kk/org-contacts-get-contact)))
+                 (person-tags (s-split " " person))
+                 (new-tags (append old-tags person-tags)))
+            (org-set-tags new-tags))
+          (setq repetitions (1- repetitions)))))))
 #+end_src
 
 *** Org-Contacts-Gnus functions
