@@ -5094,6 +5094,18 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
               (kk/org-roam-files)))))
 #+end_src
 
+** Crontab
+
+#+begin_src emacs-lisp
+(defun crontab-e ()
+  "Run `crontab -e' in a emacs buffer."
+  (interactive)
+  (with-editor-async-shell-command "crontab -e"))
+
+(use-package crontab-mode
+  :commands crontab-e)
+#+end_src
+
 * Terminals And Shells
 
 ** Settings
