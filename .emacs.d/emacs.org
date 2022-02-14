@@ -2155,16 +2155,19 @@ tasks."
             ,org-contacts-nickname-property
             ,org-contacts-ignore-property))
 
+  (defun kk/org-contacts-get-contact ()
+    (assoc (completing-read
+            "Contact: "
+            org-contacts-db
+            nil
+            t)
+           org-contacts-db))
+
   (defun kk/org-contacts-query-property (&optional LAST prop)
     "Return a property of a contact."
     (let* ((contact (if LAST
                         kk/query-org-contacts-last-contact
-                      (assoc (completing-read
-                              "Contact: "
-                              org-contacts-db
-                              nil
-                              t)
-                             org-contacts-db)))
+                      (kk/org-contacts-get-contact)))
            (contact-data (caddr contact))
            (prop (if prop prop
                    (completing-read "Property: " contact-data))))
