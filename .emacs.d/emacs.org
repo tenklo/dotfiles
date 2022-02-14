@@ -337,7 +337,7 @@ Stuff I do not want to be checked into a public git repo can go here.
   :straight nil
   :custom
   ((tab-bar-show t)
-   (tab-bar-format '(kk/tab-bar-format-menu-bar tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+   (tab-bar-format '(kk/tab-bar-format-menu-bar tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right kk/org-punched-in-update tab-bar-format-global))
    (tab-bar-close-button-show nil)
    (tab-bar-mode 1))
   :config
@@ -2484,6 +2484,28 @@ But work with mu4e too."
 (setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
 
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
+#+end_src
+
+** Punched In Indicator
+
+#+begin_src emacs-lisp
+(defvar kk/org-punched-in-mode-line-string)
+(defvar kk/org-punched-in-string " 👷")
+(defvar kk/org-not-punched-in-string "")
+
+(defun kk/org-punched-in-p ()
+  "Returns `t' when `org-clock-default-task' is different from `kk/default-task-id'"
+  (not (equal (org-id-find kk/default-task-id 'marker)
+              org-clock-default-task)))
+
+(defun kk/org-punched-in-update ()
+  (setq kk/org-punched-in-mode-line-string
+        (if (kk/org-punched-in-p)
+            kk/org-punched-in-string
+          kk/org-not-punched-in-string))
+  kk/org-punched-in-mode-line-string)
+
+(add-hook 'org-clock-out-hook #'kk/org-punched-in-update)
 #+end_src
 
 * Development
