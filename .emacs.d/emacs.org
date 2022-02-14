@@ -2198,7 +2198,7 @@ ARG defaults to 1."
       (let ((repetitions (if ARG ARG 1)))
         (while (< 0 repetitions)
           (let* ((old-tags (org-get-tags nil 'only-local))
-                 (person (car (kk/org-contacts-get-contact)))
+                 (person (kk/remove-umlauts-from (car (kk/org-contacts-get-contact))))
                  (person-tags (s-split " " person))
                  (new-tags (append old-tags person-tags)))
             (org-set-tags new-tags))
