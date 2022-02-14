@@ -3201,7 +3201,7 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 
 #+begin_src emacs-lisp
 (use-package gnus-dired
-  :defer 2
+  :defer 0
   :straight nil
   :config
   ;; make the `gnus-dired-mail-buffers' function also work on
@@ -3217,7 +3217,19 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
             (push (buffer-name buffer) buffers))))
       (nreverse buffers)))
   (setq gnus-dired-mail-mode 'mu4e-user-agent)
-  (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode))
+  (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+
+  (with-eval-after-load 'embark
+    (defun embark-attach-file (file)
+      "Attach FILE to an  email message.
+The message to which FILE is attached is chosen as for `gnus-dired-attach`,
+that is: if no message buffers are found a new email is started; if some
+message buffer exist you are asked whether you want to start a new email
+anyway, if you say no and there is only one message buffer the attachements
+are place there, otherwise you are prompted for a message buffer."
+      (interactive "fAttach: ")
+      (gnus-dired-attach (list file)))
+    (keymap-set embark-file-map "a" 'embark-attach-file)))
 #+end_src
 
 *** Display-Time-Mail-Function
