@@ -2885,6 +2885,31 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
     (call-process "xdg-open" nil 0 nil file)))
 #+end_src
 
+** Removing Umlauts
+
+#+begin_src emacs-lisp
+(defun kk/remove-umlauts-from-files-recursively-in (dir)
+  "Rename files to remove evil umlauts.
+
+  Start from `dir' and do it recursively."
+  (interactive "D")
+  (let* ((match "ö\\|ä\\|ü")
+         (files (directory-files-recursively dir match t))
+         (counter 0))
+    (mapcar (lambda (file)
+              (let* ((directory (file-name-directory file))
+                    (non-directory (file-name-nondirectory file))
+                    (new-name (concat directory
+                                      (kk/remove-umlauts-from non-directory))))
+                (setq counter (1+ counter))
+                (rename-file file new-name)
+                (message "%s, %s" file new-name)))
+            files)
+    (message "%s files %s renamed." counter (if (> counter 0)
+                                                ""
+                                              "had to be"))))
+#+end_src
+
 * Communication
 
 ** Mail (mu4e)
