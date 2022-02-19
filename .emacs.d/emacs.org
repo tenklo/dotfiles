@@ -4506,6 +4506,79 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
   :config
   (setq cfw:org-overwrite-default-keybinding t)
   (setq cfw:org-agenda-schedule-args '(:timestamp :deadline)))
+*** Counting Days
+
+#+begin_src emacs-lisp
+(defun kk/work-day-p (date)
+  "Return non-nil when `date' is on a work day according to `kk/work-days'."
+  (let ((entry t))
+    (kk/work-days)))
+
+(defun kk/count-work-days-between (date1 date2)
+  "Count work days between `date1' and `date2'."
+  (let ((start-date (if (< date1 date2) date1 date2))
+        (end-date (if (> date1 date2) date1 date2))
+        (work-days 0))
+    (while (<= start-date end-date)
+      (when (kk/work-day-p (calendar-gregorian-from-absolute start-date))
+        (cl-incf work-days))
+      (cl-incf start-date))
+    work-days))
+
+(defun kk/count-days (d1 d2)
+  (let* ((days (- (calendar-absolute-from-gregorian d1)
+                  (calendar-absolute-from-gregorian d2)))
+         (days (1+ (if (> days 0) days (- days)))))
+    days))
+
+(defun kk/count-non-work-days-between (date1 date2)
+  "Count non work days between `date1' and `date2'."
+  (let* ((d1 (calendar-absolute-from-gregorian date1))
+         (d2 (calendar-absolute-from-gregorian date2))
+         (work-days (kk/count-work-days-between d1 d2))
+         (days (kk/count-days date1 date2))
+         (diff (- days work-days)))
+    diff))
+
+(defun kk/calendar-count-non-work-days-region ()
+  (interactive)
+  (let* ((date1 (calendar-cursor-to-date t))
+         (date2 (or (car calendar-mark-ring)
+                    (error "No mark set in this buffer")))
+         (non-work-days (kk/count-non-work-days-between date1 date2)))
+    (message "There %s %s non-work %s between %s and %s."
+             (if (equal non-work-days 1) "is" "are")
+             non-work-days
+             (if (equal non-work-days 1) "day" "days")
+             (calendar-date-string date1)
+             (calendar-date-string date2))))
+
+(defun kk/calendar-count-work-days-region ()
+  "Count the number of work days (inclusive) between point and the mark."
+  (interactive)
+  (let* ((date1 (calendar-absolute-from-gregorian
+                 (calendar-cursor-to-date t)))
+         (date2 (calendar-absolute-from-gregorian
+                 (or (car calendar-mark-ring)
+                     (error "No mark set in this buffer"))))
+         (work-days (kk/count-work-days-between date1 date2)))
+    (message "There %s %s work %s between %s and %s."
+             (if (equal work-days 1) "is" "are")
+             work-days
+             (if (equal work-days 1) "day" "days")
+             (calendar-date-string (calendar-gregorian-from-absolute date1))
+             (calendar-date-string (calendar-gregorian-from-absolute date2)))))
+
+(defun kk/calendar-count-days-region (&optional arg)
+  (interactive "P")
+  (pcase arg
+    ('nil
+     (calendar-count-days-region))
+    ('(4)
+     (kk/calendar-count-work-days-region))
+    ('(16)
+     (kk/calendar-count-non-work-days-region))))
+(keymap-set calendar-mode-map "M-=" 'kk/calendar-count-days-region)
 #+end_src
 
 ** Calculating
