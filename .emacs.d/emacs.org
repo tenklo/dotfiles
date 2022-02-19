@@ -2201,8 +2201,32 @@ ARG defaults to 1."
                  (person (kk/remove-umlauts-from (car (kk/org-contacts-get-contact))))
                  (person-tags (s-split " " person))
                  (new-tags (append old-tags person-tags)))
-            (org-set-tags new-tags))
-          (setq repetitions (1- repetitions)))))))
+            (org-set-tags (cl-remove-duplicates new-tags :test 'string=)))
+          (setq repetitions (1- repetitions))))))
+
+  (defun kk/org-set-person-tags (&optional ARG)
+    (interactive "P")
+    (pcase major-mode
+      ('org-mode
+       (kk/org--set-person-tags ARG))
+      ('org-agenda-mode
+       (org-agenda-check-no-diary)
+       (let* ((hdmarker (or (org-get-at-bol 'org-hd-marker)
+                            (org-agenda-error)))
+              (buffer (marker-buffer hdmarker))
+              (pos (marker-position hdmarker))
+              (inhibit-read-only t)
+              newhead)
+         (org-with-remote-undo buffer
+           (with-current-buffer buffer
+             (widen)
+             (goto-char pos)
+             (org-show-context 'agenda)
+             (kk/org--set-person-tags)
+             (end-of-line 1)
+             (setq newhead (org-get-heading)))
+           (org-agenda-change-all-lines newhead hdmarker)
+           (beginning-of-line 1)))))))
 #+end_src
 
 *** Org-Contacts-Gnus functions
