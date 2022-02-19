@@ -1801,10 +1801,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (let ((task (save-excursion (org-back-to-heading 'invisible-ok)
                               (point))))
     (save-excursion
-      (bh/find-project-task)
-      (if (org-entry-is-done-p)
-          t
-        nil))))
+      (when (not (equal (bh/find-project-task) task))
+        (if (org-entry-is-done-p)
+            t
+          nil)))))
 
 ;;;; Refile settings
 (defun bh/verify-refile-target ()
