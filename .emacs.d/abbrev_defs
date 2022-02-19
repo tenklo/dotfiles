@@ -1,5 +1,6 @@
 ;;-*-coding: utf-8;-*-
-(define-abbrev-table 'global-abbrev-table
+
+(define-abbrev-table 'text-mode-abbrev-table
   '(
     ("KK" "Karsten Klöss" nil :count 9)
     ("bc" "because" nil :count 2)
@@ -7,15 +8,16 @@
     ("dein" "Dein" nil :count 2)
     ("deine" "Deine" nil :count 2)
     ("deinen" "Deinen" nil :count 2)
-    ("dir" "Dir" nil :count 3)
+    ("dir" "Dir" nil :count 5)
     ("dne" "den" nil :count 4)
-    ("du" "Du" nil :count 13)
+    ("du" "Du" nil :count 17)
     ("eigl" "eigentlich" nil :count 1)
     ("evntl" "eventuell" nil :count 4)
     ("gettign" "getting" nil :count 1)
+    ("i" "I" nil :count 1)
     ("inkl" "inklusive" nil :count 1)
     ("lehrzeichen" "Leerzeichen" nil :count 1)
-    ("lg" "Liebe Grüße" nil :count 2)
+    ("lg" "Liebe Grüße" nil :count 6)
     ("mfg" "Mit freundlichen Grüßen" nil :count 5)
     ("nicicht" "nicht" nil :count 1)
     ("sartes" "Satzes" nil :count 1)
@@ -26,10 +28,6 @@
     ("tierärztin" "Tierärztin" nil :count 2)
     ("vater" "Vater" nil :count 2)
     ("vg" "Viele Grüße" nil :count 3)
-   ))
-
-(define-abbrev-table 'org-mode-abbrev-table
-  '(
-    ("i" "I" nil :count 1)
+    ("zb" "z.B." nil :count 1)
    ))
 
