@@ -5235,7 +5235,10 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
 (defun kk/remove-umlauts-from (s)
   (s-replace-all '(("ä" . "ae")
                    ("ö" . "oe")
-                   ("ü" . "ue")) s))
+                   ("ü" . "ue")
+                   ("Ä" . "AE")
+                   ("Ö" . "OE")
+                   ("Ü" . "UE")) s))
 #+end_src
 
 * Terminals And Shells
