@@ -375,7 +375,7 @@ Stuff I do not want to be checked into a public git repo can go here.
    (display-time-format "  %a %d.%m.  %H:%M ")
    (display-time-mode t)
    (display-time-use-mail-icon nil)
-   (display-time-mail-string " ")
+   (display-time-mail-string " 📨")
    (display-time-mail-face 'kk/display-time-mail-face))
   :config
   (defface kk/display-time-mail-face
