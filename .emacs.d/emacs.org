@@ -453,10 +453,10 @@ Stuff I do not want to be checked into a public git repo can go here.
     ("HOLD"
      (concat "-" tag))
     ("WORK"
-     (when (kk/punched-in-p)
+     (when (kk/org-punched-in-p)
        (concat "+" tag)))
     ("PERSONAL"
-     (when (not (kk/punched-in-p))
+     (when (not (kk/org-punched-in-p))
        (concat "+" tag)))))
 #+end_src
 
