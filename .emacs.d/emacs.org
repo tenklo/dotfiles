@@ -2953,9 +2953,9 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
          (counter 0))
     (mapcar (lambda (file)
               (let* ((directory (file-name-directory file))
-                    (non-directory (file-name-nondirectory file))
-                    (new-name (concat directory
-                                      (kk/remove-umlauts-from non-directory))))
+                     (non-directory (file-name-nondirectory file))
+                     (new-name (concat directory
+                                       (kk/remove-umlauts-from non-directory))))
                 (setq counter (1+ counter))
                 (rename-file file new-name)
                 (message "%s, %s" file new-name)))
