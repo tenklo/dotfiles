@@ -2191,7 +2191,7 @@ tasks."
     (interactive "P")
     (insert (kk/org-contacts-query-property LAST prop)))
 
-  (defun kk/org-set-person-tags (&optional ARG)
+  (defun kk/org--set-person-tags (&optional ARG)
     "Set name of ARG contacts as tags for the current visible entry.
 
 ARG defaults to 1."
