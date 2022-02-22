@@ -1000,7 +1000,7 @@ as the default task."
     (kill-new url)
     (message (concat "Copied URL: " url))))
 
-(define-key org-mode-map (kbd "C-c p") 'kk/org-link-copy)
+(define-key org-mode-map (kbd "C-c w") 'kk/org-link-copy)
 #+end_src
 
 *** Org Depend
