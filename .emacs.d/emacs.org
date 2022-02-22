@@ -1060,6 +1060,9 @@ When set to 'note, rescheduling or scattering breaks."
 :END:
 
 #+begin_src emacs-lisp
+(keymap-global-set "C-M-S-s-SPC" '(lambda ()
+                                    (interactive)
+                                    (org-agenda nil " ")))
 (setq kk/org-agenda-stuck-projects
       '(tags-todo "-CANCELLED-HOLD/!"
                   ((org-agenda-skip-function 'bh/skip-non-stuck-projects)
