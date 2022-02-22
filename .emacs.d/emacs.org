@@ -2347,17 +2347,22 @@ But work with mu4e too."
 ** Weekly Review
 
 #+begin_src emacs-lisp
-(setq kk/weekly-review-personal-or-work 'personal)
+(setq kk/weekly-review-personal-or-work nil)
 (defun kk/weekly-review-toggle-personal-work ()
   (interactive)
   (setq kk/weekly-review-personal-or-work
-        (if (eq kk/weekly-review-personal-or-work 'personal)
-            'work
-          'personal))
+        (pcase kk/weekly-review-personal-or-work
+          ('work
+           'personal)
+          ('personal
+           'all)
+          (_
+           'work)))
   (kk/weekly-review-current-state-message))
-(defun kk/weekly-review-review-all ()
+
+(defun kk/weekly-review-auto-scope ()
   (interactive)
-  (setq kk/weekly-review-personal-or-work 'all)
+  (setq kk/weekly-review-personal-or-work nil)
   (kk/weekly-review-current-state-message))
 
 (defun kk/weekly-review-current-state-message ()
@@ -2369,7 +2374,9 @@ But work with mu4e too."
                      ('work
                       "work")
                      ('all
-                      "all")))))
+                      "all")
+                     (_
+                      "according to punched-in status")))))
 
 (defun kk/weekly-review-filter-string ()
   (pcase kk/weekly-review-personal-or-work
@@ -2378,7 +2385,9 @@ But work with mu4e too."
     ('work
      "+WORK")
     (_
-     nil)))
+     (if (kk/org-punched-in-p)
+         "+WORK"
+       "+PERSONAL"))))
 
 (defun kk/weekly-review-agenda ()
   (interactive)
@@ -2425,8 +2434,12 @@ But work with mu4e too."
                           "maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX")
                          ('personal
                           "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX")
+                         ('all
+                          "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX")
                          (_
-                          "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX"))))
+                          (if (kk/org-punched-in-p)
+                              "maildir:/karsten.kloess@its-stuttgart.de/INBOX OR maildir:/kloess@digital-worx.de/INBOX"
+                            "maildir:/info@kloess.xyz/INBOX OR maildir:/karsten@kloess.xyz/INBOX OR maildir:/k@kloess.xyz/INBOX")))))
 
 (defun kk/weekly-review-deadlines ()
   (interactive)
@@ -4199,7 +4212,7 @@ _s_:   start/stop         _p_: previous       ^ ^            _o_: other
 ^Agenda^                 ^Mail^                   ^Toggle
 ^^^^^^^^-----------------------------------------------------------------
 _d_: deadlines           _m_: mail                _t_: toggle personal/work
-_s_: standalone          ^ ^                      _a_: review all
+_s_: standalone          ^ ^                      _a_: auto scope
 _h_: hold
 _p_: projects
 _w_: weekly
@@ -4208,7 +4221,7 @@ _r_: report
 "
   ("m" kk/weekly-review-mail-inbox :exit t)
   ("t" kk/weekly-review-toggle-personal-work)
-  ("a" kk/weekly-review-review-all)
+  ("a" kk/weekly-review-auto-scope)
   ("h" kk/weekly-review-hold :exit t)
   ("d" kk/weekly-review-deadlines :exit t)
   ("s" kk/weekly-review-standalone :exit t)
