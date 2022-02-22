@@ -4205,6 +4205,7 @@ _s_:   start/stop         _p_: previous       ^ ^            _o_: other
 _d_: deadlines           _m_: mail                _t_: toggle personal/work
 _s_: standalone          ^ ^                      _a_: review all
 _h_: hold
+_p_: projects
 _w_: weekly
 _c_: clocking data
 _r_: report
@@ -4217,6 +4218,7 @@ _r_: report
   ("s" kk/weekly-review-standalone :exit t)
   ("w" kk/weekly-review-agenda :exit t)
   ("r" kk/weekly-review-clock-report :exit t)
+  ("p" kk/weekly-review-projects :exit t)
   ("c" kk/weekly-review-clocking-data :exit t))
 #+end_src
 
