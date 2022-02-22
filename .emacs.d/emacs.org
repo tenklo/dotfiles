@@ -4182,10 +4182,10 @@ _d_: toggle clock in parent
 #+begin_src emacs-lisp
 (defhydra bongo-hydra (:hint nil)
   "
-Bongo-Control
+Bongo-Control                                                ^Buffers
 ^^^^^^^^-----------------------------------------------------------------
-_SPC_: pause/resume       _n_: next           _S_: seek
-_s_:   start/stop         _p_: previous
+_SPC_: pause/resume       _n_: next           _S_: seek      _m_: music
+_s_:   start/stop         _p_: previous       ^ ^            _o_: other
 "
   ("SPC" bongo-pause/resume)
   ("s" bongo-start/stop)
@@ -4193,6 +4193,8 @@ _s_:   start/stop         _p_: previous
   ("p" bongo-play-previous)
   ("S" bongo-seek)
   ("b" bongo :exit t)
+  ("m" kk/bongo-open-music-buffer :exit t)
+  ("o" kk/bongo-open-other-media-buffer :exit t)
   ("q" nil :exit t))
 (global-set-key (kbd "C-c e") 'bongo-hydra/body)
 #+end_src
@@ -4860,7 +4862,19 @@ interfere with the default variable `bongo-playlist-buffer'."
 
   (defun kk/bongo-insert-enqueue (url title)
     (interactive "sUrl: \nsTitle: ")
-    (kk/bongo-enqueue-uri 'insert url title)))
+    (kk/bongo-enqueue-uri 'insert url title))
+
+  (defun kk/bongo-music-playlist ()
+    (let ((buffer (get-buffer-create "*Bongo Playlist*")))
+      (with-current-buffer buffer
+        (when (not (equal major-mode 'bongo-playlist-mode))
+          (bongo-playlist-mode)))
+      buffer))
+
+  (defun kk/bongo-open-music-buffer ()
+    (interactive)
+    (let ((bongo-playlist-buffer (kk/bongo-music-playlist)))
+      (bongo-playlist))))
 #+end_src
 
 *** Mpv
@@ -5042,6 +5056,11 @@ interfere with the default variable `bongo-playlist-buffer'."
     (if buffer
         (switch-to-buffer buffer)
       (message "No `bongo' playlist is associated with `elfeed'."))))
+
+(defun kk/bongo-open-other-media-buffer ()
+  (interactive)
+  (let ((bong-playlist-buffer (prot-elfeed-bongo-playlist)))
+    (bongo-playlist)))
 #+end_src
 
 ** s.el
