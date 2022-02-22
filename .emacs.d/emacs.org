@@ -4825,7 +4825,6 @@ If MODE is `append', append TEXT to the end of the playlist.
 
 The playlist buffer has a unique name so that it will never
 interfere with the default variable `bongo-playlist-buffer'."
-    (interactive)
     (let* ((bongo-pl (prot-elfeed-bongo-playlist))
            (buffer (get-buffer-create bongo-pl))
            (prev-buffer (current-buffer)))
