@@ -3797,20 +3797,6 @@ in case Emacs daemon is used."
   (kk/org-font-setup))
 #+end_src
 
-** Which Key
-:PROPERTIES:
-:ID:       b7c93b91-3d33-4889-8846-5e1637eae405
-:END:
-
-#+begin_src emacs-lisp
-(use-package which-key
-  :defer 5
-  :diminish which-key-mode
-  :custom
-  ((which-key-idle-delay 0.5)
-   (which-key-mode t)))
-#+end_src
-
 ** Hydra
 :PROPERTIES:
 :ID:       d2c4f6f8-0600-41e5-aed3-7a7b746dcc15
