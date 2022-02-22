@@ -2195,7 +2195,6 @@ tasks."
     "Set name of ARG contacts as tags for the current visible entry.
 
 ARG defaults to 1."
-    (interactive "P")
     (save-excursion
       (org-back-to-heading)
       (let ((repetitions (if ARG ARG 1)))
