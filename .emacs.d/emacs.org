@@ -2514,9 +2514,6 @@ But work with mu4e too."
 
 (setq org-agenda-window-setup 'current-window)
 
-;; (add-hook 'auto-save-hook '(lambda ()
-;;                              (org-agenda-redo-all t)))
-
 (setq org-agenda-auto-exclude-function 'kk/org-agenda-auto-exclude-function)
 
 (setq org-agenda-skip-scheduled-if-deadline-is-shown t)
