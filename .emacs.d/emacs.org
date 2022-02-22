@@ -2454,6 +2454,17 @@ But work with mu4e too."
     (org-agenda nil "p")
     (search-forward-regexp "^Standalone Tasks$")
     (recenter-top-bottom 0)))
+
+(defun kk/weekly-review-projects ()
+  (interactive)
+  (let ((org-agenda-sticky nil)
+        (org-agenda-tag-filter-preset
+         '("-HOLD"))
+        (additional-filters (kk/weekly-review-filter-string)))
+    (when additional-filters (add-to-list 'org-agenda-tag-filter-preset additional-filters))
+    (org-agenda nil "p")
+    (search-forward-regexp "^Projects$")
+    (recenter-top-bottom 0)))
 #+end_src
 
 ** Export
