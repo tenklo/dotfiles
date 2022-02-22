@@ -449,6 +449,16 @@ Stuff I do not want to be checked into a public git repo can go here.
 (defvar kk/contacts-files '())
 (defvar kk/bongo-default-directory "")
 (defvar kk/elfeed-bongo-playlist-file "")
+(defun kk/org-agenda-auto-exclude-function (tag)
+  (pcase tag
+    ("HOLD"
+     (concat "-" tag))
+    ("WORK"
+     (when (kk/punched-in-p)
+       (concat "+" tag)))
+    ("PERSONAL"
+     (when (not (kk/punched-in-p))
+       (concat "+" tag)))))
 #+end_src
 
 ** Allocations
@@ -462,12 +472,6 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq kk/default-font-size 140)
    (setq kk/org-agenda-files '("~/documents/org"))
    (setq kk/org-refile-target "~/documents/org/refile.org")
-   (defun kk/org-agenda-auto-exclude-function (tag)
-     (pcase tag
-       ("HOLD"
-        (concat "-" tag))
-       ("WORK"
-        (concat "+" tag))))
    (setq kk/journal-file "~/documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its))
@@ -482,12 +486,6 @@ Stuff I do not want to be checked into a public git repo can go here.
    (setq kk/org-agenda-files `("~/Nextcloud/Documents/org"))
    (setq kk/org-refile-target "~/Nextcloud/Documents/org/refile.org")
    (setq org-agenda-diary-file kk/org-refile-target)
-   (defun kk/org-agenda-auto-exclude-function (tag)
-     (pcase tag
-       ("HOLD"
-        (concat "-" tag))
-       ("WORK"
-        (concat "+" tag))))
    (setq kk/journal-file "~/Nextcloud/Documents/org/journal.org.gpg")
    (setq kk/mu4e-contexts `(,kk/mu4e-context-name-dx
                             ,kk/mu4e-context-name-its
