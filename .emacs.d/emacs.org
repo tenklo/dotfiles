@@ -439,7 +439,7 @@ Stuff I do not want to be checked into a public git repo can go here.
 (defvar kk/mu4e-context-name-kloess.xyz-karsten "2karsten")
 (defvar kk/mu4e-context-name-kloess.xyz-k "3k")
 (defvar kk/default-task-id "e740c514-60b7-4a32-a8f9-efe15ebca7a0")
-(defvar kk/work-default-task-id "62e548e1-3189-419a-96c9-c29251578cc2")
+(defvar kk/work-default-task-id "8a1e79ac-b13f-48d5-a11d-da5b88fdc6cd")
 (defvar kk/default-pomodoro-break-task-id "5abae356-1e4f-4130-9520-037b24a18822")
 (defvar kk/org-agenda-appointments-use-timegrid t)
 (defvar kk/mu4e-contexts '())
