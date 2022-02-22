@@ -2545,6 +2545,28 @@ But work with mu4e too."
 (add-hook 'org-clock-out-hook #'kk/org-punched-in-update)
 #+end_src
 
+** Reschedule On Done
+
+#+begin_src emacs-lisp
+(defvar kk/org-reschedule-on-done-ids '("00058544-0b55-4647-b895-925ec131cbe4")
+  "List of task IDs you want to get prompted on for a reschedule when setting them to a done state.
+
+See function `kk/org-reschedule-on-done' for more information.")
+
+(defun kk/org-reschedule-on-done ()
+  "Reschedule task at point when its state is done and its ID is a member of `kk/org-reschedule-on-done-ids'.
+
+Meant to be used as `org-after-todo-state-change-hook'."
+  (when (member org-state org-done-keywords)
+    (let ((id (org-id-get))
+          (org-log-reschedule nil))
+      (when (member id kk/org-reschedule-on-done-ids)
+        (call-interactively #'org-schedule)
+        (org-todo "TODO")))))
+
+(add-hook 'org-after-todo-state-change-hook #'kk/org-reschedule-on-done)
+#+end_src
+
 * Development
 
 ** General
