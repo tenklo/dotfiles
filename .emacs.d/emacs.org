@@ -2037,8 +2037,8 @@ tasks."
       (let* ((tags (vulpea-buffer-tags-get))
              (original-tags tags))
         (if (vulpea-agenda-file-p)
-            (setq tags (cons "agenda-f" tags))
-          (setq tags (remove "agenda-f" tags)))
+            (setq tags (cons "agendaf" tags))
+          (setq tags (remove "agendaf" tags)))
 
         ;; cleanup duplicates
         (setq tags (seq-uniq tags))
@@ -2057,7 +2057,7 @@ tasks."
 
 
 (defun vulpea-agenda-file-files ()
-  "Return a list of note files containing 'agenda-f' tag." ;
+  "Return a list of note files containing 'agendaf' tag." ;
   (seq-uniq
    (seq-map
     #'car
@@ -2066,7 +2066,7 @@ tasks."
               :from tags
               :left-join nodes
               :on (= tags:node-id nodes:id)
-              :where (like tag (quote "%\"agenda-f\"%"))]))))
+              :where (like tag (quote "%\"agendaf\"%"))]))))
 
 (defun vulpea-agenda-files-update (&rest _)
   "Update the value of `org-agenda-files'."
@@ -5314,7 +5314,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   (anki-editor-insert-note anki-editor-push-notes)
   :custom
   (anki-editor-org-tags-as-anki-tags t)
-  (anki-editor-ignored-org-tags '("export" "noexport" "agenda-f" "learn"))
+  (anki-editor-ignored-org-tags '("export" "noexport" "agendaf" "learn"))
   :config
   (add-to-list 'org-global-properties '("ANKI_DECK" . "All"))
 
