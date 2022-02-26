@@ -1322,14 +1322,84 @@ When set to 'note, rescheduling or scattering breaks."
   :defer 5
   :custom
   (appt-message-warning-time 30)
+  (appt-display-interval 3)
   (appt-disp-window-function
    (lambda (nmins curtime msg)
-     (notifications-notify :title (car (s-split "  " msg))
-                           :body (format "In %d minutes." (string-to-number nmins))
-                           :app-name "Emacs: Org"
-                           :sound-name "alarm-clock-elapsed")))
+     (if (not (listp nmins))
+         (notifications-notify :title (car (s-split "  " msg))
+                               :body (format "In %d minutes." (string-to-number nmins))
+                               :app-name "Emacs: Org"
+                               :sound-name "alarm-clock-elapsed")
+       (let ((counter 0)
+             (length (length nmins)))
+         (while (< counter length)
+           (notifications-notify :title (car (s-split "  " (nth counter msg)))
+                                 :body (format "In %d minutes." (string-to-number (nth counter nmins)))
+                                 :app-name "Emacs: Org"
+                                 :sound-name "alarm-clock-elapsed")
+           (setq counter (1+ counter)))))
+     (when (kk/alarm-should-ring-p nmins msg)
+       (kk/alarm-ring))))
   :config
-  (run-with-timer 5 1200 (lambda() (org-agenda-to-appt t))))
+  (run-with-timer 5 1200 (lambda() (org-agenda-to-appt t)))
+
+  (defvar kk/alarm-snooze-time 1
+    "Snooze time in minutes.")
+  (defvar kk/alarm-timer nil
+    "Timer object.")
+
+  (defun kk/alarm-ding (&rest rest)
+    "Play ding.
+  In osx operating system, 'afplay' will be used to play sound,
+  and 'mpg123' in linux.
+  Ingores `rest'."
+    (let ((title "Alarm Clock")
+          (program (cond ((eq system-type 'darwin) "afplay")
+                         ((eq system-type 'gnu/linux) "mpg123")
+                         (t "")))
+          (sound (expand-file-name kk/alarm-sound-file)))
+      (when (and (executable-find program)
+                 (file-exists-p sound))
+        (start-process title nil program sound))))
+
+  (defun kk/alarm-ring ()
+    (cancel-timer kk/alarm-timer)
+    (start-process "Volume" nil "amixer" "set" "Master" "100%")
+    (unwind-protect
+        (while (sit-for 3)
+          (message "Wake up! To stop this madness, press a movement command.")
+          (kk/alarm-ding))
+      (let ((snooze (completing-read "Whats happening now? "
+                                     '("snooze" "done")
+                                     nil
+                                     t)))
+        (if (equal snooze "snooze")
+            (progn
+              (setq kk/alarm-timer (run-with-timer (* 60 kk/alarm-snooze-time) 1000 #'kk/alarm-ring))
+              (message "Making noise again in %s minutes!" kk/alarm-snooze-time))
+          (message "Have a nice day!")))))
+
+  (defun kk/alarm-snooze-cancel ()
+    (interactive)
+    (cancel-timer kk/alarm-timer))
+
+  (defun kk/alarm-should-ring-p (nmins msg)
+    (let ((should-ring nil)
+          (contains-keyword nil))
+      (if (listp msg)
+          (let ((counter 0))
+            (mapcar (lambda (x)
+                      (when (s-contains-p "WECKER" x)
+                        (setq contains-keyword t))
+                      (unless contains-keyword
+                        (setq counter (1+ counter)))) msg)
+            (when contains-keyword
+              (when (equal "0" (nth counter nmins))
+                (setq should-ring t))))
+        (when (and (s-contains-p "WECKER" msg)
+                   (equal "0" nmins))
+          (setq should-ring t)))
+      should-ring)))
 
 (use-package notifications
   :straight nil
