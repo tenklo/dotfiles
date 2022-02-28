@@ -885,10 +885,22 @@ as the default task."
 (defun kk/clock-in-at-time (&optional time)
   "Call `org-clock-in' and specify `START-TIME'"
   (interactive)
-  (if (equal major-mode 'org-agenda-mode)
-      (let ((marker (org-get-at-bol 'org-hd-marker)))
-        (org-clock-in nil (org-read-date t t)))
-    (org-clock-in nil (org-read-date t t))))
+  (pcase major-mode
+    ('org-agenda-mode
+     (let* ((marker (or (org-get-at-bol 'org-hd-marker)
+                        (org-agenda-error)))
+            (buffer (marker-buffer marker))
+            (pos (marker-position marker))
+            (inhibit-read-only t))
+       (with-current-buffer buffer
+         (widen)
+         (goto-char pos)
+         (org-show-context 'agenda)
+         (org-clock-in nil (org-read-date t t)))))
+    ('org-mode
+     (org-clock-in nil (org-read-date t t)))
+    (_
+     (error "Not in an Org(-Agenda)-Mode."))))
 
 (defun kk/clock-out-at-time ()
   "Call `org-clock-out' and specify `AT-TIME'"
