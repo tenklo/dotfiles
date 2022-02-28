@@ -2731,7 +2731,13 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
 (use-package magit
   :commands magit-status
   :custom
-  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1))
+  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  :config
+  (defun kk/jump-to-commit ()
+    (interactive)
+    (let* ((chunk (magit-current-blame-chunk 'addition))
+           (rev (slot-value chunk 'orig-rev)))
+      (magit-show-commit rev))))
 #+end_src
 
 *** Parenthesis
