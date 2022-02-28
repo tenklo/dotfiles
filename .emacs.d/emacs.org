@@ -317,7 +317,7 @@ For editing commands I guess.
 Make =M-x customize= persistent.
 
 #+begin_src emacs-lisp
-(setq custom-file "~/.emacs.d/custom.el")
+(setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t)
 #+end_src
 
