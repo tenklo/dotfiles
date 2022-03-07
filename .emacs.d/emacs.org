@@ -3664,6 +3664,7 @@ Activate margins if `ARG' is above 1 or disable when below."
                  (popup-p (current-buffer))
                  (popper-popup-p (current-buffer))
                  (equal (buffer-name) "*mu4e-headers*")
+                 (equal major-mode 'magit-log-mode)
                  (frame-live-p corfu--frame)))
     (set-window-margins nil (if kk/margins-active 2 0)
                         (if kk/margins-active 2 0))))
