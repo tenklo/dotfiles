@@ -357,7 +357,8 @@ Stuff I do not want to be checked into a public git repo can go here.
                        current-prefix-arg))
     (switch-to-buffer-other-tab bookmark))
 
-  (global-set-key (kbd "C-x t j") 'kk/bookmark-jump-other-tab))
+  (global-set-key (kbd "C-x t j") 'kk/bookmark-jump-other-tab)
+  (keymap-global-set "C-M-S-s-t" tab-prefix-map))
 #+end_src
 
 ** Desktop-Mode
