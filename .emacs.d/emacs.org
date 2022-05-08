@@ -5776,6 +5776,7 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
     (shell buffer)))
 
 (global-set-key (kbd "C-c C-<return>") 'shell-dwim)
+(keymap-global-set "C-M-S-s-s" 'shell-dwim)
 #+end_src
 
 ** Eshell
