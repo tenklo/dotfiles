@@ -117,6 +117,11 @@ For editing commands I guess.
 (define-key edit-commands-map (kbd "C-l") 'kill-whole-line)
 
 (define-key edit-commands-map (kbd "j") 'join-line)
+(defun kk/join-line-to-following ()
+  (interactive)
+  (join-line '(4)))
+(define-key edit-commands-map (kbd "J") 'kk/join-line-to-following)
+(define-key edit-commands-map (kbd "C-J") 'kk/join-line-to-following)
 
 (define-key edit-commands-map (kbd "s") 'hydra-smartparens/body)
 
