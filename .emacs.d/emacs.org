@@ -3091,6 +3091,13 @@ M-x vc-resolve-conflicts -- pop up an ediff-merge session on a file with conflic
     (call-process "xdg-open" nil 0 nil file)))
 #+end_src
 
+** Neotree
+#+begin_src emacs-lisp
+(define-key edit-commands-map (kbd "d") 'neotree-toggle)
+(use-package neotree
+  :commands neotree neotree-toggle)
+#+end_src
+
 ** Removing Umlauts
 
 #+begin_src emacs-lisp
