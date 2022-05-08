@@ -2668,6 +2668,8 @@ But work with mu4e too."
 (defun kk/org-reschedule-on-done ()
   "Reschedule task at point when its state is done and its property RESCHEDULE_ON_DONE is non-nil.
 
+Also, when SMART_RESCHEDULE_ON_DONE is non-nil, reschedule using `org-smart-reschedule'.
+
 Meant to be used as `org-after-todo-state-change-hook'."
   (remove-hook 'post-command-hook 'org-add-log-note)
   (when (member org-state org-done-keywords)
@@ -2675,9 +2677,14 @@ Meant to be used as `org-after-todo-state-change-hook'."
           (org-log-reschedule 'time))
       (when (org-not-nil (org-entry-get (point) "RESCHEDULE_ON_DONE"))
         (call-interactively #'org-schedule)
-        (org-todo "TODO")))))
+        (org-todo "TODO"))
+      (when (org-not-nil (org-entry-get (point) "SMART_RESCHEDULE_ON_DONE"))
+        (call-interactively #'org-smart-reschedule)
+        (org-todo "TODO"))))
+  (add-hook 'post-command-hook 'org-add-log-note))
 
 (add-to-list 'org-default-properties "RESCHEDULE_ON_DONE")
+(add-to-list 'org-default-properties "SMART_RESCHEDULE_ON_DONE")
 
 (add-hook 'org-after-todo-state-change-hook #'kk/org-reschedule-on-done)
 #+end_src
