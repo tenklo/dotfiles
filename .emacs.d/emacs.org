@@ -5795,6 +5795,15 @@ Needs the meeting url to be saved in `~/.local/share/data/standupurl'."
   :hook (eshell-first-time-mode . kk/eshell-configure))
 #+end_src
 
+** Vterm
+
+#+begin_src emacs-lisp
+(use-package vterm
+  :commands vterm
+  :custom
+  (vterm-always-compile-module t))
+#+end_src
+
 * Disabled Commands
 :PROPERTIES:
 :ID:       4d356102-360e-44b4-ae92-01ef453a6997
