@@ -4386,6 +4386,19 @@ _r_: report
   ("c" kk/weekly-review-clocking-data :exit t))
 #+end_src
 
+** Correct ANSI Coloring
+
+*** Compile Buffer
+
+Taken from [[https://www.reddit.com/r/emacs/comments/kbwkca/compile_buffer_show_weird_symbols/][here]].
+
+#+begin_src emacs-lisp
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (ansi-color-apply-on-region compilation-filter-start (point)))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+#+end_src
+
 ** Vertico
 :PROPERTIES:
 :ID:       792aa457-e36e-443d-9283-f4ba28b74e11
