@@ -3758,6 +3758,8 @@ Activate margins if `ARG' is above 1 or disable when below."
 
 #+begin_src emacs-lisp
 (winner-mode)
+(keymap-global-set "C-M-S-s-<left>" #'winner-undo)
+(keymap-global-set "C-M-S-s-<right>" #'winner-redo)
 #+end_src
 
 *** Popper
