@@ -1128,7 +1128,7 @@ When set to 'note, rescheduling or scattering breaks."
 
 (setq kk/org-agenda-prefered-agenda-view
       '(agenda ""
-               ((org-agenda-span 1)
+               ((org-agenda-span 2)
                 (org-agenda-skip-timestamp-if-done t)
                 (org-agenda-skip-deadline-if-done t)
                 (org-agenda-skip-scheduled-if-done t))))
