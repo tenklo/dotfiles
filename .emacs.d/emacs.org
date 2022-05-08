@@ -590,7 +590,7 @@ Intended to be used in an `org-mode-hook'."
 #+begin_src emacs-lisp
 (setq org-todo-keywords
       '((sequence "TODO(t!/!)" "NEXT(n!/!)" "|" "DONE(d!/!)")
-        (sequence "WAIT(w@/!)" "HOLD(h@/!)" "|" "CANC(k@/!)" "PHONE" "MEETING")))
+        (sequence "WAIT(w!/!)" "HOLD(h!/!)" "|" "CANC(c@/!)" "PHONE" "MEETING")))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
