@@ -2689,6 +2689,25 @@ Meant to be used as `org-after-todo-state-change-hook'."
 (add-hook 'org-after-todo-state-change-hook #'kk/org-reschedule-on-done)
 #+end_src
 
+** Org-Drill
+
+#+begin_src emacs-lisp
+(defun kk/enlarge-echo-area (original &optional args)
+  "Enlarges the max echo area size to accomodate for multi line output."
+  (let ((max-mini-window-height 0.5))
+    (funcall original args)))
+
+(use-package org-drill
+  :custom
+  (org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
+  :config
+  (advice-add 'org-drill :around 'kk/enlarge-echo-area)
+
+  (defun kk/org-drill-agenda (&optional with-archives)
+    (interactive "P")
+    (org-drill (if with-archives 'agenda-with-archives 'agenda))))
+#+end_src
+
 * Development
 
 ** General
