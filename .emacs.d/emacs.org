@@ -719,11 +719,14 @@ Return nil before first heading."
 
 #+begin_src emacs-lisp
 (setq org-log-done 'note)
-(setq org-log-reschedule 'note)
+(setq org-log-reschedule 'time)
 (setq org-log-into-drawer t)
+(setq org-log-redeadline 'time)
+(setq org-log-refile 'time)
+
 
 (setq org-agenda-skip-additional-timestamps-same-entry t)
-(setq org-agenda-log-mode-items (quote (closed state)))
+(setq org-agenda-log-mode-items (quote (closed)))
 
 (use-package htmlize
   :defer t)
