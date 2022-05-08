@@ -4612,12 +4612,18 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
 :ID:       9e07d209-3745-4c07-9c10-f1c02cffa3c0
 :END:
 #+begin_src emacs-lisp
-(defun kk/tidy-buffer ()
+(defun kk/tidy-buffer (&optional arg)
   "Indent and tidy up the current buffer.
-Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started."
+Delete trailing whitespace via `delete-trailing-whitespace', apply indentation via `indent-region', remove tabs via `untabify' and move point back to where we started.
+
+Unless `arg', try formatting with `eglot-format' before using `indent-region'."
   (interactive)
   (save-excursion
-    (indent-region (point-min) (point-max) nil)
+    (or (unless arg
+          (condition-case nil
+              (eglot-format)
+            (error nil)))
+        (indent-region (point-min) (point-max) nil))
     (untabify (point-min) (point-max))
     (delete-trailing-whitespace)))
 #+end_src
