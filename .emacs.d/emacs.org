@@ -4487,9 +4487,9 @@ https://github.com/raxod502/selectrum/issues/498#issuecomment-803283608"
    ("M-." . embark-dwim)
    ("C-h b" . embark-bindings)
    ("C-h B" . describe-bindings))
-  :config
+  :init
   (setq prefix-help-command #'embark-prefix-help-command)
-
+  :config
   (define-key embark-become-help-map (kbd "v") 'helpful-variable)
   (define-key embark-become-help-map (kbd "f") 'helpful-function)
   (define-key embark-become-help-map (kbd "s") 'helpful-symbol)
