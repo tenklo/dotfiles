@@ -1058,6 +1058,15 @@ as the default task."
 (setq org-clock-sound "~/.emacs.d/straight/build/org-pomodoro/resources/bell.wav")
 #+end_src
 
+*** Clock Table
+
+#+begin_src emacs-lisp
+(defun kk/org-clock-work-report (&optional arg)
+  (interactive "P")
+  (let ((org-clock-clocktable-default-properties `(:maxlevel 1 :lang "de" :scope agenda-with-archives :block ,(if arg 'week 'today) :fileskip0 t :match "WORK-pets" :narrow 40! :hidefiles t)))
+    (org-clock-report)))
+#+end_src
+
 ** Agenda
 
 *** Bulk
