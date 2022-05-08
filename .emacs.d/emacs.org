@@ -548,6 +548,14 @@ Intended to be used in an `org-mode-hook'."
      ("buy" . 98)
      ("checkback" . 66)))
   (org-read-date-prefer-future 'time)
+  (org-attach-dir-relative t)
+  (org-attach-use-inheritance t)
+  (org-duration-format 'h:mm)
+  (org-export-default-language "de")
+  (org-export-with-tags nil)
+  (org-footnote-section nil)
+  (org-learn-always-reschedule t)
+
   :config
   (setq initial-major-mode 'org-mode)
 
