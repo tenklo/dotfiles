@@ -3825,6 +3825,9 @@ A common operation for me is to delete other windows, to focus on the current on
 (add-hook 'after-change-major-mode-hook #'kk/set-delete-other-windows-binding)
 
 (keymap-set messages-buffer-mode-map "o" #'delete-other-windows)
+
+(keymap-global-set "C-M-S-s-o" #'delete-other-windows)
+(keymap-global-set "C-M-S-s-i" #'delete-window)
 #+end_src
 
 ** Bookmarks
