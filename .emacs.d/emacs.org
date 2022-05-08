@@ -4859,6 +4859,124 @@ This section is based on [[https://www.emacswiki.org/emacs/CalendarLocalization#
 (keymap-set calendar-mode-map "M-=" 'kk/calendar-count-days-region)
 #+end_src
 
+*** Holiday Plan Capturing
+
+#+begin_src emacs-lisp
+(defun kk/work-new-holidays-org-project-for (date1 date2)
+  (let* ((day-count (kk/count-days date1 date2))
+         (date1 (calendar-absolute-from-gregorian date1))
+         (date2 (calendar-absolute-from-gregorian date2))
+         (start-date (if (< date1 date2) date1 date2))
+         (end-date (if (> date1 date2) date1 date2))
+         (days-string (if (equal day-count 1)
+                          (format-time-string "%d. %B %Y" start-date)
+                        (concat (format-time-string "%d. %B %Y" (calendar-time-from-absolute start-date 0))
+                                " - "
+                                (format-time-string "%d. %B %Y" (calendar-time-from-absolute end-date 0)))))
+         (days-string-id (kk/yas-id-remove-spaces days-string)))
+    (with-current-buffer (find-file-noselect kk/org-refile-target)
+      (goto-char (point-max))
+      (insert
+       "* TODO " days-string "\n"
+       ":PROPERTIES:\n"
+       ":DURATION: " (number-to-string day-count) "\n"
+       ":END:\n"
+       "** NEXT anfragen\n"
+       ":PROPERTIES:\n"
+       ":TRIGGER:  " days-string-id "-reply(WAIT)\n"
+       ":END:\n"
+       "** TODO Bestätigung/Ablehnung abwarten\n"
+       ":PROPERTIES:\n"
+       ":ID:       " days-string "-reply\n"
+       ":TRIGGER:  chain-siblings(NEXT)\n"
+       ":END:\n"
+       "** TODO ggf. Eintrag in work-days.el\n" ; TODO: generate string to insert in work-days.el
+       "** TODO Abwesenheitsbenachrichtigung Aktivierung schedulen\n"
+       "** TODO Abwesenheitsbenachrichtigung aktivieren\n ")))) ; TODO: schedule to last possible non-work day
+
+(defun kk/calendar-new-holidays ()
+  (interactive)
+  (let* ((date1 (calendar-cursor-to-date t))
+         (date2 (or (car calendar-mark-ring)
+                    (error "No mark set in this buffer"))))
+    (kk/work-new-holidays-org-project-for date1 date2)))
+
+(defun kk/work-new-holidays-org-project-for (date1 date2)
+  (let* ((date1 (calendar-absolute-from-gregorian date1))
+         (date2 (calendar-absolute-from-gregorian date2))
+         (day-count (kk/count-non-weekend-or-official-holiday-days date1 date2))
+         (start-date (if (< date1 date2) date1 date2))
+         (end-date (if (> date1 date2) date1 date2))
+         (days-string (if (equal day-count 1)
+                          (format-time-string "%d. %B %Y" start-date)
+                        (concat (format-time-string "%d. %B %Y" (calendar-time-from-absolute start-date 0))
+                                " - "
+                                (format-time-string "%d. %B %Y" (calendar-time-from-absolute end-date 0)))))
+         (days-string-id (kk/yas-id-remove-spaces days-string)))
+    (with-current-buffer (find-file-noselect kk/org-refile-target)
+      (goto-char (point-max))
+      (insert
+       "* TODO " days-string "\n"
+       ":PROPERTIES:\n"
+       ":DURATION: " (number-to-string day-count) "\n"
+       ":END:\n"
+       "** NEXT anfragen\n"
+       ":PROPERTIES:\n"
+       ":TRIGGER:  " days-string-id "-reply(WAIT)\n"
+       ":END:\n"
+       "** TODO Bestätigung/Ablehnung abwarten\n"
+       ":PROPERTIES:\n"
+       ":ID:       " days-string "-reply\n"
+       ":TRIGGER:  chain-siblings(NEXT)\n"
+       ":END:\n"
+       "** TODO ggf. Eintrag in work-days.el\n" ; TODO: generate string to insert in work-days.el
+       "** TODO Abwesenheitsbenachrichtigung Aktivierung schedulen\n"
+       "** TODO Abwesenheitsbenachrichtigung aktivieren\n ")))) ; TODO: schedule to last possible non-work day
+
+(defun kk/calendar-new-holidays ()
+  (interactive)
+  (let* ((date1 (calendar-cursor-to-date t))
+         (date2 (or (car calendar-mark-ring)
+                    (error "No mark set in this buffer"))))
+    (kk/work-new-holidays-org-project-for date1 date2)))
+
+(defun kk/is-official-holiday-p (date)
+  (let ((calendar-holidays holiday-local-holidays))
+    (calendar-check-holidays date)))
+
+(defun kk/is-weekend-p (date)
+  (memq
+   (calendar-day-of-week date) calendar-weekend-days))
+
+(defun kk/count-non-weekend-or-official-holiday-days (d1 d2)
+  (let* ((tmp-date (if (< d1 d2) d1 d2))
+         (end-date (if (> d1 d2) d1 d2))
+         (days 0))
+    (while (<= tmp-date end-date)
+      (let ((date-gregorian (calendar-gregorian-from-absolute tmp-date)))
+        (when (and (not (kk/is-official-holiday-p date-gregorian))
+                   (not (kk/is-weekend-p date-gregorian)))
+          (cl-incf days))
+        (cl-incf tmp-date)))
+    days))
+
+(defun kk/calendar-non-weekend-or-official-holiday-days ()
+  (interactive)
+  (let* ((date1 (calendar-absolute-from-gregorian
+                 (calendar-cursor-to-date t)))
+         (date2 (calendar-absolute-from-gregorian
+                 (or (car calendar-mark-ring)
+                     (error "No mark set in this buffer"))))
+         (days (kk/count-non-weekend-or-official-holiday-days date1 date2)))
+    (message "There %s %s %s between %s and %s that %s neither on a weekend or a holiday."
+             (if (equal days 1) "is" "are")
+             days
+             (if (equal days 1) "day" "days")
+             (calendar-date-string (calendar-gregorian-from-absolute date1))
+             (calendar-date-string (calendar-gregorian-from-absolute date2))
+             (if (equal days 1) "is" "are"))))
+#+end_src
+
 ** Calculating
 :PROPERTIES:
 :ID:       a3778e3c-c048-42b4-9fdd-9297700cbc8a
