@@ -4409,6 +4409,7 @@ Taken from [[https://www.reddit.com/r/emacs/comments/kbwkca/compile_buffer_show_
   :demand t
   :custom
   (vertico-cycle t)
+  (vertico-resize t)
   :init
   (vertico-mode)
   :bind (:map minibuffer-local-map
